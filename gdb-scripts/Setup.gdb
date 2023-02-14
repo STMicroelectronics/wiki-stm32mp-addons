@@ -1,4 +1,4 @@
-# v7.0
+# v7.1
 ####################################################################
 ######################## debug config. #############################
 ####################################################################
@@ -131,7 +131,7 @@ if $debug_mode == 0
 	monitor gdb_sync
 	stepi
 	# Invalid on STM32MP13; ignore the returned error
-	monitor catch {if {[stm32mp15x.cpu1 curstate] == "halted"} {targets stm32mp15x.cpu1;resume;targets stm32mp15x.cpu0}};continue
+	monitor catch {if {[stm32mp15x.cpu1 curstate] == "halted"} {targets stm32mp15x.cpu1;resume;targets stm32mp15x.cpu0}}
 
 	# we halt at tf-a entry point. Nothing to do for $debug_phase == 1
 
@@ -173,7 +173,7 @@ if $debug_mode == 1
 	# Halt in U-Boot
 	if $debug_phase == 3
 		# Invalid on STM32MP13; ignore the returned error
-		monitor catch {if {[stm32mp15x.cpu1 curstate] == "halted"} {targets stm32mp15x.cpu1;resume;targets stm32mp15x.cpu0}};continue
+		monitor catch {if {[stm32mp15x.cpu1 curstate] == "halted"} {targets stm32mp15x.cpu1;resume;targets stm32mp15x.cpu0}}
 		symload_uboot
 		# Relocate U-Boot symbols
 		symadd_uboot
