@@ -1,27 +1,22 @@
-# v7.1
+# v8.0
 ####################################################################
 ######################## debug config. #############################
 ####################################################################
 # Set debug phase:
 #	1: Attach at TF-A BL2
-#	2: Attach at TF-A BL32 or OP-TEE
+#	2: Attach at OP-TEE BL32
 #	3: Attach at SSBL (U-Boot)
 #	4: Attach at Linux kernel
 set $debug_phase = 3
 
 # Set debug mode:
-#	0: Attach at boot
+#	0: Attach at boot (requires "stm32wrapper4dbg")
 #	1: Attach running target
 set $debug_mode = 0
 
-# Set debug trusted bootchain:
-#	0: TF-A BL2 / TF-A BL32 / U-Boot / Linux kernel
-#	1: TF-A BL2 / OP-TEE / U-Boot / Linux kernel
-set $debug_trusted_bootchain = 1
-
 ####################################################################
 
-# Force reset mode in case where debug_phase is 1(TF-A BL2) or 2(TF-A BL32 or OP-TEE)
+# Force reset mode in case where debug_phase is 1(TF-A BL2) or 2(OP-TEE BL32)
 if $debug_phase <= 2
     set $debug_mode = 0
 end
@@ -30,11 +25,7 @@ end
 source Path_env.py
 
 define symadd_bl32
-    if $debug_trusted_bootchain == 0
-        python gdb.execute("add-symbol-file " + path_elf_tf_a_bl32 + " -s ro " + bl32_load_addr)
-    else
-        python gdb.execute("add-symbol-file " + path_elf_op_tee_bl32)
-    end
+    python gdb.execute("add-symbol-file " + path_elf_op_tee_bl32)
 end
 document symadd_bl32
     Load BL32 symbols on top of current symbols
@@ -55,7 +46,11 @@ document symload_uboot
 end
 
 define symadd_uboot
-    set $offset_gdb = ((gd_t *)$r9)->relocaddr
+    if $_streq($target_name, "stm32mp25x")
+        set $offset_gdb = ((gd_t *)$x18)->relocaddr
+    else
+        set $offset_gdb = ((gd_t *)$r9)->relocaddr
+    end
     python offset_py = gdb.convenience_variable("offset_gdb")
     python gdb.execute("add-symbol-file " + path_elf_u_boot + " " + str(offset_py))
     python gdb.set_convenience_variable("offset_gdb", None)
@@ -75,8 +70,8 @@ end
 ########################## functions ###############################
 ####################################################################
 define break_boot_bl32
-	if $debug_trusted_bootchain == 0
-		thbreak sp_min_entrypoint
+	if $_streq($target_name, "stm32mp25x")
+		thbreak entry_a64.S:_start
 	else
 		thbreak entry_a32.S:_start
 	end
@@ -84,12 +79,22 @@ define break_boot_bl32
 end
 
 define break_boot_uboot
-	thbreak vectors.S:_start
+	if $_streq($target_name, "stm32mp25x")
+		thbreak start.S:_start
+	else
+		thbreak vectors.S:_start
+	end
 	c
 end
 
 define break_boot_linuxkernel
-	thbreak stext
+	if $_streq($target_name, "stm32mp25x")
+		# The first label after relocation is __primary_switched
+		# To break before relocation, use hex address in U-Boot variable loadaddr (0x84000000)
+		thbreak __primary_switched
+	else
+		thbreak stext
+	end
 	c
 end
 
@@ -100,6 +105,43 @@ end
 define mem_disable
 	mem 0 4 ro 8 nocache
 end
+
+define smp_on
+	if $_streq($target_name, "stm32mp15x")
+		monitor cortex_a smp on
+	end
+	if $_streq($target_name, "stm32mp25x")
+		monitor aarch64 smp on
+	end
+end
+
+define smp_off
+	if $_streq($target_name, "stm32mp15x")
+		monitor cortex_a smp off
+	end
+	if $_streq($target_name, "stm32mp25x")
+		monitor aarch64 smp off
+	end
+end
+
+define switch_to_core0
+	if $_streq($target_name, "stm32mp15x")
+		monitor if {[target current] == "stm32mp15x.cpu1"} {targets stm32mp15x.cpu0}
+	end
+	if $_streq($target_name, "stm32mp25x")
+		monitor if {[target current] == "stm32mp25x.a35_1"} {targets stm32mp25x.a35_0}
+	end
+end
+
+define resume_core1
+	if $_streq($target_name, "stm32mp15x")
+		monitor if {[stm32mp15x.cpu1 curstate] == "halted"} {targets stm32mp15x.cpu1;resume;targets stm32mp15x.cpu0}
+	end
+	if $_streq($target_name, "stm32mp25x")
+		monitor if {[stm32mp25x.a35_1 curstate] == "halted"} {targets stm32mp25x.a35_1;resume;targets stm32mp25x.a35_0}
+	end
+end
+
 ####################################################################
 
 
@@ -110,16 +152,19 @@ set mem inaccessible-by-default
 mem_disable
 # set debug remote 1
 
-# Connection to the host gdbserver port for Cortex-A7 SMP
+# Connection to the host gdbserver port for Cortex-A SMP
 target extended-remote localhost:3333
+
+# Get $target_name
+python STM32_get_target_name()
 
 # Configure GDB for OpenOCD
 set remote hardware-breakpoint-limit 6
 set remote hardware-watchpoint-limit 4
 
 # Switch to Core0, no SMP for the moment. We'll re-enable it in kernel
-monitor cortex_a smp off
-monitor if {[target current] == "stm32mp15x.cpu1"} {targets stm32mp15x.cpu0}
+smp_off
+switch_to_core0
 
 ####################################################################
 
@@ -127,11 +172,11 @@ monitor if {[target current] == "stm32mp15x.cpu1"} {targets stm32mp15x.cpu0}
 if $debug_mode == 0
 	symload_bl2
 
-	monitor reset halt
+	monitor catch {reset halt}
+	maintenance flush register-cache
 	monitor gdb_sync
 	stepi
-	# Invalid on STM32MP13; ignore the returned error
-	monitor catch {if {[stm32mp15x.cpu1 curstate] == "halted"} {targets stm32mp15x.cpu1;resume;targets stm32mp15x.cpu0}}
+	resume_core1
 
 	# we halt at tf-a entry point. Nothing to do for $debug_phase == 1
 
@@ -152,7 +197,7 @@ if $debug_mode == 0
 		symload_vmlinux
 		break_boot_linuxkernel
 		# in kernel re-enable SMP
-		monitor cortex_a smp on
+		smp_on
 	end
 end
 
@@ -172,8 +217,7 @@ end
 if $debug_mode == 1
 	# Halt in U-Boot
 	if $debug_phase == 3
-		# Invalid on STM32MP13; ignore the returned error
-		monitor catch {if {[stm32mp15x.cpu1 curstate] == "halted"} {targets stm32mp15x.cpu1;resume;targets stm32mp15x.cpu0}}
+		resume_core1
 		symload_uboot
 		# Relocate U-Boot symbols
 		symadd_uboot
@@ -185,7 +229,7 @@ if $debug_mode == 1
 		symload_vmlinux
 		symadd_bl32
 		# in kernel re-enable SMP
-		monitor cortex_a smp on
+		smp_on
 	end
 	monitor gdb_sync
 	stepi
