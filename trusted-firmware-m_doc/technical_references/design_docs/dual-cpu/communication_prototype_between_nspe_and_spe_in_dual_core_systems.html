@@ -1,0 +1,1043 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Communication Prototype Between NSPE And SPE In Dual Core System &mdash; Trusted Firmware-M v1.7.0-stm32mp25-alpha-r1-rc3-doc documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/tfm_custom.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/tabs.css" type="text/css" />
+    <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Mailbox Design in TF-M on Dual-core System" href="mailbox_design_on_dual_core_system.html" />
+    <link rel="prev" title="Booting a Dual-Core System" href="booting_a_dual_core_system.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> Trusted Firmware-M
+            <img src="../../../_static/tf_logo_white.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                v1.7.0-stm32mp25-alpha-r1-rc3-doc
+
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../introduction/index.html">Introduction</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../getting_started/index.html">Getting Started</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../security/index.html">Security</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../security/security_advisories/index.html">Security Advisories</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../security/security_advisories/stack_seal_vulnerability.html">Advisory TFMV-1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../security/security_advisories/svc_caller_sp_fetching_vulnerability.html">Advisory TFMV-2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../security/security_advisories/crypto_multi_part_ops_abort_fail.html">Advisory TFMV-3</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../security/security_advisories/profile_small_key_id_encoding_vulnerability.html">Advisory TFMV-4</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../security/security_advisories/fwu_write_vulnerability.html">Advisory TFMV-5</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../security/threat_models/index.html">Threat Models</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../security/threat_models/generic_threat_model.html">Trusted Firmware-M Generic Threat Model</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../security/security.html">Security Handling</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../releases/index.html">Releases</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../releases/1.7.0.html">v1.7.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../releases/1.6.1.html">v1.6.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../releases/1.6.0.html">v1.6.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../releases/1.5.0.html">v1.5.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../releases/release_process.html">Release Cadence and Process</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../glossary.html">Glossary</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../platform/index.html">Platform Selection</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../platform/arm/index.html">Arm platforms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../platform/arm/corstone1000/readme.html">Corstone-1000</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../platform/arm/mps3/an547/README.html">Corstone-300 FPGA (AN547)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../platform/arm/mps3/an552/README.html">Corstone-300 FPGA and FVP (AN552)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../platform/arm/mps3/corstone310/README.html">Corstone-310 FVP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../platform/arm/musca_b1/readme.html">Musca-B1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../platform/arm/musca_s1/readme.html">Musca-S1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../platform/arm/rss/readme.html">Runtime Security Subsystem</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../platform/nxp/lpcxpresso55s69/README.html">LPCXpresso55S69</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../platform/cypress/psoc64/index.html">Cypress PSoC64</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../platform/cypress/psoc64/cypress_psoc64_spec.html">Cypress PSoC64 Specifics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../platform/cypress/psoc64/libs/core-lib/README.html">Core Library</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../platform/cypress/psoc64/libs/core-lib/RELEASE.html">Core Library Release Notes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../platform/stm/index.html">STMICROELECTRONICS</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../platform/stm/common/stm32l5xx/readme.html">STM32L5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../platform/stm/common/stm32mp2/readme.html">STM32MP2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../platform/stm/common/stm32u5xx/readme.html">STM32U5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../platform/stm/nucleo_l552ze_q/readme.html">NUCLEO-L552ZE-Q</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../platform/stm/stm32l562e_dk/readme.html">STM32L562E-DK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../platform/stm/b_u585i_iot02a/readme.html">B-U585I-IOT02A</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../platform/nordic_nrf/nrf5340dk_nrf5340_cpuapp/README.html">Nordic nRF5340</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../platform/nordic_nrf/nrf9160dk_nrf9160/README.html">Nordic nRF9160</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../platform/lairdconnectivity/bl5340_dvk_cpuapp/README.html">Laird Connectivity BL5340</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../platform/nuvoton/m2351/README.html">NuMaker-PFM-M2351</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../platform/nuvoton/m2354/README.html">NuMaker-PFM-M2354</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../building/tfm_build_instruction.html">Build instructions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../building/run_tfm_examples_on_arm_platforms.html">Run TF-M examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../building/documentation_generation.html">Building the documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../building/tfm_build_instruction_iar.html">IAR toolchain</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../configuration/index.html">Configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../configuration/build_configuration.html">Build configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../configuration/header_file_system.html">Component configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../configuration/kconfig_system.html">Kconfig</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../configuration/profiles/index.html">Profiles</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../configuration/profiles/tfm_profile_small.html"> Small</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../configuration/profiles/tfm_profile_medium_arot-less.html"> ARoT-less</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../configuration/profiles/tfm_profile_medium.html"> Medium</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../configuration/profiles/tfm_profile_large.html"> Large</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../configuration/test_configuration.html">Tests configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../integration_guide/index.html">Integration Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../integration_guide/spm_backends.html">SPM Backends</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../integration_guide/non-secure_client_extension_integration_guide.html">NS client integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../integration_guide/os_migration_guide_armv8m.html">OS migration to Armv8-M</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../integration_guide/tfm_fpu_support.html">Floating-Point Support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../integration_guide/tfm_secure_irq_integration_guide.html">Secure Interrupt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../integration_guide/platform/index.html">Adding a new platform</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../integration_guide/platform/platform_folder.html">Details for the platform folder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../integration_guide/platform/platform_ext_folder.html">Details for the platform/ext folder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../integration_guide/platform/porting_TFM_to_a_new_hardware.html">Porting TF-M to a New Hardware</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../integration_guide/platform/platform_provisioning.html">Platform Provisioning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../integration_guide/platform/platform_deprecation.html">Platform deprecation and removal</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../integration_guide/services/index.html">Services</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../integration_guide/services/tfm_attestation_integration_guide.html">Initial Attestation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../integration_guide/services/tfm_crypto_integration_guide.html">Crypto</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../integration_guide/services/tfm_its_integration_guide.html">Internal Storage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../integration_guide/services/tfm_platform_integration_guide.html">Platform</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../integration_guide/services/tfm_ps_integration_guide.html">Protected Storage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../integration_guide/services/tfm_secure_partition_addition.html">Adding a New Service</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../integration_guide/services/tfm_manifest_tool_user_guide.html">The manifest tool</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Design Documents</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Dual-CPU</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="booting_a_dual_core_system.html">Booting a Dual-Core System</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Communication Prototype Between NSPE And SPE In Dual Core System</a></li>
+<li class="toctree-l3"><a class="reference internal" href="mailbox_design_on_dual_core_system.html">Mailbox Design in TF-M on Dual-core System</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tfm_multi_core_access_check.html">Memory Access Check of Trusted Firmware-M in Multi-Core Topology</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../bl1.html">BL1 Immutable bootloader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code_sharing.html">Code sharing between independently linked XIP binaries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../enum_implicit_casting.html">Fixing implicit casting for C enumeration values</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ff_isolation.html">FF-M Isolation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hardware_abstraction_layer.html">Hardware Abstraction Layer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mailbox_ns_agent_update.html">Mailbox NS Agent Design Update</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ps_key_management.html">Protected Storage service key management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../secure_boot_hw_key_integration.html">HW crypto key integration in TF-M secure boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../secure_boot_rollback_protection.html">Rollback protection in TF-M secure boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../secure_partition_manager.html">Secure Partition Manager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../source_structure.html">Trusted Firmware-M Source Structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../stateless_rot_service.html">Stateless Root of Trust Services Reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../symmetric_initial_attest.html">Symmetric key algorithm based Initial Attestation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tfm_builtin_keys.html">TF-M builtin keys</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tfm_code_generation_with_jinja2.html">Code Generation With Jinja2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tfm_cooperative_scheduling_rules.html">Cooperative Scheduling Rules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tfm_crypto_design.html">Crypto Service design</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tfm_fwu_service.html">Firmware Update Service</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tfm_its_512_flash.html">Add support for block-aligned flash in Internal Trusted Storage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tfm_its_service.html">Internal Trusted Storage (ITS) Service</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tfm_log_system_design_document.html">Log system design document</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tfm_physical_attack_mitigation.html">Physical attack mitigation in Trusted Firmware-M</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tfm_psa_inter_process_communication.html">TF-M Inter-Process Communication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tfm_secure_boot.html">Secure boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tfm_secure_partition_runtime_library.html">Secure Partition Runtime Library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tfm_uniform_secure_service_signature.html">Uniform Secure Service Signature</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tools/index.html">Tools</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contribution</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing/index.html">Guidelines</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../contributing/contributing_process.html">The process</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../contributing/code_review_guide.html">Code review</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../contributing/maintainers.html">Maintainers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../contributing/maintainers.html#code-owners">Code owners</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../contributing/coding_guide.html">Yet another coding standard :)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../contributing/doc_guidelines.html">Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../contributing/tfm_design_proposal_guideline.html">Design proposal</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing/lic.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing/dco.html">DCO</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Links</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://ci.trustedfirmware.org/view/TF-M/job/tf-m-build-docs-nightly/lastSuccessfulBuild/artifact/trusted-firmware-m/build/docs/reference_manual/html/index.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://developer.trustedfirmware.org/w/collaboration/security_center">Security Center</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://www.arm.com/architecture/security-features/platform-security">PSA</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">STMICROELECTRONICS</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../stm/releases/index.html">Releases</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../stm/releases/getting_started.html">Getting started</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../platform/stm/stm32l562e_dk/readme.html">STM32L562E-DK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../platform/stm/nucleo_l552ze_q/readme.html">NUCLEO-L552ZE-Q</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../platform/stm/b_u585i_iot02a/readme.html">B-U585I-IOT02A</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../stm/releases/platforms.html">Platforms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../platform/stm/common/stm32l5xx/readme.html">STM32L5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../platform/stm/common/stm32mp2/readme.html">STM32MP2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../platform/stm/common/stm32u5xx/readme.html">STM32U5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../platform/stm/nucleo_l552ze_q/readme.html">NUCLEO-L552ZE-Q</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../platform/stm/stm32l562e_dk/readme.html">STM32L562E-DK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../stm/releases/changelog.html">Change Log &amp; Notes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../stm/releases/v1.7.0-stm32mp25-alpha-r1-rc3/changelog.html">v1.7.0-stm32mp25-alpha-r1-rc3</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../stm/technical/index.html">Technical references</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../stm/technical/a35_td_flavor/index.html">A35-TD flavor</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../stm/technical/a35_td_flavor/memory_layout.html">Memory layout</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../stm/technical/a35_td_flavor/storage.html">Storage</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../stm/technical/m33_td_flavor/index.html">M33-TD flavor</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../stm/technical/m33_td_flavor/memory_layout.html">Memory layout</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../stm/technical/m33_td_flavor/storage.html">Storage</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../stm/technical/devicetree/index.html">Devicetree</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../stm/technical/devicetree/devicetree_tfm.html">Scope and purpose</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../stm/technical/devicetree/devicetree_tfm.html#concept">Concept</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../stm/technical/devicetree/devicetree_tfm.html#how-to-add-device">How to add device</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../stm/technical/initlevel.html">Initlevel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../stm/technical/initial_attestation.html">Initial Attestation Service</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../stm/technical/nv_counter.html">Nv counter</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../stm/ide/index.html">Ide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../stm/ide/cubeide/stm32cubeide.html">STM32CubeIDE</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Trusted Firmware-M</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../index.html">Design Documents</a> &raquo;</li>
+          <li><a href="index.html">Dual-CPU</a> &raquo;</li>
+      <li>Communication Prototype Between NSPE And SPE In Dual Core System</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="communication-prototype-between-nspe-and-spe-in-dual-core-system">
+<h1>Communication Prototype Between NSPE And SPE In Dual Core System<a class="headerlink" href="#communication-prototype-between-nspe-and-spe-in-dual-core-system" title="Permalink to this heading"></a></h1>
+<dl class="field-list simple">
+<dt class="field-odd">Author</dt>
+<dd class="field-odd"><p>David Hu</p>
+</dd>
+<dt class="field-even">Organization</dt>
+<dd class="field-even"><p>Arm Limited</p>
+</dd>
+<dt class="field-odd">Contact</dt>
+<dd class="field-odd"><p><a class="reference external" href="mailto:david&#46;hu&#37;&#52;&#48;arm&#46;com">david<span>&#46;</span>hu<span>&#64;</span>arm<span>&#46;</span>com</a></p>
+</dd>
+</dl>
+<section id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading"></a></h2>
+<p>This document proposes a generic prototype of the communication between NSPE
+(Non-secure Processing Environment) and SPE (Secure Processing Environment) in
+TF-M on a dual core system.</p>
+<p>The dual core system should satisfy the following requirements</p>
+<ul class="simple">
+<li><p>NSPE and SPE are properly isolated and protected following PSA</p></li>
+<li><p>An Arm M-profile core locates in SPE and acts as the Secure core</p></li>
+<li><p>An Inter-Processor Communication hardware module in system for communication
+between NSPE core and SPE core</p></li>
+<li><p>TF-M runs on the Secure core with platform specific drivers support.</p></li>
+</ul>
+<section id="scope">
+<h3>Scope<a class="headerlink" href="#scope" title="Permalink to this heading"></a></h3>
+<p>This design document focuses on the dual core communication design inside TF-M.
+Some changes to TF-M core/Secure Partition Manager (SPM) are listed to support
+the dual core communication. This document only discuss about the implementation
+in TF-M Inter-Process Communication (IPC) model.
+The TF-M non-secure interface library depends on mailbox and NS RTOS
+implementation. The related changes to TF-M non-secure interface library are not
+discussed in detail in this document.</p>
+<p>Some requirements to mailbox functionalities are defined in this document. The
+detailed mailbox design or implementations is not specified in this document.
+Please refer to mailbox dedicate document <a class="footnote-reference brackets" href="#id6" id="id1">1</a>.</p>
+</section>
+<section id="organization-of-the-document">
+<h3>Organization of the document<a class="headerlink" href="#organization-of-the-document" title="Permalink to this heading"></a></h3>
+<ul class="simple">
+<li><p><a class="reference internal" href="#overall-workflow-in-dual-core-communication">Overall workflow in dual core communication</a> provides an overall workflow of
+dual core communication between NSPE and SPE.</p></li>
+<li><p><a class="reference internal" href="#requirements-on-mailbox-communication">Requirements on mailbox communication</a> lists general requirements of
+mailbox, from the perspective of dual core communication.</p></li>
+<li><p><a class="reference internal" href="#psa-client-call-handling-flow-in-tf-m">PSA client call handling flow in TF-M</a> discusses about the detailed sequence
+and key modules of handling PSA client call in TF-M.</p></li>
+<li><p><a class="reference internal" href="#summary-of-changes-to-tf-m-core-spm">Summary of changes to TF-M core/SPM</a> summarizes the potential changes to
+TF-M core/SPM to support dual core communication.</p></li>
+</ul>
+</section>
+</section>
+<section id="overall-workflow-in-dual-core-communication">
+<h2>Overall workflow in dual core communication<a class="headerlink" href="#overall-workflow-in-dual-core-communication" title="Permalink to this heading"></a></h2>
+<p>The overall workflow in dual-core scenario can be described as follows</p>
+<ol class="arabic simple">
+<li><p>Non-secure application calls TF-M non-secure interface library to request
+Secure service. The TF-M non-secure interface library translates the Secure
+service into PSA Client calls.</p></li>
+<li><p>TF-M non-secure interface library notifies TF-M of the PSA client call
+request, via mailbox. Proper generic mailbox APIs in HAL should be defined
+so that TF-M non-secure interface library can co-work with diverse platform
+specific Inter-Processor Communication implementations.</p></li>
+<li><p>Inter-Processor Communication interrupt handler and mailbox handling in TF-M
+deal with the inbound mailbox event(s) and deliver the PSA client call
+request to TF-M SPM.</p></li>
+<li><p>TF-M SPM processes the PSA client call request. The PSA client call is
+eventually handled in target Secure Partition or corresponding handler.</p></li>
+<li><p>After the PSA Client call is completed, the return value is returned to NSPE
+via mailbox.</p></li>
+<li><p>TF-M non-secure interface library fetches return value from mailbox.</p></li>
+<li><p>The return value is returned to non-secure application.</p></li>
+</ol>
+<p>The interfaces between NSPE app and TF-M NSPE interface library are unchanged
+so the underlying platform specific details are transparent to NSPE
+application.</p>
+<p>Step 3 ~ step 5 are covered in <a class="reference internal" href="#psa-client-call-handling-flow-in-tf-m">PSA client call handling flow in TF-M</a> in
+detail.</p>
+</section>
+<section id="requirements-on-mailbox-communication">
+<h2>Requirements on mailbox communication<a class="headerlink" href="#requirements-on-mailbox-communication" title="Permalink to this heading"></a></h2>
+<p>The communication between NSPE and SPE relies on mailbox communication
+implementation. The mailbox functionalities are eventually implemented by
+platform specific Inter-Processor Communication drivers.
+This section lists some general requirements on mailbox communication between
+NSPE and SPE.</p>
+<section id="data-transferred-between-npse-and-spe">
+<h3>Data transferred between NPSE and SPE<a class="headerlink" href="#data-transferred-between-npse-and-spe" title="Permalink to this heading"></a></h3>
+<p>A mailbox message should contain the information and parameters of a PSA client
+call. After SPE is notified by a mailbox event, SPE fetches the parameters from
+NSPE for PSA Client call processing.
+The mailbox design document <a class="footnote-reference brackets" href="#id6" id="id2">1</a> defines the structure of the mailbox message.</p>
+<p>The information and parameters of PSA Client call in the mailbox message include</p>
+<ul class="simple">
+<li><p>PSA Client API</p></li>
+<li><p>Parameters required in PSA Client call. The parameters can include the
+following, according to PSA client call type</p>
+<ul>
+<li><p>Service ID (SID)</p></li>
+<li><p>Handle</p></li>
+<li><p>Request type</p></li>
+<li><p>Input vectors and the lengths</p></li>
+<li><p>Output vectors and the lengths</p></li>
+<li><p>Requested version of secure service</p></li>
+</ul>
+</li>
+<li><p>NSPE Client ID. Optional. The NSPE Client ID is required when NSPE RTOS
+enforces non-secure task isolation.</p></li>
+</ul>
+<p>The mailbox implementation may define additional members in mailbox message to
+accomplish mailbox communication between NSPE and SPE.</p>
+<p>When the PSA Client call is completed in TF-M, the return result, such as
+PSA_SUCCESS or a handle, should be returned from SPE to NSPE via mailbox.</p>
+</section>
+<section id="mailbox-synchronization-between-nspe-and-spe">
+<h3>Mailbox synchronization between NSPE and SPE<a class="headerlink" href="#mailbox-synchronization-between-nspe-and-spe" title="Permalink to this heading"></a></h3>
+<p>Synchronization and protection between NSPE and SPE accesses to shared mailbox
+objects and variables should be implemented.</p>
+<p>When a core accesses shared mailbox objects or variables, proper mechanisms
+should protect concurrent operations from the other core.</p>
+</section>
+<section id="support-of-multiple-ongoing-ns-psa-client-calls-informative">
+<h3>Support of multiple ongoing NS PSA client calls (informative)<a class="headerlink" href="#support-of-multiple-ongoing-ns-psa-client-calls-informative" title="Permalink to this heading"></a></h3>
+<p>If the support of multiple ongoing NS PSA client calls in TF-M is required
+in dual-core systems, an optional queue can be maintained in TF-M core to store
+multiple mailbox objects received from NSPE.
+To identify NS PSA client calls, additional fields can be added in TF-M SPM
+objects to store the NS PSA Client request identification.</p>
+<p>Note that when just a single outstanding PSA client call is allowed, multiple
+NSPE OS threads can run concurrently and call PSA client functions. The first
+PSA client call will be processed first, and any other OS threads will be
+blocked from submitting PSA client calls until the first is completed.</p>
+</section>
+</section>
+<section id="psa-client-call-handling-flow-in-tf-m">
+<h2>PSA client call handling flow in TF-M<a class="headerlink" href="#psa-client-call-handling-flow-in-tf-m" title="Permalink to this heading"></a></h2>
+<p>This section provides more details about the flow of PSA client call handing in
+TF-M.</p>
+<p>The sequence of handling PSA Client call request in TF-M is listed as below</p>
+<ol class="arabic simple">
+<li><p>Platform specific Inter-Processor Communication interrupt handler is
+triggered after the mailbox event is asserted by NSPE. The interrupt handler
+should call <code class="docutils literal notranslate"><span class="pre">spm_handle_interrupt()</span></code></p></li>
+<li><p>SPM will send a <code class="docutils literal notranslate"><span class="pre">SIGNAL_MAILBOX</span></code> to <code class="docutils literal notranslate"><span class="pre">ns_agent_mailbox</span></code> partition</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ns_agent_mailbox</span></code> partition deals with the mailbox message(s) which
+contain(s) the PSA client call information and parameters.
+Then the PSA client call request is dispatched to dedicated PSA client call
+handler in TF-M SPM.</p></li>
+<li><p>After the PSA client call is completed, the return value is transmitted to
+NSPE via mailbox.</p></li>
+</ol>
+<p>Several key modules in the whole process are covered in detail in following
+sections.</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#inter-processor-communication-interrupt-handler">Inter-Processor Communication interrupt handler</a> discusses about the
+Inter-Processor Communication interrupt handler</p></li>
+<li><p><a class="reference internal" href="#tf-m-remote-procedure-call-rpc-layer">TF-M Remote Procedure Call (RPC) layer</a> introduces TF-M Remote Procedure
+Call layer to support dual-core communication.</p></li>
+<li><p><a class="reference internal" href="#ns-agent-mailbox-partition">ns_agent_mailbox partition</a> describes the mailbox agent partition.</p></li>
+<li><p><a class="reference internal" href="#return-value-replying-routine-in-tf-m">Return value replying routine in TF-M</a> proposes the routine to reply the
+return value to NSPE.</p></li>
+</ul>
+<section id="inter-processor-communication-interrupt-handler">
+<h3>Inter-Processor Communication interrupt handler<a class="headerlink" href="#inter-processor-communication-interrupt-handler" title="Permalink to this heading"></a></h3>
+<p>Platform specific driver should implement the Inter-Processor Communication
+interrupt handler to deal with the Inter-Processor Communication interrupt
+asserted by NSPE.
+The platform specific interrupt handler should complete the interrupt
+operations, such as interrupt EOI or acknowledge.</p>
+<p>The interrupt handler should call <code class="docutils literal notranslate"><span class="pre">spm_handle_interrupt()</span></code> to notify SPM of
+the interrupt.</p>
+<p>The platform’s <code class="docutils literal notranslate"><span class="pre">region_defs.h</span></code> file should define a macro <code class="docutils literal notranslate"><span class="pre">MAILBOX_IRQ</span></code> that
+identifies the interrupt being used. The platform must also provide a function
+<code class="docutils literal notranslate"><span class="pre">mailbox_irq_init()</span></code> that initialises the interrupt as described in <a class="footnote-reference brackets" href="#id7" id="id3">2</a>.</p>
+<p>Platform specific driver should put Inter-Processor Communication interrupt into
+a proper exception priority, according to system and application requirements.
+The proper priority setting should guarantee that</p>
+<ul class="simple">
+<li><p>TF-M can respond to a PSA client call request in time according to system and
+application requirements.</p></li>
+<li><p>Other exceptions, which are more latency sensitive or require higher
+priorities, are not blocked by Inter-Processor Communication interrupt ISR.</p></li>
+</ul>
+<p>The exception priority setting is IMPLEMENTATION DEFINED.</p>
+</section>
+<section id="tf-m-remote-procedure-call-rpc-layer">
+<h3>TF-M Remote Procedure Call (RPC) layer<a class="headerlink" href="#tf-m-remote-procedure-call-rpc-layer" title="Permalink to this heading"></a></h3>
+<p>This design brings up a concept of Remote Procedure Call layer in TF-M.</p>
+<p>The RPC layer sits between TF-M SPM and mailbox implementation. The purpose of
+RPC layer is to decouple mailbox implementation and TF-M SPM and enhance the
+generality of entire dual-core communication.</p>
+<p>The RPC layer provides a set of APIs to TF-M SPM to handle and reply PSA client
+call from NSPE in dual-core scenario. Please refer to
+<a class="reference internal" href="#tf-m-rpc-definitions-to-tf-m-spm">TF-M RPC definitions to TF-M SPM</a> for API details.
+It hides the details of specific mailbox implementation from TF-M SPM. It avoids
+modifying TF-M SPM to fit mailbox development and changes.
+It can keep a unified PSA client call process in TF-M SPM in both single
+Armv8-M scenario and dual core scenario.</p>
+<p>The RPC layer defines a set callback functions for mailbox implementation to
+hook its specific mailbox operations. When TF-M SPM invokes RPC APIs to deal
+with NSPE PSA client call, RPC layer eventually calls the callbacks to execute
+mailbox operations.
+RPC layer also defines a set of PSA client call handler APIs for mailbox
+implementation. RPC specific client call handlers parse the PSA client call
+parameters and invoke common TF-M PSA client call handlers. Please refer to
+<a class="reference internal" href="#tf-m-rpc-definitions-for-mailbox">TF-M RPC definitions for mailbox</a> for the details.</p>
+</section>
+<section id="ns-agent-mailbox-partition">
+<h3>ns_agent_mailbox partition<a class="headerlink" href="#ns-agent-mailbox-partition" title="Permalink to this heading"></a></h3>
+<p>A partition will be dedicated to interacting with the NSPE through the mailbox.
+This partition will call <code class="docutils literal notranslate"><span class="pre">tfm_hal_boot_ns_cpu()</span></code> and
+tfm_hal_wait_for_ns_cpu_ready() to ensure that the non-secure core is running.
+It will then initialise the SPE mailbox and enable the IPC interrupt. Once these
+tasks are complete, it will enter an infinite loop waiting for a MAILBOX_SIGNAL
+signal indicating that a mailbox message has arrived.</p>
+<p>Mailbox handling will be done in the context of the <code class="docutils literal notranslate"><span class="pre">ns_agent_mailbox</span></code>
+partition, which will make any necessary calls to other partitions on behalf of
+the non-secure code.</p>
+<p><code class="docutils literal notranslate"><span class="pre">ns_agent_mailbox</span></code> should call RPC API <code class="docutils literal notranslate"><span class="pre">tfm_rpc_client_call_handler()</span></code> to
+check and handle PSA client call request from NSPE.
+<code class="docutils literal notranslate"><span class="pre">tfm_rpc_client_call_handler()</span></code> invokes request handling callback function to
+eventually execute specific mailbox message handling operations. The mailbox
+APIs are defined in mailbox design document <a class="footnote-reference brackets" href="#id6" id="id4">1</a>.</p>
+<p>The handling process in mailbox operation consists of the following steps.</p>
+<ol class="arabic simple">
+<li><p>SPE mailbox fetches the PSA client call parameters from NSPE mailbox.
+Proper protection and synchronization should be implemented in mailbox to
+guarantee that the operations are not interfered by NSPE mailbox operations
+or Inter-Processor Communication interrupt handler.
+If a queue is maintained inside TF-M core, SPE mailbox can fetch multiple
+PSA client calls together into the queue, to save the time of synchronization
+between two cores.</p></li>
+<li><p>SPE mailbox parses the PSA client call parameters copied from NSPE, including
+the PSA client call type.</p></li>
+<li><p>The PSA client call request is dispatched to the dedicated TF-M RPC PSA
+client call handler. The PSA client call request is processed in the
+corresponding handler.</p></li>
+</ol>
+<blockquote>
+<div><ul class="simple">
+<li><p>For <code class="docutils literal notranslate"><span class="pre">psa_framework_version()</span></code> and <code class="docutils literal notranslate"><span class="pre">psa_version()</span></code>, the PSA client call
+can be completed in the handlers <code class="docutils literal notranslate"><span class="pre">tfm_rpc_psa_framework_version()</span></code> and
+<code class="docutils literal notranslate"><span class="pre">tfm_rpc_psa_version()</span></code> respectively.</p></li>
+<li><p>For <code class="docutils literal notranslate"><span class="pre">psa_connect()</span></code>, <code class="docutils literal notranslate"><span class="pre">psa_call()</span></code> and <code class="docutils literal notranslate"><span class="pre">psa_close()</span></code>, the handlers
+<code class="docutils literal notranslate"><span class="pre">tfm_rpc_psa_connect()</span></code>, <code class="docutils literal notranslate"><span class="pre">tfm_rpc_psa_call()</span></code> and
+<code class="docutils literal notranslate"><span class="pre">tfm_rpc_psa_close()</span></code> create the PSA message and trigger target Secure
+partition respectively. The target Secure partition will be woken up to
+handle the PSA message.</p></li>
+</ul>
+</div></blockquote>
+<p>The dual-core scenario and single Armv8-M scenario in TF-M IPC implementation
+should share the same PSA client call routines inside TF-M SPM. The current
+handler definitions can be adjusted to be more generic for dual-core scenario
+and single Armv8-M implementation. Please refer to
+<a class="reference internal" href="#summary-of-changes-to-tf-m-core-spm">Summary of changes to TF-M core/SPM</a> for details.</p>
+<p>If there are multiple NSPE PSA client call requests pending, SPE mailbox can
+process mailbox messages one by one.</p>
+</section>
+<section id="return-value-replying-routine-in-tf-m">
+<h3>Return value replying routine in TF-M<a class="headerlink" href="#return-value-replying-routine-in-tf-m" title="Permalink to this heading"></a></h3>
+<p>Diverse PSA client calls can be implemented with different return value replying
+routines.</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#replying-routine-for-psa-framework-version-and-psa-version">Replying routine for psa_framework_version() and psa_version()</a> describes
+the routine for <code class="docutils literal notranslate"><span class="pre">psa_framework_version()</span></code> and <code class="docutils literal notranslate"><span class="pre">psa_version()</span></code>.</p></li>
+<li><p><a class="reference internal" href="#replying-routine-for-psa-connect-psa-call-and-psa-close">Replying routine for psa_connect(), psa_call() and psa_close()</a> describes
+the routine for <code class="docutils literal notranslate"><span class="pre">psa_connect()</span></code>, <code class="docutils literal notranslate"><span class="pre">psa_call()</span></code> and <code class="docutils literal notranslate"><span class="pre">psa_close()</span></code>.</p></li>
+</ul>
+<section id="replying-routine-for-psa-framework-version-and-psa-version">
+<h4>Replying routine for psa_framework_version() and psa_version()<a class="headerlink" href="#replying-routine-for-psa-framework-version-and-psa-version" title="Permalink to this heading"></a></h4>
+<p>For <code class="docutils literal notranslate"><span class="pre">psa_framework_version()</span></code> and <code class="docutils literal notranslate"><span class="pre">psa_version()</span></code>, the return value can be
+directly returned from the dedicated TF-M RPC PSA client call handlers.
+Therefore, the return value can be directly replied in mailbox handling process.</p>
+<p>A compile flag should be defined to enable replying routine via mailbox in
+dual-core scenario during building.</p>
+</section>
+<section id="replying-routine-for-psa-connect-psa-call-and-psa-close">
+<h4>Replying routine for psa_connect(), psa_call() and psa_close()<a class="headerlink" href="#replying-routine-for-psa-connect-psa-call-and-psa-close" title="Permalink to this heading"></a></h4>
+<p>For <code class="docutils literal notranslate"><span class="pre">psa_connect()</span></code>, <code class="docutils literal notranslate"><span class="pre">psa_call()</span></code> and <code class="docutils literal notranslate"><span class="pre">psa_close()</span></code>, the PSA client call
+is completed in the target Secure Partition. The target Secure Partition calls
+<code class="docutils literal notranslate"><span class="pre">psa_reply()</span></code> to reply the return value to TF-M SPM. In the SVC handler of
+<code class="docutils literal notranslate"><span class="pre">psa_reply()</span></code> in TF-M SPM, TF-M SPM should call TF-M RPC API
+<code class="docutils literal notranslate"><span class="pre">tfm_rpc_client_call_reply()</span></code> to return the value to NSPE via mailbox.
+<code class="docutils literal notranslate"><span class="pre">tfm_rpc_client_call_reply()</span></code> invokes reply callbacks to execute specific
+mailbox reply operations. The mailbox reply functions must not trigger context
+switch inside SVC handler.</p>
+<p>If an error occurs in the handlers, the TF-M RPC handlers,
+<code class="docutils literal notranslate"><span class="pre">tfm_rpc_psa_call()</span></code>, <code class="docutils literal notranslate"><span class="pre">tfm_rpc_psa_connect()</span></code> and <code class="docutils literal notranslate"><span class="pre">tfm_rpc_psa_close()</span></code>,
+may terminate and return the error, without triggering the target Secure
+Partition. The mailbox implementation should return the error code to NSPE.</p>
+</section>
+</section>
+</section>
+<section id="summary-of-changes-to-tf-m-core-spm">
+<h2>Summary of changes to TF-M core/SPM<a class="headerlink" href="#summary-of-changes-to-tf-m-core-spm" title="Permalink to this heading"></a></h2>
+<p>This section discusses the general changes related to NSPE and SPE
+communication to current TF-M core/SPM implementations.</p>
+<p>The detailed mailbox implementations are not covered in this section. Please
+refer to mailbox dedicated document <a class="footnote-reference brackets" href="#id6" id="id5">1</a>.
+The platform specific implementations are also not covered in this section,
+including the Inter-Processor Communication interrupt or its interrupt handler.</p>
+<section id="common-psa-client-call-handlers">
+<h3>Common PSA client call handlers<a class="headerlink" href="#common-psa-client-call-handlers" title="Permalink to this heading"></a></h3>
+<p>Common PSA client call handlers should be extracted from current PSA client
+call handlers implementation in TF-M.
+Common PSA client call handlers are shared by both TF-M RPC layer in dual-core
+scenario and SVCall handlers in single Armv8-M scenario.</p>
+</section>
+<section id="tf-m-rpc-layer">
+<h3>TF-M RPC layer<a class="headerlink" href="#tf-m-rpc-layer" title="Permalink to this heading"></a></h3>
+<p>This section describes the TF-M RPC data types and APIs.</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#tf-m-rpc-definitions-to-tf-m-spm">TF-M RPC definitions to TF-M SPM</a> lists the data types and APIs to be
+invoked by TF-M SPM.</p></li>
+<li><p><a class="reference internal" href="#tf-m-rpc-definitions-for-mailbox">TF-M RPC definitions for mailbox</a> lists the data types and APIs to be
+referred by mailbox implementation</p></li>
+</ul>
+<section id="tf-m-rpc-definitions-to-tf-m-spm">
+<h4>TF-M RPC definitions to TF-M SPM<a class="headerlink" href="#tf-m-rpc-definitions-to-tf-m-spm" title="Permalink to this heading"></a></h4>
+<section id="tfm-rpc-success">
+<h5>TFM_RPC_SUCCESS<a class="headerlink" href="#tfm-rpc-success" title="Permalink to this heading"></a></h5>
+<p><code class="docutils literal notranslate"><span class="pre">TFM_RPC_SUCCESS</span></code> is a general return value to indicate that the RPC operation
+succeeds.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#define TFM_RPC_SUCCESS             (0)</span>
+</pre></div>
+</div>
+</section>
+<section id="tfm-rpc-inval-param">
+<h5>TFM_RPC_INVAL_PARAM<a class="headerlink" href="#tfm-rpc-inval-param" title="Permalink to this heading"></a></h5>
+<p><code class="docutils literal notranslate"><span class="pre">TFM_RPC_INVAL_PARAM</span></code> is a return value to indicate that the input parameters
+are invalid.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#define TFM_RPC_INVAL_PARAM         (INT32_MIN + 1)</span>
+</pre></div>
+</div>
+</section>
+<section id="tfm-rpc-conflict-callback">
+<h5>TFM_RPC_CONFLICT_CALLBACK<a class="headerlink" href="#tfm-rpc-conflict-callback" title="Permalink to this heading"></a></h5>
+<p>Currently one and only one mailbox implementation is supported in dual core
+communication. This flag indicates that callback functions from one mailbox
+implementation are already registered and no more implementations are accepted.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#define TFM_RPC_CONFLICT_CALLBACK   (INT32_MIN + 2)</span>
+</pre></div>
+</div>
+</section>
+<section id="tfm-rpc-client-call-handler">
+<h5><code class="docutils literal notranslate"><span class="pre">tfm_rpc_client_call_handler()</span></code><a class="headerlink" href="#tfm-rpc-client-call-handler" title="Permalink to this heading"></a></h5>
+<p>TF-M PendSV handler calls this function to handle NSPE PSA client call request.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">tfm_rpc_client_call_handler</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
+</pre></div>
+</div>
+<p><strong>Usage</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">tfm_rpc_client_call_handler()</span></code> invokes callback function <code class="docutils literal notranslate"><span class="pre">handle_req()</span></code> to
+execute specific mailbox handling.
+Please note that <code class="docutils literal notranslate"><span class="pre">tfm_rpc_client_call_handler()</span></code> doesn’t return the status of
+underlying mailbox handling.</p>
+</section>
+<section id="tfm-rpc-client-call-reply">
+<h5><code class="docutils literal notranslate"><span class="pre">tfm_rpc_client_call_reply()</span></code><a class="headerlink" href="#tfm-rpc-client-call-reply" title="Permalink to this heading"></a></h5>
+<p>TF-M <code class="docutils literal notranslate"><span class="pre">psa_reply()</span></code> handler calls this function to reply PSA client call return
+result to NSPE.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">tfm_rpc_client_call_reply</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">owner</span><span class="p">,</span><span class="w"> </span><span class="kt">int32_t</span><span class="w"> </span><span class="n">ret</span><span class="p">);</span>
+</pre></div>
+</div>
+<p><strong>Parameters</strong></p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 15%" />
+<col style="width: 85%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">owner</span></code></p></td>
+<td><p>A handle to identify the owner of the PSA client call return
+value.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ret</span></code></p></td>
+<td><p>PSA client call return result value.</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Usage</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">tfm_rpc_client_call_reply()</span></code> invokes callback function <code class="docutils literal notranslate"><span class="pre">reply()</span></code> to execute
+specific mailbox reply.
+Please note that <code class="docutils literal notranslate"><span class="pre">tfm_rpc_client_call_reply()</span></code> doesn’t return the status of
+underlying mailbox reply process.</p>
+</section>
+<section id="tfm-rpc-set-caller-data">
+<h5><code class="docutils literal notranslate"><span class="pre">tfm_rpc_set_caller_data()</span></code><a class="headerlink" href="#tfm-rpc-set-caller-data" title="Permalink to this heading"></a></h5>
+<p>This function sets the private data of the NS caller in TF-M message to identify
+the caller after PSA client call is completed.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">tfm_rpc_set_caller_data</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">conn_handle_t</span><span class="w"> </span><span class="o">*</span><span class="n">handle</span><span class="p">,</span><span class="w"> </span><span class="kt">int32_t</span><span class="w"> </span><span class="n">client_id</span><span class="p">);</span>
+</pre></div>
+</div>
+<p><strong>Parameters</strong></p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 81%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">handle</span></code></p></td>
+<td><p>The connection handle to be set with NS caller private data.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">client_id</span></code></p></td>
+<td><p>The client ID of the NS caller.</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Usage</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">tfm_rpc_set_caller_data()</span></code> invokes callback function <code class="docutils literal notranslate"><span class="pre">get_caller_data()</span></code> to
+fetch the private data of caller of PSA client call and set it into TF-M message
+structure.</p>
+</section>
+</section>
+<section id="tf-m-rpc-definitions-for-mailbox">
+<h4>TF-M RPC definitions for mailbox<a class="headerlink" href="#tf-m-rpc-definitions-for-mailbox" title="Permalink to this heading"></a></h4>
+<section id="psa-client-call-parameters">
+<h5>PSA client call parameters<a class="headerlink" href="#psa-client-call-parameters" title="Permalink to this heading"></a></h5>
+<p>This data structure holds the parameters used in a PSA client call. The
+parameters are passed from non-secure core to secure core via mailbox.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">client_call_params_t</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">uint32_t</span><span class="w">        </span><span class="n">sid</span><span class="p">;</span>
+<span class="w">    </span><span class="n">psa_handle_t</span><span class="w">    </span><span class="n">handle</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int32_t</span><span class="w">         </span><span class="n">type</span><span class="p">;</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">psa_invec</span><span class="w"> </span><span class="o">*</span><span class="n">in_vec</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">size_t</span><span class="w">          </span><span class="n">in_len</span><span class="p">;</span>
+<span class="w">    </span><span class="n">psa_outvec</span><span class="w">      </span><span class="o">*</span><span class="n">out_vec</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">size_t</span><span class="w">          </span><span class="n">out_len</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">uint32_t</span><span class="w">        </span><span class="n">version</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+</section>
+<section id="mailbox-operations-callbacks">
+<h5>Mailbox operations callbacks<a class="headerlink" href="#mailbox-operations-callbacks" title="Permalink to this heading"></a></h5>
+<p>This structures contains the callback functions for specific mailbox operations.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">tfm_rpc_ops_t</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="p">(</span><span class="o">*</span><span class="n">handle_req</span><span class="p">)(</span><span class="kt">void</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="p">(</span><span class="o">*</span><span class="n">reply</span><span class="p">)(</span><span class="k">const</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">owner</span><span class="p">,</span><span class="w"> </span><span class="kt">int32_t</span><span class="w"> </span><span class="n">ret</span><span class="p">);</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="o">*</span><span class="n">get_caller_data</span><span class="p">)(</span><span class="kt">int32_t</span><span class="w"> </span><span class="n">client_id</span><span class="p">);</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+</section>
+<section id="tfm-rpc-register-ops">
+<h5><code class="docutils literal notranslate"><span class="pre">tfm_rpc_register_ops()</span></code><a class="headerlink" href="#tfm-rpc-register-ops" title="Permalink to this heading"></a></h5>
+<p>This function registers underlying mailbox operations into TF-M RPC callbacks.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int32_t</span><span class="w"> </span><span class="nf">tfm_rpc_register_ops</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">tfm_rpc_ops_t</span><span class="w"> </span><span class="o">*</span><span class="n">ops_ptr</span><span class="p">);</span>
+</pre></div>
+</div>
+<p><strong>Parameters</strong></p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 78%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ops_ptr</span></code></p></td>
+<td><p>Pointer to the specific operation structure.</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Return</strong></p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 35%" />
+<col style="width: 65%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">TFM_RPC_SUCCESS</span></code></p></td>
+<td><p>Operations are successfully registered.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Other</span> <span class="pre">error</span> <span class="pre">code</span></code></p></td>
+<td><p>Fail to register operations.</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Usage</strong></p>
+<p>Mailbox should register TF-M RPC callbacks during mailbox initialization, before
+enabling secure services for NSPE.</p>
+<p>Currently one and only one underlying mailbox communication implementation is
+allowed in runtime.</p>
+</section>
+<section id="tfm-rpc-unregister-ops">
+<h5><code class="docutils literal notranslate"><span class="pre">tfm_rpc_unregister_ops()</span></code><a class="headerlink" href="#tfm-rpc-unregister-ops" title="Permalink to this heading"></a></h5>
+<p>This function unregisters underlying mailbox operations from TF-M RPC callbacks.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">tfm_rpc_unregister_ops</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
+</pre></div>
+</div>
+<p><strong>Usage</strong></p>
+<p>Currently one and only one underlying mailbox communication implementation is
+allowed in runtime.</p>
+</section>
+<section id="tfm-rpc-psa-framework-version">
+<h5><code class="docutils literal notranslate"><span class="pre">tfm_rpc_psa_framework_version()</span></code><a class="headerlink" href="#tfm-rpc-psa-framework-version" title="Permalink to this heading"></a></h5>
+<p>TF-M RPC handler for psa_framework_version().</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">uint32_t</span><span class="w"> </span><span class="nf">tfm_rpc_psa_framework_version</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
+</pre></div>
+</div>
+<p><strong>Return</strong></p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 81%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">version</span></code></p></td>
+<td><p>The version of the PSA Framework implementation that is
+providing the runtime services.</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Usage</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">tfm_rpc_psa_framework_version()</span></code> invokes common <code class="docutils literal notranslate"><span class="pre">psa_framework_version()</span></code>
+handler in TF-M.</p>
+</section>
+<section id="tfm-rpc-psa-version">
+<h5><code class="docutils literal notranslate"><span class="pre">tfm_rpc_psa_version()</span></code><a class="headerlink" href="#tfm-rpc-psa-version" title="Permalink to this heading"></a></h5>
+<p>TF-M RPC handler for psa_version().</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">uint32_t</span><span class="w"> </span><span class="nf">tfm_rpc_psa_version</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">client_call_params_t</span><span class="w"> </span><span class="o">*</span><span class="n">params</span><span class="p">,</span>
+<span class="w">                             </span><span class="kt">bool</span><span class="w"> </span><span class="n">ns_caller</span><span class="p">);</span>
+</pre></div>
+</div>
+<p><strong>Parameters</strong></p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 30%" />
+<col style="width: 70%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">params</span></code></p></td>
+<td><p>Base address of parameters.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ns_caller</span></code></p></td>
+<td><p>Whether the caller is non-secure.</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Return</strong></p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 29%" />
+<col style="width: 71%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">PSA_VERSION_NONE</span></code></p></td>
+<td><p>The RoT Service is not implemented, or the caller is
+not permitted to access the service.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">&gt;</span> <span class="pre">0</span></code></p></td>
+<td><p>The minor version of the implemented RoT Service.</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Usage</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">tfm_rpc_psa_version()</span></code> invokes common <code class="docutils literal notranslate"><span class="pre">psa_version()</span></code> handler in TF-M.
+The parameters in params should be prepared before calling
+<code class="docutils literal notranslate"><span class="pre">tfm_rpc_psa_version()</span></code>.</p>
+</section>
+<section id="tfm-rpc-psa-connect">
+<h5><code class="docutils literal notranslate"><span class="pre">tfm_rpc_psa_connect()</span></code><a class="headerlink" href="#tfm-rpc-psa-connect" title="Permalink to this heading"></a></h5>
+<p>TF-M RPC handler for <code class="docutils literal notranslate"><span class="pre">psa_connect()</span></code>.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">psa_status_t</span><span class="w"> </span><span class="nf">tfm_rpc_psa_connect</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">client_call_params_t</span><span class="w"> </span><span class="o">*</span><span class="n">params</span><span class="p">,</span>
+<span class="w">                                 </span><span class="kt">bool</span><span class="w"> </span><span class="n">ns_caller</span><span class="p">);</span>
+</pre></div>
+</div>
+<p><strong>Parameters</strong></p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 30%" />
+<col style="width: 70%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">params</span></code></p></td>
+<td><p>Base address of parameters.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ns_caller</span></code></p></td>
+<td><p>Whether the caller is non-secure.</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Return</strong></p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 67%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">PSA_SUCCESS</span></code></p></td>
+<td><p>Success.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">PSA_CONNECTION_BUSY</span></code></p></td>
+<td><p>The SPM cannot make the connection at the moment.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Does</span> <span class="pre">not</span> <span class="pre">return</span></code></p></td>
+<td><p>The RoT Service ID and version are not supported,
+or the caller is not permitted to access the
+service.</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Usage</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">tfm_rpc_psa_connect()</span></code> invokes common <code class="docutils literal notranslate"><span class="pre">psa_connect()</span></code> handler in TF-M.
+The parameters in params should be prepared before calling
+<code class="docutils literal notranslate"><span class="pre">tfm_rpc_psa_connect()</span></code>.</p>
+</section>
+<section id="tfm-rpc-psa-call">
+<h5><code class="docutils literal notranslate"><span class="pre">tfm_rpc_psa_call()</span></code><a class="headerlink" href="#tfm-rpc-psa-call" title="Permalink to this heading"></a></h5>
+<p>TF-M RPC handler for <code class="docutils literal notranslate"><span class="pre">psa_call()</span></code>.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">psa_status_t</span><span class="w"> </span><span class="nf">tfm_rpc_psa_call</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">client_call_params_t</span><span class="w"> </span><span class="o">*</span><span class="n">params</span><span class="p">,</span>
+<span class="w">                              </span><span class="kt">bool</span><span class="w"> </span><span class="n">ns_caller</span><span class="p">);</span>
+</pre></div>
+</div>
+<p><strong>Parameters</strong></p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 30%" />
+<col style="width: 70%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">params</span></code></p></td>
+<td><p>Base address of parameters.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ns_caller</span></code></p></td>
+<td><p>Whether the caller is non-secure.</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Return</strong></p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 32%" />
+<col style="width: 68%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">PSA_SUCCESS</span></code></p></td>
+<td><p>Success.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Does</span> <span class="pre">not</span> <span class="pre">return</span></code></p></td>
+<td><p>The call is invalid, or invalid parameters.</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Usage</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">tfm_rpc_psa_call()</span></code> invokes common <code class="docutils literal notranslate"><span class="pre">psa_call()</span></code> handler in TF-M.
+The parameters in params should be prepared before calling
+<code class="docutils literal notranslate"><span class="pre">tfm_rpc_psa_call()</span></code>.</p>
+</section>
+<section id="tfm-rpc-psa-close">
+<h5><code class="docutils literal notranslate"><span class="pre">tfm_rpc_psa_close()</span></code><a class="headerlink" href="#tfm-rpc-psa-close" title="Permalink to this heading"></a></h5>
+<p>TF-M RPC <code class="docutils literal notranslate"><span class="pre">psa_close()</span></code> handler</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">tfm_rpc_psa_close</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">client_call_params_t</span><span class="w"> </span><span class="o">*</span><span class="n">params</span><span class="p">,</span>
+<span class="w">                       </span><span class="kt">bool</span><span class="w"> </span><span class="n">ns_caller</span><span class="p">);</span>
+</pre></div>
+</div>
+<p><strong>Parameters</strong></p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 30%" />
+<col style="width: 70%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">params</span></code></p></td>
+<td><p>Base address of parameters.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ns_caller</span></code></p></td>
+<td><p>Whether the caller is non-secure.</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Return</strong></p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 32%" />
+<col style="width: 68%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">void</span></code></p></td>
+<td><p>Success.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Does</span> <span class="pre">not</span> <span class="pre">return</span></code></p></td>
+<td><p>The call is invalid, or invalid parameters.</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Usage</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">tfm_rpc_psa_close()</span></code> invokes common <code class="docutils literal notranslate"><span class="pre">psa_close()</span></code> handler in TF-M.
+The parameters in params should be prepared before calling
+<code class="docutils literal notranslate"><span class="pre">tfm_rpc_psa_close()</span></code>.</p>
+</section>
+</section>
+</section>
+<section id="other-modifications">
+<h3>Other modifications<a class="headerlink" href="#other-modifications" title="Permalink to this heading"></a></h3>
+<p>The following mandatory changes are also required.</p>
+<ul class="simple">
+<li><p>One or more compile flag(s) should be defined to select corresponding
+execution routines in dual-core scenario or single Armv8-M scenario during
+building.</p></li>
+</ul>
+</section>
+</section>
+<section id="reference">
+<h2>Reference<a class="headerlink" href="#reference" title="Permalink to this heading"></a></h2>
+<dl class="footnote brackets">
+<dt class="label" id="id6"><span class="brackets">1</span><span class="fn-backref">(<a href="#id1">1</a>,<a href="#id2">2</a>,<a href="#id4">3</a>,<a href="#id5">4</a>)</span></dt>
+<dd><p><a class="reference internal" href="mailbox_design_on_dual_core_system.html"><span class="doc">Mailbox Design in TF-M on Dual-core System</span></a></p>
+</dd>
+<dt class="label" id="id7"><span class="brackets"><a class="fn-backref" href="#id3">2</a></span></dt>
+<dd><p><a class="reference internal" href="../../../integration_guide/tfm_secure_irq_integration_guide.html"><span class="doc">Secure Interrupt Integration Guide</span></a></p>
+</dd>
+</dl>
+<hr class="docutils" />
+<p><em>Copyright (c) 2019-2022 Arm Limited. All Rights Reserved.</em></p>
+<p><em>Copyright (c) 2020-2022 Cypress Semiconductor Corporation. All Rights Reserved.</em></p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p></p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

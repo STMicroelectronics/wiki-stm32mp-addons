@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Non-secure Client Extension Integration Guide &mdash; Trusted Firmware-M v1.7.0-stm32mp25-alpha-r1-rc3-doc documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/tfm_custom.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/tabs.css" type="text/css" />
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Generic OS migration from Armv7-M to Armv8-M architecture" href="os_migration_guide_armv8m.html" />
+    <link rel="prev" title="SPM Backends" href="spm_backends.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> Trusted Firmware-M
+            <img src="../_static/tf_logo_white.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                v1.7.0-stm32mp25-alpha-r1-rc3-doc
+
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../introduction/index.html">Introduction</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/index.html">Getting Started</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../security/index.html">Security</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../security/security_advisories/index.html">Security Advisories</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../security/security_advisories/stack_seal_vulnerability.html">Advisory TFMV-1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../security/security_advisories/svc_caller_sp_fetching_vulnerability.html">Advisory TFMV-2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../security/security_advisories/crypto_multi_part_ops_abort_fail.html">Advisory TFMV-3</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../security/security_advisories/profile_small_key_id_encoding_vulnerability.html">Advisory TFMV-4</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../security/security_advisories/fwu_write_vulnerability.html">Advisory TFMV-5</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../security/threat_models/index.html">Threat Models</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../security/threat_models/generic_threat_model.html">Trusted Firmware-M Generic Threat Model</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../security/security.html">Security Handling</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../releases/index.html">Releases</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../releases/1.7.0.html">v1.7.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../releases/1.6.1.html">v1.6.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../releases/1.6.0.html">v1.6.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../releases/1.5.0.html">v1.5.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../releases/release_process.html">Release Cadence and Process</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../glossary.html">Glossary</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../platform/index.html">Platform Selection</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../platform/arm/index.html">Arm platforms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../platform/arm/corstone1000/readme.html">Corstone-1000</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/arm/mps3/an547/README.html">Corstone-300 FPGA (AN547)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/arm/mps3/an552/README.html">Corstone-300 FPGA and FVP (AN552)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/arm/mps3/corstone310/README.html">Corstone-310 FVP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/arm/musca_b1/readme.html">Musca-B1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/arm/musca_s1/readme.html">Musca-S1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/arm/rss/readme.html">Runtime Security Subsystem</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../platform/nxp/lpcxpresso55s69/README.html">LPCXpresso55S69</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../platform/cypress/psoc64/index.html">Cypress PSoC64</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../platform/cypress/psoc64/cypress_psoc64_spec.html">Cypress PSoC64 Specifics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/cypress/psoc64/libs/core-lib/README.html">Core Library</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/cypress/psoc64/libs/core-lib/RELEASE.html">Core Library Release Notes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../platform/stm/index.html">STMICROELECTRONICS</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../platform/stm/common/stm32l5xx/readme.html">STM32L5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/stm/common/stm32mp2/readme.html">STM32MP2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/stm/common/stm32u5xx/readme.html">STM32U5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/stm/nucleo_l552ze_q/readme.html">NUCLEO-L552ZE-Q</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32l562e_dk/readme.html">STM32L562E-DK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/stm/b_u585i_iot02a/readme.html">B-U585I-IOT02A</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../platform/nordic_nrf/nrf5340dk_nrf5340_cpuapp/README.html">Nordic nRF5340</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../platform/nordic_nrf/nrf9160dk_nrf9160/README.html">Nordic nRF9160</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../platform/lairdconnectivity/bl5340_dvk_cpuapp/README.html">Laird Connectivity BL5340</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../platform/nuvoton/m2351/README.html">NuMaker-PFM-M2351</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../platform/nuvoton/m2354/README.html">NuMaker-PFM-M2354</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../building/tfm_build_instruction.html">Build instructions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../building/run_tfm_examples_on_arm_platforms.html">Run TF-M examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../building/documentation_generation.html">Building the documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../building/tfm_build_instruction_iar.html">IAR toolchain</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration/index.html">Configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../configuration/build_configuration.html">Build configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../configuration/header_file_system.html">Component configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../configuration/kconfig_system.html">Kconfig</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../configuration/profiles/index.html">Profiles</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../configuration/profiles/tfm_profile_small.html"> Small</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../configuration/profiles/tfm_profile_medium_arot-less.html"> ARoT-less</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../configuration/profiles/tfm_profile_medium.html"> Medium</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../configuration/profiles/tfm_profile_large.html"> Large</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../configuration/test_configuration.html">Tests configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Integration Guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="spm_backends.html">SPM Backends</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">NS client integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="os_migration_guide_armv8m.html">OS migration to Armv8-M</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tfm_fpu_support.html">Floating-Point Support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tfm_secure_irq_integration_guide.html">Secure Interrupt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="platform/index.html">Adding a new platform</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="platform/platform_folder.html">Details for the platform folder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="platform/platform_ext_folder.html">Details for the platform/ext folder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="platform/porting_TFM_to_a_new_hardware.html">Porting TF-M to a New Hardware</a></li>
+<li class="toctree-l3"><a class="reference internal" href="platform/platform_provisioning.html">Platform Provisioning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="platform/platform_deprecation.html">Platform deprecation and removal</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="services/index.html">Services</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="services/tfm_attestation_integration_guide.html">Initial Attestation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="services/tfm_crypto_integration_guide.html">Crypto</a></li>
+<li class="toctree-l3"><a class="reference internal" href="services/tfm_its_integration_guide.html">Internal Storage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="services/tfm_platform_integration_guide.html">Platform</a></li>
+<li class="toctree-l3"><a class="reference internal" href="services/tfm_ps_integration_guide.html">Protected Storage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="services/tfm_secure_partition_addition.html">Adding a New Service</a></li>
+<li class="toctree-l3"><a class="reference internal" href="services/tfm_manifest_tool_user_guide.html">The manifest tool</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../technical_references/design_docs/index.html">Design Documents</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../technical_references/design_docs/dual-cpu/index.html">Dual-CPU</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../technical_references/design_docs/dual-cpu/booting_a_dual_core_system.html">Booting a Dual-Core System</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../technical_references/design_docs/dual-cpu/communication_prototype_between_nspe_and_spe_in_dual_core_systems.html">Communication Prototype Between NSPE And SPE In Dual Core System</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../technical_references/design_docs/dual-cpu/mailbox_design_on_dual_core_system.html">Mailbox Design in TF-M on Dual-core System</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../technical_references/design_docs/dual-cpu/tfm_multi_core_access_check.html">Memory Access Check of Trusted Firmware-M in Multi-Core Topology</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../technical_references/design_docs/bl1.html">BL1 Immutable bootloader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../technical_references/design_docs/code_sharing.html">Code sharing between independently linked XIP binaries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../technical_references/design_docs/enum_implicit_casting.html">Fixing implicit casting for C enumeration values</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../technical_references/design_docs/ff_isolation.html">FF-M Isolation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../technical_references/design_docs/hardware_abstraction_layer.html">Hardware Abstraction Layer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../technical_references/design_docs/mailbox_ns_agent_update.html">Mailbox NS Agent Design Update</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../technical_references/design_docs/ps_key_management.html">Protected Storage service key management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../technical_references/design_docs/secure_boot_hw_key_integration.html">HW crypto key integration in TF-M secure boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../technical_references/design_docs/secure_boot_rollback_protection.html">Rollback protection in TF-M secure boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../technical_references/design_docs/secure_partition_manager.html">Secure Partition Manager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../technical_references/design_docs/source_structure.html">Trusted Firmware-M Source Structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../technical_references/design_docs/stateless_rot_service.html">Stateless Root of Trust Services Reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../technical_references/design_docs/symmetric_initial_attest.html">Symmetric key algorithm based Initial Attestation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../technical_references/design_docs/tfm_builtin_keys.html">TF-M builtin keys</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../technical_references/design_docs/tfm_code_generation_with_jinja2.html">Code Generation With Jinja2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../technical_references/design_docs/tfm_cooperative_scheduling_rules.html">Cooperative Scheduling Rules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../technical_references/design_docs/tfm_crypto_design.html">Crypto Service design</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../technical_references/design_docs/tfm_fwu_service.html">Firmware Update Service</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../technical_references/design_docs/tfm_its_512_flash.html">Add support for block-aligned flash in Internal Trusted Storage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../technical_references/design_docs/tfm_its_service.html">Internal Trusted Storage (ITS) Service</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../technical_references/design_docs/tfm_log_system_design_document.html">Log system design document</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../technical_references/design_docs/tfm_physical_attack_mitigation.html">Physical attack mitigation in Trusted Firmware-M</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../technical_references/design_docs/tfm_psa_inter_process_communication.html">TF-M Inter-Process Communication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../technical_references/design_docs/tfm_secure_boot.html">Secure boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../technical_references/design_docs/tfm_secure_partition_runtime_library.html">Secure Partition Runtime Library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../technical_references/design_docs/tfm_uniform_secure_service_signature.html">Uniform Secure Service Signature</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../tools/index.html">Tools</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contribution</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/index.html">Guidelines</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../contributing/contributing_process.html">The process</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../contributing/code_review_guide.html">Code review</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../contributing/maintainers.html">Maintainers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../contributing/maintainers.html#code-owners">Code owners</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../contributing/coding_guide.html">Yet another coding standard :)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../contributing/doc_guidelines.html">Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../contributing/tfm_design_proposal_guideline.html">Design proposal</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/lic.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/dco.html">DCO</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Links</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://ci.trustedfirmware.org/view/TF-M/job/tf-m-build-docs-nightly/lastSuccessfulBuild/artifact/trusted-firmware-m/build/docs/reference_manual/html/index.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://developer.trustedfirmware.org/w/collaboration/security_center">Security Center</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://www.arm.com/architecture/security-features/platform-security">PSA</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">STMICROELECTRONICS</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../stm/releases/index.html">Releases</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../stm/releases/getting_started.html">Getting started</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32l562e_dk/readme.html">STM32L562E-DK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/stm/nucleo_l552ze_q/readme.html">NUCLEO-L552ZE-Q</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/stm/b_u585i_iot02a/readme.html">B-U585I-IOT02A</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../stm/releases/platforms.html">Platforms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../platform/stm/common/stm32l5xx/readme.html">STM32L5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/stm/common/stm32mp2/readme.html">STM32MP2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/stm/common/stm32u5xx/readme.html">STM32U5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/stm/nucleo_l552ze_q/readme.html">NUCLEO-L552ZE-Q</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32l562e_dk/readme.html">STM32L562E-DK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../stm/releases/changelog.html">Change Log &amp; Notes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../stm/releases/v1.7.0-stm32mp25-alpha-r1-rc3/changelog.html">v1.7.0-stm32mp25-alpha-r1-rc3</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../stm/technical/index.html">Technical references</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../stm/technical/a35_td_flavor/index.html">A35-TD flavor</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../stm/technical/a35_td_flavor/memory_layout.html">Memory layout</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../stm/technical/a35_td_flavor/storage.html">Storage</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../stm/technical/m33_td_flavor/index.html">M33-TD flavor</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../stm/technical/m33_td_flavor/memory_layout.html">Memory layout</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../stm/technical/m33_td_flavor/storage.html">Storage</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../stm/technical/devicetree/index.html">Devicetree</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../stm/technical/devicetree/devicetree_tfm.html">Scope and purpose</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../stm/technical/devicetree/devicetree_tfm.html#concept">Concept</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../stm/technical/devicetree/devicetree_tfm.html#how-to-add-device">How to add device</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../stm/technical/initlevel.html">Initlevel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../stm/technical/initial_attestation.html">Initial Attestation Service</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../stm/technical/nv_counter.html">Nv counter</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../stm/ide/index.html">Ide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../stm/ide/cubeide/stm32cubeide.html">STM32CubeIDE</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Trusted Firmware-M</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="index.html">Integration Guide</a> &raquo;</li>
+      <li>Non-secure Client Extension Integration Guide</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="non-secure-client-extension-integration-guide">
+<h1>Non-secure Client Extension Integration Guide<a class="headerlink" href="#non-secure-client-extension-integration-guide" title="Permalink to this heading"></a></h1>
+<p>This document introduces TF-M Non-secure Client Extension (NSCE) and how to
+integrate it with Non-secure Processing Environment (NSPE) RTOS.</p>
+<section id="what-is-nsce-for">
+<h2>What is NSCE for<a class="headerlink" href="#what-is-nsce-for" title="Permalink to this heading"></a></h2>
+<p>Besides the secure services provided via PSA APIs, there are two interactions
+between TF-M and NSPE RTOS.</p>
+<ul>
+<li><p>Non-secure context management in TF-M</p>
+<p>When a NS task calls a secure service, a context is maintained in TF-M. If
+TF-M supports multiple secure service calls, the context needs to be loaded
+and saved with the corresponding NS task when the RTOS kernel (the kernel)
+does scheduling.</p>
+</li>
+<li><p>Non-secure client ID (NSID) management</p>
+<p>As per PSA Firmware Framework specification, NSID is required for a secure
+service call from the NSPE. The NSID can be managed by either SPM (the same
+NSID must be used for all connections) or the NSPE RTOS. For the latter case,
+the NSPE RTOS must provide the NSID for each connection.</p>
+</li>
+</ul>
+<p>NSCE is implemented to support the interactions above.</p>
+<ul class="simple">
+<li><p>Provide the interface to NSPE RTOS for managing the context in TF-M.</p></li>
+<li><p>Provide a mechanism to NSPE RTOS for providing the NSID for each connection.</p></li>
+</ul>
+</section>
+<section id="nsce-component-diagram">
+<h2>NSCE component diagram<a class="headerlink" href="#nsce-component-diagram" title="Permalink to this heading"></a></h2>
+<figure class="align-center" id="id2">
+<img alt="../_images/nsce-integ.svg" src="../_images/nsce-integ.svg" /><figcaption>
+<p><span class="caption-number">Figure 2: </span><span class="caption-text">Non-secure Client Extension Component Diagram</span><a class="headerlink" href="#id2" title="Permalink to this image"></a></p>
+</figcaption>
+</figure>
+<p>This diagram shows the components of NSCE.</p>
+<ul class="simple">
+<li><p>NSCE interface: The NSCE API interface to NSPE RTOS.</p></li>
+<li><p>NS Client Context Manager: It is the internal component of SPM that is used to
+manage the NS client context. It is not accessible to NSPE.</p></li>
+</ul>
+</section>
+<section id="group-based-context-management">
+<h2>Group-based context management<a class="headerlink" href="#group-based-context-management" title="Permalink to this heading"></a></h2>
+<p>NSCE introduces a group-based context management for NS clients. The purpose is
+to support diverse use scenarios in the IoT world.</p>
+<p>For rich-resource devices, TF-M could assign separate contexts for each
+connection. For resource-constrained devices, TF-M may support very limited
+context slots. Multiple NS connections could share the same context provided
+they have mutual exclusion access to the secure services.</p>
+<p>To support this flexibility, a group ID (gid) and a thread ID (tid) are
+specified for the connection of the NS client. NSCE allocates only one context
+for a given group. Threads in the same group share the context.</p>
+<p>The gid and tid are specified by NSPE RTOS via NSCE interface.</p>
+</section>
+<section id="nsce-interface">
+<h2>NSCE interface<a class="headerlink" href="#nsce-interface" title="Permalink to this heading"></a></h2>
+<p>NSCE defines a set of APIs as the interface for NSPE RTOS to manage the context
+in TF-M. NSID is provided as an input parameter of <cite>tfm_nsce_load_ctx()</cite>.</p>
+<p>NSCE APIs are typically called by the kernel and must be called from the
+non-secure handler mode.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">tfm_nsce_init</span><span class="p">(</span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">ctx_requested</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This function should be called before any other NSCE APIs below to do non-secure
+context initialization in NSCE for the calling NS entity. <cite>ctx_requested</cite> is the
+number of the contexts requested by the NS entity. The number of assigned
+context will be returned. It may be equal to or smaller than the requested
+context number based on the current available resource in TF-M. If
+<cite>ctx_requested</cite> is <cite>0</cite>, then the maximum available context number will be
+assigned and returned. If the initialization is failed, <cite>0</cite> should be returned.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>As TF-M only supports one context for now, so the return value is always <cite>1</cite>
+if no error. Currently, it is safe to skip calling <cite>tfm_nsce_init()</cite>.
+But, for future compatibility, it is recommended to do so.</p>
+</div>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">tfm_nsce_acquire_ctx</span><span class="p">(</span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">group_id</span><span class="p">,</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">thread_id</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This function allocates a context for the NS client connection. The <cite>gid</cite> and
+<cite>tid</cite> are the input paramemters. A token will be returned to the NSPE if TF-M
+has an available context slot. Otherwise, <cite>TFM_NS_CLIENT_INVALID_TOKEN</cite> is
+returned.
+It is the responsibility of NSPE RTOS to assign gid and tid for each NS client.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">tfm_nsce_release_ctx</span><span class="p">(</span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">token</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This function tries to release the context which was retrieved by
+<cite>tfm_nsce_acquire_ctx()</cite>. As the context may be shared with other threads
+within the same group, the context is only freed and back to the available
+context pool after all threads in the same group release the context.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">tfm_nsce_load_ctx</span><span class="p">(</span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">token</span><span class="p">,</span><span class="w"> </span><span class="kt">int32_t</span><span class="w"> </span><span class="n">nsid</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This function should be called when NSPE RTOS schedules in a NS client. <cite>token</cite>
+is returned by <cite>tfm_nsce_acquire_ctx()</cite>. <cite>nsid</cite> is the non-secure client ID
+used for the following PSA service calls.</p>
+<p>The assignment of NSID is managed by the NSPE RTOS. It is not required to use
+the same NSID for a NS client when calling this function each time. This allows
+the NS client changing its NSID in the lifecycle. For example, the provisioning
+task may need to switch NSID to provision the keys for different NS clients
+created afterwards.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">tfm_nsce_save_ctx</span><span class="p">(</span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">token</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This function should be called when NSPE RTOS schedules out a NS client. The
+input parameter <cite>token</cite> is returned by <cite>tfm_nsce_acquire_ctx()</cite>.
+After the context is saved, no secure service call can be made from NSPE until a
+context is loaded via <cite>tfm_nsce_load_ctx()</cite>.</p>
+</section>
+<section id="nsce-integration-guide">
+<h2>NSCE integration guide<a class="headerlink" href="#nsce-integration-guide" title="Permalink to this heading"></a></h2>
+<section id="enable-nsce-in-tf-m">
+<h3>Enable NSCE in TF-M<a class="headerlink" href="#enable-nsce-in-tf-m" title="Permalink to this heading"></a></h3>
+<p>To enable NSCE in TF-M, set the build flag <cite>TFM_NS_MANAGE_NSID</cite> to <cite>ON</cite> (default
+<cite>OFF</cite>).</p>
+</section>
+<section id="support-nsce-in-an-rtos">
+<span id="id1"></span><h3>Support NSCE in an RTOS<a class="headerlink" href="#support-nsce-in-an-rtos" title="Permalink to this heading"></a></h3>
+<p>For supporting NSCE in an RTOS, the integrator needs to do the following major
+work:</p>
+<ul class="simple">
+<li><p>Integrate the NSCE API calls into the NS task lifecycle. For example,
+creating/scheduling/destroying a NS task.</p></li>
+<li><p>Manage the assignment for <cite>gid</cite>, <cite>tid</cite> and NSID.</p></li>
+</ul>
+<p>The typical steps are listed below:</p>
+<ul class="simple">
+<li><p>Before programming, the integrator should plan the group assignment for
+the NS tasks that need to call secure services. If the number of tasks is less
+than or equal to TF-M non-secure context slots, then different gid can be
+assigned to each task for taking dedicated context in TF-M.
+Otherwise, the integrator need to think about grouping the tasks to share the
+context.</p></li>
+<li><p>In the kernel initialization stage, it calls <cite>tfm_nsce_init()</cite> with
+requested context number to initialize the non-secure context in TF-M. The
+actual allocated context number will be returned. <cite>0</cite> means initialization
+failed. The kernel could use different group assignment sets according to the
+context number allocated to it. TF-M only supports one context for now.</p></li>
+<li><p>The kernel calls <cite>tfm_nsce_acquire_ctx()</cite> when creating a new task. This
+should be done before the new task calls any secure service. A valid token
+returned should be saved as part of the task context in NSPE RTOS.</p></li>
+<li><p>When the kernel schedules in a task with a valid <cite>token</cite> associated,
+<cite>tfm_nsce_load_ctx()</cite> should be called before resuming the execution of that
+task. The NSID is specified by the kernel through the <cite>nsid</cite> parameter.
+The mapping between NSID and task is managed by the kernel.
+<cite>tfm_nsce_load_ctx()</cite> can be called multiple times without calling
+<cite>tfm_nsce_save_ctx()</cite> for switching the NSID for the same task (same tid and
+gid).</p></li>
+<li><p><cite>tfm_nsce_save_ctx()</cite> should be called if the current task has a valid
+<cite>token</cite> before being switched to another task. Calling <cite>tfm_nsce_load_ctx()</cite>
+for another task before saving the current context may result in NS context
+lost in TF-M for the running task.</p></li>
+<li><p>When the task is terminated, destroyed or crashed, the kernel should call
+<cite>tfm_nsce_release_ctx</cite> to make sure the associated resource is back to the
+pool in TF-M.</p></li>
+</ul>
+</section>
+<section id="integration-example">
+<h3>Integration example<a class="headerlink" href="#integration-example" title="Permalink to this heading"></a></h3>
+<figure class="align-center" id="id3">
+<img alt="../_images/nsce-rtos-example.svg" src="../_images/nsce-rtos-example.svg" /><figcaption>
+<p><span class="caption-number">Figure 3: </span><span class="caption-text">RTOS/NSCE integration example</span><a class="headerlink" href="#id3" title="Permalink to this image"></a></p>
+</figcaption>
+</figure>
+<p>This is the software module diagram of a typical RTOS/NSCE integration example.</p>
+<ul class="simple">
+<li><p>Built-in Secure Context Manager: An RTOS may have an existing built-in secure
+context manager with a group of secure context management APIs defined. Let’s
+take RTX which uses <a class="reference external" href="https://www.keil.com/pack/doc/CMSIS/Core/html/group__context__trustzone__functions.html">Armv8-M TrustZone APIs</a>
+as the example.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>RTOS may define the NS task context in the secure side as “secure context”. It
+is the same thing as the “non-secure context” (context for a secure service
+call from NS client) from TF-M’s point of view.</p>
+</div>
+<ul>
+<li><p>Shim Layer/Secure Context Manager: If the RTOS has a “Built-in Secure Context
+Manager”, then a shim layer should be provided to translate the built-in API
+calls into the NSCE API calls. A reference shim layer for RTX TrustZone APIs
+is <a class="reference external" href="https://review.trustedfirmware.org/c/TF-M/tf-m-tests/+/11291">here</a>.</p>
+<p>If the RTOS has no existing one, then a “Secure Context Manager” should be
+implemented based on the NSCE APIs. You can refer to the shim layer example
+above for the implementation. The timing of calling NSCE APIs in the kernel is
+introduced in the <a class="reference internal" href="#support-nsce-in-an-rtos"><span class="std std-ref">Support NSCE in an RTOS</span></a> section above.</p>
+</li>
+<li><p>NSID Manager: If NSPE RTOS manages the NSID, then this module is used by the
+secure context manager or shim layer to manage the NSID assignment for the
+NS tasks. The assignment is implementation defined. A <a class="reference external" href="https://review.trustedfirmware.org/c/TF-M/tf-m-tests/+/11290">task name based NSID
+manager</a> is provided as a reference.</p></li>
+</ul>
+</section>
+<section id="integration-notes">
+<h3>Integration notes<a class="headerlink" href="#integration-notes" title="Permalink to this heading"></a></h3>
+<ul class="simple">
+<li><p><cite>gid</cite>: It is a <cite>uint8_t</cite> value (valid range is 0 - 255). So, maximum 256
+groups (NSCE context slots) are supported by the NSCE interface.
+TF-M only supports single context for now. So, it is recommended to use
+single group ID at this stage.</p></li>
+<li><p><cite>tid</cite>: It is a <cite>uint8_t</cite> value (valid range is 0 - 255). Thread ID is used to
+identify a NS client within a given group. <cite>tid</cite> has no special meaning for
+TF-M. So, usually the kernel only needs to ensure a NS task has a unique <cite>tid</cite>
+within a group.</p></li>
+<li><p><cite>gid</cite> and <cite>tid</cite> management: It is the responsibility of NSPE RTOS to manage
+the assignment of <cite>gid</cite> and <cite>tid</cite>. Based on the explaination above, the <cite>gid</cite>
+could be assigned as a constant value. And, the <cite>tid</cite> can be increased
+globally when calling <cite>tfm_nsce_acquire_ctx()</cite> for a new task. Just notice
+<cite>tid</cite> may overflow.</p></li>
+<li><p>NSID management: It is the responsibility of NSPE RTOS to manage the
+assignment of the NSID for each task. It is highly recommended that a NS
+client uses the same NSID following a reboot or update. The binding of a NS
+client to a specific NSID will ensure the correct access to the assets. For
+example, the data saved in the protected storage.</p></li>
+<li><p>Integrate with the existing secure context management APIs of NSPE RTOS: The
+NSCE APIs are designed to be compatible with most known existing secure
+context management APIs. A shim layer is needed to translate the API calls.
+See the integration example above.</p></li>
+<li><p><cite>tfm_nsce_acquire_ctx()</cite> must be called before calling
+<cite>tfm_nsce_load_ctx()</cite>, <cite>tfm_nsce_save_ctx()</cite> or <cite>tfm_nsce_release_ctx()</cite>.</p></li>
+<li><p><cite>tfm_nsce_release_ctx()</cite> can be called without calling <cite>tfm_nsce_save_ctx()</cite>
+ahead.</p></li>
+</ul>
+<hr class="docutils" />
+<p><em>Copyright (c) 2021, Arm Limited. All rights reserved.</em></p>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p></p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

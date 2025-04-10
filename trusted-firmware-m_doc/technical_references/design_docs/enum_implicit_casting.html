@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fixing implicit casting for C enumeration values &mdash; Trusted Firmware-M v1.7.0-stm32mp25-alpha-r1-rc3-doc documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/tfm_custom.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/tabs.css" type="text/css" />
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="FF-M Isolation" href="ff_isolation.html" />
+    <link rel="prev" title="Code sharing between independently linked XIP binaries" href="code_sharing.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> Trusted Firmware-M
+            <img src="../../_static/tf_logo_white.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                v1.7.0-stm32mp25-alpha-r1-rc3-doc
+
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../introduction/index.html">Introduction</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started/index.html">Getting Started</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../security/index.html">Security</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../security/security_advisories/index.html">Security Advisories</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/stack_seal_vulnerability.html">Advisory TFMV-1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/svc_caller_sp_fetching_vulnerability.html">Advisory TFMV-2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/crypto_multi_part_ops_abort_fail.html">Advisory TFMV-3</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/profile_small_key_id_encoding_vulnerability.html">Advisory TFMV-4</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/fwu_write_vulnerability.html">Advisory TFMV-5</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../security/threat_models/index.html">Threat Models</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../security/threat_models/generic_threat_model.html">Trusted Firmware-M Generic Threat Model</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../security/security.html">Security Handling</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../releases/index.html">Releases</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/1.7.0.html">v1.7.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/1.6.1.html">v1.6.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/1.6.0.html">v1.6.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/1.5.0.html">v1.5.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/release_process.html">Release Cadence and Process</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../glossary.html">Glossary</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../platform/index.html">Platform Selection</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/arm/index.html">Arm platforms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/corstone1000/readme.html">Corstone-1000</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/mps3/an547/README.html">Corstone-300 FPGA (AN547)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/mps3/an552/README.html">Corstone-300 FPGA and FVP (AN552)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/mps3/corstone310/README.html">Corstone-310 FVP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/musca_b1/readme.html">Musca-B1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/musca_s1/readme.html">Musca-S1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/rss/readme.html">Runtime Security Subsystem</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/nxp/lpcxpresso55s69/README.html">LPCXpresso55S69</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/cypress/psoc64/index.html">Cypress PSoC64</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/cypress/psoc64/cypress_psoc64_spec.html">Cypress PSoC64 Specifics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/cypress/psoc64/libs/core-lib/README.html">Core Library</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/cypress/psoc64/libs/core-lib/RELEASE.html">Core Library Release Notes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/stm/index.html">STMICROELECTRONICS</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32l5xx/readme.html">STM32L5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32mp2/readme.html">STM32MP2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32u5xx/readme.html">STM32U5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/nucleo_l552ze_q/readme.html">NUCLEO-L552ZE-Q</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32l562e_dk/readme.html">STM32L562E-DK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/b_u585i_iot02a/readme.html">B-U585I-IOT02A</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/nordic_nrf/nrf5340dk_nrf5340_cpuapp/README.html">Nordic nRF5340</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/nordic_nrf/nrf9160dk_nrf9160/README.html">Nordic nRF9160</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/lairdconnectivity/bl5340_dvk_cpuapp/README.html">Laird Connectivity BL5340</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/nuvoton/m2351/README.html">NuMaker-PFM-M2351</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/nuvoton/m2354/README.html">NuMaker-PFM-M2354</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../building/tfm_build_instruction.html">Build instructions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../building/run_tfm_examples_on_arm_platforms.html">Run TF-M examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../building/documentation_generation.html">Building the documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../building/tfm_build_instruction_iar.html">IAR toolchain</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../configuration/index.html">Configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../configuration/build_configuration.html">Build configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../configuration/header_file_system.html">Component configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../configuration/kconfig_system.html">Kconfig</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../configuration/profiles/index.html">Profiles</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../configuration/profiles/tfm_profile_small.html"> Small</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../configuration/profiles/tfm_profile_medium_arot-less.html"> ARoT-less</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../configuration/profiles/tfm_profile_medium.html"> Medium</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../configuration/profiles/tfm_profile_large.html"> Large</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../configuration/test_configuration.html">Tests configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../integration_guide/index.html">Integration Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../integration_guide/spm_backends.html">SPM Backends</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../integration_guide/non-secure_client_extension_integration_guide.html">NS client integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../integration_guide/os_migration_guide_armv8m.html">OS migration to Armv8-M</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../integration_guide/tfm_fpu_support.html">Floating-Point Support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../integration_guide/tfm_secure_irq_integration_guide.html">Secure Interrupt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../integration_guide/platform/index.html">Adding a new platform</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/platform/platform_folder.html">Details for the platform folder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/platform/platform_ext_folder.html">Details for the platform/ext folder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/platform/porting_TFM_to_a_new_hardware.html">Porting TF-M to a New Hardware</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/platform/platform_provisioning.html">Platform Provisioning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/platform/platform_deprecation.html">Platform deprecation and removal</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../integration_guide/services/index.html">Services</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/services/tfm_attestation_integration_guide.html">Initial Attestation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/services/tfm_crypto_integration_guide.html">Crypto</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/services/tfm_its_integration_guide.html">Internal Storage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/services/tfm_platform_integration_guide.html">Platform</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/services/tfm_ps_integration_guide.html">Protected Storage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/services/tfm_secure_partition_addition.html">Adding a New Service</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/services/tfm_manifest_tool_user_guide.html">The manifest tool</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Design Documents</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="dual-cpu/index.html">Dual-CPU</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="dual-cpu/booting_a_dual_core_system.html">Booting a Dual-Core System</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dual-cpu/communication_prototype_between_nspe_and_spe_in_dual_core_systems.html">Communication Prototype Between NSPE And SPE In Dual Core System</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dual-cpu/mailbox_design_on_dual_core_system.html">Mailbox Design in TF-M on Dual-core System</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dual-cpu/tfm_multi_core_access_check.html">Memory Access Check of Trusted Firmware-M in Multi-Core Topology</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="bl1.html">BL1 Immutable bootloader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="code_sharing.html">Code sharing between independently linked XIP binaries</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Fixing implicit casting for C enumeration values</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ff_isolation.html">FF-M Isolation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hardware_abstraction_layer.html">Hardware Abstraction Layer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mailbox_ns_agent_update.html">Mailbox NS Agent Design Update</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ps_key_management.html">Protected Storage service key management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="secure_boot_hw_key_integration.html">HW crypto key integration in TF-M secure boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="secure_boot_rollback_protection.html">Rollback protection in TF-M secure boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="secure_partition_manager.html">Secure Partition Manager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="source_structure.html">Trusted Firmware-M Source Structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="stateless_rot_service.html">Stateless Root of Trust Services Reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="symmetric_initial_attest.html">Symmetric key algorithm based Initial Attestation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tfm_builtin_keys.html">TF-M builtin keys</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tfm_code_generation_with_jinja2.html">Code Generation With Jinja2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tfm_cooperative_scheduling_rules.html">Cooperative Scheduling Rules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tfm_crypto_design.html">Crypto Service design</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tfm_fwu_service.html">Firmware Update Service</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tfm_its_512_flash.html">Add support for block-aligned flash in Internal Trusted Storage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tfm_its_service.html">Internal Trusted Storage (ITS) Service</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tfm_log_system_design_document.html">Log system design document</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tfm_physical_attack_mitigation.html">Physical attack mitigation in Trusted Firmware-M</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tfm_psa_inter_process_communication.html">TF-M Inter-Process Communication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tfm_secure_boot.html">Secure boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tfm_secure_partition_runtime_library.html">Secure Partition Runtime Library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tfm_uniform_secure_service_signature.html">Uniform Secure Service Signature</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../tools/index.html">Tools</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contribution</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing/index.html">Guidelines</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/contributing_process.html">The process</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/code_review_guide.html">Code review</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/maintainers.html">Maintainers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/maintainers.html#code-owners">Code owners</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/coding_guide.html">Yet another coding standard :)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/doc_guidelines.html">Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/tfm_design_proposal_guideline.html">Design proposal</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing/lic.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing/dco.html">DCO</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Links</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://ci.trustedfirmware.org/view/TF-M/job/tf-m-build-docs-nightly/lastSuccessfulBuild/artifact/trusted-firmware-m/build/docs/reference_manual/html/index.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://developer.trustedfirmware.org/w/collaboration/security_center">Security Center</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://www.arm.com/architecture/security-features/platform-security">PSA</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">STMICROELECTRONICS</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../stm/releases/index.html">Releases</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/releases/getting_started.html">Getting started</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32l562e_dk/readme.html">STM32L562E-DK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/nucleo_l552ze_q/readme.html">NUCLEO-L552ZE-Q</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/b_u585i_iot02a/readme.html">B-U585I-IOT02A</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/releases/platforms.html">Platforms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32l5xx/readme.html">STM32L5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32mp2/readme.html">STM32MP2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32u5xx/readme.html">STM32U5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/nucleo_l552ze_q/readme.html">NUCLEO-L552ZE-Q</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32l562e_dk/readme.html">STM32L562E-DK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/releases/changelog.html">Change Log &amp; Notes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/releases/v1.7.0-stm32mp25-alpha-r1-rc3/changelog.html">v1.7.0-stm32mp25-alpha-r1-rc3</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../stm/technical/index.html">Technical references</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/technical/a35_td_flavor/index.html">A35-TD flavor</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/technical/a35_td_flavor/memory_layout.html">Memory layout</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/technical/a35_td_flavor/storage.html">Storage</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/technical/m33_td_flavor/index.html">M33-TD flavor</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/technical/m33_td_flavor/memory_layout.html">Memory layout</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/technical/m33_td_flavor/storage.html">Storage</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/technical/devicetree/index.html">Devicetree</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/technical/devicetree/devicetree_tfm.html">Scope and purpose</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/technical/devicetree/devicetree_tfm.html#concept">Concept</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/technical/devicetree/devicetree_tfm.html#how-to-add-device">How to add device</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/technical/initlevel.html">Initlevel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/technical/initial_attestation.html">Initial Attestation Service</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/technical/nv_counter.html">Nv counter</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../stm/ide/index.html">Ide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/ide/cubeide/stm32cubeide.html">STM32CubeIDE</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Trusted Firmware-M</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="index.html">Design Documents</a> &raquo;</li>
+      <li>Fixing implicit casting for C enumeration values</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="fixing-implicit-casting-for-c-enumeration-values">
+<h1>Fixing implicit casting for C enumeration values<a class="headerlink" href="#fixing-implicit-casting-for-c-enumeration-values" title="Permalink to this heading"></a></h1>
+<dl class="field-list simple">
+<dt class="field-odd">Author</dt>
+<dd class="field-odd"><p>Hugues de Valon</p>
+</dd>
+<dt class="field-even">Organization</dt>
+<dd class="field-even"><p>Arm Limited</p>
+</dd>
+<dt class="field-odd">Contact</dt>
+<dd class="field-odd"><p><a class="reference external" href="mailto:hugues&#46;devalon&#37;&#52;&#48;arm&#46;com">hugues<span>&#46;</span>devalon<span>&#64;</span>arm<span>&#46;</span>com</a></p>
+</dd>
+</dl>
+<section id="abstract">
+<h2>Abstract<a class="headerlink" href="#abstract" title="Permalink to this heading"></a></h2>
+<p>C enumerations provide a nice way to increase readability by creating new
+enumerated types but the developer should take extra care when mixing
+enumeration and integer values.
+This document investigates C enumerations safety and proposes strategies on how
+to fix the implicit casting of the enumeration values of TF-M with other types.</p>
+</section>
+<section id="c99-standard-point-of-view">
+<h2>C99 Standard point of view<a class="headerlink" href="#c99-standard-point-of-view" title="Permalink to this heading"></a></h2>
+<p>In TF-M many implicit casts are done between integer types (<code class="docutils literal notranslate"><span class="pre">uint32_t</span></code>,
+<code class="docutils literal notranslate"><span class="pre">int32_t</span></code>, <code class="docutils literal notranslate"><span class="pre">size_t</span></code>, etc), enumerated types (<code class="docutils literal notranslate"><span class="pre">enum</span> <span class="pre">foobar</span></code>) and
+enumeration constants (<code class="docutils literal notranslate"><span class="pre">FOOBAR_ENUM_1</span></code>).</p>
+<p>According to the C99 standard <a class="footnote-reference brackets" href="#id3" id="id1">1</a>:</p>
+<blockquote>
+<div><p><strong>§6.2.5, 16</strong>:
+An enumeration comprises a set of named integer constant values. Each
+distinct enumeration constitutes a different numerated type.</p>
+<p><strong>§6.7.2.2, 2</strong>:
+The expression that defines the value of an enumeration constant shall be an
+integer constant expression that has a value representable as an int.</p>
+<p><strong>§6.7.2.2, 3</strong>:
+The identifiers in an enumerator list are declared as constants that have
+type int and may appear wherever such are permitted.</p>
+<p><strong>§6.7.2.2, 4</strong>:
+Each enumerated type shall be compatible with char, a signed integer type,
+or an unsigned integer type. The choice of type is implementation-defined,
+but shall be capable of representing the values of all the members of the
+enumeration.</p>
+</div></blockquote>
+<p>From these four quotes from the C99 standard <a class="footnote-reference brackets" href="#id3" id="id2">1</a>, the following conclusions can
+be made:</p>
+<ul class="simple">
+<li><p>an enumeration defines a new type and should be treated as such</p></li>
+<li><p>the enumeration constants must only contains value representable as an <code class="docutils literal notranslate"><span class="pre">int</span></code></p></li>
+<li><p>the enumeration constants have type <code class="docutils literal notranslate"><span class="pre">int</span></code></p></li>
+<li><p>the actual type of the enumeration can be between <code class="docutils literal notranslate"><span class="pre">char</span></code>, signed and
+unsigned <code class="docutils literal notranslate"><span class="pre">int</span></code>. The compiler chooses the type it wants among those that can
+represent all declared constants of the enumeration.</p></li>
+</ul>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">enum</span> <span class="n">french_cities</span> <span class="p">{</span>
+    <span class="n">MARSEILLE</span><span class="p">,</span>
+    <span class="n">PARIS</span><span class="p">,</span>
+    <span class="n">LILLE</span><span class="p">,</span>
+    <span class="n">LYON</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>In that example, <code class="docutils literal notranslate"><span class="pre">MARSEILLE</span></code>, <code class="docutils literal notranslate"><span class="pre">PARIS</span></code>, <code class="docutils literal notranslate"><span class="pre">LILLE</span></code> and <code class="docutils literal notranslate"><span class="pre">LYON</span></code> are
+enumeration constants of type <code class="docutils literal notranslate"><span class="pre">int</span></code> and <code class="docutils literal notranslate"><span class="pre">enum</span> <span class="pre">french_cities</span></code> is a enumerated
+type which can be of actual type <code class="docutils literal notranslate"><span class="pre">char</span></code>, <code class="docutils literal notranslate"><span class="pre">unsigned</span> <span class="pre">int</span></code> or <code class="docutils literal notranslate"><span class="pre">int</span></code>
+(the compiler chooses!).</p>
+<p>For these reasons, doing an implicit cast between an enumeration and another
+type is the same as doing an implicit cast between two different types. From a
+defensive programming point of view, it should be checked that the destination
+type can represent the values from the origin type. In this specific case it
+means four things for enumerations:</p>
+<ul class="simple">
+<li><p>it is always safe to assign an enumeration constant to an int, but might be
+better to cast to show intent.</p></li>
+<li><p>when casting an enumeration constant to another type, it should be checked
+that the constant can fit into the destination type.</p></li>
+<li><p>when casting from an integer type (<code class="docutils literal notranslate"><span class="pre">uint32_t</span></code>, <code class="docutils literal notranslate"><span class="pre">int32_t</span></code>, etc) to an
+enumeration type, it should be checked that the integer’s value is one of the
+enumeration constants. The comparison needs to be done on the biggest type of
+the two so that no information is lost. C integer promotion should
+automatically do that for the programmer (check §6.3.1.8, 1 for the rules).</p></li>
+<li><p>when casting from an enumeration type to an integer type, it should be checked
+that the enumeration type value fits into the integer type. The value of a
+variable which has the type of an enumeration type is not limited to the
+enumeration constants of the type. An enumeration constant will always fit
+into an <code class="docutils literal notranslate"><span class="pre">int</span></code>.</p></li>
+</ul>
+</section>
+<section id="strategies-to-fix">
+<h2>Strategies to fix<a class="headerlink" href="#strategies-to-fix" title="Permalink to this heading"></a></h2>
+<ol class="arabic simple" start="0">
+<li><p>Replace the enumerated type with an integer type and replace the enumeration
+constant with preprocessor constants.</p></li>
+<li><p>Whenever possible, try to use matching types to avoid implicit casting.
+It happens, for example, for arithmetic operations, function calls and
+function returns. This strategy always have the lowest performance impact.</p></li>
+<li><p>When using an enumeration constant in an arithmetic operation with another
+type, verify that the constant can fit in the other type and cast it.</p></li>
+<li><p>When converting an integer to an enumeration type, use a conversion function
+to check if the integer matches an enumeration constant. To not impact
+performance too much, this function should be an inline function. If it does
+not match, use (or add) the error constant or return an error value.</p></li>
+<li><p>When converting an enumeration type to an integer, use a conversion function
+to check that the integer type can contain the enumeration value.</p></li>
+</ol>
+</section>
+<section id="design-proposal-for-tf-m">
+<h2>Design proposal for TF-M<a class="headerlink" href="#design-proposal-for-tf-m" title="Permalink to this heading"></a></h2>
+<p>In TF-M, an action will be taken for all enumerated types and enumeration
+constants that are used for implicit casting. The goal of this proposal is to
+remove all implicit casting of enumeration values in TF-M.</p>
+<p>The following enumerated types will be removed and replaced with preprocessor
+constants (strategy 0). These enumerated types are not used in TF-M
+but only the constants they declare.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">enum</span> <span class="pre">spm_part_state_t</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">enum</span> <span class="pre">spm_part_flag_mask_t</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">enum</span> <span class="pre">tfm_partition_priority</span></code></p></li>
+</ul>
+<p>The following enumerated types will be kept because they are used in the
+prototypes of functions and are useful for debugging. Whenever possible,
+strategy 1 will be applied to remove implicit casting related with those
+enumerations but dynamic conversions will be used if the first option would
+create too much change in the code base.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">enum</span> <span class="pre">tfm_status_e</span></code>: the return type of the following functions will be
+changed to return the <code class="docutils literal notranslate"><span class="pre">enum</span> <span class="pre">tfm_status_e</span></code> type. These functions are already
+returning the enumeration constants, but implicitly casted to an integer type
+like <code class="docutils literal notranslate"><span class="pre">int32_t</span></code>.</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">int32_t</span> <span class="pre">check_address_range</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">int32_t</span> <span class="pre">has_access_to_region</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">int32_t</span> <span class="pre">tfm_core_check_sfn_parameters</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">int32_t</span> <span class="pre">tfm_start_partition</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">int32_t</span> <span class="pre">tfm_return_from_partition</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">int32_t</span> <span class="pre">tfm_check_sfn_req_integrity</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">int32_t</span> <span class="pre">tfm_core_check_sfn_req_rules</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">int32_t</span> <span class="pre">tfm_spm_sfn_request_handler</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">int32_t</span> <span class="pre">tfm_spm_sfn_request_thread_mode</span></code></p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">enum</span> <span class="pre">tfm_buffer_share_region_e</span></code>: the following function prototypes will be
+changed:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">tfm_spm_partition_set_share(uint32_t</span> <span class="pre">partition_idx,</span> <span class="pre">uint32_t</span> <span class="pre">share)</span></code> -&gt; <code class="docutils literal notranslate"><span class="pre">tfm_spm_partition_set_share(uint32_t</span> <span class="pre">partition_idx,</span> <span class="pre">enum</span> <span class="pre">tfm_buffer_share_region_e</span> <span class="pre">share)</span></code></p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">enum</span> <span class="pre">tfm_memory_access_e</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">enum</span> <span class="pre">attest_memory_access_t</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">enum</span> <span class="pre">engine_cipher_mode_t</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">mbedtls_cipher_type_t</span></code></p></li>
+</ul>
+<p>The following enumerated types are used for error code values of Secure service
+calls. They should be kept as they are part of the interface and might be used
+by external parties in Non-Secure code. For the Initial Attestation service,
+the enumeration is defined in the PSA Attestation API specifications.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">enum</span> <span class="pre">psa_attest_err_t</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">enum</span> <span class="pre">psa_audit_err</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">enum</span> <span class="pre">tfm_platform_err_t</span></code></p></li>
+</ul>
+<p>Implicit casting related with these enumerations is happening in two locations
+of TF-M and need conversion functions in those locations, because the types can
+not be changed:</p>
+<ul class="simple">
+<li><p>In the Non-Secure Client library, all of the Secure Service functions
+implicitly cast the <code class="docutils literal notranslate"><span class="pre">uint32_t</span></code> returned by <code class="docutils literal notranslate"><span class="pre">tfm_ns_lock_dispatch</span></code> to
+these enumerated types. Strategy 3 is needed here.</p></li>
+<li><p>In all of the veneer functions, there is an implicit cast from the <code class="docutils literal notranslate"><span class="pre">int32_t</span></code>
+value returned by the SVC request function (<code class="docutils literal notranslate"><span class="pre">tfm_core_*_request</span></code>) to these
+enumerated types. Strategy 3 is needed here as well. The implicit cast will
+eventually be removed if all of the services are using the Uniform Signatures
+Prototypes so that the veneer functions all return <code class="docutils literal notranslate"><span class="pre">psa_status_t</span></code> which is
+an <code class="docutils literal notranslate"><span class="pre">int32_t</span></code>.</p></li>
+</ul>
+<p>If the interface of those services can be changed, these enumerations could be
+removed and replaced with the <code class="docutils literal notranslate"><span class="pre">psa_status_t</span></code> type to remove the implicit
+casting.</p>
+<dl class="footnote brackets">
+<dt class="label" id="id3"><span class="brackets">1</span><span class="fn-backref">(<a href="#id1">1</a>,<a href="#id2">2</a>)</span></dt>
+<dd><p>C99 standard: <a class="reference external" href="http://www.open-std.org/jtc1/sc22/WG14/www/docs/n1256.pdf">http://www.open-std.org/jtc1/sc22/WG14/www/docs/n1256.pdf</a></p>
+</dd>
+</dl>
+<hr class="docutils" />
+<p><em>Copyright (c) 2019-2020, Arm Limited. All rights reserved.</em></p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p></p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

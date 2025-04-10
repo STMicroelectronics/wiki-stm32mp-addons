@@ -1,0 +1,974 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Trusted Firmware-M Profile Small Design &mdash; Trusted Firmware-M v1.7.0-stm32mp25-alpha-r1-rc3-doc documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/tfm_custom.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/tabs.css" type="text/css" />
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Trusted Firmware-M Profile Medium-ARoT-less" href="tfm_profile_medium_arot-less.html" />
+    <link rel="prev" title="TF-M Profiles" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> Trusted Firmware-M
+            <img src="../../_static/tf_logo_white.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                v1.7.0-stm32mp25-alpha-r1-rc3-doc
+
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../introduction/index.html">Introduction</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started/index.html">Getting Started</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../security/index.html">Security</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../security/security_advisories/index.html">Security Advisories</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/stack_seal_vulnerability.html">Advisory TFMV-1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/svc_caller_sp_fetching_vulnerability.html">Advisory TFMV-2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/crypto_multi_part_ops_abort_fail.html">Advisory TFMV-3</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/profile_small_key_id_encoding_vulnerability.html">Advisory TFMV-4</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/fwu_write_vulnerability.html">Advisory TFMV-5</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../security/threat_models/index.html">Threat Models</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../security/threat_models/generic_threat_model.html">Trusted Firmware-M Generic Threat Model</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../security/security.html">Security Handling</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../releases/index.html">Releases</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/1.7.0.html">v1.7.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/1.6.1.html">v1.6.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/1.6.0.html">v1.6.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/1.5.0.html">v1.5.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/release_process.html">Release Cadence and Process</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../glossary.html">Glossary</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../platform/index.html">Platform Selection</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/arm/index.html">Arm platforms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/corstone1000/readme.html">Corstone-1000</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/mps3/an547/README.html">Corstone-300 FPGA (AN547)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/mps3/an552/README.html">Corstone-300 FPGA and FVP (AN552)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/mps3/corstone310/README.html">Corstone-310 FVP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/musca_b1/readme.html">Musca-B1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/musca_s1/readme.html">Musca-S1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/rss/readme.html">Runtime Security Subsystem</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/nxp/lpcxpresso55s69/README.html">LPCXpresso55S69</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/cypress/psoc64/index.html">Cypress PSoC64</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/cypress/psoc64/cypress_psoc64_spec.html">Cypress PSoC64 Specifics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/cypress/psoc64/libs/core-lib/README.html">Core Library</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/cypress/psoc64/libs/core-lib/RELEASE.html">Core Library Release Notes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/stm/index.html">STMICROELECTRONICS</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32l5xx/readme.html">STM32L5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32mp2/readme.html">STM32MP2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32u5xx/readme.html">STM32U5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/nucleo_l552ze_q/readme.html">NUCLEO-L552ZE-Q</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32l562e_dk/readme.html">STM32L562E-DK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/b_u585i_iot02a/readme.html">B-U585I-IOT02A</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/nordic_nrf/nrf5340dk_nrf5340_cpuapp/README.html">Nordic nRF5340</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/nordic_nrf/nrf9160dk_nrf9160/README.html">Nordic nRF9160</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/lairdconnectivity/bl5340_dvk_cpuapp/README.html">Laird Connectivity BL5340</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/nuvoton/m2351/README.html">NuMaker-PFM-M2351</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/nuvoton/m2354/README.html">NuMaker-PFM-M2354</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../building/tfm_build_instruction.html">Build instructions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../building/run_tfm_examples_on_arm_platforms.html">Run TF-M examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../building/documentation_generation.html">Building the documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../building/tfm_build_instruction_iar.html">IAR toolchain</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Configuration</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../build_configuration.html">Build configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../header_file_system.html">Component configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../kconfig_system.html">Kconfig</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Profiles</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#"> Small</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tfm_profile_medium_arot-less.html"> ARoT-less</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tfm_profile_medium.html"> Medium</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tfm_profile_large.html"> Large</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../test_configuration.html">Tests configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../integration_guide/index.html">Integration Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../integration_guide/spm_backends.html">SPM Backends</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../integration_guide/non-secure_client_extension_integration_guide.html">NS client integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../integration_guide/os_migration_guide_armv8m.html">OS migration to Armv8-M</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../integration_guide/tfm_fpu_support.html">Floating-Point Support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../integration_guide/tfm_secure_irq_integration_guide.html">Secure Interrupt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../integration_guide/platform/index.html">Adding a new platform</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/platform/platform_folder.html">Details for the platform folder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/platform/platform_ext_folder.html">Details for the platform/ext folder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/platform/porting_TFM_to_a_new_hardware.html">Porting TF-M to a New Hardware</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/platform/platform_provisioning.html">Platform Provisioning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/platform/platform_deprecation.html">Platform deprecation and removal</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../integration_guide/services/index.html">Services</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/services/tfm_attestation_integration_guide.html">Initial Attestation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/services/tfm_crypto_integration_guide.html">Crypto</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/services/tfm_its_integration_guide.html">Internal Storage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/services/tfm_platform_integration_guide.html">Platform</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/services/tfm_ps_integration_guide.html">Protected Storage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/services/tfm_secure_partition_addition.html">Adding a New Service</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/services/tfm_manifest_tool_user_guide.html">The manifest tool</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../technical_references/design_docs/index.html">Design Documents</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/dual-cpu/index.html">Dual-CPU</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../technical_references/design_docs/dual-cpu/booting_a_dual_core_system.html">Booting a Dual-Core System</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../technical_references/design_docs/dual-cpu/communication_prototype_between_nspe_and_spe_in_dual_core_systems.html">Communication Prototype Between NSPE And SPE In Dual Core System</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../technical_references/design_docs/dual-cpu/mailbox_design_on_dual_core_system.html">Mailbox Design in TF-M on Dual-core System</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../technical_references/design_docs/dual-cpu/tfm_multi_core_access_check.html">Memory Access Check of Trusted Firmware-M in Multi-Core Topology</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/bl1.html">BL1 Immutable bootloader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/code_sharing.html">Code sharing between independently linked XIP binaries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/enum_implicit_casting.html">Fixing implicit casting for C enumeration values</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/ff_isolation.html">FF-M Isolation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/hardware_abstraction_layer.html">Hardware Abstraction Layer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/mailbox_ns_agent_update.html">Mailbox NS Agent Design Update</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/ps_key_management.html">Protected Storage service key management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/secure_boot_hw_key_integration.html">HW crypto key integration in TF-M secure boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/secure_boot_rollback_protection.html">Rollback protection in TF-M secure boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/secure_partition_manager.html">Secure Partition Manager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/source_structure.html">Trusted Firmware-M Source Structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/stateless_rot_service.html">Stateless Root of Trust Services Reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/symmetric_initial_attest.html">Symmetric key algorithm based Initial Attestation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/tfm_builtin_keys.html">TF-M builtin keys</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/tfm_code_generation_with_jinja2.html">Code Generation With Jinja2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/tfm_cooperative_scheduling_rules.html">Cooperative Scheduling Rules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/tfm_crypto_design.html">Crypto Service design</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/tfm_fwu_service.html">Firmware Update Service</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/tfm_its_512_flash.html">Add support for block-aligned flash in Internal Trusted Storage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/tfm_its_service.html">Internal Trusted Storage (ITS) Service</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/tfm_log_system_design_document.html">Log system design document</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/tfm_physical_attack_mitigation.html">Physical attack mitigation in Trusted Firmware-M</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/tfm_psa_inter_process_communication.html">TF-M Inter-Process Communication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/tfm_secure_boot.html">Secure boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/tfm_secure_partition_runtime_library.html">Secure Partition Runtime Library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/tfm_uniform_secure_service_signature.html">Uniform Secure Service Signature</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../tools/index.html">Tools</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contribution</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing/index.html">Guidelines</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/contributing_process.html">The process</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/code_review_guide.html">Code review</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/maintainers.html">Maintainers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/maintainers.html#code-owners">Code owners</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/coding_guide.html">Yet another coding standard :)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/doc_guidelines.html">Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/tfm_design_proposal_guideline.html">Design proposal</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing/lic.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing/dco.html">DCO</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Links</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://ci.trustedfirmware.org/view/TF-M/job/tf-m-build-docs-nightly/lastSuccessfulBuild/artifact/trusted-firmware-m/build/docs/reference_manual/html/index.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://developer.trustedfirmware.org/w/collaboration/security_center">Security Center</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://www.arm.com/architecture/security-features/platform-security">PSA</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">STMICROELECTRONICS</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../stm/releases/index.html">Releases</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/releases/getting_started.html">Getting started</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32l562e_dk/readme.html">STM32L562E-DK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/nucleo_l552ze_q/readme.html">NUCLEO-L552ZE-Q</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/b_u585i_iot02a/readme.html">B-U585I-IOT02A</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/releases/platforms.html">Platforms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32l5xx/readme.html">STM32L5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32mp2/readme.html">STM32MP2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32u5xx/readme.html">STM32U5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/nucleo_l552ze_q/readme.html">NUCLEO-L552ZE-Q</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32l562e_dk/readme.html">STM32L562E-DK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/releases/changelog.html">Change Log &amp; Notes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/releases/v1.7.0-stm32mp25-alpha-r1-rc3/changelog.html">v1.7.0-stm32mp25-alpha-r1-rc3</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../stm/technical/index.html">Technical references</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/technical/a35_td_flavor/index.html">A35-TD flavor</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/technical/a35_td_flavor/memory_layout.html">Memory layout</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/technical/a35_td_flavor/storage.html">Storage</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/technical/m33_td_flavor/index.html">M33-TD flavor</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/technical/m33_td_flavor/memory_layout.html">Memory layout</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/technical/m33_td_flavor/storage.html">Storage</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/technical/devicetree/index.html">Devicetree</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/technical/devicetree/devicetree_tfm.html">Scope and purpose</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/technical/devicetree/devicetree_tfm.html#concept">Concept</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/technical/devicetree/devicetree_tfm.html#how-to-add-device">How to add device</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/technical/initlevel.html">Initlevel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/technical/initial_attestation.html">Initial Attestation Service</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/technical/nv_counter.html">Nv counter</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../stm/ide/index.html">Ide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/ide/cubeide/stm32cubeide.html">STM32CubeIDE</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Trusted Firmware-M</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../index.html">Configuration</a> &raquo;</li>
+          <li><a href="index.html">TF-M Profiles</a> &raquo;</li>
+      <li>Trusted Firmware-M Profile Small Design</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="trusted-firmware-m-profile-small-design">
+<h1>Trusted Firmware-M Profile Small Design<a class="headerlink" href="#trusted-firmware-m-profile-small-design" title="Permalink to this heading"></a></h1>
+<section id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading"></a></h2>
+<p>As one of the TF-M Profiles, TF-M Profile Small (Profile S) consists of
+lightweight TF-M framework and basic Secure Services to keep smallest memory
+footprint, supporting fundamental security features on devices with ultra
+constrained resource.</p>
+<p>This profile enables connecting with Edge Gateways and IoT Cloud Services
+supporting secure connection based solely on symmetric cryptography.</p>
+<p>This document summarizes and discusses the features specified in TF-M Profile
+Small.</p>
+</section>
+<section id="overall-design">
+<h2>Overall design<a class="headerlink" href="#overall-design" title="Permalink to this heading"></a></h2>
+<p>TF-M Profile Small defines the following features:</p>
+<blockquote>
+<div><ul>
+<li><p>Lightweight framework</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Secure Function (SFN) model <a class="footnote-reference brackets" href="#id21" id="id1">2</a></p></li>
+<li><p>Level 1 isolation</p></li>
+<li><p>Buffer sharing allowed</p></li>
+<li><p>Single secure context</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>Crypto</p>
+<blockquote>
+<div><ul>
+<li><p>Symmetric cipher only</p></li>
+<li><p>Cipher suite for symmetric-key algorithms based protocols, such as
+cipher suites defined in TLS pre-shared key (TLS-PSK) <a class="footnote-reference brackets" href="#id20" id="id2">1</a>.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Advanced Encryption Standard (AES) as symmetric crypto algorithm</p></li>
+<li><p>SHA256 as Hash function</p></li>
+<li><p>HMAC as Message Authentication Code algorithm</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>Only enable multi-part functions in hash, symmetric ciphers,
+Message Authentication Code (MAC) and Authenticated Encryption with
+Associated Data (AEAD) operations.</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>Internal Trusted Storage (ITS)</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>No encryption</p></li>
+<li><p>No rollback protection</p></li>
+<li><p>Decrease internal transient buffer size</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>Initial Attestation</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Based on symmetric key algorithms</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>Lightweight boot</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Single image boot</p></li>
+<li><p>Anti-rollback protection is enabled</p></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</div></blockquote>
+<p>Protected Storage, firmware update and other Secure Services provided by TF-M are
+disabled by default.</p>
+</section>
+<section id="design-details">
+<h2>Design details<a class="headerlink" href="#design-details" title="Permalink to this heading"></a></h2>
+<p>More details of TF-M Profile Small design are discussed in following sections.</p>
+<section id="lightweight-framework">
+<h3>Lightweight framework<a class="headerlink" href="#lightweight-framework" title="Permalink to this heading"></a></h3>
+<section id="tf-m-framework-model">
+<h4>TF-M framework model<a class="headerlink" href="#tf-m-framework-model" title="Permalink to this heading"></a></h4>
+<p>SFN model is selected by default in Profile Small implementation.
+SFN model is defined in FF-M 1.1 extensions <a class="footnote-reference brackets" href="#id21" id="id3">2</a>. It is a more simple
+implementation of TF-M framework and may also reduce memory footprint, compared
+with Inter-Process Communication (IPC) model <a class="footnote-reference brackets" href="#id22" id="id4">3</a>.</p>
+</section>
+<section id="level-1-isolation">
+<h4>Level 1 isolation<a class="headerlink" href="#level-1-isolation" title="Permalink to this heading"></a></h4>
+<p>PSA Security Model <a class="footnote-reference brackets" href="#id23" id="id5">4</a> defines 3 levels of isolation.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Level 1 isolation isolates Secure Processing Environment (SPE) from
+Non-secure Processing Environment (NSPE).</p></li>
+<li><p>PSA Root of Trust (PSA RoT) and Application Root of Trust (ARoT) are
+isolated from each other in level 2 isolation.</p></li>
+<li><p>Individual secure partitions are isolated from each other even within a
+particular security domain (PSA RoT, ARoT), in level 3 isolation.</p></li>
+</ul>
+</div></blockquote>
+<p>Profile Small dedicated use cases with simple service model may not require
+level 2 or level 3 isolation. Devices which Profile Small aims at may be unable
+to implement stricter isolation, limited by hardware capabilities.</p>
+<p>Level 1 isolation reduces requirements enforced by hardware isolation and cost
+of software for management.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>Security note</strong></p>
+<p>If a device or a use case enforces level 2 or level 3 isolation, it is
+suggested to apply other configurations, other than TF-M Profile Small.</p>
+</div>
+</section>
+</section>
+<section id="crypto-service">
+<h3>Crypto service<a class="headerlink" href="#crypto-service" title="Permalink to this heading"></a></h3>
+<p>TF-M Profile Small only requires symmetric crypto since symmetric algorithms
+require shorter keys and less computational burden, compared with asymmetric
+crypto.</p>
+<p>By default, TF-M Profile Small requires the same capabilities as defined in
+TLS-PSK, to support symmetric key algorithms based protocols.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>Implementation note</strong></p>
+<p>Please note that TF-M Profile Small doesn’t require that TLS-PSK is
+mandatory in applications. Instead, Profile Small only requires the same
+capabilities as defined in TLS-PSK, such as one symmetric cipher algorithm
+and one hash function.</p>
+</div>
+<p>TF-M Profile Small selects TLS-PSK cipher suite TLS_PSK_WITH_AES_128_CCM <a class="footnote-reference brackets" href="#id24" id="id6">5</a>
+as reference, which requires:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>AES-128-CCM (AES CCM mode with 128-bit key) as symmetric crypto algorithm</p></li>
+<li><p>SHA256 as Hash function</p></li>
+<li><p>HMAC as Message Authentication Code algorithm</p></li>
+</ul>
+</div></blockquote>
+<p>TLS_PSK_WITH_AES_128_CCM is selected since it requires small key length and less
+hardware capabilities, while keeping enough level of security.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>Implementation note</strong></p>
+<p>Developers can replace default algorithms with others or implement more
+algorithms.</p>
+<p>Proper symmetric key algorithms and cipher suites should be selected
+according to device capabilities, the use case and the requirement of peers
+in connection.</p>
+<p>Refer to <a class="reference internal" href="#crypto-service-configuration">Crypto service configuration</a> for implementation details of
+configuring algorithms and cipher suites.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>Security note</strong></p>
+<p>It is recommended not to use MD5 or SHA-1 for message digests as they are
+subject to collision attacks <a class="footnote-reference brackets" href="#id25" id="id7">6</a> <a class="footnote-reference brackets" href="#id26" id="id8">7</a>.</p>
+</div>
+<p>By default, Profile Small only enables multi-part functions defined in PSA
+Cryptography API <a class="footnote-reference brackets" href="#id32" id="id9">13</a> in hash, symmetric ciphers, MAC and AEAD operations.
+Disabling single-part functions optimizes the code size of TF-M crypto service.
+Multi-part operations allows the message data to be processed in fragments
+instead of all at once. In static memory allocation, single-part operation may
+require to allocate a large memory space to support long message with unknown
+length. Therefore single-part operations can help users optimize memory
+footprint, especially while dealing with streaming data on IoT devices.</p>
+<p>It may slightly increase the code size in applications to replace single-part
+implementation with mulit-part implementation. Althgouth the code size increment
+can be qaulified, if users are concerned about the code size increment, they can
+enable single-part operations by toggling Profile Small default configuration.</p>
+<p>It may increase latency and overall time cost to implement cryptography
+functionality with single-part operations, compared to with multi-part ones.
+Users can enable single-part operations if the usage scenario requires
+single-part opreations to meet its perfermance metrics.</p>
+</section>
+<section id="secure-storage">
+<h3>Secure Storage<a class="headerlink" href="#secure-storage" title="Permalink to this heading"></a></h3>
+<p>TF-M Profile Small assumes that extremely constrained devices only contain basic
+on-chip storage, without external or removable storage.
+As a result, TF-M Profile Small includes ITS service and disables Protected
+Storage service.</p>
+<section id="encryption-and-rollback-protection">
+<h4>Encryption and rollback protection<a class="headerlink" href="#encryption-and-rollback-protection" title="Permalink to this heading"></a></h4>
+<p>Neither encryption nor rollback protection is enabled in current ITS
+implementation.</p>
+<p>It is expected that ITS relies solely on the physical inaccessibility property
+of on-chip storage, together with PSA isolation, without requiring additional
+cryptographic protection.</p>
+</section>
+<section id="internal-transient-buffer">
+<h4>Internal transient buffer<a class="headerlink" href="#internal-transient-buffer" title="Permalink to this heading"></a></h4>
+<p>ITS implements a internal transient buffer <a class="footnote-reference brackets" href="#id27" id="id10">8</a> to hold the data read
+from/written to storage, especially for flash, to solve the alignment and
+security issues.</p>
+<p>The internal transient buffer is aligned to the flash device’s program unit.
+Copying data to it from the caller can align all write requests to the flash
+device’s program unit.
+The internal transient buffer can help protect Flash access from some attacks,
+such as TOCTOU attack.</p>
+<p>Although removing this internal buffer can save some memory consumption,
+typically 512 bytes, it may bring alignment or security issues.
+Therefore, to achieve a better trade-off between memory footprint and security,
+TF-M Profile Small optimizes the internal buffer size to 32 bytes by default.</p>
+<p>As discussed in <a class="reference internal" href="#crypto-service">Crypto service</a>, TF-M Profile Small requires AES-128 and
+SHA-256, which use 128-bit key and 256-bit key respectively.
+Besides, either long public/private keys or PKI-based certificates should be
+very rare as asymmetric crypto is not supported in Profile Small.
+Therefore, a 32-byte internal buffer should cover the assets in TF-M Profile
+Small use cases.</p>
+<p>The buffer size can be adjusted according to use case and device Flash
+attributes. Refer to <a class="reference internal" href="#internal-trusted-storage-configurations">Internal Trusted Storage configurations</a> for more
+details.</p>
+</section>
+</section>
+<section id="initial-attestation">
+<h3>Initial Attestation<a class="headerlink" href="#initial-attestation" title="Permalink to this heading"></a></h3>
+<p>Profile Small requires an Initial Attestation secure service based on symmetric
+key algorithms. Refer to PSA Attestation API document <a class="footnote-reference brackets" href="#id28" id="id11">9</a> for details of
+Initial Attestation based on symmetric key algorithms.</p>
+<p>It can heavily increase memory footprint to support Initial Attestation based on
+asymmetric key algorithms, due to asymmetric ciphers and related PKI modules.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>Implementation note</strong></p>
+<p>As pointed out by PSA Attestation API document <a class="footnote-reference brackets" href="#id28" id="id12">9</a>, the use cases of
+Initial Attestation based on symmetric key algorithms can be limited due to
+the associated infrastructure costs for key management and operational
+complexities. It may also restrict the ability to interoperate with
+scenarios that involve third parties.</p>
+<p>If asymmetric key algorithms based Initial Attestation is required in use
+scenarios, it is recommended to select other TF-M Profiles which support
+asymmetric key algorithms.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>Implementation note</strong></p>
+<p>It is recommended to utilize the same MAC algorithm supported in Crypto
+service to complete the signing in <code class="docutils literal notranslate"><span class="pre">COSE_Mac0</span></code>, to minimize memory
+footprint.</p>
+</div>
+</section>
+<section id="lightweight-boot">
+<h3>Lightweight boot<a class="headerlink" href="#lightweight-boot" title="Permalink to this heading"></a></h3>
+<p>If MCUBoot provided by TF-M is enabled, single image boot <a class="footnote-reference brackets" href="#id29" id="id13">10</a> is selected by
+default in Profile Small.
+In case of single image boot, secure and non-secure images are handled as a
+single blob and signed together during image generation.</p>
+<p>However, secure and non-secure images must be updated together in single image
+boot. It may decrease the flexibility of image update and cost longer update
+process. Since the image sizes should usually be small with limited
+functionalities in Profile Small dedicated use case, the cost may still be
+reasonable.</p>
+<p>BL2 implementation can be device specific. Devices may implement diverse
+boot processes with different features and configurations.
+However, anti-rollback protection is required as a mandatory feature of boot
+loader. Boot loader should be able to prevent unauthorized rollback, to protect
+devices from being downgraded to earlier versions with known vulnerabilities.</p>
+</section>
+</section>
+<section id="implementation">
+<h2>Implementation<a class="headerlink" href="#implementation" title="Permalink to this heading"></a></h2>
+<section id="overview">
+<h3>Overview<a class="headerlink" href="#overview" title="Permalink to this heading"></a></h3>
+<p>The basic idea is to add dedicated profile CMake configuration files under
+folder <code class="docutils literal notranslate"><span class="pre">config/profile</span></code> for TF-M Profile Small default configuration.</p>
+<p>The top-level Profile Small config file collects all the necessary
+configuration flags and set them to default values, to explicitly enable the
+features required in Profile Small and disable the unnecessary ones, during
+TF-M build.</p>
+<p>A platform/use case can provide a configuration extension file to overwrite
+Profile Small default setting and append other configurations.
+This configuration extension file can be added via parameter
+<code class="docutils literal notranslate"><span class="pre">TFM_EXTRA_CONFIG_PATH</span></code> in build command line.</p>
+<p>The behavior of the Profile Small build flow (particularly the order of
+configuration loading and overriding) can be found at
+<a class="reference internal" href="../build_configuration.html#tfm-cmake-configuration"><span class="std std-ref">Build configuration</span></a></p>
+<p>The details of configurations will be covered in each module in
+<a class="reference internal" href="#implementation-details">Implementation details</a>.</p>
+</section>
+<section id="implementation-details">
+<h3>Implementation details<a class="headerlink" href="#implementation-details" title="Permalink to this heading"></a></h3>
+<p>This section discusses the details of Profile Small implementation.</p>
+<section id="top-level-configuration-files">
+<h4>Top-level configuration files<a class="headerlink" href="#top-level-configuration-files" title="Permalink to this heading"></a></h4>
+<p>The firmware framework configurations in <code class="docutils literal notranslate"><span class="pre">config/profile/profile_small</span></code> are
+shown below.</p>
+<table class="colwidths-auto docutils align-center" id="id33">
+<caption><span class="caption-number">Table 27: </span><span class="caption-text">TFM options in Profile Small top-level CMake config file</span><a class="headerlink" href="#id33" title="Permalink to this table"></a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>Configs</p></th>
+<th class="head"><p>Default value</p></th>
+<th class="head"><p>Descriptions</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">TFM_ISOLATION_LEVEL</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p>Select level 2 isolation</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">TFM_PARTITION_INTERNAL_TRUSTED_STORAGE</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ON</span></code></p></td>
+<td><p>Enable ITS SP</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ITS_BUF_SIZE</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">32</span></code></p></td>
+<td><p>ITS internal transient buffer size</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">TFM_PARTITION_CRYPTO</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ON</span></code></p></td>
+<td><p>Enable Crypto service</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">TFM_MBEDCRYPTO_CONFIG_PATH</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">${CMAKE_SOURCE_DIR}/lib/ext/mbedcrypto/mbedcrypto_config/tfm_mbedcrypto_config_profile_small.h</span></code></p></td>
+<td><p>Mbed Crypto config file path</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">TFM_MBEDCRYPTO_PSA_CRYPTO_CONFIG_PATH</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">${CMAKE_SOURCE_DIR}/lib/ext/mbedcrypto/mbedcrypto_config/crypto_config_profile_small.h</span></code></p></td>
+<td><p>Mbed Crypto PSA config file path</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">CRYPTO_ASYM_SIGN_MODULE_ENABLED</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">OFF</span></code></p></td>
+<td><p>Enable asymmetric signature</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">CRYPTO_ASYM_ENCRYPT_MODULE_ENABLED</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">OFF</span></code></p></td>
+<td><p>Enable asymmetric encryption</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">TFM_PARTITION_INITIAL_ATTESTATION</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ON</span></code></p></td>
+<td><p>Enable Initial Attestation service</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">SYMMETRIC_INITIAL_ATTESTATION</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ON</span></code></p></td>
+<td><p>Enable symmetric attestation</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">TFM_PARTITION_PROTECTED_STORAGE</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">OFF</span></code></p></td>
+<td><p>Enable PS service</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">TFM_PARTITION_PLATFORM</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">OFF</span></code></p></td>
+<td><p>Enable TF-M Platform SP</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>Implementation note</strong></p>
+<p>The following sections focus on the feature selection via configuration
+setting.
+Dedicated optimization on memory footprint is not covered in this document.</p>
+</div>
+<section id="device-configuration-extension">
+<h5>Device configuration extension<a class="headerlink" href="#device-configuration-extension" title="Permalink to this heading"></a></h5>
+<p>To change default configurations and add platform specific configurations,
+a platform can add a platform configuration file at
+<code class="docutils literal notranslate"><span class="pre">platform/ext&lt;TFM_PLATFORM&gt;/config.cmake</span></code></p>
+</section>
+</section>
+<section id="tf-m-framework-setting">
+<h4>TF-M framework setting<a class="headerlink" href="#tf-m-framework-setting" title="Permalink to this heading"></a></h4>
+<p>The top-level Profile Small CMake config file selects SFN model and level 1
+isolation.</p>
+<p>In SFN model, <code class="docutils literal notranslate"><span class="pre">-DPSA_FRAMEWORK_HAS_MM_IOVEC</span></code> is enabled by default.
+It reduces memory footprint by avoiding the transient copy from input
+vectors and copy to output vectors.</p>
+</section>
+<section id="crypto-service-configuration">
+<h4>Crypto service configuration<a class="headerlink" href="#crypto-service-configuration" title="Permalink to this heading"></a></h4>
+<section id="crypto-secure-partition">
+<h5>Crypto Secure Partition<a class="headerlink" href="#crypto-secure-partition" title="Permalink to this heading"></a></h5>
+<p>TF-M Profile Small enables Crypto Secure Partition (SP) in its top-level CMake
+config file. Crypto SP modules not supported in TF-M Profile Small are disabled.
+The disabled modules/features are shown below.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Disable asymmetric cipher</p></li>
+<li><p>Disable single-part operations in Hash, MAC, AEAD and symmetric ciphers
+via selecting <code class="docutils literal notranslate"><span class="pre">CRYPTO_SINGLE_PART_FUNCS_DISABLED</span></code></p></li>
+</ul>
+</div></blockquote>
+<p>Other modules and configurations <a class="footnote-reference brackets" href="#id30" id="id14">11</a> are kept as default values.</p>
+<p>Additional configuration flags with more fine granularity can be added to
+control building of specific crypto algorithms and corresponding test cases.</p>
+</section>
+<section id="mbed-crypto-configurations">
+<h5>Mbed Crypto configurations<a class="headerlink" href="#mbed-crypto-configurations" title="Permalink to this heading"></a></h5>
+<p>TF-M Profile Small adds a dedicated Mbed Crypto config file
+<code class="docutils literal notranslate"><span class="pre">tfm_mbedcrypto_config_profile_small.h</span></code> and Mbed Crypto PSA config file
+<code class="docutils literal notranslate"><span class="pre">crypto_config_profile_small.h</span></code> at <code class="docutils literal notranslate"><span class="pre">/lib/ext/mbedcrypto/mbedcrypto_config</span></code>
+folder, instead of the common one <code class="docutils literal notranslate"><span class="pre">tfm_mbedcrypto_config_default.h</span></code> and
+<code class="docutils literal notranslate"><span class="pre">crypto_config_default.h</span></code> <a class="footnote-reference brackets" href="#id30" id="id15">11</a>.</p>
+<p>Major Mbed Crypto configurations are set as listed below:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Enable SHA256</p></li>
+<li><p>Enable generic message digest wrappers</p></li>
+<li><p>Enable AES</p></li>
+<li><p>Enable CCM mode for symmetric ciphers</p></li>
+<li><p>Disable other modes for symmetric ciphers</p></li>
+<li><p>Disable asymmetric ciphers</p></li>
+<li><p>Disable HMAC-based key derivation function (HKDF)</p></li>
+</ul>
+</div></blockquote>
+<p>Other configurations can be selected to optimize the memory footprint of Crypto
+module.</p>
+<p>A device/use case can append an extra config header to the  Profile Small
+default Mbed Crypto config file. This can be done by setting the
+<code class="docutils literal notranslate"><span class="pre">TFM_MBEDCRYPTO_PLATFORM_EXTRA_CONFIG_PATH</span></code> cmake variable in the platform
+config file <code class="docutils literal notranslate"><span class="pre">platform/ext&lt;TFM_PLATFORM&gt;/config.cmake</span></code>. This cmake variable is
+a wrapper around the <code class="docutils literal notranslate"><span class="pre">MBEDTLS_USER_CONFIG_FILE</span></code> options, but is preferred as
+it keeps all configuration in cmake.</p>
+</section>
+</section>
+<section id="internal-trusted-storage-configurations">
+<h4>Internal Trusted Storage configurations<a class="headerlink" href="#internal-trusted-storage-configurations" title="Permalink to this heading"></a></h4>
+<p>ITS service is enabled in top-level Profile Small CMake config file.</p>
+<p>The internal transient buffer size <code class="docutils literal notranslate"><span class="pre">ITS_BUF_SIZE</span></code> <a class="footnote-reference brackets" href="#id27" id="id16">8</a> is set to 32 bytes by
+default. A platform/use case can overwrite the buffer size in its specific
+configuration extension according to its actual requirement of assets and Flash
+attributes.</p>
+<p>Profile Small CMake config file won’t touch the configurations of device
+specific Flash hardware attributes <a class="footnote-reference brackets" href="#id27" id="id17">8</a>.</p>
+</section>
+<section id="initial-attestation-secure-service">
+<h4>Initial Attestation secure service<a class="headerlink" href="#initial-attestation-secure-service" title="Permalink to this heading"></a></h4>
+<p>TF-M Profile Small provides a reference implementation of symmetric key
+algorithms based Initial Attestation, using HMAC SHA-256 as MAC algorithm in
+<code class="docutils literal notranslate"><span class="pre">COSE_Mac0</span></code> structure. The implementation follows PSA Attestation API document
+<a class="footnote-reference brackets" href="#id28" id="id18">9</a>.</p>
+<p>Profile Small top-level config file enables Initial Attestation secure service
+and selects symmetric key algorithms based Initial Attestation by default.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Set <code class="docutils literal notranslate"><span class="pre">TFM_PARTITION_INITIAL_ATTESTATION</span></code> to <code class="docutils literal notranslate"><span class="pre">ON</span></code></p></li>
+<li><p>Set <code class="docutils literal notranslate"><span class="pre">SYMMETRIC_INITIAL_ATTESTATION</span></code> to <code class="docutils literal notranslate"><span class="pre">ON</span></code></p></li>
+</ul>
+</div></blockquote>
+<p>Symmetric and asymmetric key algorithms based Initial Attestation can share the
+same generations of token claims, except Instance ID claim.</p>
+<p>Profile Small may implement the procedure or rely on a 3rd-party tool to
+construct and sign <code class="docutils literal notranslate"><span class="pre">COSE_Mac0</span></code> structure.</p>
+<p>Details of symmetric key algorithms based Initial Attestation design will be
+covered in a dedicated document.</p>
+</section>
+<section id="disabled-secure-services">
+<h4>Disabled secure services<a class="headerlink" href="#disabled-secure-services" title="Permalink to this heading"></a></h4>
+<p>Protected Storage and Platform Service are disabled by default
+in Profile Small top-level CMake config file.</p>
+</section>
+<section id="test-configuration">
+<h4>Test configuration<a class="headerlink" href="#test-configuration" title="Permalink to this heading"></a></h4>
+<p>Some cryptography tests are disabled due to the reduced Mbed Crypto config.
+Some of them are shown in the table below.</p>
+<table class="colwidths-auto docutils align-center" id="id34">
+<caption><span class="caption-number">Table 28: </span><span class="caption-text">TFM options in Profile Small top-level CMake config file</span><a class="headerlink" href="#id34" title="Permalink to this table"></a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>Configs</p></th>
+<th class="head"><p>Default value</p></th>
+<th class="head"><p>Descriptions</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">TFM_CRYPTO_TEST_ALG_CBC</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">OFF</span></code></p></td>
+<td><p>Test CBC cryptography mode</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">TFM_CRYPTO_TEST_ALG_CCM</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ON</span></code></p></td>
+<td><p>Test CCM cryptography mode</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">TFM_CRYPTO_TEST_ALG_CFB</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">OFF</span></code></p></td>
+<td><p>Test CFB cryptography mode</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">TFM_CRYPTO_TEST_ALG_ECB</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">OFF</span></code></p></td>
+<td><p>Test ECB cryptography mode</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">TFM_CRYPTO_TEST_ALG_CTR</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">OFF</span></code></p></td>
+<td><p>Test CTR cryptography mode</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">TFM_CRYPTO_TEST_ALG_OFB</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">OFF</span></code></p></td>
+<td><p>Test OFB cryptography mode</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">TFM_CRYPTO_TEST_ALG_GCM</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">OFF</span></code></p></td>
+<td><p>Test GCM cryptography mode</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">TFM_CRYPTO_TEST_ALG_SHA_384</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">OFF</span></code></p></td>
+<td><p>Test SHA-384 cryptography algorithm</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">TFM_CRYPTO_TEST_ALG_SHA_512</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">OFF</span></code></p></td>
+<td><p>Test SHA-512 cryptography algorithm</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">TFM_CRYPTO_TEST_HKDF</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">OFF</span></code></p></td>
+<td><p>Test HKDF key derivation algorithm</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">TFM_CRYPTO_TEST_ECDH</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">OFF</span></code></p></td>
+<td><p>Test ECDH key agreement algorithm</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">TFM_CRYPTO_TEST_CHACHA20</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">OFF</span></code></p></td>
+<td><p>Test ChaCha20 stream cipher</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">TFM_CRYPTO_TEST_CHACHA20_POLY1305</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">OFF</span></code></p></td>
+<td><p>Test ChaCha20-Poly1305 AEAD algorithm</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">TFM_CRYPTO_TEST_SINGLE_PART_FUNCS</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">OFF</span></code></p></td>
+<td><p>Test single-part operations in hash,
+MAC, AEAD and symmetric ciphers</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="bl2-setting">
+<h4>BL2 setting<a class="headerlink" href="#bl2-setting" title="Permalink to this heading"></a></h4>
+<p>Profile Small enables MCUBoot provided by TF-M by default. A platform can
+overwrite this configuration by disabling MCUBoot in its configuration extension
+file <code class="docutils literal notranslate"><span class="pre">platform/ext&lt;TFM_PLATFORM&gt;/config.cmake</span></code>.</p>
+<p>If MCUBoot provided by TF-M is enabled, single image boot is selected in TF-M
+Profile Small top-level CMake config file.</p>
+<p>If a device implements its own boot loader, the configurations are
+implementation defined.</p>
+<table class="colwidths-auto docutils align-center" id="id35">
+<caption><span class="caption-number">Table 29: </span><span class="caption-text">BL2 options in Profile Small top-level CMake config file</span><a class="headerlink" href="#id35" title="Permalink to this table"></a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>Configs</p></th>
+<th class="head"><p>Default value</p></th>
+<th class="head"><p>Descriptions</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">BL2</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ON</span></code></p></td>
+<td><p>Enable MCUBoot bootloader</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">MCUBOOT_IMAGE_NUMBER</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p>Combine S and NS images</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+</section>
+<section id="platform-support">
+<h2>Platform support<a class="headerlink" href="#platform-support" title="Permalink to this heading"></a></h2>
+<section id="building-profile-small">
+<h3>Building Profile Small<a class="headerlink" href="#building-profile-small" title="Permalink to this heading"></a></h3>
+<p>To build Profile Small, argument <code class="docutils literal notranslate"><span class="pre">TFM_PROFILE</span></code> in build command line should be
+set to <code class="docutils literal notranslate"><span class="pre">profile_small</span></code>.</p>
+<p>Take AN521 as an example.</p>
+<p>The following commands build Profile Small without test cases on <strong>AN521</strong> with
+build type <strong>MinSizeRel</strong>, built by <strong>Armclang</strong>.
+SFN model is selected by default.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>&lt;TFM<span class="w"> </span>root<span class="w"> </span>dir&gt;
+mkdir<span class="w"> </span>build<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">cd</span><span class="w"> </span>build
+cmake<span class="w"> </span>-DTFM_PLATFORM<span class="o">=</span>arm/mps2/an521<span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>-DTFM_TOOLCHAIN_FILE<span class="o">=</span>../toolchain_ARMCLANG.cmake<span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>-DTFM_PROFILE<span class="o">=</span>profile_small<span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>-DCMAKE_BUILD_TYPE<span class="o">=</span>MinSizeRel<span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>../
+cmake<span class="w"> </span>--build<span class="w"> </span>./<span class="w"> </span>--<span class="w"> </span>install
+</pre></div>
+</div>
+<p>The following commands build Profile Small with regression test cases on
+<strong>AN521</strong> with build type <strong>MinSizeRel</strong>, built by <strong>Armclang</strong>.
+SFN model is selected by default.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>&lt;TFM<span class="w"> </span>root<span class="w"> </span>dir&gt;
+mkdir<span class="w"> </span>build<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">cd</span><span class="w"> </span>build
+cmake<span class="w"> </span>-DTFM_PLATFORM<span class="o">=</span>arm/mps2/an521<span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>-DTFM_TOOLCHAIN_FILE<span class="o">=</span>../toolchain_ARMCLANG.cmake<span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>-DTFM_PROFILE<span class="o">=</span>profile_small<span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>-DCMAKE_BUILD_TYPE<span class="o">=</span>MinSizeRel<span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>-DTEST_NS<span class="o">=</span>ON<span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>../
+cmake<span class="w"> </span>--build<span class="w"> </span>./<span class="w"> </span>--<span class="w"> </span>install
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p>For devices with more constrained memory and flash requirements, it is
+possible to build with either only TEST_S enabled or only TEST_NS enabled.
+This will decrease the size of the test images. Note that both test suites
+must still be run to ensure correct operation.</p></li>
+</ul>
+</div>
+<p>More details of building instructions and parameters can be found TF-M build
+instruction guide <a class="footnote-reference brackets" href="#id31" id="id19">12</a>.</p>
+</section>
+</section>
+<section id="reference">
+<h2>Reference<a class="headerlink" href="#reference" title="Permalink to this heading"></a></h2>
+<dl class="footnote brackets">
+<dt class="label" id="id20"><span class="brackets"><a class="fn-backref" href="#id2">1</a></span></dt>
+<dd><p><a class="reference external" href="https://tools.ietf.org/html/rfc4279">Pre-Shared Key Ciphersuites for Transport Layer Security (TLS)</a></p>
+</dd>
+<dt class="label" id="id21"><span class="brackets">2</span><span class="fn-backref">(<a href="#id1">1</a>,<a href="#id3">2</a>)</span></dt>
+<dd><p><a class="reference external" href="https://developer.arm.com/documentation/aes0039/latest">Arm Firmware Framework for M 1.1 Extensions</a></p>
+</dd>
+<dt class="label" id="id22"><span class="brackets"><a class="fn-backref" href="#id4">3</a></span></dt>
+<dd><p><a class="reference external" href="https://developer.arm.com/-/media/Files/pdf/PlatformSecurityArchitecture/Architect/DEN0063-PSA_Firmware_Framework-1.0.0-2.pdf?revision=2d1429fa-4b5b-461a-a60e-4ef3d8f7f4b4&amp;hash=3BFD6F3E687F324672F18E5BE9F08EDC48087C93">Arm Platform Security Architecture Firmware Framework 1.0</a></p>
+</dd>
+<dt class="label" id="id23"><span class="brackets"><a class="fn-backref" href="#id5">4</a></span></dt>
+<dd><p><a class="reference external" href="https://developer.arm.com/documentation/den0128/latest">Platform Security Model 1.1</a></p>
+</dd>
+<dt class="label" id="id24"><span class="brackets"><a class="fn-backref" href="#id6">5</a></span></dt>
+<dd><p><a class="reference external" href="https://tools.ietf.org/html/rfc6655">AES-CCM Cipher Suites for Transport Layer Security (TLS)</a></p>
+</dd>
+<dt class="label" id="id25"><span class="brackets"><a class="fn-backref" href="#id7">6</a></span></dt>
+<dd><p><a class="reference external" href="https://tools.ietf.org/html/rfc6151">Updated Security Considerations for the MD5 Message-Digest and the HMAC-MD5 Algorithms</a></p>
+</dd>
+<dt class="label" id="id26"><span class="brackets"><a class="fn-backref" href="#id8">7</a></span></dt>
+<dd><p><a class="reference external" href="https://www.nist.gov/publications/transitioning-use-cryptographic-algorithms-and-key-lengths">Transitioning the Use of Cryptographic Algorithms and Key Lengths</a></p>
+</dd>
+<dt class="label" id="id27"><span class="brackets">8</span><span class="fn-backref">(<a href="#id10">1</a>,<a href="#id16">2</a>,<a href="#id17">3</a>)</span></dt>
+<dd><p><a class="reference internal" href="../../integration_guide/services/tfm_its_integration_guide.html"><span class="doc">ITS integration guide</span></a></p>
+</dd>
+<dt class="label" id="id28"><span class="brackets">9</span><span class="fn-backref">(<a href="#id11">1</a>,<a href="#id12">2</a>,<a href="#id18">3</a>)</span></dt>
+<dd><p><a class="reference external" href="https://developer.arm.com/-/media/Files/pdf/PlatformSecurityArchitecture/Implement/IHI0085-PSA_Attestation_API-1.0.2.pdf?revision=eef78753-c77e-4b24-bcf0-65596213b4c1&amp;la=en&amp;hash=E5E0353D612077AFDCE3F2F3708A50C77A74B2A3">PSA Attestation API 1.0 (ARM IHI 0085)</a></p>
+</dd>
+<dt class="label" id="id29"><span class="brackets"><a class="fn-backref" href="#id13">10</a></span></dt>
+<dd><p><a class="reference internal" href="../../technical_references/design_docs/tfm_secure_boot.html"><span class="doc">Secure boot</span></a></p>
+</dd>
+<dt class="label" id="id30"><span class="brackets">11</span><span class="fn-backref">(<a href="#id14">1</a>,<a href="#id15">2</a>)</span></dt>
+<dd><p><a class="reference internal" href="../../technical_references/design_docs/tfm_crypto_design.html"><span class="doc">Crypto design</span></a></p>
+</dd>
+<dt class="label" id="id31"><span class="brackets"><a class="fn-backref" href="#id19">12</a></span></dt>
+<dd><p><a class="reference internal" href="../../building/tfm_build_instruction.html"><span class="doc">TF-M build instruction</span></a></p>
+</dd>
+<dt class="label" id="id32"><span class="brackets"><a class="fn-backref" href="#id9">13</a></span></dt>
+<dd><p><a class="reference external" href="https://developer.arm.com/documentation/ihi0086/a/?lang=en">PSA Cryptography API 1.0</a></p>
+</dd>
+</dl>
+<hr class="docutils" />
+<p><em>Copyright (c) 2020-2022, Arm Limited. All rights reserved.</em></p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p></p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

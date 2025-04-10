@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Maintainers &mdash; Trusted Firmware-M v1.7.0-stm32mp25-alpha-r1-rc3-doc documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/tfm_custom.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/tabs.css" type="text/css" />
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Yet another coding standard :)" href="coding_guide.html" />
+    <link rel="prev" title="Code Review Guideline" href="code_review_guide.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> Trusted Firmware-M
+            <img src="../_static/tf_logo_white.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                v1.7.0-stm32mp25-alpha-r1-rc3-doc
+
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../introduction/index.html">Introduction</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/index.html">Getting Started</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../security/index.html">Security</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../security/security_advisories/index.html">Security Advisories</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../security/security_advisories/stack_seal_vulnerability.html">Advisory TFMV-1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../security/security_advisories/svc_caller_sp_fetching_vulnerability.html">Advisory TFMV-2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../security/security_advisories/crypto_multi_part_ops_abort_fail.html">Advisory TFMV-3</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../security/security_advisories/profile_small_key_id_encoding_vulnerability.html">Advisory TFMV-4</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../security/security_advisories/fwu_write_vulnerability.html">Advisory TFMV-5</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../security/threat_models/index.html">Threat Models</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../security/threat_models/generic_threat_model.html">Trusted Firmware-M Generic Threat Model</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../security/security.html">Security Handling</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../releases/index.html">Releases</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../releases/1.7.0.html">v1.7.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../releases/1.6.1.html">v1.6.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../releases/1.6.0.html">v1.6.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../releases/1.5.0.html">v1.5.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../releases/release_process.html">Release Cadence and Process</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../glossary.html">Glossary</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../platform/index.html">Platform Selection</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../platform/arm/index.html">Arm platforms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../platform/arm/corstone1000/readme.html">Corstone-1000</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/arm/mps3/an547/README.html">Corstone-300 FPGA (AN547)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/arm/mps3/an552/README.html">Corstone-300 FPGA and FVP (AN552)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/arm/mps3/corstone310/README.html">Corstone-310 FVP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/arm/musca_b1/readme.html">Musca-B1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/arm/musca_s1/readme.html">Musca-S1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/arm/rss/readme.html">Runtime Security Subsystem</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../platform/nxp/lpcxpresso55s69/README.html">LPCXpresso55S69</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../platform/cypress/psoc64/index.html">Cypress PSoC64</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../platform/cypress/psoc64/cypress_psoc64_spec.html">Cypress PSoC64 Specifics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/cypress/psoc64/libs/core-lib/README.html">Core Library</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/cypress/psoc64/libs/core-lib/RELEASE.html">Core Library Release Notes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../platform/stm/index.html">STMICROELECTRONICS</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../platform/stm/common/stm32l5xx/readme.html">STM32L5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/stm/common/stm32mp2/readme.html">STM32MP2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/stm/common/stm32u5xx/readme.html">STM32U5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/stm/nucleo_l552ze_q/readme.html">NUCLEO-L552ZE-Q</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32l562e_dk/readme.html">STM32L562E-DK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/stm/b_u585i_iot02a/readme.html">B-U585I-IOT02A</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../platform/nordic_nrf/nrf5340dk_nrf5340_cpuapp/README.html">Nordic nRF5340</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../platform/nordic_nrf/nrf9160dk_nrf9160/README.html">Nordic nRF9160</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../platform/lairdconnectivity/bl5340_dvk_cpuapp/README.html">Laird Connectivity BL5340</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../platform/nuvoton/m2351/README.html">NuMaker-PFM-M2351</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../platform/nuvoton/m2354/README.html">NuMaker-PFM-M2354</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../building/tfm_build_instruction.html">Build instructions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../building/run_tfm_examples_on_arm_platforms.html">Run TF-M examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../building/documentation_generation.html">Building the documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../building/tfm_build_instruction_iar.html">IAR toolchain</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration/index.html">Configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../configuration/build_configuration.html">Build configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../configuration/header_file_system.html">Component configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../configuration/kconfig_system.html">Kconfig</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../configuration/profiles/index.html">Profiles</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../configuration/profiles/tfm_profile_small.html"> Small</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../configuration/profiles/tfm_profile_medium_arot-less.html"> ARoT-less</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../configuration/profiles/tfm_profile_medium.html"> Medium</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../configuration/profiles/tfm_profile_large.html"> Large</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../configuration/test_configuration.html">Tests configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../integration_guide/index.html">Integration Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../integration_guide/spm_backends.html">SPM Backends</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../integration_guide/non-secure_client_extension_integration_guide.html">NS client integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../integration_guide/os_migration_guide_armv8m.html">OS migration to Armv8-M</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../integration_guide/tfm_fpu_support.html">Floating-Point Support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../integration_guide/tfm_secure_irq_integration_guide.html">Secure Interrupt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../integration_guide/platform/index.html">Adding a new platform</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guide/platform/platform_folder.html">Details for the platform folder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guide/platform/platform_ext_folder.html">Details for the platform/ext folder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guide/platform/porting_TFM_to_a_new_hardware.html">Porting TF-M to a New Hardware</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guide/platform/platform_provisioning.html">Platform Provisioning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guide/platform/platform_deprecation.html">Platform deprecation and removal</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../integration_guide/services/index.html">Services</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guide/services/tfm_attestation_integration_guide.html">Initial Attestation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guide/services/tfm_crypto_integration_guide.html">Crypto</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guide/services/tfm_its_integration_guide.html">Internal Storage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guide/services/tfm_platform_integration_guide.html">Platform</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guide/services/tfm_ps_integration_guide.html">Protected Storage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guide/services/tfm_secure_partition_addition.html">Adding a New Service</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guide/services/tfm_manifest_tool_user_guide.html">The manifest tool</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../technical_references/design_docs/index.html">Design Documents</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../technical_references/design_docs/dual-cpu/index.html">Dual-CPU</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../technical_references/design_docs/dual-cpu/booting_a_dual_core_system.html">Booting a Dual-Core System</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../technical_references/design_docs/dual-cpu/communication_prototype_between_nspe_and_spe_in_dual_core_systems.html">Communication Prototype Between NSPE And SPE In Dual Core System</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../technical_references/design_docs/dual-cpu/mailbox_design_on_dual_core_system.html">Mailbox Design in TF-M on Dual-core System</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../technical_references/design_docs/dual-cpu/tfm_multi_core_access_check.html">Memory Access Check of Trusted Firmware-M in Multi-Core Topology</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../technical_references/design_docs/bl1.html">BL1 Immutable bootloader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../technical_references/design_docs/code_sharing.html">Code sharing between independently linked XIP binaries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../technical_references/design_docs/enum_implicit_casting.html">Fixing implicit casting for C enumeration values</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../technical_references/design_docs/ff_isolation.html">FF-M Isolation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../technical_references/design_docs/hardware_abstraction_layer.html">Hardware Abstraction Layer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../technical_references/design_docs/mailbox_ns_agent_update.html">Mailbox NS Agent Design Update</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../technical_references/design_docs/ps_key_management.html">Protected Storage service key management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../technical_references/design_docs/secure_boot_hw_key_integration.html">HW crypto key integration in TF-M secure boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../technical_references/design_docs/secure_boot_rollback_protection.html">Rollback protection in TF-M secure boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../technical_references/design_docs/secure_partition_manager.html">Secure Partition Manager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../technical_references/design_docs/source_structure.html">Trusted Firmware-M Source Structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../technical_references/design_docs/stateless_rot_service.html">Stateless Root of Trust Services Reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../technical_references/design_docs/symmetric_initial_attest.html">Symmetric key algorithm based Initial Attestation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../technical_references/design_docs/tfm_builtin_keys.html">TF-M builtin keys</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../technical_references/design_docs/tfm_code_generation_with_jinja2.html">Code Generation With Jinja2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../technical_references/design_docs/tfm_cooperative_scheduling_rules.html">Cooperative Scheduling Rules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../technical_references/design_docs/tfm_crypto_design.html">Crypto Service design</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../technical_references/design_docs/tfm_fwu_service.html">Firmware Update Service</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../technical_references/design_docs/tfm_its_512_flash.html">Add support for block-aligned flash in Internal Trusted Storage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../technical_references/design_docs/tfm_its_service.html">Internal Trusted Storage (ITS) Service</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../technical_references/design_docs/tfm_log_system_design_document.html">Log system design document</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../technical_references/design_docs/tfm_physical_attack_mitigation.html">Physical attack mitigation in Trusted Firmware-M</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../technical_references/design_docs/tfm_psa_inter_process_communication.html">TF-M Inter-Process Communication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../technical_references/design_docs/tfm_secure_boot.html">Secure boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../technical_references/design_docs/tfm_secure_partition_runtime_library.html">Secure Partition Runtime Library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../technical_references/design_docs/tfm_uniform_secure_service_signature.html">Uniform Secure Service Signature</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../tools/index.html">Tools</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contribution</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Guidelines</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="contributing_process.html">The process</a></li>
+<li class="toctree-l2"><a class="reference internal" href="code_review_guide.html">Code review</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Maintainers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#code-owners">Code owners</a></li>
+<li class="toctree-l2"><a class="reference internal" href="coding_guide.html">Yet another coding standard :)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="doc_guidelines.html">Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tfm_design_proposal_guideline.html">Design proposal</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="lic.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dco.html">DCO</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Links</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://ci.trustedfirmware.org/view/TF-M/job/tf-m-build-docs-nightly/lastSuccessfulBuild/artifact/trusted-firmware-m/build/docs/reference_manual/html/index.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://developer.trustedfirmware.org/w/collaboration/security_center">Security Center</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://www.arm.com/architecture/security-features/platform-security">PSA</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">STMICROELECTRONICS</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../stm/releases/index.html">Releases</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../stm/releases/getting_started.html">Getting started</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32l562e_dk/readme.html">STM32L562E-DK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/stm/nucleo_l552ze_q/readme.html">NUCLEO-L552ZE-Q</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/stm/b_u585i_iot02a/readme.html">B-U585I-IOT02A</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../stm/releases/platforms.html">Platforms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../platform/stm/common/stm32l5xx/readme.html">STM32L5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/stm/common/stm32mp2/readme.html">STM32MP2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/stm/common/stm32u5xx/readme.html">STM32U5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/stm/nucleo_l552ze_q/readme.html">NUCLEO-L552ZE-Q</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32l562e_dk/readme.html">STM32L562E-DK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../stm/releases/changelog.html">Change Log &amp; Notes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../stm/releases/v1.7.0-stm32mp25-alpha-r1-rc3/changelog.html">v1.7.0-stm32mp25-alpha-r1-rc3</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../stm/technical/index.html">Technical references</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../stm/technical/a35_td_flavor/index.html">A35-TD flavor</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../stm/technical/a35_td_flavor/memory_layout.html">Memory layout</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../stm/technical/a35_td_flavor/storage.html">Storage</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../stm/technical/m33_td_flavor/index.html">M33-TD flavor</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../stm/technical/m33_td_flavor/memory_layout.html">Memory layout</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../stm/technical/m33_td_flavor/storage.html">Storage</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../stm/technical/devicetree/index.html">Devicetree</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../stm/technical/devicetree/devicetree_tfm.html">Scope and purpose</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../stm/technical/devicetree/devicetree_tfm.html#concept">Concept</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../stm/technical/devicetree/devicetree_tfm.html#how-to-add-device">How to add device</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../stm/technical/initlevel.html">Initlevel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../stm/technical/initial_attestation.html">Initial Attestation Service</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../stm/technical/nv_counter.html">Nv counter</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../stm/ide/index.html">Ide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../stm/ide/cubeide/stm32cubeide.html">STM32CubeIDE</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Trusted Firmware-M</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="index.html">Contribution Guidelines</a> &raquo;</li>
+      <li>Maintainers</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <p>Trusted Firmware-M (TF-M) is an open govcommunity project.
+All contributions are ultimately merged by the maintainers listed below.
+Technical ownership of most parts of the codebase falls on the code owners
+listed below. An acknowledgement from these code owners is required before
+the maintainers merge a contribution.</p>
+<p>More details may be found in the <a class="reference external" href="https://developer.trustedfirmware.org/w/collaboration/project-maintenance-process/">Project Maintenance Process</a>
+document.</p>
+<section id="maintainers">
+<h1>Maintainers<a class="headerlink" href="#maintainers" title="Permalink to this heading"></a></h1>
+<dl class="simple">
+<dt>Anton Komlev</dt><dd><dl class="field-list simple">
+<dt class="field-odd">email</dt>
+<dd class="field-odd"><p><a class="reference external" href="mailto:Anton&#46;Komlev&#37;&#52;&#48;arm&#46;com">Anton<span>&#46;</span>Komlev<span>&#64;</span>arm<span>&#46;</span>com</a></p>
+</dd>
+<dt class="field-even">github</dt>
+<dd class="field-even"><p><a class="reference external" href="https://github.com/Anton-TF">Anton-TF</a></p>
+</dd>
+</dl>
+</dd>
+<dt>Chris Brand</dt><dd><dl class="field-list simple">
+<dt class="field-odd">email</dt>
+<dd class="field-odd"><p><a class="reference external" href="mailto:chris&#46;brand&#37;&#52;&#48;cypress&#46;com">Chris<span>&#46;</span>Brand<span>&#64;</span>cypress<span>&#46;</span>com</a></p>
+</dd>
+<dt class="field-even">github</dt>
+<dd class="field-even"><p><a class="reference external" href="https://github.com/UEWBot">UEWBot</a></p>
+</dd>
+</dl>
+</dd>
+<dt>Ken Liu</dt><dd><dl class="field-list simple">
+<dt class="field-odd">email</dt>
+<dd class="field-odd"><p><a class="reference external" href="mailto:Ken&#46;Liu&#37;&#52;&#48;arm&#46;com">Ken<span>&#46;</span>Liu<span>&#64;</span>arm<span>&#46;</span>com</a></p>
+</dd>
+<dt class="field-even">github</dt>
+<dd class="field-even"><p><a class="reference external" href="https://github.com/KenLSoft">KenLSoft</a></p>
+</dd>
+</dl>
+</dd>
+<dt>David Hu</dt><dd><dl class="field-list simple">
+<dt class="field-odd">email</dt>
+<dd class="field-odd"><p><a class="reference external" href="mailto:David&#46;Hu&#37;&#52;&#48;arm&#46;com">David<span>&#46;</span>Hu<span>&#64;</span>arm<span>&#46;</span>com</a></p>
+</dd>
+<dt class="field-even">github</dt>
+<dd class="field-even"><p><a class="reference external" href="https://github.com/davidhuziji">davidhuziji</a></p>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+<section id="code-owners">
+<h1>Code owners<a class="headerlink" href="#code-owners" title="Permalink to this heading"></a></h1>
+<section id="bootloader-and-fwu">
+<h2>Bootloader and FWU<a class="headerlink" href="#bootloader-and-fwu" title="Permalink to this heading"></a></h2>
+<dl class="simple">
+<dt>Tamas Ban</dt><dd><dl class="field-list simple">
+<dt class="field-odd">email</dt>
+<dd class="field-odd"><p><a class="reference external" href="mailto:Tamas&#46;Ban&#37;&#52;&#48;arm&#46;com">Tamas<span>&#46;</span>Ban<span>&#64;</span>arm<span>&#46;</span>com</a></p>
+</dd>
+<dt class="field-even">github</dt>
+<dd class="field-even"><p><a class="reference external" href="https://github.com/tamasban">tamasban</a></p>
+</dd>
+</dl>
+</dd>
+<dt>Sherry Zhang</dt><dd><dl class="field-list simple">
+<dt class="field-odd">email</dt>
+<dd class="field-odd"><p><a class="reference external" href="mailto:Sherry&#46;Zhang2&#37;&#52;&#48;arm&#46;com">Sherry<span>&#46;</span>Zhang2<span>&#64;</span>arm<span>&#46;</span>com</a></p>
+</dd>
+<dt class="field-even">github</dt>
+<dd class="field-even"><p><a class="reference external" href="https://github.com/sherryzhang">sherryzhang</a></p>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+<section id="bl1-immutable-bootloader">
+<h2>BL1 immutable bootloader<a class="headerlink" href="#bl1-immutable-bootloader" title="Permalink to this heading"></a></h2>
+<dl class="simple">
+<dt>Raef Coles</dt><dd><dl class="field-list simple">
+<dt class="field-odd">email</dt>
+<dd class="field-odd"><p><a class="reference external" href="mailto:Raef&#46;Coles&#37;&#52;&#48;arm&#46;com">Raef<span>&#46;</span>Coles<span>&#64;</span>arm<span>&#46;</span>com</a></p>
+</dd>
+<dt class="field-even">github</dt>
+<dd class="field-even"><p><a class="reference external" href="https://github.com/RcColes">RcColes</a></p>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+<section id="secure-storage">
+<h2>Secure Storage<a class="headerlink" href="#secure-storage" title="Permalink to this heading"></a></h2>
+<dl class="simple">
+<dt>Jamie Fox</dt><dd><dl class="field-list simple">
+<dt class="field-odd">email</dt>
+<dd class="field-odd"><p><a class="reference external" href="mailto:jamie&#46;fox&#37;&#52;&#48;arm&#46;com">jamie<span>&#46;</span>fox<span>&#64;</span>arm<span>&#46;</span>com</a></p>
+</dd>
+<dt class="field-even">github</dt>
+<dd class="field-even"><p><a class="reference external" href="https://github.com/jf549">jf549</a></p>
+</dd>
+</dl>
+</dd>
+<dt>Sherry Zhang</dt><dd><dl class="field-list simple">
+<dt class="field-odd">email</dt>
+<dd class="field-odd"><p><a class="reference external" href="mailto:Sherry&#46;Zhang2&#37;&#52;&#48;arm&#46;com">Sherry<span>&#46;</span>Zhang2<span>&#64;</span>arm<span>&#46;</span>com</a></p>
+</dd>
+<dt class="field-even">github</dt>
+<dd class="field-even"><p><a class="reference external" href="https://github.com/sherryzhang">sherryzhang</a></p>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+<section id="crypto">
+<h2>Crypto<a class="headerlink" href="#crypto" title="Permalink to this heading"></a></h2>
+<dl class="simple">
+<dt>Antonio de Angelis</dt><dd><dl class="field-list simple">
+<dt class="field-odd">email</dt>
+<dd class="field-odd"><p><a class="reference external" href="mailto:Antonio&#46;deAngelis&#37;&#52;&#48;arm&#46;com">Antonio<span>&#46;</span>deAngelis<span>&#64;</span>arm<span>&#46;</span>com</a></p>
+</dd>
+<dt class="field-even">github</dt>
+<dd class="field-even"><p><a class="reference external" href="https://github.com/adeaarm">adeaarm</a></p>
+</dd>
+</dl>
+</dd>
+<dt>Summer Qin</dt><dd><dl class="field-list simple">
+<dt class="field-odd">email</dt>
+<dd class="field-odd"><p><a class="reference external" href="mailto:Summer&#46;Qin&#37;&#52;&#48;arm&#46;com">Summer<span>&#46;</span>Qin<span>&#64;</span>arm<span>&#46;</span>com</a></p>
+</dd>
+<dt class="field-even">github</dt>
+<dd class="field-even"><p><a class="reference external" href="https://github.com/Summer-ARM">Summer-ARM</a></p>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+<section id="framework-spm-etc">
+<h2>Framework (SPM, etc.)<a class="headerlink" href="#framework-spm-etc" title="Permalink to this heading"></a></h2>
+<dl class="simple">
+<dt>Ken Liu</dt><dd><dl class="field-list simple">
+<dt class="field-odd">email</dt>
+<dd class="field-odd"><p><a class="reference external" href="mailto:Ken&#46;Liu&#37;&#52;&#48;arm&#46;com">Ken<span>&#46;</span>Liu<span>&#64;</span>arm<span>&#46;</span>com</a></p>
+</dd>
+<dt class="field-even">github</dt>
+<dd class="field-even"><p><a class="reference external" href="https://github.com/KenLSoft">KenLSoft</a></p>
+</dd>
+</dl>
+</dd>
+<dt>Kevin Peng</dt><dd><dl class="field-list simple">
+<dt class="field-odd">email</dt>
+<dd class="field-odd"><p><a class="reference external" href="mailto:Kevin&#46;Peng&#37;&#52;&#48;arm&#46;com">Kevin<span>&#46;</span>Peng<span>&#64;</span>arm<span>&#46;</span>com</a></p>
+</dd>
+<dt class="field-even">github</dt>
+<dd class="field-even"><p><a class="reference external" href="https://github.com/kevin-peng-hao">kevin-peng-hao</a></p>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+<section id="attestation">
+<h2>Attestation<a class="headerlink" href="#attestation" title="Permalink to this heading"></a></h2>
+<dl class="simple">
+<dt>Maulik Patel</dt><dd><dl class="field-list simple">
+<dt class="field-odd">email</dt>
+<dd class="field-odd"><p><a class="reference external" href="mailto:Maulik&#46;Patel&#37;&#52;&#48;arm&#46;com">Maulik<span>&#46;</span>Patel<span>&#64;</span>arm<span>&#46;</span>com</a></p>
+</dd>
+<dt class="field-even">github</dt>
+<dd class="field-even"><p><a class="reference external" href="https://github.com/maulik-arm">maulik-arm</a></p>
+</dd>
+</dl>
+</dd>
+<dt>David Hu</dt><dd><dl class="field-list simple">
+<dt class="field-odd">email</dt>
+<dd class="field-odd"><p><a class="reference external" href="mailto:David&#46;Hu&#37;&#52;&#48;arm&#46;com">David<span>&#46;</span>Hu<span>&#64;</span>arm<span>&#46;</span>com</a></p>
+</dd>
+<dt class="field-even">github</dt>
+<dd class="field-even"><p><a class="reference external" href="https://github.com/davidhuziji">davidhuziji</a></p>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+<section id="build-system">
+<h2>Build System<a class="headerlink" href="#build-system" title="Permalink to this heading"></a></h2>
+<dl class="simple">
+<dt>Raef Coles</dt><dd><dl class="field-list simple">
+<dt class="field-odd">email</dt>
+<dd class="field-odd"><p><a class="reference external" href="mailto:Raef&#46;Coles&#37;&#52;&#48;arm&#46;com">Raef<span>&#46;</span>Coles<span>&#64;</span>arm<span>&#46;</span>com</a></p>
+</dd>
+<dt class="field-even">github</dt>
+<dd class="field-even"><p><a class="reference external" href="https://github.com/RcColes">RcColes</a></p>
+</dd>
+</dl>
+</dd>
+<dt>Anton Komlev</dt><dd><dl class="field-list simple">
+<dt class="field-odd">email</dt>
+<dd class="field-odd"><p><a class="reference external" href="mailto:Anton&#46;Komlev&#37;&#52;&#48;arm&#46;com">Anton<span>&#46;</span>Komlev<span>&#64;</span>arm<span>&#46;</span>com</a></p>
+</dd>
+<dt class="field-even">github</dt>
+<dd class="field-even"><p><a class="reference external" href="https://github.com/Anton-TF">Anton-TF</a></p>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+<section id="tests">
+<h2>Tests<a class="headerlink" href="#tests" title="Permalink to this heading"></a></h2>
+<dl class="simple">
+<dt>David Hu</dt><dd><dl class="field-list simple">
+<dt class="field-odd">email</dt>
+<dd class="field-odd"><p><a class="reference external" href="mailto:David&#46;Hu&#37;&#52;&#48;arm&#46;com">David<span>&#46;</span>Hu<span>&#64;</span>arm<span>&#46;</span>com</a></p>
+</dd>
+<dt class="field-even">github</dt>
+<dd class="field-even"><p><a class="reference external" href="https://github.com/davidhuziji">davidhuziji</a></p>
+</dd>
+</dl>
+</dd>
+<dt>Kevin Peng</dt><dd><dl class="field-list simple">
+<dt class="field-odd">email</dt>
+<dd class="field-odd"><p><a class="reference external" href="mailto:Kevin&#46;Peng&#37;&#52;&#48;arm&#46;com">Kevin<span>&#46;</span>Peng<span>&#64;</span>arm<span>&#46;</span>com</a></p>
+</dd>
+<dt class="field-even">github</dt>
+<dd class="field-even"><p><a class="reference external" href="https://github.com/kevin-peng-hao">kevin-peng-hao</a></p>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+<section id="arm-platforms">
+<h2>Arm Platforms<a class="headerlink" href="#arm-platforms" title="Permalink to this heading"></a></h2>
+<section id="mps2-mps3-musca-a-b1-s1">
+<h3>MPS2, MPS3, Musca(A,B1,S1)<a class="headerlink" href="#mps2-mps3-musca-a-b1-s1" title="Permalink to this heading"></a></h3>
+<dl class="simple">
+<dt>Mark Horvath</dt><dd><dl class="field-list simple">
+<dt class="field-odd">email</dt>
+<dd class="field-odd"><p><a class="reference external" href="mailto:mark&#46;horvath&#37;&#52;&#48;arm&#46;com">Mark<span>&#46;</span>Horvath<span>&#64;</span>arm<span>&#46;</span>com</a></p>
+</dd>
+<dt class="field-even">github</dt>
+<dd class="field-even"><p><a class="reference external" href="https://github.com/mark-horvath-arm">mark-horvath-arm</a></p>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+<section id="corstone1000">
+<h3>Corstone1000<a class="headerlink" href="#corstone1000" title="Permalink to this heading"></a></h3>
+<dl class="simple">
+<dt>Vishnu Banavath</dt><dd><dl class="field-list simple">
+<dt class="field-odd">email</dt>
+<dd class="field-odd"><p><a class="reference external" href="mailto:vishnu&#46;banavath&#37;&#52;&#48;arm&#46;com">Vishnu<span>&#46;</span>Banavath<span>&#64;</span>arm<span>&#46;</span>com</a></p>
+</dd>
+<dt class="field-even">github</dt>
+<dd class="field-even"><p><a class="reference external" href="https://github.com/vishnu-banavath">vishnu-banavath</a></p>
+</dd>
+</dl>
+</dd>
+<dt>Mohamed Omar Asaker</dt><dd><dl class="field-list simple">
+<dt class="field-odd">email</dt>
+<dd class="field-odd"><p><a class="reference external" href="mailto:mohamed&#46;omarasaker&#37;&#52;&#48;arm&#46;com">Mohamed<span>&#46;</span>OmarAsaker<span>&#64;</span>arm<span>&#46;</span>com</a></p>
+</dd>
+<dt class="field-even">github</dt>
+<dd class="field-even"><p><a class="reference external" href="https://github.com/mohamedasaker-arm">mohamedasaker-arm</a></p>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+<section id="rss">
+<h3>RSS<a class="headerlink" href="#rss" title="Permalink to this heading"></a></h3>
+<dl class="simple">
+<dt>Jamie Fox</dt><dd><dl class="field-list simple">
+<dt class="field-odd">email</dt>
+<dd class="field-odd"><p><a class="reference external" href="mailto:jamie&#46;fox&#37;&#52;&#48;arm&#46;com">jamie<span>&#46;</span>fox<span>&#64;</span>arm<span>&#46;</span>com</a></p>
+</dd>
+<dt class="field-even">github</dt>
+<dd class="field-even"><p><a class="reference external" href="https://github.com/jf549">jf549</a></p>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</section>
+<section id="nxp-platforms">
+<h2>NXP Platforms<a class="headerlink" href="#nxp-platforms" title="Permalink to this heading"></a></h2>
+<dl class="simple">
+<dt>Andrej Butok</dt><dd><dl class="field-list simple">
+<dt class="field-odd">email</dt>
+<dd class="field-odd"><p><a class="reference external" href="mailto:andrey&#46;butok&#37;&#52;&#48;nxp&#46;com">Andrej<span>&#46;</span>Butok<span>&#64;</span>nxp<span>&#46;</span>com</a></p>
+</dd>
+<dt class="field-even">github</dt>
+<dd class="field-even"><p><a class="reference external" href="https://github.com/AndreyButokNXP">AndreyButokNXP</a></p>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+<section id="stm-platforms-disco-l562qe-nucleo-l552ze-q">
+<h2>STM Platforms: DISCO_L562QE, NUCLEO_L552ZE_Q<a class="headerlink" href="#stm-platforms-disco-l562qe-nucleo-l552ze-q" title="Permalink to this heading"></a></h2>
+<dl class="simple">
+<dt>Michel JAOUEN</dt><dd><dl class="field-list simple">
+<dt class="field-odd">email</dt>
+<dd class="field-odd"><p><a class="reference external" href="mailto:michel&#46;jaouen&#37;&#52;&#48;st&#46;com">Michel<span>&#46;</span>Jaouen<span>&#64;</span>st<span>&#46;</span>com</a></p>
+</dd>
+<dt class="field-even">github</dt>
+<dd class="field-even"><p><a class="reference external" href="https://github.com/jamike">jamike</a></p>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+<section id="infineon-cypress-platforms">
+<h2>Infineon/Cypress Platforms<a class="headerlink" href="#infineon-cypress-platforms" title="Permalink to this heading"></a></h2>
+<dl class="simple">
+<dt>Chris Brand</dt><dd><dl class="field-list simple">
+<dt class="field-odd">email</dt>
+<dd class="field-odd"><p><a class="reference external" href="mailto:chris&#46;brand&#37;&#52;&#48;cypress&#46;com">Chris Brand<span>&#64;</span>cypress<span>&#46;</span>com</a></p>
+</dd>
+<dt class="field-even">github</dt>
+<dd class="field-even"><p><a class="reference external" href="https://github.com/UEWBot">UEWBot</a></p>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+<section id="laird-connectivity-platforms">
+<h2>Laird Connectivity Platforms:<a class="headerlink" href="#laird-connectivity-platforms" title="Permalink to this heading"></a></h2>
+<dl class="simple">
+<dt>Greg Leach</dt><dd><dl class="field-list simple">
+<dt class="field-odd">email</dt>
+<dd class="field-odd"><p><a class="reference external" href="mailto:greg&#46;leach&#37;&#52;&#48;lairdconnect&#46;com">Greg<span>&#46;</span>Leach<span>&#64;</span>lairdconnect<span>&#46;</span>com</a></p>
+</dd>
+<dt class="field-even">github</dt>
+<dd class="field-even"><p><a class="reference external" href="https://github.com/greg-leach">greg-leach</a></p>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+<section id="nordic-semiconductor-platforms">
+<h2>Nordic Semiconductor Platforms<a class="headerlink" href="#nordic-semiconductor-platforms" title="Permalink to this heading"></a></h2>
+<dl class="simple">
+<dt>Joakim Andersson</dt><dd><dl class="field-list simple">
+<dt class="field-odd">email</dt>
+<dd class="field-odd"><p><a class="reference external" href="mailto:joakim&#46;andersson&#37;&#52;&#48;nordicsemi&#46;no">joakim<span>&#46;</span>andersson<span>&#64;</span>nordicsemi<span>&#46;</span>no</a></p>
+</dd>
+<dt class="field-even">github</dt>
+<dd class="field-even"><p><a class="reference external" href="https://github.com/joerchan">joerchan</a></p>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+<section id="nuvoton-platform">
+<h2>Nuvoton Platform:<a class="headerlink" href="#nuvoton-platform" title="Permalink to this heading"></a></h2>
+<dl class="simple">
+<dt>WS Chang</dt><dd><dl class="field-list simple">
+<dt class="field-odd">email</dt>
+<dd class="field-odd"><p><a class="reference external" href="mailto:wschang0&#37;&#52;&#48;nuvoton&#46;com">MS20 WSChang0<span>&#64;</span>nuvoton<span>&#46;</span>com</a></p>
+</dd>
+<dt class="field-even">github</dt>
+<dd class="field-even"><p><a class="reference external" href="https://github.com/wschang0">wschang0</a></p>
+</dd>
+</dl>
+</dd>
+</dl>
+<hr class="docutils" />
+<p><em>Copyright (c) 2017-2022, Arm Limited. All rights reserved.</em></p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p></p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

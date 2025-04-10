@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Secure Partition Runtime Library &mdash; Trusted Firmware-M v1.7.0-stm32mp25-alpha-r1-rc3-doc documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/tfm_custom.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/tabs.css" type="text/css" />
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Uniform Secure Service Signature" href="tfm_uniform_secure_service_signature.html" />
+    <link rel="prev" title="Secure boot" href="tfm_secure_boot.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> Trusted Firmware-M
+            <img src="../../_static/tf_logo_white.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                v1.7.0-stm32mp25-alpha-r1-rc3-doc
+
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../introduction/index.html">Introduction</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started/index.html">Getting Started</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../security/index.html">Security</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../security/security_advisories/index.html">Security Advisories</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/stack_seal_vulnerability.html">Advisory TFMV-1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/svc_caller_sp_fetching_vulnerability.html">Advisory TFMV-2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/crypto_multi_part_ops_abort_fail.html">Advisory TFMV-3</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/profile_small_key_id_encoding_vulnerability.html">Advisory TFMV-4</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/fwu_write_vulnerability.html">Advisory TFMV-5</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../security/threat_models/index.html">Threat Models</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../security/threat_models/generic_threat_model.html">Trusted Firmware-M Generic Threat Model</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../security/security.html">Security Handling</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../releases/index.html">Releases</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/1.7.0.html">v1.7.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/1.6.1.html">v1.6.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/1.6.0.html">v1.6.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/1.5.0.html">v1.5.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/release_process.html">Release Cadence and Process</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../glossary.html">Glossary</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../platform/index.html">Platform Selection</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/arm/index.html">Arm platforms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/corstone1000/readme.html">Corstone-1000</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/mps3/an547/README.html">Corstone-300 FPGA (AN547)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/mps3/an552/README.html">Corstone-300 FPGA and FVP (AN552)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/mps3/corstone310/README.html">Corstone-310 FVP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/musca_b1/readme.html">Musca-B1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/musca_s1/readme.html">Musca-S1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/rss/readme.html">Runtime Security Subsystem</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/nxp/lpcxpresso55s69/README.html">LPCXpresso55S69</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/cypress/psoc64/index.html">Cypress PSoC64</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/cypress/psoc64/cypress_psoc64_spec.html">Cypress PSoC64 Specifics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/cypress/psoc64/libs/core-lib/README.html">Core Library</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/cypress/psoc64/libs/core-lib/RELEASE.html">Core Library Release Notes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/stm/index.html">STMICROELECTRONICS</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32l5xx/readme.html">STM32L5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32mp2/readme.html">STM32MP2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32u5xx/readme.html">STM32U5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/nucleo_l552ze_q/readme.html">NUCLEO-L552ZE-Q</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32l562e_dk/readme.html">STM32L562E-DK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/b_u585i_iot02a/readme.html">B-U585I-IOT02A</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/nordic_nrf/nrf5340dk_nrf5340_cpuapp/README.html">Nordic nRF5340</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/nordic_nrf/nrf9160dk_nrf9160/README.html">Nordic nRF9160</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/lairdconnectivity/bl5340_dvk_cpuapp/README.html">Laird Connectivity BL5340</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/nuvoton/m2351/README.html">NuMaker-PFM-M2351</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/nuvoton/m2354/README.html">NuMaker-PFM-M2354</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../building/tfm_build_instruction.html">Build instructions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../building/run_tfm_examples_on_arm_platforms.html">Run TF-M examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../building/documentation_generation.html">Building the documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../building/tfm_build_instruction_iar.html">IAR toolchain</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../configuration/index.html">Configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../configuration/build_configuration.html">Build configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../configuration/header_file_system.html">Component configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../configuration/kconfig_system.html">Kconfig</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../configuration/profiles/index.html">Profiles</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../configuration/profiles/tfm_profile_small.html"> Small</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../configuration/profiles/tfm_profile_medium_arot-less.html"> ARoT-less</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../configuration/profiles/tfm_profile_medium.html"> Medium</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../configuration/profiles/tfm_profile_large.html"> Large</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../configuration/test_configuration.html">Tests configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../integration_guide/index.html">Integration Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../integration_guide/spm_backends.html">SPM Backends</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../integration_guide/non-secure_client_extension_integration_guide.html">NS client integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../integration_guide/os_migration_guide_armv8m.html">OS migration to Armv8-M</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../integration_guide/tfm_fpu_support.html">Floating-Point Support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../integration_guide/tfm_secure_irq_integration_guide.html">Secure Interrupt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../integration_guide/platform/index.html">Adding a new platform</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/platform/platform_folder.html">Details for the platform folder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/platform/platform_ext_folder.html">Details for the platform/ext folder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/platform/porting_TFM_to_a_new_hardware.html">Porting TF-M to a New Hardware</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/platform/platform_provisioning.html">Platform Provisioning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/platform/platform_deprecation.html">Platform deprecation and removal</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../integration_guide/services/index.html">Services</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/services/tfm_attestation_integration_guide.html">Initial Attestation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/services/tfm_crypto_integration_guide.html">Crypto</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/services/tfm_its_integration_guide.html">Internal Storage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/services/tfm_platform_integration_guide.html">Platform</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/services/tfm_ps_integration_guide.html">Protected Storage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/services/tfm_secure_partition_addition.html">Adding a New Service</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/services/tfm_manifest_tool_user_guide.html">The manifest tool</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Design Documents</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="dual-cpu/index.html">Dual-CPU</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="dual-cpu/booting_a_dual_core_system.html">Booting a Dual-Core System</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dual-cpu/communication_prototype_between_nspe_and_spe_in_dual_core_systems.html">Communication Prototype Between NSPE And SPE In Dual Core System</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dual-cpu/mailbox_design_on_dual_core_system.html">Mailbox Design in TF-M on Dual-core System</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dual-cpu/tfm_multi_core_access_check.html">Memory Access Check of Trusted Firmware-M in Multi-Core Topology</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="bl1.html">BL1 Immutable bootloader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="code_sharing.html">Code sharing between independently linked XIP binaries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="enum_implicit_casting.html">Fixing implicit casting for C enumeration values</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ff_isolation.html">FF-M Isolation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hardware_abstraction_layer.html">Hardware Abstraction Layer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mailbox_ns_agent_update.html">Mailbox NS Agent Design Update</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ps_key_management.html">Protected Storage service key management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="secure_boot_hw_key_integration.html">HW crypto key integration in TF-M secure boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="secure_boot_rollback_protection.html">Rollback protection in TF-M secure boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="secure_partition_manager.html">Secure Partition Manager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="source_structure.html">Trusted Firmware-M Source Structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="stateless_rot_service.html">Stateless Root of Trust Services Reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="symmetric_initial_attest.html">Symmetric key algorithm based Initial Attestation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tfm_builtin_keys.html">TF-M builtin keys</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tfm_code_generation_with_jinja2.html">Code Generation With Jinja2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tfm_cooperative_scheduling_rules.html">Cooperative Scheduling Rules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tfm_crypto_design.html">Crypto Service design</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tfm_fwu_service.html">Firmware Update Service</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tfm_its_512_flash.html">Add support for block-aligned flash in Internal Trusted Storage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tfm_its_service.html">Internal Trusted Storage (ITS) Service</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tfm_log_system_design_document.html">Log system design document</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tfm_physical_attack_mitigation.html">Physical attack mitigation in Trusted Firmware-M</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tfm_psa_inter_process_communication.html">TF-M Inter-Process Communication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tfm_secure_boot.html">Secure boot</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Secure Partition Runtime Library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tfm_uniform_secure_service_signature.html">Uniform Secure Service Signature</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../tools/index.html">Tools</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contribution</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing/index.html">Guidelines</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/contributing_process.html">The process</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/code_review_guide.html">Code review</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/maintainers.html">Maintainers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/maintainers.html#code-owners">Code owners</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/coding_guide.html">Yet another coding standard :)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/doc_guidelines.html">Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/tfm_design_proposal_guideline.html">Design proposal</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing/lic.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing/dco.html">DCO</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Links</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://ci.trustedfirmware.org/view/TF-M/job/tf-m-build-docs-nightly/lastSuccessfulBuild/artifact/trusted-firmware-m/build/docs/reference_manual/html/index.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://developer.trustedfirmware.org/w/collaboration/security_center">Security Center</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://www.arm.com/architecture/security-features/platform-security">PSA</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">STMICROELECTRONICS</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../stm/releases/index.html">Releases</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/releases/getting_started.html">Getting started</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32l562e_dk/readme.html">STM32L562E-DK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/nucleo_l552ze_q/readme.html">NUCLEO-L552ZE-Q</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/b_u585i_iot02a/readme.html">B-U585I-IOT02A</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/releases/platforms.html">Platforms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32l5xx/readme.html">STM32L5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32mp2/readme.html">STM32MP2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32u5xx/readme.html">STM32U5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/nucleo_l552ze_q/readme.html">NUCLEO-L552ZE-Q</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32l562e_dk/readme.html">STM32L562E-DK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/releases/changelog.html">Change Log &amp; Notes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/releases/v1.7.0-stm32mp25-alpha-r1-rc3/changelog.html">v1.7.0-stm32mp25-alpha-r1-rc3</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../stm/technical/index.html">Technical references</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/technical/a35_td_flavor/index.html">A35-TD flavor</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/technical/a35_td_flavor/memory_layout.html">Memory layout</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/technical/a35_td_flavor/storage.html">Storage</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/technical/m33_td_flavor/index.html">M33-TD flavor</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/technical/m33_td_flavor/memory_layout.html">Memory layout</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/technical/m33_td_flavor/storage.html">Storage</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/technical/devicetree/index.html">Devicetree</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/technical/devicetree/devicetree_tfm.html">Scope and purpose</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/technical/devicetree/devicetree_tfm.html#concept">Concept</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/technical/devicetree/devicetree_tfm.html#how-to-add-device">How to add device</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/technical/initlevel.html">Initlevel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/technical/initial_attestation.html">Initial Attestation Service</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/technical/nv_counter.html">Nv counter</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../stm/ide/index.html">Ide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/ide/cubeide/stm32cubeide.html">STM32CubeIDE</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Trusted Firmware-M</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="index.html">Design Documents</a> &raquo;</li>
+      <li>Secure Partition Runtime Library</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="secure-partition-runtime-library">
+<h1>Secure Partition Runtime Library<a class="headerlink" href="#secure-partition-runtime-library" title="Permalink to this heading"></a></h1>
+<dl class="field-list simple">
+<dt class="field-odd">Organization</dt>
+<dd class="field-odd"><p>Arm Limited</p>
+</dd>
+<dt class="field-even">Contact</dt>
+<dd class="field-even"><p><a class="reference external" href="mailto:tf-m&#37;&#52;&#48;lists&#46;trustedfirmware&#46;org">tf-m<span>&#64;</span>lists<span>&#46;</span>trustedfirmware<span>&#46;</span>org</a></p>
+</dd>
+</dl>
+<section id="background">
+<h2>Background<a class="headerlink" href="#background" title="Permalink to this heading"></a></h2>
+<p>Trusted Firmware - M (TF-M) uses a toolchain provided runtime library and
+supervisor calls to easily implement the PSA Firmware Framework (PSA FF) API.
+This working model works well under isolation level 1 since there are no data
+isolation requirements. While TF-M is evolving, this model is not suitable
+because:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>The high-level isolation requires isolating data but some toolchain library
+interfaces have their own global data which cannot be shared between the
+Secure Partitions.</p></li>
+<li><p>The toolchain libraries are designed without taking security as a core
+design principle.</p></li>
+</ul>
+</div></blockquote>
+<p>A TF-M specific runtime library is needed for the following reasons:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Easier evaluation or certification by security standards.</p></li>
+<li><p>Source code transparency.</p></li>
+<li><p>Sharing code to save ROM and RAM space for TF-M.</p></li>
+</ul>
+</div></blockquote>
+<p>PSA FF specification also describes the requirements of C runtime API for Secure
+Partitions.</p>
+<p>This runtime library is named the <code class="docutils literal notranslate"><span class="pre">Secure</span> <span class="pre">Partition</span> <span class="pre">Runtime</span> <span class="pre">Library</span></code>, and the
+abbreviation is <code class="docutils literal notranslate"><span class="pre">SPRTL</span></code>.</p>
+</section>
+<section id="design-principal">
+<h2>Design Principal<a class="headerlink" href="#design-principal" title="Permalink to this heading"></a></h2>
+<p>The following requirements are mandatory for SPRTL implementation:</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<ul class="simple">
+<li><p><strong>CODE ONLY</strong> - No read-write data should be introduced into runtime library
+implementation.</p></li>
+<li><p><strong>Thread safe</strong> - All functions are designed with thread-safe consideration.
+These APIs access caller stack and caller provided memory only.</p></li>
+<li><p><strong>Isolation</strong> - Runtime API code is set as executable and read-only in
+higher isolation levels.</p></li>
+<li><p><strong>Security first</strong> - SPRTL is designed for security and it may come with
+some performance loss.</p></li>
+</ul>
+</div>
+<section id="api-categories">
+<h3>API Categories<a class="headerlink" href="#api-categories" title="Permalink to this heading"></a></h3>
+<p>Several known types of functions are included in SPRTL:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>C runtime API.</p></li>
+<li><p>RoT Service API.</p></li>
+<li><p>PSA Client and Service API.</p></li>
+<li><p>[Future expansion, to be detailed later] other secure API.</p></li>
+</ul>
+</div></blockquote>
+<section id="security-implementation-requirements">
+<h4>Security Implementation Requirements<a class="headerlink" href="#security-implementation-requirements" title="Permalink to this heading"></a></h4>
+<p>If <code class="docutils literal notranslate"><span class="pre">malloc/realloc/free</span></code> are provided, they must obey additional requirements
+compared to the C standard: newly allocated memory must be initialized to
+ZERO, and freed memory must be wiped immediately in case the block contains
+sensitive data.</p>
+<p>The comparison API (‘memcmp’ e.g.), they should not return immediately when the
+fault case is detected. The implementation should execute in linear time based
+on input to avoid execution timing side channel attack.</p>
+<p>The pointer validation needs to be considered. In general, at least the
+‘non-NULL’ checking is mandatory. A detection for invalid pointer leads to a
+<code class="docutils literal notranslate"><span class="pre">psa_panic()</span></code>.</p>
+<p>The following section describes the first 3 API types and the implementation
+requirements.</p>
+</section>
+<section id="c-runtime-api">
+<h4>C Runtime API<a class="headerlink" href="#c-runtime-api" title="Permalink to this heading"></a></h4>
+<p>PSA FF describes a small set of the C standard library. Part of toolchain
+library API can be used as default if these APIs meet the <a class="reference internal" href="#design-principal">Design Principal</a>
+and <a class="reference internal" href="#security-implementation-requirements">Security Implementation Requirements</a>. The toolchain ‘header’ and ‘types’
+can be reused to simplify the implementation.</p>
+<p>These APIs can take the toolchain provided version, or separately implemented
+in case there are extra requirements:</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p>‘memcpy()/memmove()/memset()’</p></li>
+<li><p>String API</p></li>
+</ul>
+</div>
+<p>These APIs are proposed to be implemented with the security consideration
+mentioned in <a class="reference internal" href="#security-implementation-requirements">Security Implementation Requirements</a>:</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p>‘memcmp()’</p></li>
+<li><p>Other comparison API if referenced (‘strcmp’ e.g.).</p></li>
+</ul>
+</div>
+<p>The following functions are optional, but if present, they must conform to
+additional <a class="reference internal" href="#security-implementation-requirements">Security Implementation Requirements</a>:</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p>‘malloc()/free()/realloc()’</p></li>
+<li><p>‘assert()/printf()’</p></li>
+</ul>
+</div>
+<p>The following APIs are coupled with toolchain library much so applying toolchain
+library implementation is recommended:</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p>Division and modulo - arithmetic operations.</p></li>
+<li><p>Other low level or compiler specific functions (such as ‘va_list’).</p></li>
+</ul>
+</div>
+<p>Besides the APIs mentioned above, the following runtime APIs are required for
+runtime APIs with private runtime context (‘malloc’ e.g.):</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p>‘__sprtmain()’ - partition entry runtime wrapper.</p></li>
+</ul>
+</div>
+</section>
+<section id="rot-service-api">
+<h4>RoT Service API<a class="headerlink" href="#rot-service-api" title="Permalink to this heading"></a></h4>
+<p>The description of RoT Service API in PSA FF:</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Arm recommends that the RoT Service developer also defines an RoT Service API
+and implementation to encapsulate the use of the IPC protocol, and improve the
+usability of the service for client firmware.</p>
+</div>
+<p>Part of the RoT Service API have proposed specifications, such as the PSA
+Cryptography API, PSA Storage API, and PSA Attestation API. It is suggested that
+the service developer create documents of their RoT Service API and make them
+publicly available.</p>
+<p>The RoT Service API has a large amount and it is the main part of SPRTL. This
+chapter describes the general implementation of the RoT Service API and the
+reason for putting them into SPRTL.</p>
+<p>In general, a client uses the PSA Client API to access a secure service.
+For example:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cm">/* Example, not a real implementation */</span>
+<span class="n">caller_status_t</span><span class="w"> </span><span class="nf">psa_example_service</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">  </span><span class="p">...</span>
+<span class="w">  </span><span class="n">handle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">psa_connect</span><span class="p">(</span><span class="n">SERVICE_SID</span><span class="p">,</span><span class="w"> </span><span class="n">SERVICE_VERSION</span><span class="p">);</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">INVALID_HANDLE</span><span class="p">(</span><span class="n">handle</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">INVALID_RETURN</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="n">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">psa_call</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span><span class="w"> </span><span class="n">type</span><span class="p">,</span><span class="w"> </span><span class="n">invecs</span><span class="p">,</span><span class="w"> </span><span class="n">inlen</span><span class="p">,</span><span class="w"> </span><span class="n">outvecs</span><span class="p">,</span><span class="w"> </span><span class="n">outlen</span><span class="p">);</span>
+
+<span class="w">  </span><span class="n">psa_close</span><span class="p">(</span><span class="n">handle</span><span class="p">);</span>
+
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">TO_CALLER_STATUS</span><span class="p">(</span><span class="n">status</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>This example encapsulates the PSA Client API, and can be provided as a simpler
+and more generic API for clients to call. It is not possible to statically link
+this API to each Secure Partition because of the limited storage space. The
+ideal solution is to put it inside SPRTL and share it to all Secure Partitions.
+This would simplify the caller logic into this:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">psa_example_service</span><span class="p">()</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">STATUS_SUCCESS</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="cm">/* do something */</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>This is the simplest case of encapsulating PSA Client API. If a RoT Service API
+is connect heavy, then, the encapsulation can be changed to include a connection
+handle inside a context data structure. This context data structure type is
+defined in RoT Service headers and the instance is allocated by API caller since
+API implementation does not have private data.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p>Even the RoT Service APIs are provided in SPRTL for all clients, the SPM
+performs the access check eventually and decides if the access to service
+can be processed.</p></li>
+<li><p>For those RoT Service APIs only get called by a specific client, they can be
+implemented inside the caller client, instead of putting it into SPRTL.</p></li>
+</ul>
+</div>
+</section>
+<section id="psa-client-and-service-api">
+<h4>PSA Client and Service API<a class="headerlink" href="#psa-client-and-service-api" title="Permalink to this heading"></a></h4>
+<p>Most of the PSA APIs can be called directly with supervisor calls. The only
+special function is <code class="docutils literal notranslate"><span class="pre">psa_call</span></code>, because it has <strong>6</strong> parameters. This makes
+the supervisor call handler complex because it has to extract the parameters
+from the stack. The definition of psa_call is the following:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">psa_status_t</span><span class="w"> </span><span class="nf">psa_call</span><span class="p">(</span><span class="n">psa_handle_t</span><span class="w"> </span><span class="n">handle</span><span class="p">,</span><span class="w"> </span><span class="kt">int32_t</span><span class="w"> </span><span class="n">type</span><span class="p">,</span>
+<span class="w">                      </span><span class="k">const</span><span class="w"> </span><span class="n">psa_invec</span><span class="w"> </span><span class="o">*</span><span class="n">in_vec</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">in_len</span><span class="p">,</span>
+<span class="w">                      </span><span class="n">psa_outvec</span><span class="w"> </span><span class="o">*</span><span class="n">out_vec</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">out_len</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>The parameters need to be packed to avoid passing parameters on the stack, and
+the supervisor call needs to unpack the parameters back to <strong>6</strong> for subsequent
+processing.</p>
+</section>
+</section>
+<section id="privileged-access-supporting">
+<h3>Privileged Access Supporting<a class="headerlink" href="#privileged-access-supporting" title="Permalink to this heading"></a></h3>
+<p>Due to specified API (printf, e.g.) need to access privileged resources, TF-M
+Core needs to provide interface for the resources accessing. The permission
+checking must happen in Core while caller is calling these interface.</p>
+</section>
+<section id="secure-partition-scratch-area">
+<h3>Secure Partition Scratch Area<a class="headerlink" href="#secure-partition-scratch-area" title="Permalink to this heading"></a></h3>
+<p>For the API needs partition specific private data, there needs to be a way to
+pass the partition specific data for the API. Use C language preprocessor to
+forward the existing prototype declaration can work, but it has the risks of
+breaking the build since this method needs compilers support (‘-include’ e.g.).
+Furthermore, no valid runtime tricks can work due to these limitations on
+M-profile architecture:</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p>We cannot apply the aligned mask on a stack address to get stack bottom
+where the private data pointer stands. This is because aligned stack bottom
+is not supported.</p></li>
+<li><p>We cannot read special registers such as ‘PSPLIMIT’ for retrieving the
+private data pointer while executing in unprivileged mode.</p></li>
+<li><p>Furthermore, some earlier versions of the ARM architecture do not have
+certain special-purpose registers (‘PSPLIMIT’ etc.).</p></li>
+</ul>
+</div>
+<p>A system-provided scratch area is a precondition for implementing APIs that need
+to access private data (such as ‘malloc’). The requirements for implementing
+such an area are:</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<ul class="simple">
+<li><p>The area must be <code class="docutils literal notranslate"><span class="pre">READ-ONLY</span></code> for the running Secure Partition.</p></li>
+<li><p>The SPM must put the running Secure Partition’s metadata into this area
+while scheduling.</p></li>
+</ul>
+</div>
+<p>With these requirements, the passed parameters can be retrieved by SPRTL easily
+with a read operation on the fixed memory address.</p>
+</section>
+<section id="tooling-support-on-partition-entry">
+<h3>Tooling Support on Partition Entry<a class="headerlink" href="#tooling-support-on-partition-entry" title="Permalink to this heading"></a></h3>
+<p>PSA FF requires each Secure Partition to have an entry point. For example:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cm">/* The entry point function must not return. */</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">entry_point</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Each partition has its own dedicated metadata for heap tracking and other
+runtime state. The metadata is designed to be saved at the read-write data area
+of a partition with a specific name. A generic entry point needs to be available
+to get partition metadata and do initialization before calling into the actual
+partition entry. This generic entry point is defined as ‘__sprtmain’:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">__sprtmain</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">  </span><span class="cm">/* Get current SP private data from scratch area */</span>
+<span class="w">  </span><span class="k">struct</span><span class="w"> </span><span class="nc">sprt_meta_t</span><span class="w"> </span><span class="o">*</span><span class="n">m</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">sprt_meta_t</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="n">tfm_sprt_scratch_data</span><span class="p">;</span>
+
+<span class="w">  </span><span class="cm">/* Potential heap init - check later chapter */</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">m</span><span class="o">-&gt;</span><span class="n">heap_size</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">m</span><span class="o">-&gt;</span><span class="n">heap_instance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tfm_sprt_heap_init</span><span class="p">(</span><span class="n">m</span><span class="o">-&gt;</span><span class="n">heap_sa</span><span class="p">,</span><span class="w"> </span><span class="n">m</span><span class="o">-&gt;</span><span class="n">heap_sz</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="cm">/* Call thread entry &#39;entry_point&#39; */</span>
+<span class="w">  </span><span class="n">m</span><span class="o">-&gt;</span><span class="n">thread_entry</span><span class="p">();</span>
+
+<span class="w">  </span><span class="cm">/* SVC back to tell Core end this thread */</span>
+<span class="w">  </span><span class="n">SVC</span><span class="p">(</span><span class="n">THREAD_EXIT</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Since SPM is not aware of the ‘__sprtmain’ in SPRTL, it just calls into the
+entry point listed in partition runtime data structure. And the partition writer
+may be not aware of running of ‘__sprtmain’ as the generic wrapper entry,
+tooling support needs to happen to support this magic. Here is an example of
+partition manifest:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="o">{</span>
+<span class="w">  </span><span class="s2">&quot;name&quot;</span>:<span class="w"> </span><span class="s2">&quot;TFM_SP_SERVICE&quot;</span>,
+<span class="w">  </span><span class="s2">&quot;type&quot;</span>:<span class="w"> </span><span class="s2">&quot;PSA-ROT&quot;</span>,
+<span class="w">  </span><span class="s2">&quot;priority&quot;</span>:<span class="w"> </span><span class="s2">&quot;NORMAL&quot;</span>,
+<span class="w">  </span><span class="s2">&quot;entry_point&quot;</span>:<span class="w"> </span><span class="s2">&quot;tfm_service_entry&quot;</span>,
+<span class="w">  </span><span class="s2">&quot;stack_size&quot;</span>:<span class="w"> </span><span class="s2">&quot;0x1800&quot;</span>,
+<span class="w">  </span><span class="s2">&quot;heap_size&quot;</span>:<span class="w"> </span><span class="s2">&quot;0x1000&quot;</span>,
+<span class="w">  </span>...
+<span class="o">}</span>
+</pre></div>
+</div>
+<p>Tooling would do manipulation to tell SPM the partition entry as ‘__sprtmain’,
+and TF-M SPM would switch the activated metadata into the scratch area. Finally,
+the partition entry point gets called and run, tooling helps on the decoupling
+of SPM and SPRTL implementation. The pseudo code of a tooling result:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">partition_t</span><span class="w"> </span><span class="n">sp1</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;TFM_SP_SERVICE&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="p">.</span><span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">PSA_ROT</span><span class="p">,</span>
+<span class="w">  </span><span class="p">.</span><span class="n">priority</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">NORMAL</span><span class="p">,</span>
+<span class="w">  </span><span class="p">.</span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0x00000100</span><span class="p">,</span>
+<span class="w">  </span><span class="p">.</span><span class="n">entry_point</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">__sprtmain</span><span class="p">,</span><span class="w"> </span><span class="cm">/* Tell SPM entry is &#39;__sprtmain&#39; */</span>
+<span class="w">  </span><span class="p">.</span><span class="n">metadata</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="cm">/* struct sprt_meta_t */</span>
+<span class="w">    </span><span class="p">.</span><span class="n">heap_sa</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sp1_heap_buf</span><span class="p">,</span>
+<span class="w">    </span><span class="p">.</span><span class="n">heap_sz</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">sp1_heap_buf</span><span class="p">),</span>
+<span class="w">    </span><span class="p">.</span><span class="n">thread_entry</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sp1_entry</span><span class="p">,</span><span class="w"> </span><span class="cm">/* Actual Partition Entry */</span>
+<span class="w">    </span><span class="p">.</span><span class="n">heap_instance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">,</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="implementation">
+<h3>Implementation<a class="headerlink" href="#implementation" title="Permalink to this heading"></a></h3>
+<p>The SPRTL C Runtime sources are put under:
+‘$TFM_ROOT/secure_fw/partitions/lib/runtime/’</p>
+<p>The output of this folder is a static library named as ‘libtfm_sprt.a’. The code
+of ‘libtfm_sprt.a’ is put into a dedicated section so that a hardware protected
+region can be applied to contain it.</p>
+<p>The RoT Service API are put under service interface folder. These APIs are
+marked with the same section attribute where ‘libtfm_sprt.a’ is put.</p>
+<section id="the-formatting-api-printf-and-variants">
+<h4>The Formatting API - ‘printf’ and variants<a class="headerlink" href="#the-formatting-api-printf-and-variants" title="Permalink to this heading"></a></h4>
+<p>The ‘printf’ and its variants need special parameters passing mechanism. To
+implement these APIs, the toolchain provided builtin macro ‘va_list’, ‘va_start’
+and ‘va_end’ cannot be avoided. This is because of some scenarios such as when
+‘stack canaries’ are enabled, only the compiler knows the format of the ‘canary’
+in order to extract the parameters correctly.</p>
+<p>To provide a simple implementation, the following requirements are defined for
+‘printf’:</p>
+<ul class="simple">
+<li><p>Format keyword ‘xXduscp’ needs to be supported.</p></li>
+<li><p>Take ‘%’ as escape flag, ‘%%’ shows a ‘%’ in the formatted string.</p></li>
+<li><p>To save heap usage, 32 bytes buffer in the stack for collecting formatted
+string.</p></li>
+<li><p>Flush string outputting due to: a) buffer full b) function ends.</p></li>
+</ul>
+<p>The interface for flushing can be a logging device.</p>
+</section>
+<section id="function-with-implied-parameters">
+<h4>Function with Implied Parameters<a class="headerlink" href="#function-with-implied-parameters" title="Permalink to this heading"></a></h4>
+<p>Take ‘malloc’ as an example. There is only one parameter for ‘malloc’ in
+the prototype. Heap management code is put in the SPRTL for sharing with caller
+partitions. The heap instance belongs to each partition, which means this
+instance needs to be passed into the heap management code as a parameter. For
+allocation API in heap management, it needs two parameters - ‘size’ and
+‘instance’, while for ‘malloc’ caller it needs a ‘malloc’ with one parameter
+‘size’ only. As mentioned in the upper chapter, this instance can be retrieved
+from the Secure Partition scratch area. The implementation can be:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="nf">malloc</span><span class="p">(</span><span class="kt">size_t</span><span class="w"> </span><span class="n">sz</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">sprt_meta_t</span><span class="w"> </span><span class="o">*</span><span class="n">m</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">sprt_meta_t</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="n">tfm_sprt_scratch_data</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">tfm_sprt_alloc</span><span class="p">(</span><span class="n">m</span><span class="o">-&gt;</span><span class="n">heap_instance</span><span class="p">,</span><span class="w"> </span><span class="n">sz</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<hr class="docutils" />
+<p><em>Copyright (c) 2019-2020, Arm Limited. All rights reserved.</em></p>
+</section>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p></p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

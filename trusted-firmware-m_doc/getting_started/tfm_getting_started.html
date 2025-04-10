@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>First Things First &mdash; Trusted Firmware-M v1.7.0-stm32mp25-alpha-r1-rc3-doc documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/tfm_custom.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/tabs.css" type="text/css" />
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/tabs.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> Trusted Firmware-M
+            <img src="../_static/tf_logo_white.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                v1.7.0-stm32mp25-alpha-r1-rc3-doc
+
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../introduction/index.html">Introduction</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="index.html">Getting Started</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../security/index.html">Security</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../security/security_advisories/index.html">Security Advisories</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../security/security_advisories/stack_seal_vulnerability.html">Advisory TFMV-1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../security/security_advisories/svc_caller_sp_fetching_vulnerability.html">Advisory TFMV-2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../security/security_advisories/crypto_multi_part_ops_abort_fail.html">Advisory TFMV-3</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../security/security_advisories/profile_small_key_id_encoding_vulnerability.html">Advisory TFMV-4</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../security/security_advisories/fwu_write_vulnerability.html">Advisory TFMV-5</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../security/threat_models/index.html">Threat Models</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../security/threat_models/generic_threat_model.html">Trusted Firmware-M Generic Threat Model</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../security/security.html">Security Handling</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../releases/index.html">Releases</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../releases/1.7.0.html">v1.7.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../releases/1.6.1.html">v1.6.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../releases/1.6.0.html">v1.6.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../releases/1.5.0.html">v1.5.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../releases/release_process.html">Release Cadence and Process</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../glossary.html">Glossary</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../platform/index.html">Platform Selection</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../platform/arm/index.html">Arm platforms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../platform/arm/corstone1000/readme.html">Corstone-1000</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/arm/mps3/an547/README.html">Corstone-300 FPGA (AN547)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/arm/mps3/an552/README.html">Corstone-300 FPGA and FVP (AN552)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/arm/mps3/corstone310/README.html">Corstone-310 FVP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/arm/musca_b1/readme.html">Musca-B1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/arm/musca_s1/readme.html">Musca-S1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/arm/rss/readme.html">Runtime Security Subsystem</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../platform/nxp/lpcxpresso55s69/README.html">LPCXpresso55S69</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../platform/cypress/psoc64/index.html">Cypress PSoC64</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../platform/cypress/psoc64/cypress_psoc64_spec.html">Cypress PSoC64 Specifics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/cypress/psoc64/libs/core-lib/README.html">Core Library</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/cypress/psoc64/libs/core-lib/RELEASE.html">Core Library Release Notes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../platform/stm/index.html">STMICROELECTRONICS</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../platform/stm/common/stm32l5xx/readme.html">STM32L5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/stm/common/stm32mp2/readme.html">STM32MP2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/stm/common/stm32u5xx/readme.html">STM32U5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/stm/nucleo_l552ze_q/readme.html">NUCLEO-L552ZE-Q</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32l562e_dk/readme.html">STM32L562E-DK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/stm/b_u585i_iot02a/readme.html">B-U585I-IOT02A</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../platform/nordic_nrf/nrf5340dk_nrf5340_cpuapp/README.html">Nordic nRF5340</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../platform/nordic_nrf/nrf9160dk_nrf9160/README.html">Nordic nRF9160</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../platform/lairdconnectivity/bl5340_dvk_cpuapp/README.html">Laird Connectivity BL5340</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../platform/nuvoton/m2351/README.html">NuMaker-PFM-M2351</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../platform/nuvoton/m2354/README.html">NuMaker-PFM-M2354</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../building/tfm_build_instruction.html">Build instructions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../building/run_tfm_examples_on_arm_platforms.html">Run TF-M examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../building/documentation_generation.html">Building the documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../building/tfm_build_instruction_iar.html">IAR toolchain</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration/index.html">Configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../configuration/build_configuration.html">Build configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../configuration/header_file_system.html">Component configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../configuration/kconfig_system.html">Kconfig</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../configuration/profiles/index.html">Profiles</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../configuration/profiles/tfm_profile_small.html"> Small</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../configuration/profiles/tfm_profile_medium_arot-less.html"> ARoT-less</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../configuration/profiles/tfm_profile_medium.html"> Medium</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../configuration/profiles/tfm_profile_large.html"> Large</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../configuration/test_configuration.html">Tests configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../integration_guide/index.html">Integration Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../integration_guide/spm_backends.html">SPM Backends</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../integration_guide/non-secure_client_extension_integration_guide.html">NS client integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../integration_guide/os_migration_guide_armv8m.html">OS migration to Armv8-M</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../integration_guide/tfm_fpu_support.html">Floating-Point Support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../integration_guide/tfm_secure_irq_integration_guide.html">Secure Interrupt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../integration_guide/platform/index.html">Adding a new platform</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guide/platform/platform_folder.html">Details for the platform folder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guide/platform/platform_ext_folder.html">Details for the platform/ext folder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guide/platform/porting_TFM_to_a_new_hardware.html">Porting TF-M to a New Hardware</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guide/platform/platform_provisioning.html">Platform Provisioning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guide/platform/platform_deprecation.html">Platform deprecation and removal</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../integration_guide/services/index.html">Services</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guide/services/tfm_attestation_integration_guide.html">Initial Attestation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guide/services/tfm_crypto_integration_guide.html">Crypto</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guide/services/tfm_its_integration_guide.html">Internal Storage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guide/services/tfm_platform_integration_guide.html">Platform</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guide/services/tfm_ps_integration_guide.html">Protected Storage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guide/services/tfm_secure_partition_addition.html">Adding a New Service</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guide/services/tfm_manifest_tool_user_guide.html">The manifest tool</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../technical_references/design_docs/index.html">Design Documents</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../technical_references/design_docs/dual-cpu/index.html">Dual-CPU</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../technical_references/design_docs/dual-cpu/booting_a_dual_core_system.html">Booting a Dual-Core System</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../technical_references/design_docs/dual-cpu/communication_prototype_between_nspe_and_spe_in_dual_core_systems.html">Communication Prototype Between NSPE And SPE In Dual Core System</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../technical_references/design_docs/dual-cpu/mailbox_design_on_dual_core_system.html">Mailbox Design in TF-M on Dual-core System</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../technical_references/design_docs/dual-cpu/tfm_multi_core_access_check.html">Memory Access Check of Trusted Firmware-M in Multi-Core Topology</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../technical_references/design_docs/bl1.html">BL1 Immutable bootloader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../technical_references/design_docs/code_sharing.html">Code sharing between independently linked XIP binaries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../technical_references/design_docs/enum_implicit_casting.html">Fixing implicit casting for C enumeration values</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../technical_references/design_docs/ff_isolation.html">FF-M Isolation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../technical_references/design_docs/hardware_abstraction_layer.html">Hardware Abstraction Layer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../technical_references/design_docs/mailbox_ns_agent_update.html">Mailbox NS Agent Design Update</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../technical_references/design_docs/ps_key_management.html">Protected Storage service key management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../technical_references/design_docs/secure_boot_hw_key_integration.html">HW crypto key integration in TF-M secure boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../technical_references/design_docs/secure_boot_rollback_protection.html">Rollback protection in TF-M secure boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../technical_references/design_docs/secure_partition_manager.html">Secure Partition Manager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../technical_references/design_docs/source_structure.html">Trusted Firmware-M Source Structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../technical_references/design_docs/stateless_rot_service.html">Stateless Root of Trust Services Reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../technical_references/design_docs/symmetric_initial_attest.html">Symmetric key algorithm based Initial Attestation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../technical_references/design_docs/tfm_builtin_keys.html">TF-M builtin keys</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../technical_references/design_docs/tfm_code_generation_with_jinja2.html">Code Generation With Jinja2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../technical_references/design_docs/tfm_cooperative_scheduling_rules.html">Cooperative Scheduling Rules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../technical_references/design_docs/tfm_crypto_design.html">Crypto Service design</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../technical_references/design_docs/tfm_fwu_service.html">Firmware Update Service</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../technical_references/design_docs/tfm_its_512_flash.html">Add support for block-aligned flash in Internal Trusted Storage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../technical_references/design_docs/tfm_its_service.html">Internal Trusted Storage (ITS) Service</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../technical_references/design_docs/tfm_log_system_design_document.html">Log system design document</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../technical_references/design_docs/tfm_physical_attack_mitigation.html">Physical attack mitigation in Trusted Firmware-M</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../technical_references/design_docs/tfm_psa_inter_process_communication.html">TF-M Inter-Process Communication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../technical_references/design_docs/tfm_secure_boot.html">Secure boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../technical_references/design_docs/tfm_secure_partition_runtime_library.html">Secure Partition Runtime Library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../technical_references/design_docs/tfm_uniform_secure_service_signature.html">Uniform Secure Service Signature</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../tools/index.html">Tools</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contribution</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/index.html">Guidelines</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../contributing/contributing_process.html">The process</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../contributing/code_review_guide.html">Code review</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../contributing/maintainers.html">Maintainers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../contributing/maintainers.html#code-owners">Code owners</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../contributing/coding_guide.html">Yet another coding standard :)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../contributing/doc_guidelines.html">Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../contributing/tfm_design_proposal_guideline.html">Design proposal</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/lic.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/dco.html">DCO</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Links</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://ci.trustedfirmware.org/view/TF-M/job/tf-m-build-docs-nightly/lastSuccessfulBuild/artifact/trusted-firmware-m/build/docs/reference_manual/html/index.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://developer.trustedfirmware.org/w/collaboration/security_center">Security Center</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://www.arm.com/architecture/security-features/platform-security">PSA</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">STMICROELECTRONICS</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../stm/releases/index.html">Releases</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../stm/releases/getting_started.html">Getting started</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32l562e_dk/readme.html">STM32L562E-DK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/stm/nucleo_l552ze_q/readme.html">NUCLEO-L552ZE-Q</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/stm/b_u585i_iot02a/readme.html">B-U585I-IOT02A</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../stm/releases/platforms.html">Platforms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../platform/stm/common/stm32l5xx/readme.html">STM32L5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/stm/common/stm32mp2/readme.html">STM32MP2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/stm/common/stm32u5xx/readme.html">STM32U5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/stm/nucleo_l552ze_q/readme.html">NUCLEO-L552ZE-Q</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32l562e_dk/readme.html">STM32L562E-DK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../stm/releases/changelog.html">Change Log &amp; Notes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../stm/releases/v1.7.0-stm32mp25-alpha-r1-rc3/changelog.html">v1.7.0-stm32mp25-alpha-r1-rc3</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../stm/technical/index.html">Technical references</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../stm/technical/a35_td_flavor/index.html">A35-TD flavor</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../stm/technical/a35_td_flavor/memory_layout.html">Memory layout</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../stm/technical/a35_td_flavor/storage.html">Storage</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../stm/technical/m33_td_flavor/index.html">M33-TD flavor</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../stm/technical/m33_td_flavor/memory_layout.html">Memory layout</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../stm/technical/m33_td_flavor/storage.html">Storage</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../stm/technical/devicetree/index.html">Devicetree</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../stm/technical/devicetree/devicetree_tfm.html">Scope and purpose</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../stm/technical/devicetree/devicetree_tfm.html#concept">Concept</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../stm/technical/devicetree/devicetree_tfm.html#how-to-add-device">How to add device</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../stm/technical/initlevel.html">Initlevel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../stm/technical/initial_attestation.html">Initial Attestation Service</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../stm/technical/nv_counter.html">Nv counter</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../stm/ide/index.html">Ide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../stm/ide/cubeide/stm32cubeide.html">STM32CubeIDE</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Trusted Firmware-M</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>First Things First</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="first-things-first">
+<h1>First Things First<a class="headerlink" href="#first-things-first" title="Permalink to this heading"></a></h1>
+<section id="prerequisite">
+<h2>Prerequisite<a class="headerlink" href="#prerequisite" title="Permalink to this heading"></a></h2>
+<p>Trusted Firmware M provides a reference implementation of platform security
+architecture  reference implementation aligning with PSA Certified guidelines.
+It is assumed that the reader is familiar with specifications can be found at
+<a class="reference external" href="https://developer.arm.com/architectures/security-architectures/platform-security-architecture">Platform Security Architecture Resources</a>.</p>
+<p>The current TF-M implementation specifically targets TrustZone for ARMv8-M so a
+good understanding of the v8-M architecture is also necessary. A good place to
+get started with ARMv8-M is
+<a class="reference external" href="https://developer.arm.com/architectures/cpu-architecture/m-profile">developer.arm.com</a>.</p>
+</section>
+<section id="build-and-run-instructions">
+<h2>Build and run instructions<a class="headerlink" href="#build-and-run-instructions" title="Permalink to this heading"></a></h2>
+<p>Trusted Firmware M source code is available on
+<a class="reference external" href="https://git.trustedfirmware.org/TF-M/trusted-firmware-m.git/">git.trustedfirmware.org</a>.</p>
+<p>To build &amp; run TF-M:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Follow the this guide to set up and check your environment.</p></li>
+<li><p>Follow the
+<a class="reference internal" href="../building/tfm_build_instruction.html"><span class="doc">Build instructions</span></a>
+to compile and build the TF-M source.</p></li>
+<li><p>Follow the <a class="reference internal" href="../building/run_tfm_examples_on_arm_platforms.html"><span class="doc">Run TF-M examples on Arm platforms</span></a>
+for information on running the example.</p></li>
+</ul>
+</div></blockquote>
+<p>To port TF-M to a another system or OS, follow the
+<a class="reference internal" href="../integration_guide/index.html"><span class="doc">OS Integration Guide</span></a></p>
+<p><a class="reference internal" href="../contributing/contributing_process.html"><span class="doc">Contributing Guidelines</span></a> contains guidance on how to
+contribute to this project.</p>
+</section>
+</section>
+<section id="set-up-build-environments">
+<h1>Set up build environments<a class="headerlink" href="#set-up-build-environments" title="Permalink to this heading"></a></h1>
+<p>TF-M officially supports a limited set of build environments and setups. In
+this context, official support means that the environments listed below
+are actively used by team members and active developers, hence users should
+be able to recreate the same configurations by following the instructions
+described below. In case of problems, the TF-M team provides support
+only for these environments, but building in other environments can still be
+possible.</p>
+<p>The following environments are supported:</p>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-0-TGludXg=" aria-selected="true" class="sphinx-tabs-tab group-tab" id="tab-0-TGludXg=" name="TGludXg=" role="tab" tabindex="0">Linux</button><button aria-controls="panel-0-V2luZG93cw==" aria-selected="false" class="sphinx-tabs-tab group-tab" id="tab-0-V2luZG93cw==" name="V2luZG93cw==" role="tab" tabindex="-1">Windows</button></div><div aria-labelledby="tab-0-TGludXg=" class="sphinx-tabs-panel group-tab" id="panel-0-TGludXg=" name="TGludXg=" role="tabpanel" tabindex="0"><ol class="arabic">
+<li><p>version supported:</p>
+<p>Ubuntu 18.04 x64+</p>
+</li>
+<li><p>install dependencies:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>git<span class="w"> </span>curl<span class="w"> </span>wget<span class="w"> </span>build-essential<span class="w"> </span>libssl-dev<span class="w"> </span>python3<span class="w"> </span><span class="se">\</span>
+python3-pip<span class="w"> </span>cmake<span class="w"> </span>make
+</pre></div>
+</div>
+<ol class="arabic simple" start="3">
+<li><p>verify cmake version:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cmake<span class="w"> </span>--version
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Please download cmake 3.15 or later version from <a class="reference external" href="https://cmake.org/download/">https://cmake.org/download/</a>.</p>
+</div>
+<ol class="arabic simple" start="4">
+<li><p>add CMake path into environment:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">PATH</span><span class="o">=</span>&lt;CMake<span class="w"> </span>path&gt;/bin:<span class="nv">$PATH</span>
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-0-V2luZG93cw==" class="sphinx-tabs-panel group-tab" hidden="true" id="panel-0-V2luZG93cw==" name="V2luZG93cw==" role="tabpanel" tabindex="0"><ol class="arabic">
+<li><p>version supported:</p>
+<p>Windows 10 x64</p>
+</li>
+<li><p>install dependecies:</p></li>
+</ol>
+<ul class="simple">
+<li><p>Git client latest version (<a class="reference external" href="https://git-scm.com/download/win">https://git-scm.com/download/win</a>)</p></li>
+<li><p>CMake (<a class="reference external" href="https://cmake.org/download/">native Windows version</a>)</p></li>
+<li><p>GNU make (<a class="reference external" href="http://gnuwin32.sourceforge.net/packages/make.htm">http://gnuwin32.sourceforge.net/packages/make.htm</a>)</p></li>
+<li><p>Python3 <a class="reference external" href="https://www.python.org/downloads/">(native Windows version)</a> and
+the pip package manager (from Python 3.4 it’s included)</p></li>
+</ul>
+<ol class="arabic simple" start="3">
+<li><p>add CMake path into environment:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">set</span><span class="w"> </span><span class="nv">PATH</span><span class="o">=</span>&lt;CMake_Path&gt;<span class="se">\b</span>in<span class="p">;</span>%PATH%
+</pre></div>
+</div>
+</div></div>
+</section>
+<section id="install-python-dependencies">
+<h1>Install python dependencies<a class="headerlink" href="#install-python-dependencies" title="Permalink to this heading"></a></h1>
+<p>Clone the TF-M source code, and then install the TF-M’s additional Python
+dependencies.</p>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-1-TGludXg=" aria-selected="true" class="sphinx-tabs-tab group-tab" id="tab-1-TGludXg=" name="TGludXg=" role="tab" tabindex="0">Linux</button><button aria-controls="panel-1-V2luZG93cw==" aria-selected="false" class="sphinx-tabs-tab group-tab" id="tab-1-V2luZG93cw==" name="V2luZG93cw==" role="tab" tabindex="-1">Windows</button></div><div aria-labelledby="tab-1-TGludXg=" class="sphinx-tabs-panel group-tab" id="panel-1-TGludXg=" name="TGludXg=" role="tabpanel" tabindex="0"><ol class="arabic simple">
+<li><p>get the TF-M source code:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>&lt;base<span class="w"> </span>folder&gt;
+git<span class="w"> </span>clone<span class="w"> </span>https://git.trustedfirmware.org/TF-M/trusted-firmware-m.git
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li><p>TF-M’s <code class="docutils literal notranslate"><span class="pre">tools/requirements.txt</span></code> file declares additional Python
+dependencies. Install them with <code class="docutils literal notranslate"><span class="pre">pip3</span></code>:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip3<span class="w"> </span>install<span class="w"> </span>--upgrade<span class="w"> </span>pip
+<span class="nb">cd</span><span class="w"> </span>trusted-firmware-m
+pip3<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>tools/requirements.txt
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-1-V2luZG93cw==" class="sphinx-tabs-panel group-tab" hidden="true" id="panel-1-V2luZG93cw==" name="V2luZG93cw==" role="tabpanel" tabindex="0"><ol class="arabic simple">
+<li><p>get the TF-M source code:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>&lt;base<span class="w"> </span>folder&gt;
+git<span class="w"> </span>clone<span class="w"> </span>https://git.trustedfirmware.org/TF-M/trusted-firmware-m.git
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li><p>TF-M’s <code class="docutils literal notranslate"><span class="pre">tools/requirements.txt</span></code> file declares additional Python
+dependencies. Install them with <code class="docutils literal notranslate"><span class="pre">pip3</span></code>:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>trusted-firmware-m
+pip3<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>tools<span class="se">\r</span>equirements.txt
+</pre></div>
+</div>
+</div></div>
+</section>
+<section id="install-a-toolchain">
+<h1>Install a toolchain<a class="headerlink" href="#install-a-toolchain" title="Permalink to this heading"></a></h1>
+<p>To compile TF-M code, at least one of the supported compiler toolchains have to
+be available in the build environment. The currently supported compiler
+versions are:</p>
+<blockquote>
+<div><ul>
+<li><p>Arm Compiler v6.10.1 ~ v6.14, v6.18+</p>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-2-TGludXg=" aria-selected="true" class="sphinx-tabs-tab group-tab" id="tab-2-TGludXg=" name="TGludXg=" role="tab" tabindex="0">Linux</button><button aria-controls="panel-2-V2luZG93cw==" aria-selected="false" class="sphinx-tabs-tab group-tab" id="tab-2-V2luZG93cw==" name="V2luZG93cw==" role="tab" tabindex="-1">Windows</button></div><div aria-labelledby="tab-2-TGludXg=" class="sphinx-tabs-panel group-tab" id="panel-2-TGludXg=" name="TGludXg=" role="tabpanel" tabindex="0"><ul>
+<li><p>Download the standalone packages from <a class="reference external" href="https://developer.arm.com/products/software-development-tools/compilers/arm-compiler/downloads/version-6">here</a>.</p></li>
+<li><p>Add Arm Compiler into environment:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">PATH</span><span class="o">=</span>&lt;ARM_CLANG_PATH&gt;/bin:<span class="nv">$PATH</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">ARM_PRODUCT_PATH</span><span class="o">=</span>&lt;ARM_CLANG_PATH&gt;/sw/mappings
+</pre></div>
+</div>
+</li>
+<li><p>Configure proper tool variant and license.</p></li>
+</ul>
+</div><div aria-labelledby="tab-2-V2luZG93cw==" class="sphinx-tabs-panel group-tab" hidden="true" id="panel-2-V2luZG93cw==" name="V2luZG93cw==" role="tabpanel" tabindex="0"><ul>
+<li><p>Download the standalone packages from <a class="reference external" href="https://developer.arm.com/products/software-development-tools/compilers/arm-compiler/downloads/version-6">here</a>.</p></li>
+<li><p>Add Arm Compiler into environment:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">set</span><span class="w"> </span><span class="nv">PATH</span><span class="o">=</span>&lt;ARM_CLANG_PATH&gt;<span class="se">\b</span>in<span class="p">;</span>%PATH%
+<span class="nb">set</span><span class="w"> </span><span class="nv">ARM_PRODUCT_PATH</span><span class="o">=</span>&lt;ARM_CLANG_PATH&gt;<span class="se">\s</span>w<span class="se">\m</span>appings
+</pre></div>
+</div>
+</li>
+<li><p>Configure proper tool variant and license.</p></li>
+</ul>
+</div></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Arm compiler v6.15 ~ v6.17 may cause MemManage fault.
+This defect has been fixed since Arm compiler v6.18.
+See [SDCOMP-59788] in Armclang v6.18 <a class="reference external" href="https://developer.arm.com/-/media/Arm%20Developer%20Community/Downloads/Arm%20Compiler%20for%20Embedded/6-18/Release%20notes%20for%20Arm%20Compiler%20for%20Embedded%206.pdf">release note</a> for details.</p>
+</div>
+</li>
+<li><p>GNU Arm compiler v7.3.1+</p>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-3-TGludXg=" aria-selected="true" class="sphinx-tabs-tab group-tab" id="tab-3-TGludXg=" name="TGludXg=" role="tab" tabindex="0">Linux</button><button aria-controls="panel-3-V2luZG93cw==" aria-selected="false" class="sphinx-tabs-tab group-tab" id="tab-3-V2luZG93cw==" name="V2luZG93cw==" role="tab" tabindex="-1">Windows</button></div><div aria-labelledby="tab-3-TGludXg=" class="sphinx-tabs-panel group-tab" id="panel-3-TGludXg=" name="TGludXg=" role="tabpanel" tabindex="0"><ul>
+<li><p>Download the GNU Arm compiler from <a class="reference external" href="https://developer.arm.com/open-source/gnu-toolchain/gnu-rm/downloads">here</a>.</p></li>
+<li><p>Add GNU Arm into environment:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">PATH</span><span class="o">=</span>&lt;GNU_ARM_PATH&gt;/bin:<span class="nv">$PATH</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div><div aria-labelledby="tab-3-V2luZG93cw==" class="sphinx-tabs-panel group-tab" hidden="true" id="panel-3-V2luZG93cw==" name="V2luZG93cw==" role="tabpanel" tabindex="0"><ul>
+<li><p>Download the GNU Arm compiler from <a class="reference external" href="https://developer.arm.com/open-source/gnu-toolchain/gnu-rm/downloads">here</a>.</p></li>
+<li><p>Add GNU Arm into environment:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">set</span><span class="w"> </span><span class="nv">PATH</span><span class="o">=</span>&lt;GNU_ARM_PATH&gt;<span class="se">\b</span>in<span class="p">;</span>%PATH%
+</pre></div>
+</div>
+</li>
+</ul>
+</div></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>GNU Arm compiler version <em>10-2020-q4-major</em> has an issue in CMSE
+support. The bug is reported in <a class="reference external" href="https://gcc.gnu.org/bugzilla/show_bug.cgi?id=99157">here</a>.
+Select other GNU Arm compiler versions instead.</p>
+</div>
+</li>
+<li><p>IAR Arm compiler v8.42.x, v8.50.x</p>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-4-TGludXg=" aria-selected="true" class="sphinx-tabs-tab group-tab" id="tab-4-TGludXg=" name="TGludXg=" role="tab" tabindex="0">Linux</button><button aria-controls="panel-4-V2luZG93cw==" aria-selected="false" class="sphinx-tabs-tab group-tab" id="tab-4-V2luZG93cw==" name="V2luZG93cw==" role="tab" tabindex="-1">Windows</button></div><div aria-labelledby="tab-4-TGludXg=" class="sphinx-tabs-panel group-tab" id="panel-4-TGludXg=" name="TGludXg=" role="tabpanel" tabindex="0"><ul>
+<li><p>Download IAR build tools from <a class="reference external" href="https://www.iar.com/iar-embedded-workbench/build-tools-for-linux/">here</a>.</p></li>
+<li><p>Add IAR Arm compiler into environment:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">PATH</span><span class="o">=</span>&lt;IAR_COMPILER_PATH&gt;/bin:<span class="nv">$PATH</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div><div aria-labelledby="tab-4-V2luZG93cw==" class="sphinx-tabs-panel group-tab" hidden="true" id="panel-4-V2luZG93cw==" name="V2luZG93cw==" role="tabpanel" tabindex="0"><ul>
+<li><p>Download IAR build tools from <a class="reference external" href="https://www.iar.com/iar-embedded-workbench/#!?architecture=Arm">here</a>.</p></li>
+<li><p>Add IAR Arm compiler into environment:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">set</span><span class="w"> </span><span class="nv">PATH</span><span class="o">=</span>&lt;IAR_COMPILER_PATH&gt;<span class="se">\b</span>in<span class="p">;</span>%PATH%
+</pre></div>
+</div>
+</li>
+</ul>
+</div></div>
+</li>
+</ul>
+</div></blockquote>
+</section>
+<section id="build-an521-regression-sample">
+<h1>Build AN521 regression sample<a class="headerlink" href="#build-an521-regression-sample" title="Permalink to this heading"></a></h1>
+<p>Here, we take building TF-M for AN521 platform with regression tests using GCC
+as an example:</p>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-5-TGludXg=" aria-selected="true" class="sphinx-tabs-tab group-tab" id="tab-5-TGludXg=" name="TGludXg=" role="tab" tabindex="0">Linux</button><button aria-controls="panel-5-V2luZG93cw==" aria-selected="false" class="sphinx-tabs-tab group-tab" id="tab-5-V2luZG93cw==" name="V2luZG93cw==" role="tab" tabindex="-1">Windows</button></div><div aria-labelledby="tab-5-TGludXg=" class="sphinx-tabs-panel group-tab" id="panel-5-TGludXg=" name="TGludXg=" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>trusted-firmware-m
+cmake<span class="w"> </span>-S<span class="w"> </span>.<span class="w"> </span>-B<span class="w"> </span>cmake_build<span class="w"> </span>-DTFM_PLATFORM<span class="o">=</span>arm/mps2/an521<span class="w"> </span>-DTFM_TOOLCHAIN_FILE<span class="o">=</span>toolchain_GNUARM.cmake<span class="w"> </span>-DCMAKE_BUILD_TYPE<span class="o">=</span>Debug<span class="w"> </span>-DTEST_S<span class="o">=</span>ON<span class="w"> </span>-DTEST_NS<span class="o">=</span>ON
+cmake<span class="w"> </span>--build<span class="w"> </span>cmake_build<span class="w"> </span>--<span class="w"> </span>install
+</pre></div>
+</div>
+<p>Alternately using traditional cmake syntax</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>trusted-firmware-m
+mkdir<span class="w"> </span>cmake_build
+<span class="nb">cd</span><span class="w"> </span>cmake_build
+cmake<span class="w"> </span>..<span class="w"> </span>-DTFM_PLATFORM<span class="o">=</span>arm/mps2/an521<span class="w"> </span>-DTFM_TOOLCHAIN_FILE<span class="o">=</span>../toolchain_GNUARM.cmake<span class="w"> </span>-DTEST_S<span class="o">=</span>ON<span class="w"> </span>-DTEST_NS<span class="o">=</span>ON
+make<span class="w"> </span>install
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-5-V2luZG93cw==" class="sphinx-tabs-panel group-tab" hidden="true" id="panel-5-V2luZG93cw==" name="V2luZG93cw==" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>trusted-firmware-m
+cmake<span class="w"> </span>-G<span class="s2">&quot;Unix Makefiles&quot;</span><span class="w"> </span>-S<span class="w"> </span>.<span class="w"> </span>-B<span class="w"> </span>cmake_build<span class="w"> </span>-DTFM_PLATFORM<span class="o">=</span>arm/mps2/an521<span class="w"> </span>-DTFM_TOOLCHAIN_FILE<span class="o">=</span>toolchain_GNUARM.cmake<span class="w"> </span>-DCMAKE_BUILD_TYPE<span class="o">=</span>Debug<span class="w"> </span>-DTEST_S<span class="o">=</span>ON<span class="w"> </span>-DTEST_NS<span class="o">=</span>ON
+cmake<span class="w"> </span>--build<span class="w"> </span>cmake_build<span class="w"> </span>--<span class="w"> </span>install
+</pre></div>
+</div>
+<p>Alternately using traditional cmake syntax</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>trusted-firmware-m
+mkdir<span class="w"> </span>cmake_build
+<span class="nb">cd</span><span class="w"> </span>cmake_build
+cmake<span class="w"> </span>-G<span class="s2">&quot;Unix Makefiles&quot;</span><span class="w"> </span>..<span class="w"> </span>-DTFM_PLATFORM<span class="o">=</span>arm/mps2/an521<span class="w"> </span>-DTFM_TOOLCHAIN_FILE<span class="o">=</span>../toolchain_GNUARM.cmake<span class="w"> </span>-DTEST_S<span class="o">=</span>ON<span class="w"> </span>-DTEST_NS<span class="o">=</span>ON
+make<span class="w"> </span>install
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The latest Windows support long paths, but if you are less lucky
+then you can reduce paths by moving the build directory closer to
+the root, using the ‘out of tree’ build.
+For example to build in <code class="docutils literal notranslate"><span class="pre">C:\build</span></code> folder you can:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>trusted-firmware-m
+cmake<span class="w"> </span>-G<span class="s2">&quot;Unix Makefiles&quot;</span><span class="w"> </span>-S<span class="w"> </span>.<span class="w"> </span>-B<span class="w"> </span>C:/build<span class="w"> </span>-DTFM_PLATFORM<span class="o">=</span>arm/mps2/an521<span class="w"> </span>-DTFM_TOOLCHAIN_FILE<span class="o">=</span>toolchain_GNUARM.cmake<span class="w"> </span>-DCMAKE_BUILD_TYPE<span class="o">=</span>Debug<span class="w"> </span>-DTEST_S<span class="o">=</span>ON<span class="w"> </span>-DTEST_NS<span class="o">=</span>ON
+cmake<span class="w"> </span>--build<span class="w"> </span>C:/build<span class="w"> </span>--<span class="w"> </span>install
+</pre></div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="run-an521-regression-sample">
+<h1>Run AN521 regression sample<a class="headerlink" href="#run-an521-regression-sample" title="Permalink to this heading"></a></h1>
+<p>Run the sample code on SSE-200 Fast-Model, using FVP_MPS2_AEMv8M provided by
+Arm Development Studio.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Arm Development Studio is not essential to develop TF-M, you can skip this
+section if don’t want to try on Arm develop boards.</p>
+</div>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-6-TGludXg=" aria-selected="true" class="sphinx-tabs-tab group-tab" id="tab-6-TGludXg=" name="TGludXg=" role="tab" tabindex="0">Linux</button><button aria-controls="panel-6-V2luZG93cw==" aria-selected="false" class="sphinx-tabs-tab group-tab" id="tab-6-V2luZG93cw==" name="V2luZG93cw==" role="tab" tabindex="-1">Windows</button></div><div aria-labelledby="tab-6-TGludXg=" class="sphinx-tabs-panel group-tab" id="panel-6-TGludXg=" name="TGludXg=" role="tabpanel" tabindex="0"><ol class="arabic">
+<li><p>install Arm Development Studio to get the fast-model.</p>
+<p>Download Arm Development Studio from <a class="reference external" href="https://developer.arm.com/tools-and-software/embedded/arm-development-studio">here</a>.</p>
+</li>
+<li><p>Add <code class="docutils literal notranslate"><span class="pre">bl2.axf</span></code> and <code class="docutils literal notranslate"><span class="pre">tfm_s_ns_signed.bin</span></code> to symbol files in Debug
+Configuration menu.</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>&lt;DS_PATH&gt;/sw/models/bin/FVP_MPS2_AEMv8M<span class="w">  </span><span class="se">\</span>
+--parameter<span class="w"> </span>fvp_mps2.platform_type<span class="o">=</span><span class="m">2</span><span class="w"> </span><span class="se">\</span>
+--parameter<span class="w"> </span>cpu0.baseline<span class="o">=</span><span class="m">0</span><span class="w"> </span><span class="se">\</span>
+--parameter<span class="w"> </span>cpu0.INITVTOR_S<span class="o">=</span>0x10000000<span class="w"> </span><span class="se">\</span>
+--parameter<span class="w"> </span>cpu0.semihosting-enable<span class="o">=</span><span class="m">0</span><span class="w"> </span><span class="se">\</span>
+--parameter<span class="w"> </span>fvp_mps2.DISABLE_GATING<span class="o">=</span><span class="m">0</span><span class="w"> </span><span class="se">\</span>
+--parameter<span class="w"> </span>fvp_mps2.telnetterminal0.start_telnet<span class="o">=</span><span class="m">1</span><span class="w"> </span><span class="se">\</span>
+--parameter<span class="w"> </span>fvp_mps2.telnetterminal1.start_telnet<span class="o">=</span><span class="m">0</span><span class="w"> </span><span class="se">\</span>
+--parameter<span class="w"> </span>fvp_mps2.telnetterminal2.start_telnet<span class="o">=</span><span class="m">0</span><span class="w"> </span><span class="se">\</span>
+--parameter<span class="w"> </span>fvp_mps2.telnetterminal0.quiet<span class="o">=</span><span class="m">0</span><span class="w"> </span><span class="se">\</span>
+--parameter<span class="w"> </span>fvp_mps2.telnetterminal1.quiet<span class="o">=</span><span class="m">1</span><span class="w"> </span><span class="se">\</span>
+--parameter<span class="w"> </span>fvp_mps2.telnetterminal2.quiet<span class="o">=</span><span class="m">1</span><span class="w"> </span><span class="se">\</span>
+--application<span class="w"> </span><span class="nv">cpu0</span><span class="o">=</span>&lt;build_dir&gt;/bin/bl2.axf<span class="w"> </span><span class="se">\</span>
+--data<span class="w"> </span><span class="nv">cpu0</span><span class="o">=</span>&lt;build_dir&gt;/bin/tfm_s_ns_signed.bin@0x10080000
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-6-V2luZG93cw==" class="sphinx-tabs-panel group-tab" hidden="true" id="panel-6-V2luZG93cw==" name="V2luZG93cw==" role="tabpanel" tabindex="0"><ol class="arabic">
+<li><p>install Arm Development Studio to get the fast-model.</p>
+<p>Download Arm Development Studio from <a class="reference external" href="https://developer.arm.com/tools-and-software/embedded/arm-development-studio">here</a>.</p>
+</li>
+<li><p>Add <code class="docutils literal notranslate"><span class="pre">bl2.axf</span></code> and <code class="docutils literal notranslate"><span class="pre">tfm_s_ns_signed.bin</span></code> to symbol files in Debug
+Configuration menu.</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>&lt;DS_PATH&gt;<span class="se">\s</span>w<span class="se">\m</span>odels<span class="se">\b</span>in<span class="se">\F</span>VP_MPS2_AEMv8M<span class="w">  </span><span class="se">\</span>
+--parameter<span class="w"> </span>fvp_mps2.platform_type<span class="o">=</span><span class="m">2</span><span class="w"> </span><span class="se">\</span>
+--parameter<span class="w"> </span>cpu0.baseline<span class="o">=</span><span class="m">0</span><span class="w"> </span><span class="se">\</span>
+--parameter<span class="w"> </span>cpu0.INITVTOR_S<span class="o">=</span>0x10000000<span class="w"> </span><span class="se">\</span>
+--parameter<span class="w"> </span>cpu0.semihosting-enable<span class="o">=</span><span class="m">0</span><span class="w"> </span><span class="se">\</span>
+--parameter<span class="w"> </span>fvp_mps2.DISABLE_GATING<span class="o">=</span><span class="m">0</span><span class="w"> </span><span class="se">\</span>
+--parameter<span class="w"> </span>fvp_mps2.telnetterminal0.start_telnet<span class="o">=</span><span class="m">1</span><span class="w"> </span><span class="se">\</span>
+--parameter<span class="w"> </span>fvp_mps2.telnetterminal1.start_telnet<span class="o">=</span><span class="m">0</span><span class="w"> </span><span class="se">\</span>
+--parameter<span class="w"> </span>fvp_mps2.telnetterminal2.start_telnet<span class="o">=</span><span class="m">0</span><span class="w"> </span><span class="se">\</span>
+--parameter<span class="w"> </span>fvp_mps2.telnetterminal0.quiet<span class="o">=</span><span class="m">0</span><span class="w"> </span><span class="se">\</span>
+--parameter<span class="w"> </span>fvp_mps2.telnetterminal1.quiet<span class="o">=</span><span class="m">1</span><span class="w"> </span><span class="se">\</span>
+--parameter<span class="w"> </span>fvp_mps2.telnetterminal2.quiet<span class="o">=</span><span class="m">1</span><span class="w"> </span><span class="se">\</span>
+--application<span class="w"> </span><span class="nv">cpu0</span><span class="o">=</span>&lt;build_dir&gt;/bin/bl2.axf<span class="w"> </span><span class="se">\</span>
+--data<span class="w"> </span><span class="nv">cpu0</span><span class="o">=</span>&lt;build_dir&gt;/bin/tfm_s_ns_signed.bin@0x10080000
+</pre></div>
+</div>
+</div></div>
+<p>After completing the procedure you should see the following messages on the
+DAPLink UART (baud 115200 8n1):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>[INF] Starting bootloader
+[INF] Image 0: magic=good, copy_done=0xff, image_ok=0xff
+[INF] Scratch: magic=bad, copy_done=0x5, image_ok=0x9
+[INF] Boot source: primary slot
+[INF] Swap type: none
+[INF] Bootloader chainload address offset: 0x20000
+[INF] Jumping to the first image slot
+[Sec Thread] Secure image initializing!
+
+#### Execute test suites for the protected storage service ####
+Running Test Suite PS secure interface tests (TFM_PS_TEST_2XXX)...
+&gt; Executing &#39;TFM_PS_TEST_2001&#39;
+  Description: &#39;Create interface&#39;
+  TEST PASSED!
+&gt; Executing &#39;TFM_PS_TEST_2002&#39;
+  Description: &#39;Get handle interface (DEPRECATED)&#39;
+This test is DEPRECATED and the test execution was SKIPPED
+  TEST PASSED!
+&gt; Executing &#39;TFM_PS_TEST_2003&#39;
+  Description: &#39;Get handle with null handle pointer (DEPRECATED)&#39;
+This test is DEPRECATED and the test execution was SKIPPED
+  TEST PASSED!
+&gt; Executing &#39;TFM_PS_TEST_2004&#39;
+  Description: &#39;Get attributes interface&#39;
+  TEST PASSED!
+&gt; Executing &#39;TFM_PS_TEST_2005&#39;
+  Description: &#39;Get attributes with null attributes struct pointer&#39;
+....
+</pre></div>
+</div>
+</section>
+<section id="tool-dependency-overview">
+<h1>Tool &amp; Dependency overview<a class="headerlink" href="#tool-dependency-overview" title="Permalink to this heading"></a></h1>
+<p>To build the TF-M firmware the following tools are needed:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>C compiler of supported toolchains</p></li>
+<li><p>CMake version 3.15 or later</p></li>
+<li><p>Git</p></li>
+<li><p>gmake, aka GNU Make</p></li>
+<li><p>Python v3.x</p></li>
+<li><p>a set of python modules listed in <code class="docutils literal notranslate"><span class="pre">tools/requiremtns.txt</span></code></p></li>
+</ul>
+</div></blockquote>
+<section id="dependency-chain">
+<h2>Dependency chain<a class="headerlink" href="#dependency-chain" title="Permalink to this heading"></a></h2>
+<p class="plantuml">
+<img src="../_images/plantuml-d97328799157453a7a877f8c73930296ed7a7bda.png" alt="&#64;startuml
+ skinparam state {
+   BackgroundColor #92AEE0
+   FontColor black
+   FontSize 16
+   AttributeFontColor black
+   AttributeFontSize 16
+ }
+ state fw as &quot;Firmware&quot; : TF-M binary
+ state c_comp as &quot;C Compiler&quot; : C99
+ state python as &quot;Python&quot; : v3.x
+
+ fw --&gt; c_comp
+ fw --&gt; CMake
+ CMake --&gt; gmake
+ CMake --&gt; Ninja
+ fw --&gt; cryptography
+ fw --&gt; pyasn1
+ fw --&gt; yaml
+ fw --&gt; jinja2
+ fw --&gt; cbor2
+ fw --&gt; click
+ fw --&gt; imgtool
+ c_comp --&gt; GCC
+ c_comp --&gt; CLANG
+ c_comp --&gt; IAR
+ cryptography --&gt; python
+ pyasn1 --&gt; python
+ yaml --&gt; python
+ jinja2 --&gt; python
+ cbor2 --&gt; python
+ click --&gt; python
+ imgtool --&gt; python
+ kconfiglib --&gt; python
+&#64;enduml"/>
+</p>
+<p class="rubric">Next steps</p>
+<p>Here are some next steps for exploring TF-M:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Detailed <a class="reference internal" href="../building/tfm_build_instruction.html"><span class="doc">Build instructions</span></a>.</p></li>
+<li><p><a class="reference internal" href="../building/tfm_build_instruction_iar.html"><span class="doc">IAR Build instructions</span></a>.</p></li>
+<li><p>Try other <a class="reference internal" href="../building/run_tfm_examples_on_arm_platforms.html"><span class="doc">Samples and Demos</span></a>.</p></li>
+<li><p><a class="reference internal" href="../building/documentation_generation.html"><span class="doc">Documentation generation</span></a>.</p></li>
+</ul>
+</div></blockquote>
+<hr class="docutils" />
+<p><em>Copyright (c) 2017-2022, Arm Limited. All rights reserved.</em></p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p></p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

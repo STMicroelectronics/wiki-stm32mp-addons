@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Physical attack mitigation in Trusted Firmware-M &mdash; Trusted Firmware-M v1.7.0-stm32mp25-alpha-r1-rc3-doc documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/tfm_custom.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/tabs.css" type="text/css" />
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="TF-M Inter-Process Communication" href="tfm_psa_inter_process_communication.html" />
+    <link rel="prev" title="Log system design document" href="tfm_log_system_design_document.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> Trusted Firmware-M
+            <img src="../../_static/tf_logo_white.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                v1.7.0-stm32mp25-alpha-r1-rc3-doc
+
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../introduction/index.html">Introduction</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started/index.html">Getting Started</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../security/index.html">Security</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../security/security_advisories/index.html">Security Advisories</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/stack_seal_vulnerability.html">Advisory TFMV-1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/svc_caller_sp_fetching_vulnerability.html">Advisory TFMV-2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/crypto_multi_part_ops_abort_fail.html">Advisory TFMV-3</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/profile_small_key_id_encoding_vulnerability.html">Advisory TFMV-4</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/fwu_write_vulnerability.html">Advisory TFMV-5</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../security/threat_models/index.html">Threat Models</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../security/threat_models/generic_threat_model.html">Trusted Firmware-M Generic Threat Model</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../security/security.html">Security Handling</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../releases/index.html">Releases</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/1.7.0.html">v1.7.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/1.6.1.html">v1.6.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/1.6.0.html">v1.6.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/1.5.0.html">v1.5.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/release_process.html">Release Cadence and Process</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../glossary.html">Glossary</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../platform/index.html">Platform Selection</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/arm/index.html">Arm platforms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/corstone1000/readme.html">Corstone-1000</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/mps3/an547/README.html">Corstone-300 FPGA (AN547)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/mps3/an552/README.html">Corstone-300 FPGA and FVP (AN552)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/mps3/corstone310/README.html">Corstone-310 FVP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/musca_b1/readme.html">Musca-B1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/musca_s1/readme.html">Musca-S1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/rss/readme.html">Runtime Security Subsystem</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/nxp/lpcxpresso55s69/README.html">LPCXpresso55S69</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/cypress/psoc64/index.html">Cypress PSoC64</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/cypress/psoc64/cypress_psoc64_spec.html">Cypress PSoC64 Specifics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/cypress/psoc64/libs/core-lib/README.html">Core Library</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/cypress/psoc64/libs/core-lib/RELEASE.html">Core Library Release Notes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/stm/index.html">STMICROELECTRONICS</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32l5xx/readme.html">STM32L5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32mp2/readme.html">STM32MP2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32u5xx/readme.html">STM32U5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/nucleo_l552ze_q/readme.html">NUCLEO-L552ZE-Q</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32l562e_dk/readme.html">STM32L562E-DK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/b_u585i_iot02a/readme.html">B-U585I-IOT02A</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/nordic_nrf/nrf5340dk_nrf5340_cpuapp/README.html">Nordic nRF5340</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/nordic_nrf/nrf9160dk_nrf9160/README.html">Nordic nRF9160</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/lairdconnectivity/bl5340_dvk_cpuapp/README.html">Laird Connectivity BL5340</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/nuvoton/m2351/README.html">NuMaker-PFM-M2351</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/nuvoton/m2354/README.html">NuMaker-PFM-M2354</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../building/tfm_build_instruction.html">Build instructions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../building/run_tfm_examples_on_arm_platforms.html">Run TF-M examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../building/documentation_generation.html">Building the documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../building/tfm_build_instruction_iar.html">IAR toolchain</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../configuration/index.html">Configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../configuration/build_configuration.html">Build configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../configuration/header_file_system.html">Component configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../configuration/kconfig_system.html">Kconfig</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../configuration/profiles/index.html">Profiles</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../configuration/profiles/tfm_profile_small.html"> Small</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../configuration/profiles/tfm_profile_medium_arot-less.html"> ARoT-less</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../configuration/profiles/tfm_profile_medium.html"> Medium</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../configuration/profiles/tfm_profile_large.html"> Large</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../configuration/test_configuration.html">Tests configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../integration_guide/index.html">Integration Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../integration_guide/spm_backends.html">SPM Backends</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../integration_guide/non-secure_client_extension_integration_guide.html">NS client integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../integration_guide/os_migration_guide_armv8m.html">OS migration to Armv8-M</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../integration_guide/tfm_fpu_support.html">Floating-Point Support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../integration_guide/tfm_secure_irq_integration_guide.html">Secure Interrupt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../integration_guide/platform/index.html">Adding a new platform</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/platform/platform_folder.html">Details for the platform folder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/platform/platform_ext_folder.html">Details for the platform/ext folder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/platform/porting_TFM_to_a_new_hardware.html">Porting TF-M to a New Hardware</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/platform/platform_provisioning.html">Platform Provisioning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/platform/platform_deprecation.html">Platform deprecation and removal</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../integration_guide/services/index.html">Services</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/services/tfm_attestation_integration_guide.html">Initial Attestation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/services/tfm_crypto_integration_guide.html">Crypto</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/services/tfm_its_integration_guide.html">Internal Storage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/services/tfm_platform_integration_guide.html">Platform</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/services/tfm_ps_integration_guide.html">Protected Storage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/services/tfm_secure_partition_addition.html">Adding a New Service</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/services/tfm_manifest_tool_user_guide.html">The manifest tool</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Design Documents</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="dual-cpu/index.html">Dual-CPU</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="dual-cpu/booting_a_dual_core_system.html">Booting a Dual-Core System</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dual-cpu/communication_prototype_between_nspe_and_spe_in_dual_core_systems.html">Communication Prototype Between NSPE And SPE In Dual Core System</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dual-cpu/mailbox_design_on_dual_core_system.html">Mailbox Design in TF-M on Dual-core System</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dual-cpu/tfm_multi_core_access_check.html">Memory Access Check of Trusted Firmware-M in Multi-Core Topology</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="bl1.html">BL1 Immutable bootloader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="code_sharing.html">Code sharing between independently linked XIP binaries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="enum_implicit_casting.html">Fixing implicit casting for C enumeration values</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ff_isolation.html">FF-M Isolation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hardware_abstraction_layer.html">Hardware Abstraction Layer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mailbox_ns_agent_update.html">Mailbox NS Agent Design Update</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ps_key_management.html">Protected Storage service key management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="secure_boot_hw_key_integration.html">HW crypto key integration in TF-M secure boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="secure_boot_rollback_protection.html">Rollback protection in TF-M secure boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="secure_partition_manager.html">Secure Partition Manager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="source_structure.html">Trusted Firmware-M Source Structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="stateless_rot_service.html">Stateless Root of Trust Services Reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="symmetric_initial_attest.html">Symmetric key algorithm based Initial Attestation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tfm_builtin_keys.html">TF-M builtin keys</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tfm_code_generation_with_jinja2.html">Code Generation With Jinja2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tfm_cooperative_scheduling_rules.html">Cooperative Scheduling Rules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tfm_crypto_design.html">Crypto Service design</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tfm_fwu_service.html">Firmware Update Service</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tfm_its_512_flash.html">Add support for block-aligned flash in Internal Trusted Storage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tfm_its_service.html">Internal Trusted Storage (ITS) Service</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tfm_log_system_design_document.html">Log system design document</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Physical attack mitigation in Trusted Firmware-M</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tfm_psa_inter_process_communication.html">TF-M Inter-Process Communication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tfm_secure_boot.html">Secure boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tfm_secure_partition_runtime_library.html">Secure Partition Runtime Library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tfm_uniform_secure_service_signature.html">Uniform Secure Service Signature</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../tools/index.html">Tools</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contribution</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing/index.html">Guidelines</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/contributing_process.html">The process</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/code_review_guide.html">Code review</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/maintainers.html">Maintainers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/maintainers.html#code-owners">Code owners</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/coding_guide.html">Yet another coding standard :)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/doc_guidelines.html">Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/tfm_design_proposal_guideline.html">Design proposal</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing/lic.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing/dco.html">DCO</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Links</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://ci.trustedfirmware.org/view/TF-M/job/tf-m-build-docs-nightly/lastSuccessfulBuild/artifact/trusted-firmware-m/build/docs/reference_manual/html/index.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://developer.trustedfirmware.org/w/collaboration/security_center">Security Center</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://www.arm.com/architecture/security-features/platform-security">PSA</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">STMICROELECTRONICS</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../stm/releases/index.html">Releases</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/releases/getting_started.html">Getting started</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32l562e_dk/readme.html">STM32L562E-DK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/nucleo_l552ze_q/readme.html">NUCLEO-L552ZE-Q</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/b_u585i_iot02a/readme.html">B-U585I-IOT02A</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/releases/platforms.html">Platforms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32l5xx/readme.html">STM32L5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32mp2/readme.html">STM32MP2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32u5xx/readme.html">STM32U5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/nucleo_l552ze_q/readme.html">NUCLEO-L552ZE-Q</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32l562e_dk/readme.html">STM32L562E-DK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/releases/changelog.html">Change Log &amp; Notes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/releases/v1.7.0-stm32mp25-alpha-r1-rc3/changelog.html">v1.7.0-stm32mp25-alpha-r1-rc3</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../stm/technical/index.html">Technical references</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/technical/a35_td_flavor/index.html">A35-TD flavor</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/technical/a35_td_flavor/memory_layout.html">Memory layout</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/technical/a35_td_flavor/storage.html">Storage</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/technical/m33_td_flavor/index.html">M33-TD flavor</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/technical/m33_td_flavor/memory_layout.html">Memory layout</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/technical/m33_td_flavor/storage.html">Storage</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/technical/devicetree/index.html">Devicetree</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/technical/devicetree/devicetree_tfm.html">Scope and purpose</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/technical/devicetree/devicetree_tfm.html#concept">Concept</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/technical/devicetree/devicetree_tfm.html#how-to-add-device">How to add device</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/technical/initlevel.html">Initlevel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/technical/initial_attestation.html">Initial Attestation Service</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/technical/nv_counter.html">Nv counter</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../stm/ide/index.html">Ide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/ide/cubeide/stm32cubeide.html">STM32CubeIDE</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Trusted Firmware-M</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="index.html">Design Documents</a> &raquo;</li>
+      <li>Physical attack mitigation in Trusted Firmware-M</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="physical-attack-mitigation-in-trusted-firmware-m">
+<h1>Physical attack mitigation in Trusted Firmware-M<a class="headerlink" href="#physical-attack-mitigation-in-trusted-firmware-m" title="Permalink to this heading"></a></h1>
+<dl class="field-list simple">
+<dt class="field-odd">Authors</dt>
+<dd class="field-odd"><p>Tamas Ban; David Hu</p>
+</dd>
+<dt class="field-even">Organization</dt>
+<dd class="field-even"><p>Arm Limited</p>
+</dd>
+<dt class="field-odd">Contact</dt>
+<dd class="field-odd"><p><a class="reference external" href="mailto:tamas&#46;ban&#37;&#52;&#48;arm&#46;com">tamas<span>&#46;</span>ban<span>&#64;</span>arm<span>&#46;</span>com</a>; <a class="reference external" href="mailto:david&#46;hu&#37;&#52;&#48;arm&#46;com">david<span>&#46;</span>hu<span>&#64;</span>arm<span>&#46;</span>com</a></p>
+</dd>
+</dl>
+<section id="requirements">
+<h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this heading"></a></h2>
+<p>PSA Certified Level 3 Lightweight Protection Profile <a class="footnote-reference brackets" href="#id4" id="id1">1</a> requires protection
+against physical attacks. This includes protection against manipulation of the
+hardware and any data, undetected manipulation of memory contents, physical
+probing on the chip’s surface. The RoT detects or prevents its operation outside
+the normal operating conditions (such as voltage, clock frequency, temperature,
+or external energy fields) where reliability and secure operation has not been
+proven or tested.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Mitigation against certain level of physical attacks is a mandatory
+requirement for PSA Level 3 certification.
+The <a class="reference internal" href="#tf-m-against-physical-attacks"><span class="std std-ref">TF-M countermeasures against physical attacks</span></a> discussed below
+doesn’t provide mitigation against all the physical attacks considered in
+scope for PSA L3 certification. Please check the Protection Profile document
+for an exhaustive list of requirements.</p>
+</div>
+</section>
+<section id="physical-attacks">
+<h2>Physical attacks<a class="headerlink" href="#physical-attacks" title="Permalink to this heading"></a></h2>
+<p>The goal of physical attacks is to alter the expected behavior of a circuit.
+This can be achieved by changing the device’s normal operating conditions to
+untested operating conditions. As a result a hazard might be triggered on the
+circuit level, whose impact is unpredictable in advance but its effect can be
+observed. With frequent attempts, a weak point of the system could be identified
+and the attacker could gain access to the entire device. There is a wide variety
+of physical attacks, the following is not a comprehensive list rather just give
+a taste of the possibilities:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Inject a glitch into the device power supply or clock line.</p></li>
+<li><p>Operate the device outside its temperature range: cool down or warm it up.</p></li>
+<li><p>Shoot the chip with an electromagnetic field. This can be done by passing
+current through a small coil close to the chip surface, no physical contact
+or modification of the PCB (soldering) is necessary.</p></li>
+<li><p>Point a laser beam on the chip surface. It could flip bits in memory or a
+register, but precise knowledge of chip layout and design is necessary.</p></li>
+</ul>
+</div></blockquote>
+<p>The required equipment and cost of these attacks varies. There are commercial
+products to perform such attacks. Furthermore, they are shipped with a scripting
+environment, good documentation, and a lot of examples. In general, there is a
+ton of videos, research paper and blogs about fault injection attacks. As a
+result the threshold, that even non-proficient can successfully perform such
+attack, gets lower over time.</p>
+</section>
+<section id="effects-of-physical-attacks-in-hardware-and-in-software-execution">
+<h2>Effects of physical attacks in hardware and in software execution<a class="headerlink" href="#effects-of-physical-attacks-in-hardware-and-in-software-execution" title="Permalink to this heading"></a></h2>
+<p>The change in the behavior of the hardware and software cannot be seen in
+advance when performing a physical attack. On circuit-level they manifest
+in bit faults. These bit faults can cause varied effects in the behavior of
+the device micro-architecture:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Instruction decoding pipeline is flushed.</p></li>
+<li><p>Altering instructions when decoding.</p></li>
+<li><p>Altering data when fetching or storing.</p></li>
+<li><p>Altering register content, and the program counter.</p></li>
+<li><p>Flip bits in register or memory.</p></li>
+</ul>
+</div></blockquote>
+<p>These phenomenons happen at random and cannot be observed directly but the
+effect can be traced in software execution. On the software level the following
+can happen:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>A few instructions are skipped. This can lead to taking different branch
+than normal.</p></li>
+<li><p>Corrupted CPU register or data fetch could alter the result of a comparison
+instruction. Or change the value returned from a function.</p></li>
+<li><p>Corrupted data store could alter the config of peripherals.</p></li>
+<li><p>Very precise attacks with laser can flip bits in any register or in memory.</p></li>
+</ul>
+</div></blockquote>
+<p>This is a complex domain. Faults are not well-understood. Different fault models
+exist but all of them target a specific aspect of fault injection. One of the
+most common and probably the easily applicable fault model is the instruction
+skip.</p>
+</section>
+<section id="mitigation-against-physical-attacks">
+<h2>Mitigation against physical attacks<a class="headerlink" href="#mitigation-against-physical-attacks" title="Permalink to this heading"></a></h2>
+<p>The applicability of these attacks highly depends on the device. Some
+devices are more sensitive than others. Protection is possible at hardware and
+software levels as well.</p>
+<p>On the hardware level, there are chip design principles and system IPs that are
+resistant to fault injection attacks. These can make it harder to perform a
+successful attack and as a result the chip might reset or erase sensitive
+content. The device maker needs to consider what level of physical attack is in
+scope and choose a SoC accordingly.</p>
+<p>On top of hardware-level protection, a secondary protection layer can be
+implemented in software. This approach is known as “defence in depth”.</p>
+<p>Neither hardware nor software level protection is perfect because both can be
+bypassed. The combination of them provides the maximum level of protection.
+However, even when both are in place, it is not certain that they provide 100%
+protection against physical attacks. The best of what is to achievable to harden
+the system to increase the cost of a successful attack (in terms of time and
+equipment), thereby making it non profitable to perform them.</p>
+<section id="software-countermeasures-against-physical-attacks">
+<span id="phy-att-countermeasures"></span><h3>Software countermeasures against physical attacks<a class="headerlink" href="#software-countermeasures-against-physical-attacks" title="Permalink to this heading"></a></h3>
+<p>There are practical coding techniques which can be applied to harden software
+against fault injection attacks. They significantly decrease the probability of
+a successful attack:</p>
+<blockquote>
+<div><ul>
+<li><p>Control flow monitor</p>
+<p>To catch malicious modification of the expected control flow. When an
+important portion of a program is executed, a flow monitor counter is
+incremented. The program moves to the next stage only if the accumulated
+flow monitor counter is equal to an expected value.</p>
+</li>
+<li><p>Default failure</p>
+<p>The return value variable should always contain a value indicating
+failure. Changing its value to success is done only under one protected
+flow (preferably protected by double checks).</p>
+</li>
+<li><p>Complex constant</p>
+<p>It is hard to change a memory region or register to a pre-defined value, but
+usual boolean values (0 or 1) are easier to manipulate.</p>
+</li>
+<li><p>Redundant variables and condition checks</p>
+<p>To make branch condition attack harder it is recommended to check the
+relevant condition twice (it is better to have a random delay between the
+two comparisons).</p>
+</li>
+<li><p>Random delay</p>
+<p>Successful fault injection attacks require very precise timing. Adding
+random delay to the code execution makes the timing of an attack much
+harder.</p>
+</li>
+<li><p>Loop integrity check</p>
+<p>To avoid to skip critical loop iterations. It can weaken the cryptographic
+algorithms. After a loop has executed, check the loop counter whether it
+indeed has the expected value.</p>
+</li>
+<li><p>Duplicated execution</p>
+<p>Execute a critical step multiple times to prevent fault injection from
+skipping the step. To mitigate multiple consecutive fault injections, random
+delay can be inserted between duplicated executions.</p>
+</li>
+</ul>
+</div></blockquote>
+<p>These techniques should be applied in a thoughtful way. If it is applied
+everywhere then it can result in messy code that makes the maintenance harder.
+Code must be analysed and sensitive parts and critical call path must be
+identified. Furthermore, these techniques increase the overall code size which
+might be an issue on the constrained devices.</p>
+<p>Currently, compilers are not providing any support to implement these
+countermeasures automatically. On the contrary, they can eliminate the
+protection code during optimization. As a result, the C level protection does
+not add any guarantee about the final behavior of the system. The effectiveness
+of these protections highly depends on the actual compiler and the optimization
+level. The compiled assembly code must be visually inspected and tested to make
+sure that proper countermeasures are in-place and perform as expected.</p>
+</section>
+</section>
+<section id="tf-m-threat-model-against-physical-attacks">
+<span id="phy-att-threat-model"></span><h2>TF-M Threat Model against physical attacks<a class="headerlink" href="#tf-m-threat-model-against-physical-attacks" title="Permalink to this heading"></a></h2>
+<section id="physical-attack-target">
+<h3>Physical attack target<a class="headerlink" href="#physical-attack-target" title="Permalink to this heading"></a></h3>
+<p>A malicious actor performs physical attack against TF-M to retrieve assets from
+device. These assets can be sensitive data, credentials, crypto keys. These
+assets are protected in TF-M by proper isolation.</p>
+<p>For example, a malicious actor can perform the following attacks:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Reopen the debug port or hinder the closure of it then connect to the device
+with a debugger and dump memory.</p></li>
+<li><p>Bypass secure boot to replace authentic firmware with a malicious image.
+Then arbitrary memory can be read.</p></li>
+<li><p>Assuming that secure boot cannot be bypassed then an attacker can try to
+hinder the setup of the memory isolation hardware by TF-M
+<a class="reference internal" href="../../glossary.html#term-Secure-Partition-Manager"><span class="xref std std-term">Secure Partition Manager</span></a> (SPM) and manage to execute the non-secure
+image in secure state. If this is achieved then still an exploitable
+vulnerability is needed in the non-secure code which can be used to inject
+and execute arbitrary code to read the assets.</p></li>
+<li><p>Device might contain unsigned binary blob next to the official firmware.
+This can be any data, not necessarily code. If an attacker manages to
+replace this data with arbitrary content (e.g. a NOP slide leading to a
+malicious code) then they can try to manipulate the program counter to jump
+to this area before setting up the memory isolation.</p></li>
+</ul>
+</div></blockquote>
+</section>
+<section id="assumptions-on-attacker-capability">
+<span id="attacker-capability"></span><h3>Assumptions on attacker capability<a class="headerlink" href="#assumptions-on-attacker-capability" title="Permalink to this heading"></a></h3>
+<p>It is assumed that the attacker owns the following capabilities to perform
+physical attack against devices protected by TF-M.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Has physical access to the device.</p></li>
+<li><p>Able to access external memory, read and possibly tamper it.</p></li>
+<li><p>Able to load arbitrary candidate images for firmware upgrade.</p></li>
+<li><p>Able to manage that bootloader tries to upgrade the arbitrary image from
+staging area.</p></li>
+<li><p>Able to inject faults on hardware level (voltage or power glitch, EM pulse,
+etc.) to the system.</p></li>
+<li><p>Precise timing of fault injection is possible once or a few times, but in
+general the more intervention is required for a successful attack the harder
+will be to succeed.</p></li>
+</ul>
+</div></blockquote>
+<p>It is out of the scope of TF-M mitigation if an attacker is able to directly
+tamper or disclose the assets. It is assumed that an attacker has the following
+technical limitations.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>No knowledge of the image signing key. Not able to sign an arbitrary image.</p></li>
+<li><p>Not able to directly access to the chip through debug port.</p></li>
+<li><p>Not able to directly access internal memory.</p></li>
+<li><p>No knowledge of the layout of the die or the memory arrangement of the
+secure code, so precise attack against specific registers or memory
+addresses are out of scope.</p></li>
+</ul>
+</div></blockquote>
+</section>
+<section id="physical-attack-scenarios-against-tf-m">
+<h3>Physical attack scenarios against TF-M<a class="headerlink" href="#physical-attack-scenarios-against-tf-m" title="Permalink to this heading"></a></h3>
+<p>Based on the analysis above, a malicious actor may perform physical attacks
+against critical operations in <a class="reference internal" href="../../glossary.html#term-SPE"><span class="xref std std-term">SPE</span></a> workflow and critical modules in
+TF-M, to indirectly gain unauthenticated accesses to assets.</p>
+<p>Those critical operations and modules either directly access the assets or
+protect the assets from disclosure. Those operations and modules can include:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Image validation in bootloader</p></li>
+<li><p>Isolation management in TF-M, including platform specific configuration</p></li>
+<li><p>Cryptographic operations</p></li>
+<li><p>TF-M Secure Storage operations</p></li>
+<li><p>PSA client permission check in TF-M</p></li>
+</ul>
+</div></blockquote>
+<p>The detailed scenarios are discussed in following sections.</p>
+<section id="physical-attacks-against-bootloader">
+<h4>Physical attacks against bootloader<a class="headerlink" href="#physical-attacks-against-bootloader" title="Permalink to this heading"></a></h4>
+<p>Physical attacks may bypass secure image validation in bootloader and a
+malicious image can be installed.</p>
+<p>The countermeasures is bootloader specific implementation and out of the scope
+of this document. TF-M relies on MCUboot by default. MCUboot has already
+implemented countermeasures against fault injection attacks <a class="footnote-reference brackets" href="#id6" id="id2">3</a>.</p>
+</section>
+<section id="physical-attacks-against-tf-m-spm">
+<span id="physical-attacks-spm"></span><h4>Physical attacks against TF-M SPM<a class="headerlink" href="#physical-attacks-against-tf-m-spm" title="Permalink to this heading"></a></h4>
+<p>TF-M SPM initializes and manages the isolation configuration. It also performs
+permission check against secure service requests from PSA clients.</p>
+<section id="static-isolation-configuration">
+<h5>Static isolation configuration<a class="headerlink" href="#static-isolation-configuration" title="Permalink to this heading"></a></h5>
+<p>It is TF-M SPM’s responsibility to build up isolation during the initialization
+phase. If this is missed or not done correctly then it might be possible for
+non-secure code to access some secure memory area or an external device can
+access assets in the device through a debug port.</p>
+<p>Therefore, hindering the setup of memory or peripheral isolation hardware is an
+obvious candidate for physical attacks. The initialization phase has a constant
+time execution (like the previous boot-up state), therefore the timing of the
+attack is simpler, compared to cases when secure and non-secure runtime firmware
+is up-and-running for a while and IRQs make timing unpredictable.</p>
+<p>Some examples of attacking isolation configuration are shown in the list below.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Hinder the setting of security regions. Try to execute non-secure code as
+secure.</p></li>
+<li><p>Manipulate the setting of secure regions, try to extend the non-secure
+regions to cover a memory area which otherwise is intended to be secure
+area.</p></li>
+<li><p>Hinder the setting of isolation boundary. In this case vulnerable ARoT code
+has access to all memory.</p></li>
+<li><p>Manipulate peripheral configuration to give access to non-secure code to a
+peripheral which is intended to be secure.</p></li>
+</ul>
+</div></blockquote>
+</section>
+<section id="psa-client-permission-checks">
+<h5>PSA client permission checks<a class="headerlink" href="#psa-client-permission-checks" title="Permalink to this heading"></a></h5>
+<p>TF-M SPM performs several permission checks against secure service requests from
+a PSA client, such as:</p>
+<ul>
+<li><p>Check whether the PSA client is a non-secure client or a secure client</p>
+<p>NS client’s PSA client ID is negative. NS client is not allowed to directly
+access secure areas. A malicious actor can inject faults when TF-M SPM
+authenticates a NS client. It may manipulate TF-M to accept it as a secure
+client and allow the NS client to access assets.</p>
+</li>
+<li><p>Memory access checks</p>
+<p>TF-M SPM checks whether the request has correct permission to access a secure
+memory area. A malicious actor can inject faults when TF-M SPM checks memory
+access permission. It may skip critical check steps or corrupt the check
+result. Thereby a malicious service request may pass TF-M memory access check
+and accesses assets which it is not allowed to.</p>
+</li>
+</ul>
+<p>The physical attacks mentioned above relies on the a malicious NS application or
+a vulnerable RoT service to start a malicious secure service request to access
+the assets. The malicious actor has to be aware of the accurate timing of
+dealing with the malicious request in TF-M SPM. The timing can be affected by
+other clients and interrupts.
+It should be more difficult than pure fault injection.</p>
+</section>
+<section id="dynamic-isolation-boundary-configuration">
+<h5>Dynamic isolation boundary configuration<a class="headerlink" href="#dynamic-isolation-boundary-configuration" title="Permalink to this heading"></a></h5>
+<p>Physical attack may affect the isolation boundary setting during TF-M context
+switch, especially in Isolation Level 3. For example:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>A fault injection may cause TF-M SPM to skip clear privileged state before
+switching in an ARoT service.</p></li>
+<li><p>A fault injection may cause TF-M SPM to skip updating MPU regions and
+therefore the next RoT service may access assets belonging to a previous
+one.</p></li>
+</ul>
+</div></blockquote>
+<p>However, it is much more difficult to find out the accurate timing of TF-M
+context switch, compared to other scenarios in TF-M SPM. It also requires a
+vulnerable RoT service to access assets after fault injection.</p>
+</section>
+</section>
+<section id="physical-attacks-against-tf-m-crypto-service">
+<h4>Physical attacks against TF-M Crypto service<a class="headerlink" href="#physical-attacks-against-tf-m-crypto-service" title="Permalink to this heading"></a></h4>
+<p>Since crypto operations are done by mbedTLS library or by a custom crypto
+accelerator engine and its related software driver stack, the analysis of
+physical attacks against crypto operations is out-of-scope for this document.
+However, in general the same requirements are applicable for the crypto, to be
+compliant with PSA Level 3 certification. That is, it must be resistant against
+physical attacks. So crypto software and hardware must be hardened against
+side-channel and physical attacks.</p>
+</section>
+<section id="physical-attacks-against-secure-storage">
+<h4>Physical attacks against Secure Storage<a class="headerlink" href="#physical-attacks-against-secure-storage" title="Permalink to this heading"></a></h4>
+<section id="physical-attacks-against-internal-trusted-storage">
+<h5>Physical attacks against Internal Trusted Storage<a class="headerlink" href="#physical-attacks-against-internal-trusted-storage" title="Permalink to this heading"></a></h5>
+<p>Based on the assumption in <a class="reference internal" href="#attacker-capability"><span class="std std-ref">Assumptions on attacker capability</span></a>, a malicious actor is
+unable to directly retrieve assets via physical attacks against
+<a class="reference internal" href="../../glossary.html#term-Internal-Trusted-Storage"><span class="xref std std-term">Internal Trusted Storage</span></a> (ITS).</p>
+<p>Instead, a malicious actor can inject faults into isolation configuration of ITS
+area in TF-M SPM to gain the access to assets stored in ITS. Refer to
+<a class="reference internal" href="#physical-attacks-spm"><span class="std std-ref">Physical attacks against TF-M SPM</span></a> for details.</p>
+</section>
+<section id="physical-attacks-against-protected-storage">
+<h5>Physical attacks against Protected Storage<a class="headerlink" href="#physical-attacks-against-protected-storage" title="Permalink to this heading"></a></h5>
+<p>Based on the assumption in <a class="reference internal" href="#attacker-capability"><span class="std std-ref">Assumptions on attacker capability</span></a>, a malicious actor can be
+able to directly access external storage device.
+Therefore <a class="reference internal" href="../../glossary.html#term-Protected-Storage"><span class="xref std std-term">Protected Storage</span></a> (PS) shall enable encryption and
+authentication by default to detect tampering with the content in external
+storage device.</p>
+<p>A malicious actor can also inject faults into isolation configuration of PS and
+external storage device peripherals in TF-M SPM to gain the access to assets
+stored in PS. Refer to <a class="reference internal" href="#physical-attacks-spm"><span class="std std-ref">Physical attacks against TF-M SPM</span></a> for details.</p>
+<p>It is out of the scope of TF-M to fully prevent malicious actors from directly
+tampering with or retrieving content stored in external storage devices.</p>
+</section>
+</section>
+<section id="physical-attacks-against-platform-specific-implementation">
+<h4>Physical attacks against platform specific implementation<a class="headerlink" href="#physical-attacks-against-platform-specific-implementation" title="Permalink to this heading"></a></h4>
+<p>Platform specific implementation includes critical TF-M HAL implementations.
+A malicious actor can perform physical attack against those platform specific
+implementations to bypass the countermeasures in TF-M common code.</p>
+<section id="platform-early-initialization">
+<h5>Platform early initialization<a class="headerlink" href="#platform-early-initialization" title="Permalink to this heading"></a></h5>
+<p>TFM provides a HAL API for platforms to perform HW initialization before SPM
+initialization starts.
+The system integrator is responsible to implement this API on a particular SoC
+and harden it against physical attacks:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">enum</span><span class="w"> </span><span class="n">tfm_hal_status_t</span><span class="w"> </span><span class="nf">tfm_hal_platform_init</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>The API can have several initializations on different modules. The system
+integrator can choose to even harden some of these initializations functions
+within this platform init API. One of the examples is the debug access setting.</p>
+<section id="debug-access-setting">
+<h6>Debug access setting<a class="headerlink" href="#debug-access-setting" title="Permalink to this heading"></a></h6>
+<p>TF-M configures debug access according to device lifecycle and accessible debug
+certificates. In general, TF-M locks down the debug port if the device is in
+secure production state.
+The system integrator can put the settings into an API and harden it against
+physical attacks.</p>
+</section>
+</section>
+<section id="platform-specific-isolation-configuration">
+<h5>Platform specific isolation configuration<a class="headerlink" href="#platform-specific-isolation-configuration" title="Permalink to this heading"></a></h5>
+<p>TFM SPM exposes a HAL API for static and dynamic isolation configuration. The
+system integrator is responsible to implement these API on a particular SoC and
+harden it against physical attacks.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">enum</span><span class="w"> </span><span class="n">tfm_hal_status_t</span><span class="w"> </span><span class="nf">tfm_hal_set_up_static_boundaries</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
+<span class="k">enum</span><span class="w"> </span><span class="n">tfm_hal_status_t</span><span class="w"> </span><span class="nf">tfm_hal_bind_boundary</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">partition_load_info_t</span><span class="w"> </span><span class="o">*</span><span class="n">p_ldinf</span><span class="p">,</span>
+<span class="w">                                            </span><span class="kt">uintptr_t</span><span class="w"> </span><span class="o">*</span><span class="n">p_boundary</span><span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="memory-access-check">
+<h5>Memory access check<a class="headerlink" href="#memory-access-check" title="Permalink to this heading"></a></h5>
+<p>TFM SPM exposes a HAL API for platform specific memory access check. The
+system integrator is responsible to implement this API on a particular SoC and
+harden it against physical attacks.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">tfm_hal_status_t</span><span class="w"> </span><span class="nf">tfm_hal_memory_check</span><span class="p">(</span><span class="kt">uintptr_t</span><span class="w"> </span><span class="n">boundary</span><span class="p">,</span>
+<span class="w">                                      </span><span class="kt">uintptr_t</span><span class="w"> </span><span class="n">base</span><span class="p">,</span>
+<span class="w">                                      </span><span class="kt">size_t</span><span class="w"> </span><span class="n">size</span><span class="p">,</span>
+<span class="w">                                      </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">access_type</span><span class="p">);</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+</section>
+<section id="tf-m-countermeasures-against-physical-attacks">
+<span id="tf-m-against-physical-attacks"></span><h2>TF-M countermeasures against physical attacks<a class="headerlink" href="#tf-m-countermeasures-against-physical-attacks" title="Permalink to this heading"></a></h2>
+<p>This section propose a design of software countermeasures against physical
+attacks.</p>
+<section id="fault-injection-hardening-library">
+<h3>Fault injection hardening library<a class="headerlink" href="#fault-injection-hardening-library" title="Permalink to this heading"></a></h3>
+<p>There is no open-source library which implements generic mitigation techniques
+listed in <a class="reference internal" href="#phy-att-countermeasures"><span class="std std-ref">Software countermeasures against physical attacks</span></a>.
+TF-M project implements a portion of these techniques. TF-M software
+countermeasures are implemented as a small library Fault Injection Hardening
+(FIH) in TF-M code base. A similar library was first introduced and tested in
+the MCUboot project (version 1.7.0) <a class="footnote-reference brackets" href="#id5" id="id3">2</a> which TF-M relies on.</p>
+<p>The FIH library is put under TF-M <code class="docutils literal notranslate"><span class="pre">lib/fih/</span></code>.</p>
+<p>The implementation of the different techniques was assigned to fault injection
+protection profiles. Four profiles (OFF, LOW, MEDIUM, HIGH) were introduced to fit
+better to the device capability (memory size, TRNG availability) and to
+protection requirements mandated by the device threat model. Fault injection
+protection profile is configurable at compile-time, default value: OFF.</p>
+<p>Countermeasure profiles and corresponding techniques are listed in the table
+below.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 34%" />
+<col style="width: 14%" />
+<col style="width: 17%" />
+<col style="width: 15%" />
+<col style="width: 19%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Countermeasure</p></th>
+<th class="head"><p>Profile LOW</p></th>
+<th class="head"><p>Profile MEDIUM</p></th>
+<th class="head"><p>Profile HIGH</p></th>
+<th class="head"><p>Comments</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Control flow monitor</p></td>
+<td><p>Y</p></td>
+<td><p>Y</p></td>
+<td><p>Y</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>Failure loop hardening</p></td>
+<td><p>Y</p></td>
+<td><p>Y</p></td>
+<td><p>Y</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>Complex constant</p></td>
+<td></td>
+<td><p>Y</p></td>
+<td><p>Y</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>Redundant variables and checks</p></td>
+<td></td>
+<td><p>Y</p></td>
+<td><p>Y</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>Random delay</p></td>
+<td></td>
+<td></td>
+<td><p>Y</p></td>
+<td><p>Implemented, but
+depends on HW
+capability</p></td>
+</tr>
+</tbody>
+</table>
+<p>Similar to MCUboot, four profiles are supported. It can be configured at build
+time by setting (default is OFF):</p>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">-DTFM_FIH_PROFILE=&lt;OFF,</span> <span class="pre">LOW,</span> <span class="pre">MEDIUM,</span> <span class="pre">HIGH&gt;</span></code></p>
+</div></blockquote>
+</section>
+<section id="how-to-use-fih-library">
+<h3>How to use FIH library<a class="headerlink" href="#how-to-use-fih-library" title="Permalink to this heading"></a></h3>
+<p>As analyzed in <a class="reference internal" href="#phy-att-threat-model"><span class="std std-ref">TF-M Threat Model against physical attacks</span></a>, this section focuses on integrating
+FIH library in TF-M SPM to mitigate physical attacks.</p>
+<blockquote>
+<div><ul>
+<li><p>Identify critical function call path which is mandatory for configuring
+isolation or debug access. Change their return types to <code class="docutils literal notranslate"><span class="pre">FIH_RET_TYPE</span></code> and
+make them return with <code class="docutils literal notranslate"><span class="pre">FIH_RET</span></code>. Then call them with <code class="docutils literal notranslate"><span class="pre">FIH_CALL</span></code>. These macros
+are providing the extra checking functionality (control flow monitor, redundant
+checks and variables, random delay, complex constant) according to the profile
+settings. More details about usage can be found here:
+<code class="docutils literal notranslate"><span class="pre">trusted-firmware-m/lib/fih/inc/fih.h</span></code></p>
+<p>Take simplified TF-M SPM initialization flow as an example:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">main</span><span class="p">()</span>
+<span class="w">  </span><span class="o">|</span>
+<span class="w">  </span><span class="o">|--&gt;</span><span class="w"> </span><span class="n">tfm_core_init</span><span class="p">()</span>
+<span class="w">  </span><span class="o">|</span><span class="w">           </span><span class="o">|</span>
+<span class="w">  </span><span class="o">|</span><span class="w">           </span><span class="o">|--&gt;</span><span class="w"> </span><span class="n">tfm_hal_set_up_static_boundaries</span><span class="p">()</span>
+<span class="w">  </span><span class="o">|</span><span class="w">           </span><span class="o">|</span><span class="w">                  </span><span class="o">|</span>
+<span class="w">  </span><span class="o">|</span><span class="w">           </span><span class="o">|</span><span class="w">                  </span><span class="o">|--&gt;</span><span class="w"> </span><span class="n">platform</span><span class="w"> </span><span class="n">specific</span><span class="w"> </span><span class="n">isolation</span><span class="w"> </span><span class="n">impl</span><span class="p">.</span>
+<span class="w">  </span><span class="o">|</span><span class="w">           </span><span class="o">|</span>
+<span class="w">  </span><span class="o">|</span><span class="w">           </span><span class="o">|--&gt;</span><span class="w"> </span><span class="n">tfm_hal_platform_init</span><span class="p">()</span>
+<span class="w">  </span><span class="o">|</span><span class="w">                              </span><span class="o">|</span>
+<span class="w">  </span><span class="o">|</span><span class="w">                              </span><span class="o">|--&gt;</span><span class="w"> </span><span class="n">platform</span><span class="w"> </span><span class="n">specific</span><span class="w"> </span><span class="n">init</span>
+<span class="w">  </span><span class="o">|</span>
+<span class="w">  </span><span class="o">|--&gt;</span><span class="w"> </span><span class="n">During</span><span class="w"> </span><span class="n">each</span><span class="w"> </span><span class="n">partition</span><span class="w"> </span><span class="n">initialization</span>
+<span class="w">              </span><span class="o">|</span>
+<span class="w">              </span><span class="o">|--&gt;</span><span class="w"> </span><span class="n">tfm_hal_bind_boundary</span><span class="p">()</span>
+<span class="w">                                 </span><span class="o">|</span>
+<span class="w">                                 </span><span class="o">|--&gt;</span><span class="w"> </span><span class="n">platform</span><span class="w"> </span><span class="n">specific</span><span class="w"> </span><span class="n">peripheral</span><span class="w"> </span><span class="n">isolation</span><span class="w"> </span><span class="n">impl</span><span class="p">.</span>
+</pre></div>
+</div>
+</li>
+<li><p>Might make the important setting of peripheral config register redundant
+and verify them to match expectations before continue.</p></li>
+<li><p>Implements an extra verification function which checks the critical hardware
+config before secure code switches to non-secure. Proposed API for this
+purpose:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">fih_int</span><span class="w"> </span><span class="nf">tfm_hal_verify_static_boundaries</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>This function is intended to be called just after the static boundaries are
+set up and is responsible for checking all critical hardware configurations.
+The goal is to catch if something is missed and act according
+to system policy. The introduction of one more checking point requires one
+more intervention with precise timing. The system integrator is responsible
+to implement this API on a particular SoC and harden it against physical
+attacks. Make sure that all platform dependent security feature is properly
+configured.</p>
+</li>
+<li><p>The most powerful mitigation technique is to add random delay to the code
+execution. This makes the timing of the attack much harder. However it
+requires an entropy source. It is recommended to use the <code class="docutils literal notranslate"><span class="pre">HIGH</span></code> profile
+when hardware support is available. There is a porting API layer to fetch
+random numbers in FIH library:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">fih_delay_init</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
+<span class="kt">uint8_t</span><span class="w"> </span><span class="nf">fih_delay_random</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
+</pre></div>
+</div>
+</li>
+<li><p>Similar countermeasures can be implemented in critical steps in platform
+specific implementation.</p>
+<p>Take memory isolation settings on AN521 platform as an example.
+The following hardware components are responsible for memory isolation in a
+SoC, which is based on SSE-200 subsystem.
+System integrators must examine the chip specific memory isolation solution,
+identify the key components and harden the configuration of those.
+This list just serves as an example here for easier understanding:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Implementation Defined Attribution Unit (IDAU): Implementation defined,
+it can be a static config or dynamic.
+Contains the default security access permissions of the memory map.</p></li>
+<li><p>SAU: The main module in the CPU to determine the security settings of
+the memory.</p></li>
+<li><p><a class="reference internal" href="../../glossary.html#term-MPC"><span class="xref std std-term">MPC</span></a>: External module from the CPU point of view. It protects the
+non security aware memories from unauthenticated access. Having a
+properly configured MPC significantly increases the security of the
+system.</p></li>
+<li><p><a class="reference internal" href="../../glossary.html#term-PPC"><span class="xref std std-term">PPC</span></a>: External module from the CPU
+point of view. Protects the non security aware peripherals from
+unauthenticated access.</p></li>
+<li><p>MPU: Protects memory from unprivileged access. ARoT code has only a
+restricted access in secure domain. It mitigates that a vulnerable or
+malicious ARoT partition can access to device assets.</p></li>
+</ul>
+</div></blockquote>
+<p>The following AN521 specific isolation configuration functions
+shall be hardened against physical attacks.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">sau_and_idau_cfg</span><span class="p">()</span>
+<span class="n">mpc_init_cfg</span><span class="p">()</span>
+<span class="n">ppc_init_cfg</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Some platform specific implementation rely on platform standard device
+driver libraries. It can become much more difficult to maintain drivers if
+the standard libraries are modified with FIH library. Platform specific
+implementation can implement duplicated execution and redundant variables/
+condition check when calling platform standard device driver libraries
+according to usage scenarios.</p>
+</li>
+</ul>
+</div></blockquote>
+</section>
+<section id="impact-on-memory-footprint">
+<h3>Impact on memory footprint<a class="headerlink" href="#impact-on-memory-footprint" title="Permalink to this heading"></a></h3>
+<p>The addition of protection code against physical attacks increases the memory
+footprint. The actual increase depends on the selected profile and where the
+mitigation code is added.</p>
+</section>
+<section id="attack-experiment-with-spm">
+<h3>Attack experiment with SPM<a class="headerlink" href="#attack-experiment-with-spm" title="Permalink to this heading"></a></h3>
+<p>The goal is to bypass the setting of memory isolation hardware with simulated
+instruction skips in fast model execution (FVP_MPS2_AEMv8M) in order to execute
+the regular non-secure test code in secure state. This is done by identifying
+the configuration steps which must be bypassed to make this happen. The
+instruction skip simulation is achieved by breakpoints and manual manipulation
+of the program counter. The following steps are done on AN521 target, but this
+can be different on another target:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Bypass the configuration of isolation HW: SAU, MPC.</p></li>
+<li><p>Bypass the setting of the PSP limit register. Otherwise, a stack overflow
+exception will happen. Because the secure PSP will be overwritten by the
+address of the non-secure stack and on this particular target the non-secure
+stack is on lower address than the value in the secure PSP_LIMIT register.</p></li>
+<li><p>Avoid the clearing of the least significant bit in the non-secure entry
+point, where BLXNS/BXNS is jumping to non-secure code. Having the least
+significant bit cleared indicates to the hardware to switch security state.</p></li>
+</ul>
+</div></blockquote>
+<p>The previous steps are enough to execute the non-secure Reset_Handler() in
+secure state. Usually, RTOS is executing on the non-secure side. In order to
+properly boot it up further steps are needed:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Set the S_VTOR system register to point the address of the NS Vector table.
+Code is executed in secure state therefore when an IRQ hit then the handler
+address is fetched from the table pointed by S_VTOR register. RTOS usually
+do an SVC call at start-up. If S_VTOR is not modified then SPM’s SVC handler
+will be executed.</p></li>
+<li><p>TBC: RTX osKernelStart still failing.</p></li>
+</ul>
+</div></blockquote>
+<p>The bottom line is that in order to execute the regular non-secure code in
+secure state the attacker need to interfere with the execution flow at many
+places. Successful attack can be made even harder by adding the described
+mitigation techniques and some random delays.</p>
+</section>
+</section>
+<section id="reference">
+<h2>Reference<a class="headerlink" href="#reference" title="Permalink to this heading"></a></h2>
+<dl class="footnote brackets">
+<dt class="label" id="id4"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p><a class="reference external" href="https://www.psacertified.org/app/uploads/2020/11/JSADEN009-PSA_Certified_Level_3_LW_PP-1.0-ALP02.pdf">PSA Certified Level 3 Lightweight Protection Profile</a></p>
+</dd>
+<dt class="label" id="id5"><span class="brackets"><a class="fn-backref" href="#id3">2</a></span></dt>
+<dd><p><a class="reference external" href="https://github.com/mcu-tools/mcuboot/blob/master/boot/bootutil/include/bootutil/fault_injection_hardening.h">MCUboot project</a></p>
+</dd>
+<dt class="label" id="id6"><span class="brackets"><a class="fn-backref" href="#id2">3</a></span></dt>
+<dd><p><a class="reference external" href="https://www.trustedfirmware.org/docs/TF-M_fault_injection_mitigation.pdf">MCUboot fault injection mitigation</a></p>
+</dd>
+</dl>
+<hr class="docutils" />
+<p><em>Copyright (c) 2021-2022, Arm Limited. All rights reserved.</em></p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p></p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

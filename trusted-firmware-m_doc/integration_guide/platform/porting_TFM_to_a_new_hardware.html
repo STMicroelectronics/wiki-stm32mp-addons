@@ -1,0 +1,1145 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Porting TF-M to a New Hardware &mdash; Trusted Firmware-M v1.7.0-stm32mp25-alpha-r1-rc3-doc documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/tfm_custom.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/tabs.css" type="text/css" />
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Platform Provisioning" href="platform_provisioning.html" />
+    <link rel="prev" title="Details for the platform/ext folder" href="platform_ext_folder.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> Trusted Firmware-M
+            <img src="../../_static/tf_logo_white.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                v1.7.0-stm32mp25-alpha-r1-rc3-doc
+
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../introduction/index.html">Introduction</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started/index.html">Getting Started</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../security/index.html">Security</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../security/security_advisories/index.html">Security Advisories</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/stack_seal_vulnerability.html">Advisory TFMV-1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/svc_caller_sp_fetching_vulnerability.html">Advisory TFMV-2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/crypto_multi_part_ops_abort_fail.html">Advisory TFMV-3</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/profile_small_key_id_encoding_vulnerability.html">Advisory TFMV-4</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/fwu_write_vulnerability.html">Advisory TFMV-5</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../security/threat_models/index.html">Threat Models</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../security/threat_models/generic_threat_model.html">Trusted Firmware-M Generic Threat Model</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../security/security.html">Security Handling</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../releases/index.html">Releases</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/1.7.0.html">v1.7.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/1.6.1.html">v1.6.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/1.6.0.html">v1.6.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/1.5.0.html">v1.5.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/release_process.html">Release Cadence and Process</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../glossary.html">Glossary</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../platform/index.html">Platform Selection</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/arm/index.html">Arm platforms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/corstone1000/readme.html">Corstone-1000</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/mps3/an547/README.html">Corstone-300 FPGA (AN547)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/mps3/an552/README.html">Corstone-300 FPGA and FVP (AN552)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/mps3/corstone310/README.html">Corstone-310 FVP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/musca_b1/readme.html">Musca-B1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/musca_s1/readme.html">Musca-S1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/rss/readme.html">Runtime Security Subsystem</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/nxp/lpcxpresso55s69/README.html">LPCXpresso55S69</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/cypress/psoc64/index.html">Cypress PSoC64</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/cypress/psoc64/cypress_psoc64_spec.html">Cypress PSoC64 Specifics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/cypress/psoc64/libs/core-lib/README.html">Core Library</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/cypress/psoc64/libs/core-lib/RELEASE.html">Core Library Release Notes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/stm/index.html">STMICROELECTRONICS</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32l5xx/readme.html">STM32L5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32mp2/readme.html">STM32MP2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32u5xx/readme.html">STM32U5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/nucleo_l552ze_q/readme.html">NUCLEO-L552ZE-Q</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32l562e_dk/readme.html">STM32L562E-DK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/b_u585i_iot02a/readme.html">B-U585I-IOT02A</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/nordic_nrf/nrf5340dk_nrf5340_cpuapp/README.html">Nordic nRF5340</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/nordic_nrf/nrf9160dk_nrf9160/README.html">Nordic nRF9160</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/lairdconnectivity/bl5340_dvk_cpuapp/README.html">Laird Connectivity BL5340</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/nuvoton/m2351/README.html">NuMaker-PFM-M2351</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/nuvoton/m2354/README.html">NuMaker-PFM-M2354</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../building/tfm_build_instruction.html">Build instructions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../building/run_tfm_examples_on_arm_platforms.html">Run TF-M examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../building/documentation_generation.html">Building the documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../building/tfm_build_instruction_iar.html">IAR toolchain</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../configuration/index.html">Configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../configuration/build_configuration.html">Build configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../configuration/header_file_system.html">Component configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../configuration/kconfig_system.html">Kconfig</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../configuration/profiles/index.html">Profiles</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../configuration/profiles/tfm_profile_small.html"> Small</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../configuration/profiles/tfm_profile_medium_arot-less.html"> ARoT-less</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../configuration/profiles/tfm_profile_medium.html"> Medium</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../configuration/profiles/tfm_profile_large.html"> Large</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../configuration/test_configuration.html">Tests configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Integration Guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../spm_backends.html">SPM Backends</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../non-secure_client_extension_integration_guide.html">NS client integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../os_migration_guide_armv8m.html">OS migration to Armv8-M</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tfm_fpu_support.html">Floating-Point Support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tfm_secure_irq_integration_guide.html">Secure Interrupt</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Adding a new platform</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="platform_folder.html">Details for the platform folder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="platform_ext_folder.html">Details for the platform/ext folder</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Porting TF-M to a New Hardware</a></li>
+<li class="toctree-l3"><a class="reference internal" href="platform_provisioning.html">Platform Provisioning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="platform_deprecation.html">Platform deprecation and removal</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../services/index.html">Services</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../services/tfm_attestation_integration_guide.html">Initial Attestation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../services/tfm_crypto_integration_guide.html">Crypto</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../services/tfm_its_integration_guide.html">Internal Storage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../services/tfm_platform_integration_guide.html">Platform</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../services/tfm_ps_integration_guide.html">Protected Storage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../services/tfm_secure_partition_addition.html">Adding a New Service</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../services/tfm_manifest_tool_user_guide.html">The manifest tool</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../technical_references/design_docs/index.html">Design Documents</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/dual-cpu/index.html">Dual-CPU</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../technical_references/design_docs/dual-cpu/booting_a_dual_core_system.html">Booting a Dual-Core System</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../technical_references/design_docs/dual-cpu/communication_prototype_between_nspe_and_spe_in_dual_core_systems.html">Communication Prototype Between NSPE And SPE In Dual Core System</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../technical_references/design_docs/dual-cpu/mailbox_design_on_dual_core_system.html">Mailbox Design in TF-M on Dual-core System</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../technical_references/design_docs/dual-cpu/tfm_multi_core_access_check.html">Memory Access Check of Trusted Firmware-M in Multi-Core Topology</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/bl1.html">BL1 Immutable bootloader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/code_sharing.html">Code sharing between independently linked XIP binaries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/enum_implicit_casting.html">Fixing implicit casting for C enumeration values</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/ff_isolation.html">FF-M Isolation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/hardware_abstraction_layer.html">Hardware Abstraction Layer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/mailbox_ns_agent_update.html">Mailbox NS Agent Design Update</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/ps_key_management.html">Protected Storage service key management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/secure_boot_hw_key_integration.html">HW crypto key integration in TF-M secure boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/secure_boot_rollback_protection.html">Rollback protection in TF-M secure boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/secure_partition_manager.html">Secure Partition Manager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/source_structure.html">Trusted Firmware-M Source Structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/stateless_rot_service.html">Stateless Root of Trust Services Reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/symmetric_initial_attest.html">Symmetric key algorithm based Initial Attestation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/tfm_builtin_keys.html">TF-M builtin keys</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/tfm_code_generation_with_jinja2.html">Code Generation With Jinja2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/tfm_cooperative_scheduling_rules.html">Cooperative Scheduling Rules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/tfm_crypto_design.html">Crypto Service design</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/tfm_fwu_service.html">Firmware Update Service</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/tfm_its_512_flash.html">Add support for block-aligned flash in Internal Trusted Storage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/tfm_its_service.html">Internal Trusted Storage (ITS) Service</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/tfm_log_system_design_document.html">Log system design document</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/tfm_physical_attack_mitigation.html">Physical attack mitigation in Trusted Firmware-M</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/tfm_psa_inter_process_communication.html">TF-M Inter-Process Communication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/tfm_secure_boot.html">Secure boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/tfm_secure_partition_runtime_library.html">Secure Partition Runtime Library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/tfm_uniform_secure_service_signature.html">Uniform Secure Service Signature</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../tools/index.html">Tools</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contribution</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing/index.html">Guidelines</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/contributing_process.html">The process</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/code_review_guide.html">Code review</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/maintainers.html">Maintainers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/maintainers.html#code-owners">Code owners</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/coding_guide.html">Yet another coding standard :)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/doc_guidelines.html">Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/tfm_design_proposal_guideline.html">Design proposal</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing/lic.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing/dco.html">DCO</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Links</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://ci.trustedfirmware.org/view/TF-M/job/tf-m-build-docs-nightly/lastSuccessfulBuild/artifact/trusted-firmware-m/build/docs/reference_manual/html/index.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://developer.trustedfirmware.org/w/collaboration/security_center">Security Center</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://www.arm.com/architecture/security-features/platform-security">PSA</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">STMICROELECTRONICS</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../stm/releases/index.html">Releases</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/releases/getting_started.html">Getting started</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32l562e_dk/readme.html">STM32L562E-DK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/nucleo_l552ze_q/readme.html">NUCLEO-L552ZE-Q</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/b_u585i_iot02a/readme.html">B-U585I-IOT02A</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/releases/platforms.html">Platforms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32l5xx/readme.html">STM32L5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32mp2/readme.html">STM32MP2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32u5xx/readme.html">STM32U5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/nucleo_l552ze_q/readme.html">NUCLEO-L552ZE-Q</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32l562e_dk/readme.html">STM32L562E-DK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/releases/changelog.html">Change Log &amp; Notes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/releases/v1.7.0-stm32mp25-alpha-r1-rc3/changelog.html">v1.7.0-stm32mp25-alpha-r1-rc3</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../stm/technical/index.html">Technical references</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/technical/a35_td_flavor/index.html">A35-TD flavor</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/technical/a35_td_flavor/memory_layout.html">Memory layout</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/technical/a35_td_flavor/storage.html">Storage</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/technical/m33_td_flavor/index.html">M33-TD flavor</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/technical/m33_td_flavor/memory_layout.html">Memory layout</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/technical/m33_td_flavor/storage.html">Storage</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/technical/devicetree/index.html">Devicetree</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/technical/devicetree/devicetree_tfm.html">Scope and purpose</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/technical/devicetree/devicetree_tfm.html#concept">Concept</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/technical/devicetree/devicetree_tfm.html#how-to-add-device">How to add device</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/technical/initlevel.html">Initlevel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/technical/initial_attestation.html">Initial Attestation Service</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/technical/nv_counter.html">Nv counter</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../stm/ide/index.html">Ide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/ide/cubeide/stm32cubeide.html">STM32CubeIDE</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Trusted Firmware-M</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../index.html">Integration Guide</a> &raquo;</li>
+          <li><a href="index.html">Adding a new platform</a> &raquo;</li>
+      <li>Porting TF-M to a New Hardware</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="porting-tf-m-to-a-new-hardware">
+<h1>Porting TF-M to a New Hardware<a class="headerlink" href="#porting-tf-m-to-a-new-hardware" title="Permalink to this heading"></a></h1>
+<p>The purpose of this document is to provide a guide on how to integrate TF-M
+with another hardware platform. This document will give general guidance on
+how to port a platform on the TF-M build system and which interfaces must
+exist on the platform for TF-M (S and NS) to run on this new platform.</p>
+<section id="tf-m-in-a-nutshell">
+<h2>TF-M in a nutshell<a class="headerlink" href="#tf-m-in-a-nutshell" title="Permalink to this heading"></a></h2>
+<p>For an overview please refer to <a class="reference internal" href="../../introduction/readme.html"><span class="doc">Introduction</span></a>.</p>
+</section>
+<section id="prerequisites">
+<h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this heading"></a></h2>
+<section id="building-environnement">
+<h3>Building environnement<a class="headerlink" href="#building-environnement" title="Permalink to this heading"></a></h3>
+<p>Make sure you have a working build environnement and that you can build
+TF-M on AN521 following the
+<a class="reference internal" href="../../building/tfm_build_instruction.html"><span class="doc">Build instructions</span></a>.</p>
+</section>
+<section id="toolchains-and-software-requirements">
+<h3>Toolchains and software requirements<a class="headerlink" href="#toolchains-and-software-requirements" title="Permalink to this heading"></a></h3>
+<p>Please follow the <a class="reference internal" href="../../getting_started/tfm_getting_started.html"><span class="doc">Getting started guide</span></a>.</p>
+</section>
+<section id="cmsis-drivers">
+<h3>CMSIS Drivers<a class="headerlink" href="#cmsis-drivers" title="Permalink to this heading"></a></h3>
+<p>The TF-M stack requires at least two CMSIS HAL implementations:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference external" href="https://www.keil.com/pack/doc/CMSIS/Driver/html/group__usart__interface__gr.html">USART</a></p></li>
+<li><p><a class="reference external" href="https://www.keil.com/pack/doc/CMSIS/Driver/html/group__flash__interface__gr.html">FLASH</a></p></li>
+</ul>
+</div></blockquote>
+</section>
+</section>
+<section id="porting-flow">
+<h2>Porting flow<a class="headerlink" href="#porting-flow" title="Permalink to this heading"></a></h2>
+<p>In a nutshell, this should be a 6 iterative steps process:</p>
+<blockquote>
+<div><ol class="arabic">
+<li><p>Adding all the mandatory files and expected objects/functions declarations</p></li>
+<li><p>Booting and configuring the core(s)</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>startup(s) code and SystemInit</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>Adding the USART drivers</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>CMSIS HAL</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>Adding the FLASH drivers</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>CMSIS HAL</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>Enabling/Configuring/Disabling features including templated features</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>E.G. NV Counters, attestation, crypto keys….</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>Running the regression tests</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>See <a class="reference internal" href="../../building/run_tfm_examples_on_arm_platforms.html"><span class="doc">Running TF-M on Arm platforms</span></a>
+as an example</p></li>
+</ul>
+</div></blockquote>
+</li>
+</ol>
+</div></blockquote>
+</section>
+<section id="file-architecture">
+<h2>File architecture<a class="headerlink" href="#file-architecture" title="Permalink to this heading"></a></h2>
+<p>The platform selection when building TF-M is set via the CMake
+variable TFM_PLATFORM. This variable holds part of the path to the platform.</p>
+<p>When using <code class="docutils literal notranslate"><span class="pre">-DTFM_PLATFORM=arm/mps2/an521</span></code> or <code class="docutils literal notranslate"><span class="pre">-DTFM_PLATFORM=an521</span></code>
+TF-M build system will look for the platform in
+&lt;TF-M ROOT&gt;/platform/ext/target/arm/mps2/an521.</p>
+<p>Therefore all hardware dependent code for your platform should go to
+&lt;TF-M ROOT&gt;/platform/ext/target/.</p>
+<section id="platform-ext-target">
+<h3>platform/ext/target<a class="headerlink" href="#platform-ext-target" title="Permalink to this heading"></a></h3>
+<p>This folder contains a first level of board vendor (such as ARM, STM, NXP,
+Cypress ….), each folder will usually contain a second level for each
+board. This second level is not mandatory.</p>
+<blockquote>
+<div><p>platform/ext/target/&lt;vendor&gt;/[&lt;board name&gt;/]</p>
+</div></blockquote>
+<p>From now on this will be referred to as the <code class="docutils literal notranslate"><span class="pre">platform</span> <span class="pre">folder</span></code>.</p>
+</section>
+<section id="platform-ext-common">
+<h3>platform/ext/common<a class="headerlink" href="#platform-ext-common" title="Permalink to this heading"></a></h3>
+<p>This folder contains files and folder commons to the platforms, such as the
+shims to the CMSIS drivers. It also contains the scatter files that can be
+used for the bl2, tfm_s, tfm_ns partitions.</p>
+<p>This folder also contains another folder named template. The latter contains
+example implementations that are used for platforms by default, but which can be
+altered or replaced if other functionality is required.</p>
+<blockquote>
+<div><table class="docutils align-default">
+<colgroup>
+<col style="width: 28%" />
+<col style="width: 72%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>name</p></th>
+<th class="head"><p>description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>PLATFORM_DEFAULT_ATTEST_HAL</p></td>
+<td><p>Use the default implementation of the attestation HAL (default True)</p></td>
+</tr>
+<tr class="row-odd"><td><p>PLATFORM_DEFAULT_NV_COUNTERS</p></td>
+<td><p>Use the default implementation of the counters in NV (default True)</p></td>
+</tr>
+<tr class="row-even"><td><p>PLATFORM_DEFAULT_CRYPTO_KEYS</p></td>
+<td><p>Use the default implementation of crypto keys (default True)</p></td>
+</tr>
+<tr class="row-odd"><td><p>PLATFORM_DEFAULT_ROTPK</p></td>
+<td><p>Use the default implementation of the RoT Public Key (default True)</p></td>
+</tr>
+<tr class="row-even"><td><p>PLATFORM_DEFAULT_IAK</p></td>
+<td><p>Use the default implementation of the initial attestation key (default True)</p></td>
+</tr>
+<tr class="row-odd"><td><p>PLATFORM_DEFAULT_UART_STDOUT</p></td>
+<td><p>Use the default implementation of the uart for stdout output (default True)</p></td>
+</tr>
+<tr class="row-even"><td><p>PLATFORM_DEFAULT_NV_SEED</p></td>
+<td><p>Use the default implementation of the NV seed in the RNG (default True)</p></td>
+</tr>
+<tr class="row-odd"><td><p>PLATFORM_DEFAULT_OTP</p></td>
+<td><p>Use the default implementation of the OTP (default True)</p></td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</section>
+</section>
+<section id="platform-folder">
+<h2>Platform Folder<a class="headerlink" href="#platform-folder" title="Permalink to this heading"></a></h2>
+<section id="description">
+<h3>Description<a class="headerlink" href="#description" title="Permalink to this heading"></a></h3>
+<p>Depending on the level of integration you want with TF-M some files or
+information will be mandatory for the build system to build working firmware.</p>
+<dl>
+<dt>Questions to be answered:</dt><dd><ul>
+<li><p>Will the platform use MCUboot as the second stage bootloader?</p>
+<p>BL2/MCUboot provides a secure bootloader that enables simple software
+upgrades.</p>
+<p>This optional second stage bootloader is set-up via the bl2 target in
+the CMakelists.txt file (see below).</p>
+</li>
+<li><p>Will the platform support the Non-Secure world?</p>
+<p>A platform can be designed to only support the secure world, in which
+case we would refer to it as a secure enclave. TF-M build system allows
+the developer to strip all Non-Secure world related code out of the
+final image. Most platforms, and especially the ones intended to be
+generic or to have a Non-Secure application will require Non-Secure world
+support.</p>
+<p>This optional Non-Secure world is set-up via the tfm_ns target in the
+CMakelists.txt file (see below).</p>
+</li>
+<li><p>How does the non-secure world communicate with the secure world?</p>
+<p>TF-M supports running the non-secure world on the same CPU as the secure
+world, communicating via TrustZone or running the non-secure world on
+a separate CPU, communicating via a mailbox.</p>
+<p>The architecture is configured in the config.cmake file (see below).</p>
+</li>
+<li><p>How does the FLASH need to be split between worlds?</p>
+<p>The flash split is very dependent on the support of BL2 and NS world.
+When porting a new platform, one shall arrange enough flash size for each
+of them.</p>
+<p>If supporting upgrades (via MCUboot), additional flash area will be
+required to store the updates before upgrading the whole system.</p>
+</li>
+<li><p>How does the RAM need to be split between worlds?</p>
+<p>The RAM split is very dependent on the support of the NS world.</p>
+<p>If you’re not porting the platform for a specific project but are enabling
+the Non-Secure world, you should ensure that you leave enough RAM
+available for it to run.</p>
+</li>
+</ul>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>TF-M S world size in RAM and Flash varies greatly with different build
+options.</p>
+<p>TF-M project provides <a class="reference external" href="https://qa-reports.linaro.org/tf/tf-m/metrics/?environment=DefaultProfileM&amp;environment=DefaultProfileS&amp;environment=DefaultProfileL&amp;metric=:summary:">metrics</a>
+of the S world size for existing platforms, which may help to get a rough
+guide to the sizes needed.</p>
+</div>
+</section>
+<section id="files">
+<h3>Files<a class="headerlink" href="#files" title="Permalink to this heading"></a></h3>
+<section id="cmakelists-txt">
+<h4>CMakeLists.txt :<a class="headerlink" href="#cmakelists-txt" title="Permalink to this heading"></a></h4>
+<blockquote>
+<div><p>(MANDATORY)</p>
+<p>This is the entry point for the build system to build your platform.</p>
+<p>it must:</p>
+<blockquote>
+<div><ul>
+<li><p>Add a folder to the target platform_region_defs. [<a class="reference internal" href="#platform-region-defs">PLATFORM_REGION_DEFS</a>]</p>
+<blockquote>
+<div><p>This folder will contain two files <a class="reference internal" href="#flash-layout-h">flash_layout.h</a> and <a class="reference internal" href="#region-defs-h">region_defs.h</a></p>
+</div></blockquote>
+</li>
+<li><p>Add scatter files to the bl2, tfm_s, and/or tfm_ns target. [<a class="reference internal" href="#scatter">SCATTER</a>]</p>
+<blockquote>
+<div><p>Please note that TF-M provides a common scatter file, for the bl2, tfm_s, tfm_ns targets, which can be used in most cases. [<a class="reference internal" href="#scatter-common">SCATTER_COMMON</a>]</p>
+</div></blockquote>
+</li>
+<li><p>Add startup files to the bl2, tfm_s, and/or tfm_ns target. [<a class="reference internal" href="#startup">STARTUP</a>]</p></li>
+<li><p>Add required sources and includes for the bl2, tfm_s and tfm_ns target (if supported) [<a class="reference internal" href="#sources-includes">SOURCES_INCLUDES</a>]</p></li>
+<li><p>Link to the correct version of the CMSIS RTX libraries (from <code class="docutils literal notranslate"><span class="pre">lib/ext/CMSIS_5/CMakeLists.txt</span></code>) [<a class="reference internal" href="#cmsis-rtx">CMSIS_RTX</a>]</p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+</section>
+<section id="preload-cmake">
+<h4>preload.cmake :<a class="headerlink" href="#preload-cmake" title="Permalink to this heading"></a></h4>
+<blockquote>
+<div><p>(MANDATORY)</p>
+<p>This file tells the build system the main hardware information such as the
+main processor (e.g. m0plus) and architecture (e.g. armv6-m).</p>
+<p>This file should not contain any other CMake configuration variables.
+[<a class="reference internal" href="#id6">preload_cmake</a>]</p>
+</div></blockquote>
+</section>
+<section id="preload-ns-cmake">
+<h4>preload_ns.cmake:<a class="headerlink" href="#preload-ns-cmake" title="Permalink to this heading"></a></h4>
+<blockquote>
+<div><p>If platform is a dual core then it may provide a preload_ns.cmake, which is
+the equivalent of preload.cmake but for the second core.</p>
+<p>If the platform is single core, this file should not be present.</p>
+<p>If the platform is dual core but both cores have the same architecture,
+this file is optional.</p>
+<p>[<a class="reference internal" href="#id6">preload_cmake</a>]</p>
+</div></blockquote>
+</section>
+<section id="config-cmake">
+<h4>config.cmake:<a class="headerlink" href="#config-cmake" title="Permalink to this heading"></a></h4>
+<blockquote>
+<div><p>(MANDATORY)</p>
+<p>This file is use to setup default build configuration for TF-M.</p>
+<p>It must specify the values below, and should also specify other
+configuration values that are fixed for the platform.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 31%" />
+<col style="width: 69%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>name</p></th>
+<th class="head"><p>description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>CONFIG_TFM_USE_TRUSTZONE</p></td>
+<td><p>Use TrustZone to transition between NSPE and SPE on the same CPU</p></td>
+</tr>
+<tr class="row-odd"><td><p>TFM_MULTI_CORE_TOPOLOGY</p></td>
+<td><p>NSPE runs on a separate CPU to SPE</p></td>
+</tr>
+</tbody>
+</table>
+<p>[<a class="reference internal" href="#id7">config_cmake</a>]</p>
+</div></blockquote>
+</section>
+<section id="install-cmake">
+<h4>install.cmake:<a class="headerlink" href="#install-cmake" title="Permalink to this heading"></a></h4>
+<blockquote>
+<div><p>If there are platform-specific files that need to be installed, this file
+can be provided to do that.</p>
+</div></blockquote>
+</section>
+<section id="startup-files">
+<h4>startup files:<a class="headerlink" href="#startup-files" title="Permalink to this heading"></a></h4>
+<blockquote>
+<div><p>(MANDATORY)</p>
+<p>These files (one for BL2, one for S, one for NS) are the expected startup
+files. The reset handler should call SystemInit and then should end up
+calling __START which should be defined as _start if not defined elsewhere.</p>
+</div></blockquote>
+</section>
+<section id="flash-layout-h">
+<span id="id1"></span><h4>flash_layout.h:<a class="headerlink" href="#flash-layout-h" title="Permalink to this heading"></a></h4>
+<blockquote>
+<div><p>(MANDATORY)</p>
+<p>This file can be anywhere in the platform folder, usually in a sub folder
+named <code class="docutils literal notranslate"><span class="pre">partition</span></code>.
+TF-M doesn’t provide a template for this file, common practice is to copy it
+from another platform (e.g. arm/mps2/an521) and update the following entries.</p>
+<p>Note: all size are in bytes</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 21%" />
+<col style="width: 48%" />
+<col style="width: 31%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>name</p></th>
+<th class="head"><p>description</p></th>
+<th class="head"><p>Requisiteness</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>FLASH_S_PARTITION_SIZE</p></td>
+<td><p>Size of the Secure partition in flash</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-odd"><td><p>FLASH_NS_PARTITION_SIZE</p></td>
+<td><p>Size of the Non-Secure partition in flash</p></td>
+<td><p>if tfm_ns is built</p></td>
+</tr>
+<tr class="row-even"><td><p>FLASH_AREA_IMAGE_SECTOR_SIZE</p></td>
+<td><p>Size of the flash sector</p></td>
+<td><p>if bl2 is built</p></td>
+</tr>
+<tr class="row-odd"><td><p>FLASH_TOTAL_SIZE</p></td>
+<td><p>Flash total size</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-even"><td><p>FLASH_BASE_ADDRESS</p></td>
+<td><p>Flash base memory address</p></td>
+<td><p>if bl2 is built</p></td>
+</tr>
+<tr class="row-odd"><td><p>FLASH_AREA_BL2_OFFSET</p></td>
+<td><p>BL2 offset in flash</p></td>
+<td><p>if bl2 is built</p></td>
+</tr>
+<tr class="row-even"><td><p>FLASH_AREA_BL2_SIZE</p></td>
+<td><p>BL2 flash size</p></td>
+<td><p>if bl2 is built</p></td>
+</tr>
+<tr class="row-odd"><td><p>FLASH_PS_AREA_SIZE</p></td>
+<td><p>Allocated size for the protected storage data in flash</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-even"><td><p>FLASH_ITS_AREA_SIZE</p></td>
+<td><p>Allocated size for the internal trusted storage data in flash</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-odd"><td><p>SECURE_IMAGE_OFFSET</p></td>
+<td><p>Offset of the secure image data in flash</p></td>
+<td><p>if bl2 is built</p></td>
+</tr>
+<tr class="row-even"><td><p>FLASH_DEV_NAME</p></td>
+<td><p>Name as defined in the CMSIS flash drivers</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-odd"><td><p>TFM_HAL_PS_FLASH_DRIVER</p></td>
+<td><p>Name as defined in the CMSIS flash drivers</p></td>
+<td><p>used by protected storage partition</p></td>
+</tr>
+<tr class="row-even"><td><p>TFM_HAL_PS_SECTORS_PER_BLOCK</p></td>
+<td><p>Number of physical erase sectors per logical FS block</p></td>
+<td><p>used by protected storage partition</p></td>
+</tr>
+<tr class="row-odd"><td><p>TFM_HAL_PS_PROGRAM_UNIT</p></td>
+<td><p>Smallest flash programmable unit in bytes</p></td>
+<td><p>used by protected storage partition</p></td>
+</tr>
+<tr class="row-even"><td><p>TFM_HAL_ITS_FLASH_DRIVER</p></td>
+<td><p>Name as defined in the CMSIS flash drivers</p></td>
+<td><p>used by internal trusted storage partition</p></td>
+</tr>
+<tr class="row-odd"><td><p>TFM_HAL_ITS_SECTORS_PER_BLOCK</p></td>
+<td><p>Number of physical erase sectors per logical ITS block</p></td>
+<td><p>used by internal trusted storage partition</p></td>
+</tr>
+<tr class="row-even"><td><p>TFM_HAL_ITS_PROGRAM_UNIT</p></td>
+<td><p>Smallest flash programmable unit in bytes</p></td>
+<td><p>used by internal trusted storage partition</p></td>
+</tr>
+<tr class="row-odd"><td><p>TFM_NV_COUNTERS_AREA_SIZE</p></td>
+<td><p>Allocated size for the NV counters data in flash</p></td>
+<td><p>if using TF-M templates</p></td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</section>
+<section id="region-defs-h">
+<span id="id2"></span><h4>region_defs.h:<a class="headerlink" href="#region-defs-h" title="Permalink to this heading"></a></h4>
+<blockquote>
+<div><p>(MANDATORY)</p>
+<p>This file can be anywhere in the platform folder, usually in a sub folder
+named <code class="docutils literal notranslate"><span class="pre">partition</span></code>.
+TF-M doesn’t provide a template for this file, common practice is to copy it
+from another platform (e.g. arm/mps2/an521) and update the following entries.</p>
+<p>General advice: if you don’t know beforehand the size you will want for
+these elements you will have to make it iterative from an abitrary value
+taken from another platform (e.g. arm/mps2/an521)</p>
+<p>Note: all size are in bytes</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 23%" />
+<col style="width: 45%" />
+<col style="width: 32%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>name</p></th>
+<th class="head"><p>description</p></th>
+<th class="head"><p>Requisiteness</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>BL2_HEAP_SIZE</p></td>
+<td><p>Size of the Bootloader (MCUboot) heap</p></td>
+<td><p>if bl2 is built</p></td>
+</tr>
+<tr class="row-odd"><td><p>BL2_MSP_STACK_SIZE</p></td>
+<td><p>(if bl2 is built) Size of the Bootloader (MCUboot) Main stack</p></td>
+<td><p>if bl2 is built</p></td>
+</tr>
+<tr class="row-even"><td><p>S_HEAP_SIZE</p></td>
+<td><p>Size of the Secure (S) world Heap</p></td>
+<td><p>yes</p></td>
+</tr>
+<tr class="row-odd"><td><p>S_MSP_STACK_SIZE</p></td>
+<td><p>Size of the Secure (S) world Main stack</p></td>
+<td><p>yes</p></td>
+</tr>
+<tr class="row-even"><td><p>S_PSP_STACK_SIZE</p></td>
+<td><p>Size of the Secure (S) world Process stack</p></td>
+<td><p>no for IPC model</p></td>
+</tr>
+<tr class="row-odd"><td><p>NS_HEAP_SIZE</p></td>
+<td><p>Size of the Non-Secure (NS) world Heap</p></td>
+<td><p>if tfm_ns is built</p></td>
+</tr>
+<tr class="row-even"><td><p>NS_STACK_SIZE</p></td>
+<td><p>Size of the Non-Secure (NS) world stack</p></td>
+<td><p>if tfm_ns is built</p></td>
+</tr>
+<tr class="row-odd"><td><p>PSA_INITIAL_ATTEST_TOKEN_MAX_SIZE</p></td>
+<td><p>Size of the buffer that will store the initial attestation</p></td>
+<td><p>used by initial attestation partition</p></td>
+</tr>
+<tr class="row-even"><td><p>TFM_ATTEST_BOOT_RECORDS_MAX_SIZE</p></td>
+<td><p>Size of buffer that can store the encoded list of boot records</p></td>
+<td><p>used by delegated attestation partition</p></td>
+</tr>
+<tr class="row-odd"><td><p>BL2_HEADER_SIZE</p></td>
+<td><p>Size of the Header for the Bootloader (MCUboot)</p></td>
+<td><p>if bl2 is built</p></td>
+</tr>
+<tr class="row-even"><td><p>BL2_TRAILER_SIZE</p></td>
+<td><p>Size of the Trailer for the Bootloader (MCUboot)</p></td>
+<td><p>if bl2 is built</p></td>
+</tr>
+<tr class="row-odd"><td><p>SHARED_SYMBOL_AREA_SIZE</p></td>
+<td><p>Size of shared common code between bl2 and tfm_s</p></td>
+<td><p>if bl2 is built and want to reduce image size</p></td>
+</tr>
+</tbody>
+</table>
+<p>(OPTIONAL)</p>
+<p>If the TF-M common linker script is used then:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 24%" />
+<col style="width: 51%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>name</p></th>
+<th class="head"><p>description</p></th>
+<th class="head"><p>Requisiteness</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>S_CODE_START</p></td>
+<td><p>Start address for the S code</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-odd"><td><p>S_CODE_SIZE</p></td>
+<td><p>Size of the S code</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-even"><td><p>S_DATA_START</p></td>
+<td><p>Start address for the S data</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-odd"><td><p>S_DATA_SIZE</p></td>
+<td><p>Size of the S data</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-even"><td><p>S_CODE_SRAM_ALIAS_BASE</p></td>
+<td><p>Start address for the S code</p></td>
+<td><p>if no XIP on flash</p></td>
+</tr>
+<tr class="row-odd"><td><p>TOTAL_CODE_SRAM_SIZE</p></td>
+<td><p>Size of the S code</p></td>
+<td><p>if no XIP on flash</p></td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</section>
+<section id="cmsis-driver-config-cmsis-driver-config-h">
+<h4>CMSIS_Driver/Config/cmsis_driver_config.h:<a class="headerlink" href="#cmsis-driver-config-cmsis-driver-config-h" title="Permalink to this heading"></a></h4>
+<blockquote>
+<div><p>(location as defined in CMakeLists.txt)</p>
+<p>This file should include the CMSIS drivers implementation headers.</p>
+</div></blockquote>
+</section>
+<section id="cmsis-driver-config-rte-device-h">
+<h4>CMSIS_Driver/Config/RTE_Device.h:<a class="headerlink" href="#cmsis-driver-config-rte-device-h" title="Permalink to this heading"></a></h4>
+<blockquote>
+<div><p>(location as defined in CMakeLists.txt)</p>
+<p>This is the Run-Time Environnement file from CMSIS, which is there to allow
+enabling or disabling drivers prior to building. If your platform is
+designed as a general use platform, this file should contain all the
+available CMSIS drivers, and you should provide a recommended configuration.
+If your platform is designed for a specific use-case then you should
+reference and enable only the mandatory drivers.</p>
+</div></blockquote>
+</section>
+<section id="cmsis-driver-driver-flash-c">
+<h4>CMSIS_Driver/Driver_Flash.c:<a class="headerlink" href="#cmsis-driver-driver-flash-c" title="Permalink to this heading"></a></h4>
+<blockquote>
+<div><p>(location as defined in CMakeLists.txt)</p>
+<p>TF-M relies on CMSIS Drivers, as such it requires the CMSIS functions to
+be implemented. As a platform owner you can decide to either implement the
+drivers in the CMSIS functions or to use the CMSIS functions as a shim to
+your native drivers.</p>
+<p>Refer to the CMSIS <a class="reference external" href="https://www.keil.com/pack/doc/CMSIS/Driver/html/group__flash__interface__gr.html">FLASH</a>
+documentation.</p>
+</div></blockquote>
+</section>
+<section id="cmsis-driver-driver-usart-c">
+<h4>CMSIS_Driver/Driver_USART.c:<a class="headerlink" href="#cmsis-driver-driver-usart-c" title="Permalink to this heading"></a></h4>
+<blockquote>
+<div><p>(location as defined in CMakeLists.txt)</p>
+<p>TF-M relies on CMSIS Drivers, as such it requires the CMSIS functions to
+be implemented. As a platform owner you can decide to either implement the
+drivers in the CMSIS functions or to use the CMSIS functions as a shim to
+your native drivers.</p>
+<p>Refer to the CMSIS <a class="reference external" href="https://www.keil.com/pack/doc/CMSIS/Driver/html/group__usart__interface__gr.html">USART</a>
+documentation.</p>
+</div></blockquote>
+</section>
+<section id="target-cfg-ch">
+<h4>target_cfg.[ch]:<a class="headerlink" href="#target-cfg-ch" title="Permalink to this heading"></a></h4>
+<blockquote>
+<div><p>(location as defined in CMakeLists.txt)</p>
+<p>It is expected that these files contain all platform specific code related
+to memory protection (e.g. SAU/PPC/MPC). These functions will not be called
+by TF-M directly, but are expected to be called from the function
+tfm_hal_set_up_static_boundaries() in tfm_hal_isolation.c.</p>
+</div></blockquote>
+</section>
+<section id="tfm-hal-platform-c">
+<h4>tfm_hal_platform.c:<a class="headerlink" href="#tfm-hal-platform-c" title="Permalink to this heading"></a></h4>
+<blockquote>
+<div><p>(location as defined in CMakeLists.txt)</p>
+<p>Each platform is expected to implement the following API declared in
+platform/include/tfm_hal_platform.h</p>
+</div></blockquote>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">enum</span><span class="w"> </span><span class="n">tfm_hal_status_t</span><span class="w"> </span><span class="nf">tfm_hal_platform_init</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
+
+<span class="n">The</span><span class="w"> </span><span class="n">function</span><span class="w"> </span><span class="n">will</span><span class="w"> </span><span class="n">be</span><span class="w"> </span><span class="n">called</span><span class="w"> </span><span class="n">before</span><span class="w"> </span><span class="n">SPM</span><span class="w"> </span><span class="n">initialization</span><span class="p">.</span>
+</pre></div>
+</div>
+</section>
+<section id="tfm-hal-isolation-c">
+<h4>tfm_hal_isolation.c:<a class="headerlink" href="#tfm-hal-isolation-c" title="Permalink to this heading"></a></h4>
+<blockquote>
+<div><p>(location as defined in CMakeLists.txt)</p>
+<p>Each platform is expected to implement all the functions declared in
+platform/include/tfm_hal_isolation.h.</p>
+<p>These functions will be called from TF-M.</p>
+</div></blockquote>
+</section>
+<section id="tfm-platform-system-c">
+<h4>tfm_platform_system.c:<a class="headerlink" href="#tfm-platform-system-c" title="Permalink to this heading"></a></h4>
+<blockquote>
+<div><p>(location as defined in CMakeLists.txt)</p>
+<p>Each platform is expected to implement all the functions declared in
+platform/include/tfm_platform_system.h.</p>
+</div></blockquote>
+</section>
+<section id="check-config-cmake">
+<h4>check_config.cmake:<a class="headerlink" href="#check-config-cmake" title="Permalink to this heading"></a></h4>
+<blockquote>
+<div><p>As a platform owner you may want to enforce some configuration or to prevent
+the use of unsupported configurations.</p>
+<p>This file (CMake format) allows you to do so by allowing you to check for
+invalid configuration values.</p>
+<p>This file is optional.</p>
+<p>TF-M build system already provides a generic configuration checker that will
+be called on top of one provided by the platform owner. The generic checker
+is located in &lt;TF-M ROOT&gt;/config/.</p>
+<p>[<a class="reference internal" href="#id8">check_config.cmake</a>]</p>
+</div></blockquote>
+</section>
+</section>
+<section id="functions">
+<span id="id5"></span><h3>Functions<a class="headerlink" href="#functions" title="Permalink to this heading"></a></h3>
+<blockquote>
+<div><p>There are a few functions that need to be declared and properly
+initialized for TF-M to work. The function declarations can be found in
+platform/include/tfm_platform_system.h and platform/include/tfm_spm_hal.h.</p>
+</div></blockquote>
+<section id="tfm-platform-hal-system-reset">
+<h4>tfm_platform_hal_system_reset:<a class="headerlink" href="#tfm-platform-hal-system-reset" title="Permalink to this heading"></a></h4>
+<blockquote>
+<div><p>This function will in most cases end up calling the NVIC System Reset.</p>
+<p>The platform can uninitialize or store some resources before reset.</p>
+</div></blockquote>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">tfm_platform_hal_system_reset</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="tfm-platform-hal-ioctl">
+<h4>tfm_platform_hal_ioctl:<a class="headerlink" href="#tfm-platform-hal-ioctl" title="Permalink to this heading"></a></h4>
+<blockquote>
+<div><p>A single entry point to platform-specific code across the HAL is provided by the
+IOCTL service.</p>
+</div></blockquote>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">enum</span><span class="w"> </span><span class="n">tfm_platform_err_t</span><span class="w"> </span><span class="nf">tfm_platform_hal_ioctl</span><span class="p">(</span><span class="n">tfm_platform_ioctl_req_t</span><span class="w"> </span><span class="n">request</span><span class="p">,</span><span class="w"> </span><span class="n">psa_invec</span><span class="w">  </span><span class="o">*</span><span class="n">in_vec</span><span class="p">,</span><span class="w"> </span><span class="n">psa_outvec</span><span class="w"> </span><span class="o">*</span><span class="n">out_vec</span><span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="tfm-spm-hal-get-mem-security-attr">
+<h4>tfm_spm_hal_get_mem_security_attr:<a class="headerlink" href="#tfm-spm-hal-get-mem-security-attr" title="Permalink to this heading"></a></h4>
+<blockquote>
+<div><p>This function shall fill the security_attr_info_t argument with the current
+active security configuration.</p>
+</div></blockquote>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">tfm_spm_hal_get_mem_security_attr</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">p</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">security_attr_info_t</span><span class="w"> </span><span class="o">*</span><span class="n">p_attr</span><span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="tfm-spm-hal-get-secure-access-attr">
+<h4>tfm_spm_hal_get_secure_access_attr:<a class="headerlink" href="#tfm-spm-hal-get-secure-access-attr" title="Permalink to this heading"></a></h4>
+<blockquote>
+<div><p>This function shall fill the mem_attr_info_t argument with the current
+active secure memory configuration.</p>
+</div></blockquote>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">tfm_spm_hal_get_secure_access_attr</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">p</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">mem_attr_info_t</span><span class="w"> </span><span class="o">*</span><span class="n">p_attr</span><span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="tfm-spm-hal-get-ns-access-attr">
+<h4>tfm_spm_hal_get_ns_access_attr:<a class="headerlink" href="#tfm-spm-hal-get-ns-access-attr" title="Permalink to this heading"></a></h4>
+<blockquote>
+<div><p>This function shall fill the mem_attr_info_t argument with the current
+active secure memory configuration for the NS side.</p>
+</div></blockquote>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">tfm_spm_hal_get_ns_access_attr</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">p</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">mem_attr_info_t</span><span class="w"> </span><span class="o">*</span><span class="n">p_attr</span><span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="tfm-hal-irq-clear-pending">
+<h4>tfm_hal_irq_clear_pending:<a class="headerlink" href="#tfm-hal-irq-clear-pending" title="Permalink to this heading"></a></h4>
+<blockquote>
+<div><p>This function clears any pending IRQ.</p>
+</div></blockquote>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">tfm_hal_irq_clear_pending</span><span class="p">(</span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">irq_num</span><span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="tfm-hal-irq-enable">
+<h4>tfm_hal_irq_enable:<a class="headerlink" href="#tfm-hal-irq-enable" title="Permalink to this heading"></a></h4>
+<blockquote>
+<div><p>This function enable an IRQ.</p>
+</div></blockquote>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">tfm_hal_irq_enable</span><span class="p">(</span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">irq_num</span><span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="tfm-hal-irq-disable">
+<h4>tfm_hal_irq_disable:<a class="headerlink" href="#tfm-hal-irq-disable" title="Permalink to this heading"></a></h4>
+<blockquote>
+<div><p>This function disable an IRQ.</p>
+</div></blockquote>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">tfm_hal_irq_disable</span><span class="p">(</span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">irq_num</span><span class="p">);</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="annex">
+<h3>Annex<a class="headerlink" href="#annex" title="Permalink to this heading"></a></h3>
+<div class="highlight-default notranslate" id="platform-region-defs"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">PLATFORM_REGION_DEFS</span><span class="p">]</span>
+<span class="n">target_include_directories</span><span class="p">(</span><span class="n">platform_region_defs</span>
+    <span class="n">INTERFACE</span>
+    <span class="o">&lt;</span><span class="n">folder</span> <span class="n">name</span> <span class="n">under</span> <span class="n">the</span> <span class="n">platform</span> <span class="n">folder</span> <span class="o">-</span> <span class="n">usually</span> <span class="n">named</span> <span class="n">platform</span><span class="o">&gt;</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<hr class="docutils" />
+<div class="highlight-default notranslate" id="scatter"><div class="highlight"><pre><span></span>[SCATTER]
+target_add_scatter_file(bl2
+    $&lt;$&lt;C_COMPILER_ID:ARMClang&gt;:${CMAKE_SOURCE_DIR}/platform/ext/common/armclang/tfm_common_bl2.sct&gt;
+    $&lt;$&lt;C_COMPILER_ID:GNU&gt;:${CMAKE_SOURCE_DIR}/platform/ext/common/gcc/tfm_common_bl2.ld&gt;
+    $&lt;$&lt;C_COMPILER_ID:IAR&gt;:${CMAKE_SOURCE_DIR}/platform/ext/common/iar/tfm_common_bl2.icf&gt;
+)
+target_add_scatter_file(tfm_s
+    $&lt;$&lt;C_COMPILER_ID:ARMClang&gt;:${CMAKE_SOURCE_DIR}/platform/ext/common/armclang/tfm_common_s.sct&gt;
+    $&lt;$&lt;C_COMPILER_ID:GNU&gt;:${CMAKE_SOURCE_DIR}/platform/ext/common/gcc/tfm_common_s.ld&gt;
+    $&lt;$&lt;C_COMPILER_ID:IAR&gt;:${CMAKE_SOURCE_DIR}/platform/ext/common/iar/tfm_common_s.icf&gt;
+)
+target_add_scatter_file(tfm_ns
+    $&lt;$&lt;C_COMPILER_ID:ARMClang&gt;:${CMAKE_SOURCE_DIR}/platform/ext/common/armclang/tfm_common_ns.sct&gt;
+    $&lt;$&lt;C_COMPILER_ID:GNU&gt;:${CMAKE_SOURCE_DIR}/platform/ext/common/gcc/tfm_common_ns.ld&gt;
+    $&lt;$&lt;C_COMPILER_ID:IAR&gt;:${CMAKE_SOURCE_DIR}/platform/ext/common/iar/tfm_common_ns.icf&gt;
+)
+</pre></div>
+</div>
+<hr class="docutils" />
+<div class="highlight-default notranslate" id="scatter-common"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">TF</span><span class="o">-</span><span class="n">M</span> <span class="n">ROOT</span><span class="o">&gt;/</span><span class="n">platform</span><span class="o">/</span><span class="n">ext</span><span class="o">/</span><span class="n">common</span><span class="o">/&lt;</span><span class="n">TOOLCHAIN</span><span class="o">&gt;/</span>
+</pre></div>
+</div>
+<hr class="docutils" />
+<div class="highlight-default notranslate" id="startup"><div class="highlight"><pre><span></span>[STARTUP]
+target_sources(bl2
+    PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}/platform/ext/target/&lt;folder to platform&gt;/device/source/startup_&lt;platform name&gt;.c
+)
+target_sources(tfm_s
+    PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}/platform/ext/target/&lt;folder to platform&gt;/device/source/startup_&lt;platform name&gt;.c
+)
+target_sources(tfm_ns
+    PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}/platform/ext/target/&lt;folder to platform&gt;/device/source/startup_&lt;platform name&gt;.c
+)
+</pre></div>
+</div>
+<hr class="docutils" />
+<div class="highlight-default notranslate" id="sources-includes"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">SOURCES_INCLUDES</span><span class="p">]</span>
+<span class="n">target_include_directories</span><span class="p">(</span><span class="n">platform_bl2</span>
+    <span class="n">PUBLIC</span>
+<span class="p">)</span>
+<span class="n">target_include_directories</span><span class="p">(</span><span class="n">platform_s</span>
+    <span class="n">PUBLIC</span>
+<span class="p">)</span>
+<span class="n">target_include_directories</span><span class="p">(</span><span class="n">platform_ns</span>
+    <span class="n">PUBLIC</span>
+<span class="p">)</span>
+
+<span class="n">target_sources</span><span class="p">(</span><span class="n">platform_bl2</span>
+    <span class="n">PRIVATE</span>
+<span class="p">)</span>
+<span class="n">target_sources</span><span class="p">(</span><span class="n">platform_s</span>
+    <span class="n">PRIVATE</span>
+<span class="p">)</span>
+<span class="n">target_sources</span><span class="p">(</span><span class="n">platform_ns</span>
+    <span class="n">PRIVATE</span>
+<span class="p">)</span>
+<span class="n">target_sources</span><span class="p">(</span><span class="n">tfm_spm</span>
+    <span class="n">PRIVATE</span>
+        <span class="n">target_cfg</span><span class="o">.</span><span class="n">c</span>
+        <span class="n">tfm_hal_isolation</span><span class="o">.</span><span class="n">c</span>
+        <span class="n">tfm_hal_platform</span><span class="o">.</span><span class="n">c</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<hr class="docutils" />
+<div class="highlight-default notranslate" id="cmsis-rtx"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">CMSIS_RTX</span><span class="p">]</span>
+<span class="n">target_link_libraries</span><span class="p">(</span><span class="n">CMSIS_5_tfm_ns</span>
+    <span class="n">INTERFACE</span>
+        <span class="o">&lt;</span><span class="n">CMSIS_5_RTX_CM0</span> <span class="o">|</span> <span class="n">CMSIS_5_RTX_CM3</span> <span class="o">|</span> <span class="n">CMSIS_5_RTX_V8MBN</span> <span class="o">|</span> <span class="n">CMSIS_5_RTX_V8MMN</span><span class="o">&gt;</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<hr class="docutils" />
+<div class="highlight-default notranslate" id="id6"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">preload_cmake</span><span class="p">]</span>
+<span class="nb">set</span><span class="p">(</span><span class="n">TFM_SYSTEM_PROCESSOR</span> <span class="o">&lt;</span><span class="n">value</span><span class="o">&gt;</span><span class="p">)</span>    <span class="c1"># The format is that same as the format used in the -mcpu= argument of GNUARM or ARMCLANG. The special +modifier syntax must not be used.</span>
+<span class="nb">set</span><span class="p">(</span><span class="n">TFM_SYSTEM_ARCHITECTURE</span> <span class="o">&lt;</span><span class="n">value</span><span class="o">&gt;</span><span class="p">)</span> <span class="c1"># The format is that same as the format used in the -march= argument of GNUARM or ARMCLANG. The special +modifier syntax must not be used.</span>
+<span class="nb">set</span><span class="p">(</span><span class="n">TFM_SYSTEM_DSP</span> <span class="o">&lt;</span><span class="n">value</span><span class="o">&gt;</span><span class="p">)</span>
+<span class="nb">set</span><span class="p">(</span><span class="n">CRYPTO_HW_ACCELERATOR_TYPE</span> <span class="o">&lt;</span><span class="n">value</span><span class="o">&gt;</span><span class="p">)</span>
+</pre></div>
+</div>
+<hr class="docutils" />
+<div class="highlight-default notranslate" id="id7"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">config_cmake</span><span class="p">]</span>
+<span class="nb">set</span><span class="p">(</span><span class="n">CONFIG_TFM_USE_TRUSTZONE</span>            <span class="n">ON</span>          <span class="n">CACHE</span> <span class="n">BOOL</span>      <span class="s2">&quot;Enable use of TrustZone to transition between NSPE and SPE&quot;</span><span class="p">)</span>
+<span class="nb">set</span><span class="p">(</span><span class="n">TFM_MULTI_CORE_TOPOLOGY</span>             <span class="n">OFF</span>         <span class="n">CACHE</span> <span class="n">BOOL</span>      <span class="s2">&quot;Whether to build for a dual-cpu architecture&quot;</span><span class="p">)</span>
+<span class="nb">set</span><span class="p">(</span><span class="n">BL2</span>                                 <span class="n">OFF</span>         <span class="n">CACHE</span> <span class="n">BOOL</span>      <span class="s2">&quot;Whether to build BL2&quot;</span><span class="p">)</span>
+<span class="nb">set</span><span class="p">(</span><span class="n">NS</span>                                  <span class="n">FALSE</span>       <span class="n">CACHE</span> <span class="n">BOOL</span>      <span class="s2">&quot;Whether to build NS app&quot;</span> <span class="n">FORCE</span><span class="p">)</span>
+</pre></div>
+</div>
+<hr class="docutils" />
+<div class="highlight-default notranslate" id="id8"><div class="highlight"><pre><span></span>function(tfm_invalid_config)
+    if (${ARGV})
+        string (REPLACE &quot;;&quot; &quot; &quot; ARGV_STRING &quot;${ARGV}&quot;)
+        string (REPLACE &quot;STREQUAL&quot;     &quot;=&quot; ARGV_STRING &quot;${ARGV_STRING}&quot;)
+        string (REPLACE &quot;GREATER&quot;      &quot;&gt;&quot; ARGV_STRING &quot;${ARGV_STRING}&quot;)
+        string (REPLACE &quot;LESS&quot;         &quot;&lt;&quot; ARGV_STRING &quot;${ARGV_STRING}&quot;)
+        string (REPLACE &quot;VERSION_LESS&quot; &quot;&lt;&quot; ARGV_STRING &quot;${ARGV_STRING}&quot;)
+        string (REPLACE &quot;EQUAL&quot;        &quot;=&quot; ARGV_STRING &quot;${ARGV_STRING}&quot;)
+        string (REPLACE &quot;IN_LIST&quot;      &quot;in&quot; ARGV_STRING &quot;${ARGV_STRING}&quot;)
+
+        message(FATAL_ERROR &quot;INVALID CONFIG: ${ARGV_STRING}&quot;)
+    endif()
+endfunction()
+
+# Requires armclang &gt;= 6.10.1
+tfm_invalid_config((CMAKE_C_COMPILER_ID STREQUAL &quot;ARMClang&quot;) AND (CMAKE_C_COMPILER_VERSION VERSION_LESS &quot;6.10.1&quot;))
+</pre></div>
+</div>
+<p><em>Copyright (c) 2021-2022, Arm Limited. All rights reserved.</em>
+<em>Copyright (c) 2022 Cypress Semiconductor Corporation (an Infineon company)
+or an affiliate of Cypress Semiconductor Corporation. All rights reserved.</em></p>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p></p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

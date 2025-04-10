@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Memory layout &mdash; Trusted Firmware-M v1.7.0-stm32mp25-alpha-r1-rc3-doc documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/tfm_custom.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/tabs.css" type="text/css" />
+    <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Storage" href="storage.html" />
+    <link rel="prev" title="M33-TD flavor" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> Trusted Firmware-M
+            <img src="../../../_static/tf_logo_white.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                v1.7.0-stm32mp25-alpha-r1-rc3-doc
+
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../introduction/index.html">Introduction</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../getting_started/index.html">Getting Started</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../security/index.html">Security</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../security/security_advisories/index.html">Security Advisories</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../security/security_advisories/stack_seal_vulnerability.html">Advisory TFMV-1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../security/security_advisories/svc_caller_sp_fetching_vulnerability.html">Advisory TFMV-2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../security/security_advisories/crypto_multi_part_ops_abort_fail.html">Advisory TFMV-3</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../security/security_advisories/profile_small_key_id_encoding_vulnerability.html">Advisory TFMV-4</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../security/security_advisories/fwu_write_vulnerability.html">Advisory TFMV-5</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../security/threat_models/index.html">Threat Models</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../security/threat_models/generic_threat_model.html">Trusted Firmware-M Generic Threat Model</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../security/security.html">Security Handling</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../releases/index.html">Releases</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../releases/1.7.0.html">v1.7.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../releases/1.6.1.html">v1.6.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../releases/1.6.0.html">v1.6.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../releases/1.5.0.html">v1.5.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../releases/release_process.html">Release Cadence and Process</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../glossary.html">Glossary</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../platform/index.html">Platform Selection</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../platform/arm/index.html">Arm platforms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../platform/arm/corstone1000/readme.html">Corstone-1000</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../platform/arm/mps3/an547/README.html">Corstone-300 FPGA (AN547)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../platform/arm/mps3/an552/README.html">Corstone-300 FPGA and FVP (AN552)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../platform/arm/mps3/corstone310/README.html">Corstone-310 FVP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../platform/arm/musca_b1/readme.html">Musca-B1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../platform/arm/musca_s1/readme.html">Musca-S1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../platform/arm/rss/readme.html">Runtime Security Subsystem</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../platform/nxp/lpcxpresso55s69/README.html">LPCXpresso55S69</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../platform/cypress/psoc64/index.html">Cypress PSoC64</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../platform/cypress/psoc64/cypress_psoc64_spec.html">Cypress PSoC64 Specifics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../platform/cypress/psoc64/libs/core-lib/README.html">Core Library</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../platform/cypress/psoc64/libs/core-lib/RELEASE.html">Core Library Release Notes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../platform/stm/index.html">STMICROELECTRONICS</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../platform/stm/common/stm32l5xx/readme.html">STM32L5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../platform/stm/common/stm32mp2/readme.html">STM32MP2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../platform/stm/common/stm32u5xx/readme.html">STM32U5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../platform/stm/nucleo_l552ze_q/readme.html">NUCLEO-L552ZE-Q</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../platform/stm/stm32l562e_dk/readme.html">STM32L562E-DK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../platform/stm/b_u585i_iot02a/readme.html">B-U585I-IOT02A</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../platform/nordic_nrf/nrf5340dk_nrf5340_cpuapp/README.html">Nordic nRF5340</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../platform/nordic_nrf/nrf9160dk_nrf9160/README.html">Nordic nRF9160</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../platform/lairdconnectivity/bl5340_dvk_cpuapp/README.html">Laird Connectivity BL5340</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../platform/nuvoton/m2351/README.html">NuMaker-PFM-M2351</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../platform/nuvoton/m2354/README.html">NuMaker-PFM-M2354</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../building/tfm_build_instruction.html">Build instructions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../building/run_tfm_examples_on_arm_platforms.html">Run TF-M examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../building/documentation_generation.html">Building the documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../building/tfm_build_instruction_iar.html">IAR toolchain</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../configuration/index.html">Configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../configuration/build_configuration.html">Build configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../configuration/header_file_system.html">Component configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../configuration/kconfig_system.html">Kconfig</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../configuration/profiles/index.html">Profiles</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../configuration/profiles/tfm_profile_small.html"> Small</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../configuration/profiles/tfm_profile_medium_arot-less.html"> ARoT-less</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../configuration/profiles/tfm_profile_medium.html"> Medium</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../configuration/profiles/tfm_profile_large.html"> Large</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../configuration/test_configuration.html">Tests configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../integration_guide/index.html">Integration Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../integration_guide/spm_backends.html">SPM Backends</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../integration_guide/non-secure_client_extension_integration_guide.html">NS client integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../integration_guide/os_migration_guide_armv8m.html">OS migration to Armv8-M</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../integration_guide/tfm_fpu_support.html">Floating-Point Support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../integration_guide/tfm_secure_irq_integration_guide.html">Secure Interrupt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../integration_guide/platform/index.html">Adding a new platform</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../integration_guide/platform/platform_folder.html">Details for the platform folder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../integration_guide/platform/platform_ext_folder.html">Details for the platform/ext folder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../integration_guide/platform/porting_TFM_to_a_new_hardware.html">Porting TF-M to a New Hardware</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../integration_guide/platform/platform_provisioning.html">Platform Provisioning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../integration_guide/platform/platform_deprecation.html">Platform deprecation and removal</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../integration_guide/services/index.html">Services</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../integration_guide/services/tfm_attestation_integration_guide.html">Initial Attestation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../integration_guide/services/tfm_crypto_integration_guide.html">Crypto</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../integration_guide/services/tfm_its_integration_guide.html">Internal Storage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../integration_guide/services/tfm_platform_integration_guide.html">Platform</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../integration_guide/services/tfm_ps_integration_guide.html">Protected Storage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../integration_guide/services/tfm_secure_partition_addition.html">Adding a New Service</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../integration_guide/services/tfm_manifest_tool_user_guide.html">The manifest tool</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../technical_references/design_docs/index.html">Design Documents</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical_references/design_docs/dual-cpu/index.html">Dual-CPU</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical_references/design_docs/dual-cpu/booting_a_dual_core_system.html">Booting a Dual-Core System</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical_references/design_docs/dual-cpu/communication_prototype_between_nspe_and_spe_in_dual_core_systems.html">Communication Prototype Between NSPE And SPE In Dual Core System</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical_references/design_docs/dual-cpu/mailbox_design_on_dual_core_system.html">Mailbox Design in TF-M on Dual-core System</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical_references/design_docs/dual-cpu/tfm_multi_core_access_check.html">Memory Access Check of Trusted Firmware-M in Multi-Core Topology</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical_references/design_docs/bl1.html">BL1 Immutable bootloader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical_references/design_docs/code_sharing.html">Code sharing between independently linked XIP binaries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical_references/design_docs/enum_implicit_casting.html">Fixing implicit casting for C enumeration values</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical_references/design_docs/ff_isolation.html">FF-M Isolation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical_references/design_docs/hardware_abstraction_layer.html">Hardware Abstraction Layer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical_references/design_docs/mailbox_ns_agent_update.html">Mailbox NS Agent Design Update</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical_references/design_docs/ps_key_management.html">Protected Storage service key management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical_references/design_docs/secure_boot_hw_key_integration.html">HW crypto key integration in TF-M secure boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical_references/design_docs/secure_boot_rollback_protection.html">Rollback protection in TF-M secure boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical_references/design_docs/secure_partition_manager.html">Secure Partition Manager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical_references/design_docs/source_structure.html">Trusted Firmware-M Source Structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical_references/design_docs/stateless_rot_service.html">Stateless Root of Trust Services Reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical_references/design_docs/symmetric_initial_attest.html">Symmetric key algorithm based Initial Attestation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical_references/design_docs/tfm_builtin_keys.html">TF-M builtin keys</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical_references/design_docs/tfm_code_generation_with_jinja2.html">Code Generation With Jinja2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical_references/design_docs/tfm_cooperative_scheduling_rules.html">Cooperative Scheduling Rules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical_references/design_docs/tfm_crypto_design.html">Crypto Service design</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical_references/design_docs/tfm_fwu_service.html">Firmware Update Service</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical_references/design_docs/tfm_its_512_flash.html">Add support for block-aligned flash in Internal Trusted Storage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical_references/design_docs/tfm_its_service.html">Internal Trusted Storage (ITS) Service</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical_references/design_docs/tfm_log_system_design_document.html">Log system design document</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical_references/design_docs/tfm_physical_attack_mitigation.html">Physical attack mitigation in Trusted Firmware-M</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical_references/design_docs/tfm_psa_inter_process_communication.html">TF-M Inter-Process Communication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical_references/design_docs/tfm_secure_boot.html">Secure boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical_references/design_docs/tfm_secure_partition_runtime_library.html">Secure Partition Runtime Library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical_references/design_docs/tfm_uniform_secure_service_signature.html">Uniform Secure Service Signature</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tools/index.html">Tools</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contribution</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing/index.html">Guidelines</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../contributing/contributing_process.html">The process</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../contributing/code_review_guide.html">Code review</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../contributing/maintainers.html">Maintainers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../contributing/maintainers.html#code-owners">Code owners</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../contributing/coding_guide.html">Yet another coding standard :)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../contributing/doc_guidelines.html">Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../contributing/tfm_design_proposal_guideline.html">Design proposal</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing/lic.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing/dco.html">DCO</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Links</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://ci.trustedfirmware.org/view/TF-M/job/tf-m-build-docs-nightly/lastSuccessfulBuild/artifact/trusted-firmware-m/build/docs/reference_manual/html/index.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://developer.trustedfirmware.org/w/collaboration/security_center">Security Center</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://www.arm.com/architecture/security-features/platform-security">PSA</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">STMICROELECTRONICS</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../releases/index.html">Releases</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/getting_started.html">Getting started</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../platform/stm/stm32l562e_dk/readme.html">STM32L562E-DK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../platform/stm/nucleo_l552ze_q/readme.html">NUCLEO-L552ZE-Q</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../platform/stm/b_u585i_iot02a/readme.html">B-U585I-IOT02A</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/platforms.html">Platforms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../platform/stm/common/stm32l5xx/readme.html">STM32L5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../platform/stm/common/stm32mp2/readme.html">STM32MP2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../platform/stm/common/stm32u5xx/readme.html">STM32U5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../platform/stm/nucleo_l552ze_q/readme.html">NUCLEO-L552ZE-Q</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../platform/stm/stm32l562e_dk/readme.html">STM32L562E-DK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/changelog.html">Change Log &amp; Notes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../releases/v1.7.0-stm32mp25-alpha-r1-rc3/changelog.html">v1.7.0-stm32mp25-alpha-r1-rc3</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Technical references</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../a35_td_flavor/index.html">A35-TD flavor</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../a35_td_flavor/memory_layout.html">Memory layout</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../a35_td_flavor/storage.html">Storage</a></li>
+</ul>
+</li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">M33-TD flavor</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Memory layout</a></li>
+<li class="toctree-l3"><a class="reference internal" href="storage.html">Storage</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../devicetree/index.html">Devicetree</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../devicetree/devicetree_tfm.html">Scope and purpose</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../devicetree/devicetree_tfm.html#concept">Concept</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../devicetree/devicetree_tfm.html#how-to-add-device">How to add device</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../initlevel.html">Initlevel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../initial_attestation.html">Initial Attestation Service</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nv_counter.html">Nv counter</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../ide/index.html">Ide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../ide/cubeide/stm32cubeide.html">STM32CubeIDE</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Trusted Firmware-M</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../index.html">Technical references</a> &raquo;</li>
+          <li><a href="index.html">M33-TD flavor</a> &raquo;</li>
+      <li>Memory layout</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="memory-layout">
+<h1>Memory layout<a class="headerlink" href="#memory-layout" title="Permalink to this heading"></a></h1>
+<section id="image-layout">
+<h2>Image layout<a class="headerlink" href="#image-layout" title="Permalink to this heading"></a></h2>
+<p>On STM32MP2 serie, the mcuboot upgrade strategy is defined to <code class="docutils literal notranslate"><span class="pre">RAM_LOAD</span></code>: the latest image is copied to RAM and runs from there.</p>
+<p>This involves to create one image for secure and nonsecure firmware.</p>
+<p>The assemble.py tool is used to concatenate secure and nonsecure binary to a single binary blob (tfm_s_ns.bin).</p>
+<p>Then wrapper.py tool signed this blob and add header and trailer
+(tfm_s_ns_signed.bin).</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 28%" />
+<col style="width: 32%" />
+<col style="width: 20%" />
+<col style="width: 21%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td rowspan="4"><p>tfm_s_ns_signed.bin</p></td>
+<td rowspan="2"><p>NS_PARTITION</p></td>
+<td><p>BL2_TRAILER</p></td>
+<td><p>BL2_TRAILER</p></td>
+</tr>
+<tr class="row-even"><td><p>IMAGE_NS_CODE</p></td>
+<td><p>NS_CODE
+(vector, code)</p></td>
+</tr>
+<tr class="row-odd"><td rowspan="2"><p>S_PARTITION</p></td>
+<td><p>IMAGE_S_CODE</p></td>
+<td><p>S_CODE
+(vector,
+veneer, code)</p></td>
+</tr>
+<tr class="row-even"><td><p>BL2_HEADER</p></td>
+<td><p>BL2_HEADER</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>The header size must be defined to align vector table in RAM.</strong>
+On Arm® Cortex®-M33 the vector table must be naturally aligned to
+a power of two whose alignment value is greater than or equal to
+Number of exceptions supported x 4.</p>
+<dl class="simple">
+<dt>example for (16 internal irq + 320 peripheral IRQ):</dt><dd><ul class="simple">
+<li><p>vtor size = ((16 + 320) * 4) = 1344</p></li>
+<li><p>vtor alignment = 2048 =&gt; 0x800</p></li>
+</ul>
+</dd>
+</dl>
+</div>
+</section>
+<section id="flash-layout">
+<span id="m33tdcid-flash-layout"></span><h2>Flash layout<a class="headerlink" href="#flash-layout" title="Permalink to this heading"></a></h2>
+<p>The table below shows the flash layout loaded in persistent storage (external nor).</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 41%" />
+<col style="width: 36%" />
+<col style="width: 24%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td rowspan="2"><p>tfm secondary slot</p></td>
+<td rowspan="2"><p>tfm_s_ns_signed.bin</p></td>
+<td><p>NS_PARTITION</p></td>
+</tr>
+<tr class="row-even"><td><p>S_PARTITION</p></td>
+</tr>
+<tr class="row-odd"><td rowspan="2"><p>tfm primary slot</p></td>
+<td rowspan="2"><p>tfm_s_ns_signed.bin</p></td>
+<td><p>NS_PARTITION</p></td>
+</tr>
+<tr class="row-even"><td><p>S_PARTITION</p></td>
+</tr>
+<tr class="row-odd"><td><p>secondary ddr firmware</p></td>
+<td><p>ddr4_pmu_train.bin</p></td>
+<td><p>binary</p></td>
+</tr>
+<tr class="row-even"><td><p>primary ddr firmware</p></td>
+<td><p>ddr4_pmu_train.bin</p></td>
+<td><p>binary</p></td>
+</tr>
+<tr class="row-odd"><td><p>secondary bl2</p></td>
+<td><p>bl2.stm32</p></td>
+<td><p>BL2_CODE</p></td>
+</tr>
+<tr class="row-even"><td><p>primary bl2</p></td>
+<td><p>bl2.stm32</p></td>
+<td><p>BL2_CODE</p></td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li><p>The bootrom copies the bl2 image from boot device to RETRAM then identifies and executes this firmware.</p></li>
+<li><p>The bl2 copies a valid DDR firmware to SRAM2 and initialize ddr hardware block.</p></li>
+<li><p>The bl2 selects the slot actif and copies secure and nonsecure partition to <code class="docutils literal notranslate"><span class="pre">S_IMAGE_LOAD_ADDRESS</span></code> (DDR), then identifies and executes the secure partition.</p></li>
+<li><p>the protected storage is defined in external NOR device.</p></li>
+</ul>
+</section>
+<section id="ram-layout">
+<h2>RAM layout<a class="headerlink" href="#ram-layout" title="Permalink to this heading"></a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">S_IMAGE_LOAD_ADDRESS</span></code> is defined to <code class="docutils literal notranslate"><span class="pre">DDR_RAM_OFFSET</span></code>.</p>
+<section id="bl2">
+<h3>Bl2<a class="headerlink" href="#bl2" title="Permalink to this heading"></a></h3>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 31%" />
+<col style="width: 69%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>DDR</p></td>
+<td><p>S_IMAGE_LOAD_ADDRESS</p></td>
+</tr>
+<tr class="row-even"><td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>S_RETRAM</p></td>
+<td><p>BL2_CODE</p></td>
+</tr>
+<tr class="row-even"><td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td rowspan="3"><p>SRAM1</p></td>
+<td><p>BOOT_TFM_SHARED_DATA</p></td>
+</tr>
+<tr class="row-even"><td><p>BL2_DATA</p></td>
+</tr>
+<tr class="row-odd"><td><p>bsec_mirror</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="tfm">
+<h3>TFM<a class="headerlink" href="#tfm" title="Permalink to this heading"></a></h3>
+<p>The vector table of <code class="docutils literal notranslate"><span class="pre">S_CODE_START</span></code> and <code class="docutils literal notranslate"><span class="pre">NS_CODE_START</span></code> meets alignment conditions by:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">S_IMAGE_LOAD_ADDRESS</span></code> + <code class="docutils literal notranslate"><span class="pre">BL2_HEADER_SIZE</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">S_IMAGE_LOAD_ADDRESS</span></code> + <code class="docutils literal notranslate"><span class="pre">FLASH_S_PARTITION_SIZE</span></code></p></li>
+</ul>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 44%" />
+<col style="width: 23%" />
+<col style="width: 33%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td rowspan="11"><p>DDR</p></td>
+<td colspan="2"></td>
+</tr>
+<tr class="row-even"><td colspan="2"><p>NS_DATA</p></td>
+</tr>
+<tr class="row-odd"><td colspan="2"><p>S_DATA</p></td>
+</tr>
+<tr class="row-even"><td colspan="2"><p>BL2_TRAILER</p></td>
+</tr>
+<tr class="row-odd"><td rowspan="2"><p>NS_CODE</p></td>
+<td><p>code</p></td>
+</tr>
+<tr class="row-even"><td><p>vector</p></td>
+</tr>
+<tr class="row-odd"><td rowspan="3"><p>S_CODE</p></td>
+<td><p>code</p></td>
+</tr>
+<tr class="row-even"><td><p>veneer</p></td>
+</tr>
+<tr class="row-odd"><td><p>vector</p></td>
+</tr>
+<tr class="row-even"><td colspan="2"><p>BL2_HEADER</p></td>
+</tr>
+<tr class="row-odd"><td colspan="2"></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="access-right">
+<h2>Access Right<a class="headerlink" href="#access-right" title="Permalink to this heading"></a></h2>
+<p>TFM follows FF-M 1.0 definition and should implement several isolation levels.
+STM32MP2 platforms used Arm® Cortex®-M33 MPU and RIF device to enforce and manage the isolation of memory resources.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>TF-M is loaded and executed in DDR, this device is protected by RISAF4 instance.
+RISAF4 requires a granularity aligned on 4KBytes (Region, Sub-region).
+=&gt; To do that, the common tfm linker script (l1-l2,l3) must be specific for
+stm32mp2 platform.</p>
+</div>
+<dl class="footnote brackets">
+<dt class="label" id="risaf"><span class="brackets">1</span><span class="fn-backref">(<a href="#id1">1</a>,<a href="#id2">2</a>,<a href="#id3">3</a>,<a href="#id4">4</a>,<a href="#id5">5</a>,<a href="#id7">6</a>,<a href="#id8">7</a>,<a href="#id10">8</a>,<a href="#id11">9</a>)</span></dt>
+<dd><p>RISAF attributes: RO: Read Only; RW: Read Write; S: secure; NS: non-secure; P: privileged; NP: unprivileged.</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>RISAF sub-region feature is not yet implemented</p>
+</div>
+<section id="secure">
+<h3>Secure<a class="headerlink" href="#secure" title="Permalink to this heading"></a></h3>
+<section id="code">
+<h4>Code<a class="headerlink" href="#code" title="Permalink to this heading"></a></h4>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 15%" />
+<col style="width: 25%" />
+<col style="width: 19%" />
+<col style="width: 25%" />
+<col style="width: 17%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>vector</p></td>
+<td><p>veneer</p></td>
+<td><p>TFM_Code</p></td>
+<td><p>TFM_APP_ROT</p></td>
+<td><p>tfm_lib</p></td>
+</tr>
+<tr class="row-even"><td colspan="3"></td>
+<td><p>Sub reg 2B
+(RO, S, NP)
+<a class="footnote-reference brackets" href="#risaf" id="id1">1</a></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td></td>
+<td><p>Sub reg 2A
+(RO, S, NP)
+<a class="footnote-reference brackets" href="#risaf" id="id2">1</a></p></td>
+<td colspan="3"></td>
+</tr>
+<tr class="row-even"><td colspan="5"><p>Base region 2 (RO, S, P) <a class="footnote-reference brackets" href="#risaf" id="id3">1</a></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="data">
+<h4>Data<a class="headerlink" href="#data" title="Permalink to this heading"></a></h4>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 24%" />
+<col style="width: 34%" />
+<col style="width: 28%" />
+<col style="width: 14%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>TFM_secure_data</p></td>
+<td><p>TFM_APP_RW_STACK</p></td>
+<td><p>TFM_PSA_RW_STACK</p></td>
+<td><p>tfm_data</p></td>
+</tr>
+<tr class="row-even"><td colspan="4"><p>Sub reg 4B: Not yet used</p></td>
+</tr>
+<tr class="row-odd"><td></td>
+<td><p>Sub reg 4A
+(RW, S, NP) <a class="footnote-reference brackets" href="#risaf" id="id4">1</a></p></td>
+<td colspan="2"></td>
+</tr>
+<tr class="row-even"><td colspan="4"><p>Base region 4 (RW, S, P) <a class="footnote-reference brackets" href="#risaf" id="id5">1</a></p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<dl class="simple">
+<dt>In Level3:</dt><dd><ul class="simple">
+<li><p>The TF-M APP ROT access rights will be dynamically configured on the active partition. The others will inherit from the base region..</p></li>
+<li><p>All APP ROT must be aligned on RISAF4 constraints =&gt; linker script modification.</p></li>
+</ul>
+</dd>
+</dl>
+</div>
+</section>
+</section>
+<section id="non-secure">
+<h3>Non-secure<a class="headerlink" href="#non-secure" title="Permalink to this heading"></a></h3>
+<p>Today, nonsecure example has no isolation. However a basic kernel uses commonly 2 isolation levels (kernel, user).</p>
+<section id="id6">
+<h4>Code<a class="headerlink" href="#id6" title="Permalink to this heading"></a></h4>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 23%" />
+<col style="width: 37%" />
+<col style="width: 40%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>vector</p></td>
+<td><p>Kernel side</p></td>
+<td><p>User side</p></td>
+</tr>
+<tr class="row-even"><td colspan="3"><p>Sub reg 3B: Not yet used</p></td>
+</tr>
+<tr class="row-odd"><td colspan="2"></td>
+<td><p>Sub reg 3A
+(RO, NS, NP)
+<a class="footnote-reference brackets" href="#risaf" id="id7">1</a></p></td>
+</tr>
+<tr class="row-even"><td colspan="3"><p>Base region 3 (RO, NS, P) <a class="footnote-reference brackets" href="#risaf" id="id8">1</a></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="id9">
+<h4>Data<a class="headerlink" href="#id9" title="Permalink to this heading"></a></h4>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 36%" />
+<col style="width: 64%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>Kernel side</p></td>
+<td><p>User side</p></td>
+</tr>
+<tr class="row-even"><td colspan="2"><p>Sub reg 5B: Not yet used</p></td>
+</tr>
+<tr class="row-odd"><td></td>
+<td><p>Sub reg 5A
+(RW, NS, NP)
+<a class="footnote-reference brackets" href="#risaf" id="id10">1</a></p></td>
+</tr>
+<tr class="row-even"><td colspan="2"><p>Base region 5 (RW, NS, P) <a class="footnote-reference brackets" href="#risaf" id="id11">1</a></p></td>
+</tr>
+</tbody>
+</table>
+<hr class="docutils" />
+<p><em>Copyright (c) 2025 STMicroelectronics. All rights reserved.</em>
+<em>SPDX-License-Identifier: BSD-3-Clause</em></p>
+</section>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p></p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,1290 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Secure boot &mdash; Trusted Firmware-M v1.7.0-stm32mp25-alpha-r1-rc3-doc documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/tfm_custom.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/tabs.css" type="text/css" />
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Secure Partition Runtime Library" href="tfm_secure_partition_runtime_library.html" />
+    <link rel="prev" title="TF-M Inter-Process Communication" href="tfm_psa_inter_process_communication.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> Trusted Firmware-M
+            <img src="../../_static/tf_logo_white.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                v1.7.0-stm32mp25-alpha-r1-rc3-doc
+
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../introduction/index.html">Introduction</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started/index.html">Getting Started</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../security/index.html">Security</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../security/security_advisories/index.html">Security Advisories</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/stack_seal_vulnerability.html">Advisory TFMV-1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/svc_caller_sp_fetching_vulnerability.html">Advisory TFMV-2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/crypto_multi_part_ops_abort_fail.html">Advisory TFMV-3</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/profile_small_key_id_encoding_vulnerability.html">Advisory TFMV-4</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/fwu_write_vulnerability.html">Advisory TFMV-5</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../security/threat_models/index.html">Threat Models</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../security/threat_models/generic_threat_model.html">Trusted Firmware-M Generic Threat Model</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../security/security.html">Security Handling</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../releases/index.html">Releases</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/1.7.0.html">v1.7.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/1.6.1.html">v1.6.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/1.6.0.html">v1.6.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/1.5.0.html">v1.5.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/release_process.html">Release Cadence and Process</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../glossary.html">Glossary</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../platform/index.html">Platform Selection</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/arm/index.html">Arm platforms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/corstone1000/readme.html">Corstone-1000</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/mps3/an547/README.html">Corstone-300 FPGA (AN547)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/mps3/an552/README.html">Corstone-300 FPGA and FVP (AN552)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/mps3/corstone310/README.html">Corstone-310 FVP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/musca_b1/readme.html">Musca-B1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/musca_s1/readme.html">Musca-S1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/rss/readme.html">Runtime Security Subsystem</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/nxp/lpcxpresso55s69/README.html">LPCXpresso55S69</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/cypress/psoc64/index.html">Cypress PSoC64</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/cypress/psoc64/cypress_psoc64_spec.html">Cypress PSoC64 Specifics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/cypress/psoc64/libs/core-lib/README.html">Core Library</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/cypress/psoc64/libs/core-lib/RELEASE.html">Core Library Release Notes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/stm/index.html">STMICROELECTRONICS</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32l5xx/readme.html">STM32L5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32mp2/readme.html">STM32MP2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32u5xx/readme.html">STM32U5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/nucleo_l552ze_q/readme.html">NUCLEO-L552ZE-Q</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32l562e_dk/readme.html">STM32L562E-DK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/b_u585i_iot02a/readme.html">B-U585I-IOT02A</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/nordic_nrf/nrf5340dk_nrf5340_cpuapp/README.html">Nordic nRF5340</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/nordic_nrf/nrf9160dk_nrf9160/README.html">Nordic nRF9160</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/lairdconnectivity/bl5340_dvk_cpuapp/README.html">Laird Connectivity BL5340</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/nuvoton/m2351/README.html">NuMaker-PFM-M2351</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/nuvoton/m2354/README.html">NuMaker-PFM-M2354</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../building/tfm_build_instruction.html">Build instructions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../building/run_tfm_examples_on_arm_platforms.html">Run TF-M examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../building/documentation_generation.html">Building the documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../building/tfm_build_instruction_iar.html">IAR toolchain</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../configuration/index.html">Configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../configuration/build_configuration.html">Build configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../configuration/header_file_system.html">Component configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../configuration/kconfig_system.html">Kconfig</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../configuration/profiles/index.html">Profiles</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../configuration/profiles/tfm_profile_small.html"> Small</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../configuration/profiles/tfm_profile_medium_arot-less.html"> ARoT-less</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../configuration/profiles/tfm_profile_medium.html"> Medium</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../configuration/profiles/tfm_profile_large.html"> Large</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../configuration/test_configuration.html">Tests configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../integration_guide/index.html">Integration Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../integration_guide/spm_backends.html">SPM Backends</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../integration_guide/non-secure_client_extension_integration_guide.html">NS client integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../integration_guide/os_migration_guide_armv8m.html">OS migration to Armv8-M</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../integration_guide/tfm_fpu_support.html">Floating-Point Support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../integration_guide/tfm_secure_irq_integration_guide.html">Secure Interrupt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../integration_guide/platform/index.html">Adding a new platform</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/platform/platform_folder.html">Details for the platform folder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/platform/platform_ext_folder.html">Details for the platform/ext folder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/platform/porting_TFM_to_a_new_hardware.html">Porting TF-M to a New Hardware</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/platform/platform_provisioning.html">Platform Provisioning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/platform/platform_deprecation.html">Platform deprecation and removal</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../integration_guide/services/index.html">Services</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/services/tfm_attestation_integration_guide.html">Initial Attestation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/services/tfm_crypto_integration_guide.html">Crypto</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/services/tfm_its_integration_guide.html">Internal Storage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/services/tfm_platform_integration_guide.html">Platform</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/services/tfm_ps_integration_guide.html">Protected Storage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/services/tfm_secure_partition_addition.html">Adding a New Service</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/services/tfm_manifest_tool_user_guide.html">The manifest tool</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Design Documents</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="dual-cpu/index.html">Dual-CPU</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="dual-cpu/booting_a_dual_core_system.html">Booting a Dual-Core System</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dual-cpu/communication_prototype_between_nspe_and_spe_in_dual_core_systems.html">Communication Prototype Between NSPE And SPE In Dual Core System</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dual-cpu/mailbox_design_on_dual_core_system.html">Mailbox Design in TF-M on Dual-core System</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dual-cpu/tfm_multi_core_access_check.html">Memory Access Check of Trusted Firmware-M in Multi-Core Topology</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="bl1.html">BL1 Immutable bootloader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="code_sharing.html">Code sharing between independently linked XIP binaries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="enum_implicit_casting.html">Fixing implicit casting for C enumeration values</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ff_isolation.html">FF-M Isolation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hardware_abstraction_layer.html">Hardware Abstraction Layer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mailbox_ns_agent_update.html">Mailbox NS Agent Design Update</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ps_key_management.html">Protected Storage service key management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="secure_boot_hw_key_integration.html">HW crypto key integration in TF-M secure boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="secure_boot_rollback_protection.html">Rollback protection in TF-M secure boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="secure_partition_manager.html">Secure Partition Manager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="source_structure.html">Trusted Firmware-M Source Structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="stateless_rot_service.html">Stateless Root of Trust Services Reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="symmetric_initial_attest.html">Symmetric key algorithm based Initial Attestation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tfm_builtin_keys.html">TF-M builtin keys</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tfm_code_generation_with_jinja2.html">Code Generation With Jinja2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tfm_cooperative_scheduling_rules.html">Cooperative Scheduling Rules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tfm_crypto_design.html">Crypto Service design</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tfm_fwu_service.html">Firmware Update Service</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tfm_its_512_flash.html">Add support for block-aligned flash in Internal Trusted Storage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tfm_its_service.html">Internal Trusted Storage (ITS) Service</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tfm_log_system_design_document.html">Log system design document</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tfm_physical_attack_mitigation.html">Physical attack mitigation in Trusted Firmware-M</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tfm_psa_inter_process_communication.html">TF-M Inter-Process Communication</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Secure boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tfm_secure_partition_runtime_library.html">Secure Partition Runtime Library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tfm_uniform_secure_service_signature.html">Uniform Secure Service Signature</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../tools/index.html">Tools</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contribution</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing/index.html">Guidelines</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/contributing_process.html">The process</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/code_review_guide.html">Code review</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/maintainers.html">Maintainers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/maintainers.html#code-owners">Code owners</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/coding_guide.html">Yet another coding standard :)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/doc_guidelines.html">Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/tfm_design_proposal_guideline.html">Design proposal</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing/lic.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing/dco.html">DCO</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Links</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://ci.trustedfirmware.org/view/TF-M/job/tf-m-build-docs-nightly/lastSuccessfulBuild/artifact/trusted-firmware-m/build/docs/reference_manual/html/index.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://developer.trustedfirmware.org/w/collaboration/security_center">Security Center</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://www.arm.com/architecture/security-features/platform-security">PSA</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">STMICROELECTRONICS</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../stm/releases/index.html">Releases</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/releases/getting_started.html">Getting started</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32l562e_dk/readme.html">STM32L562E-DK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/nucleo_l552ze_q/readme.html">NUCLEO-L552ZE-Q</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/b_u585i_iot02a/readme.html">B-U585I-IOT02A</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/releases/platforms.html">Platforms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32l5xx/readme.html">STM32L5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32mp2/readme.html">STM32MP2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32u5xx/readme.html">STM32U5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/nucleo_l552ze_q/readme.html">NUCLEO-L552ZE-Q</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32l562e_dk/readme.html">STM32L562E-DK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/releases/changelog.html">Change Log &amp; Notes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/releases/v1.7.0-stm32mp25-alpha-r1-rc3/changelog.html">v1.7.0-stm32mp25-alpha-r1-rc3</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../stm/technical/index.html">Technical references</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/technical/a35_td_flavor/index.html">A35-TD flavor</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/technical/a35_td_flavor/memory_layout.html">Memory layout</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/technical/a35_td_flavor/storage.html">Storage</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/technical/m33_td_flavor/index.html">M33-TD flavor</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/technical/m33_td_flavor/memory_layout.html">Memory layout</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/technical/m33_td_flavor/storage.html">Storage</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/technical/devicetree/index.html">Devicetree</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/technical/devicetree/devicetree_tfm.html">Scope and purpose</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/technical/devicetree/devicetree_tfm.html#concept">Concept</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/technical/devicetree/devicetree_tfm.html#how-to-add-device">How to add device</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/technical/initlevel.html">Initlevel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/technical/initial_attestation.html">Initial Attestation Service</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/technical/nv_counter.html">Nv counter</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../stm/ide/index.html">Ide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/ide/cubeide/stm32cubeide.html">STM32CubeIDE</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Trusted Firmware-M</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="index.html">Design Documents</a> &raquo;</li>
+      <li>Secure boot</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="secure-boot">
+<h1>Secure boot<a class="headerlink" href="#secure-boot" title="Permalink to this heading"></a></h1>
+<p>For secure devices it is security critical to enforce firmware authenticity to
+protect against execution of malicious software. This is implemented by building
+a trust chain where each step in the execution chain authenticates the next
+step before execution. The chain of trust in based on a “Root of Trust” which
+is implemented using asymmetric cryptography. The Root of Trust is a combination
+of an immutable bootloader and a public key (ROTPK).</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>In order to implement a proper chain of trust functionality, it is
+mandatory that the first stage bootloader and ROTPK is stored in an
+<strong>immutable</strong> way. To achieve this the bootloader code must be stored and
+executed from ROM or such part of flash memory which supports write
+protection. ROTPK can be stored in a one-time-programmable (OTP) memory. If
+the SoC has a built-in BL1 (immutable) bootloader and the immutability of
+TF-M secure boot code is not guaranteed then TF-M secure boot code must be
+authenticated by BL1 bootloader before execution. If immutability of root
+of trust (first stage bootloader + ROTPK) is not ensured then there is a
+risk that the secure boot process could be bypassed, which could lead to
+arbitrary code execution on the device. Current TF-M secure boot code is
+intended to be a second stage bootloader, therefore it requires
+authentication before execution. If TF-M secure boot code is used as a first
+stage bootloader then it must be stored according to the above requirements.</p>
+</div>
+<section id="second-stage-bootloader-in-tf-m">
+<h2>Second stage bootloader in TF-M<a class="headerlink" href="#second-stage-bootloader-in-tf-m" title="Permalink to this heading"></a></h2>
+<p>By default, the MCUboot project from
+<a class="reference external" href="https://github.com/mcu-tools/mcuboot">GitHub</a> is used as the secure
+bootloader in TF-M. The repository is going to be automatically downloaded by
+CMake. The version downloaded can be controlled by the <code class="docutils literal notranslate"><span class="pre">MCUBOOT_VERSION</span></code>
+CMake variable. If you wish to use a locally downloaded copy, the CMake variable
+<code class="docutils literal notranslate"><span class="pre">MCUBOOT_PATH</span></code> can be set to its location. This document contains information
+about how MCUboot has been integrated to TF-M. For further information about
+MCUboot design please refer to the <a class="reference external" href="https://www.mcuboot.com/">MCUBoot homepage</a>.</p>
+<p>Bootloader is started when CPU is released from reset. It runs in secure mode.
+It authenticates the firmware image by hash (SHA-256) and digital signature
+(RSA-3072) validation. Public key, that the checks happens against, can be built
+into the bootloader image or can be provisioned to the SoC during manufacturing.
+Metadata of the image is delivered together with the image itself in a header
+and trailer section. In case of successful authentication, bootloader passes
+execution to the secure image. Execution never returns to bootloader until
+next reset.</p>
+<p>A default RSA key pair is stored in the repository, public key is in <code class="docutils literal notranslate"><span class="pre">keys.c</span></code>
+and private key is in <code class="docutils literal notranslate"><span class="pre">root-RSA-3072.pem</span></code>.</p>
+<div class="admonition danger">
+<p class="admonition-title">Danger</p>
+<p>DO NOT use the default keys in a production code, they are exclusively
+for testing!</p>
+</div>
+<p>The private key must be stored in a safe place outside of the repository.
+<code class="docutils literal notranslate"><span class="pre">imgtool.py</span></code> (found in the <code class="docutils literal notranslate"><span class="pre">scripts</span></code> directory in the MCUBoot repository,
+or installed through the pip package manager) can be used to generate new key
+pairs.</p>
+<p>The bootloader can handle the secure and non-secure images independently
+(multiple image boot) or together (single image boot). In case of multiple image
+boot they are signed independently with different keys and they can be updated
+separately. In case of single image boot the secure and non-secure image is
+handled as a single blob, therefore they must be contiguous in the device
+memory. In this case they are signed together and also they can be updated only
+together. In order to have the same artefacts at the end of the build regardless
+of how the images are handled (independently or together) the images are always
+concatenated. In case of single image boot they are concatenated first and then
+signed. In case of multiple image boot they are separately signed first and then
+concatenated. Preparation of payload is done by Python scripts:
+<code class="docutils literal notranslate"><span class="pre">bl2/ext/mcuboot/scripts/</span></code>. At the end of a successful build the signed TF-M
+payload can be found in: <code class="docutils literal notranslate"><span class="pre">&lt;build_dir&gt;/bin/tfm_s_ns_signed.bin</span></code></p>
+</section>
+<section id="integration-with-tf-m">
+<h2>Integration with TF-M<a class="headerlink" href="#integration-with-tf-m" title="Permalink to this heading"></a></h2>
+<p>MCUBoot assumes a predefined memory layout which is described below (applicable
+for AN521). It is mandatory to define the primary slot and the secondary slot
+partitions, but their size and location can be changed:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">-</span> <span class="mh">0x0000_0000</span> <span class="o">-</span> <span class="mh">0x0007_FFFF</span><span class="p">:</span>    <span class="n">BL2</span> <span class="n">bootloader</span> <span class="o">-</span> <span class="n">MCUBoot</span>
+<span class="o">-</span> <span class="mh">0x0008_0000</span> <span class="o">-</span> <span class="mh">0x000F_FFFF</span><span class="p">:</span>    <span class="n">Primary</span> <span class="n">slot</span> <span class="p">:</span> <span class="n">Single</span> <span class="n">binary</span> <span class="n">blob</span><span class="p">:</span>
+                                <span class="n">Secure</span> <span class="o">+</span> <span class="n">Non</span><span class="o">-</span><span class="n">Secure</span> <span class="n">image</span><span class="p">;</span>
+                                <span class="n">Primary</span> <span class="n">memory</span> <span class="n">partition</span>
+  <span class="o">-</span> <span class="mh">0x0008_0000</span> <span class="o">-</span> <span class="mh">0x0008_03FF</span><span class="p">:</span>  <span class="n">Common</span> <span class="n">image</span> <span class="n">header</span>
+  <span class="o">-</span> <span class="mh">0x0008_0400</span> <span class="o">-</span> <span class="mh">0x0008</span><span class="n">_xxxx</span><span class="p">:</span>  <span class="n">Secure</span> <span class="n">image</span>
+  <span class="o">-</span> <span class="mh">0x0008</span><span class="n">_xxxx</span> <span class="o">-</span> <span class="mh">0x0010_03FF</span><span class="p">:</span>  <span class="n">Padding</span> <span class="p">(</span><span class="k">with</span> <span class="mh">0xFF</span><span class="p">)</span>
+  <span class="o">-</span> <span class="mh">0x0010_0400</span> <span class="o">-</span> <span class="mh">0x0010</span><span class="n">_xxxx</span><span class="p">:</span>  <span class="n">Non</span><span class="o">-</span><span class="n">secure</span> <span class="n">image</span>
+  <span class="o">-</span> <span class="mh">0x0010</span><span class="n">_xxxx</span> <span class="o">-</span> <span class="mh">0x0010</span><span class="n">_xxxx</span><span class="p">:</span>  <span class="n">Hash</span> <span class="n">value</span><span class="p">(</span><span class="n">SHA256</span><span class="p">),</span> <span class="n">RSA</span> <span class="n">signature</span> <span class="ow">and</span> <span class="n">other</span>
+                                <span class="n">metadata</span> <span class="n">of</span> <span class="n">combined</span> <span class="n">image</span>
+
+<span class="o">-</span> <span class="mh">0x0018_0000</span> <span class="o">-</span> <span class="mh">0x0027_FFFF</span><span class="p">:</span>    <span class="n">Secondary</span> <span class="n">slot</span> <span class="p">:</span> <span class="n">Secure</span> <span class="o">+</span> <span class="n">Non</span><span class="o">-</span><span class="n">Secure</span> <span class="n">image</span><span class="p">;</span>
+                                <span class="n">Secondary</span> <span class="n">memory</span> <span class="n">partition</span><span class="p">,</span> <span class="n">structured</span>
+                                <span class="n">identically</span> <span class="n">to</span> <span class="n">the</span> <span class="n">primary</span> <span class="n">slot</span>
+<span class="o">-</span> <span class="mh">0x0028_0000</span> <span class="o">-</span> <span class="mh">0x0037_FFFF</span><span class="p">:</span>    <span class="n">Scratch</span> <span class="n">area</span><span class="p">,</span> <span class="n">only</span> <span class="n">used</span> <span class="n">during</span> <span class="n">image</span>
+                                <span class="n">swapping</span>
+</pre></div>
+</div>
+<p>Multiple image boot requires a slightly different layout:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">-</span> <span class="mh">0x0000_0000</span> <span class="o">-</span> <span class="mh">0x0007_FFFF</span><span class="p">:</span>    <span class="n">BL2</span> <span class="n">bootloader</span> <span class="o">-</span> <span class="n">MCUBoot</span>
+<span class="o">-</span> <span class="mh">0x0008_0000</span> <span class="o">-</span> <span class="mh">0x000F_FFFF</span><span class="p">:</span>    <span class="n">Primary</span> <span class="n">slot</span> <span class="p">:</span> <span class="n">Secure</span> <span class="n">image</span>
+  <span class="o">-</span> <span class="mh">0x0008_0000</span> <span class="o">-</span> <span class="mh">0x0008_03FF</span><span class="p">:</span>  <span class="n">Secure</span> <span class="n">image</span> <span class="n">header</span>
+  <span class="o">-</span> <span class="mh">0x0008_0400</span> <span class="o">-</span> <span class="mh">0x000</span><span class="n">x_xxxx</span><span class="p">:</span>  <span class="n">Secure</span> <span class="n">image</span>
+  <span class="o">-</span> <span class="mh">0x000</span><span class="n">x_xxxx</span> <span class="o">-</span> <span class="mh">0x000</span><span class="n">x_xxxx</span><span class="p">:</span>  <span class="n">Hash</span> <span class="n">value</span><span class="p">(</span><span class="n">SHA256</span><span class="p">),</span> <span class="n">RSA</span> <span class="n">signature</span> <span class="ow">and</span> <span class="n">other</span>
+                                <span class="n">metadata</span> <span class="n">of</span> <span class="n">secure</span> <span class="n">image</span>
+
+<span class="o">-</span> <span class="mh">0x0010_0000</span> <span class="o">-</span> <span class="mh">0x0017_FFFF</span><span class="p">:</span>    <span class="n">Primary</span> <span class="n">slot</span> <span class="p">:</span> <span class="n">Non</span><span class="o">-</span><span class="n">secure</span> <span class="n">image</span>
+  <span class="o">-</span> <span class="mh">0x0010_0000</span> <span class="o">-</span> <span class="mh">0x0010_03FF</span><span class="p">:</span>  <span class="n">Non</span><span class="o">-</span><span class="n">secure</span> <span class="n">image</span> <span class="n">header</span>
+  <span class="o">-</span> <span class="mh">0x0010_0400</span> <span class="o">-</span> <span class="mh">0x001</span><span class="n">x_xxxx</span><span class="p">:</span>  <span class="n">Non</span><span class="o">-</span><span class="n">secure</span> <span class="n">image</span>
+  <span class="o">-</span> <span class="mh">0x001</span><span class="n">x_xxxx</span> <span class="o">-</span> <span class="mh">0x001</span><span class="n">x_xxxx</span><span class="p">:</span>  <span class="n">Hash</span> <span class="n">value</span><span class="p">(</span><span class="n">SHA256</span><span class="p">),</span> <span class="n">RSA</span> <span class="n">signature</span> <span class="ow">and</span> <span class="n">other</span>
+                                <span class="n">metadata</span> <span class="n">of</span> <span class="n">non</span><span class="o">-</span><span class="n">secure</span> <span class="n">image</span>
+
+<span class="o">-</span> <span class="mh">0x0018_0000</span> <span class="o">-</span> <span class="mh">0x001F_FFFF</span><span class="p">:</span>    <span class="n">Secondary</span> <span class="n">slot</span> <span class="p">:</span> <span class="n">Secure</span> <span class="n">image</span>
+<span class="o">-</span> <span class="mh">0x0020_0000</span> <span class="o">-</span> <span class="mh">0x0027_FFFF</span><span class="p">:</span>    <span class="n">Secondary</span> <span class="n">slot</span> <span class="p">:</span> <span class="n">Non</span><span class="o">-</span><span class="n">secure</span> <span class="n">image</span>
+
+<span class="o">-</span> <span class="mh">0x0028_0000</span> <span class="o">-</span> <span class="mh">0x002F_FFFF</span><span class="p">:</span>    <span class="n">Scratch</span> <span class="n">area</span><span class="p">,</span> <span class="n">only</span> <span class="n">used</span> <span class="n">during</span> <span class="n">image</span>
+                                <span class="n">swapping</span><span class="p">,</span> <span class="n">used</span> <span class="k">for</span> <span class="n">secure</span> <span class="ow">and</span> <span class="n">non</span><span class="o">-</span><span class="n">secure</span>
+                                <span class="n">image</span> <span class="k">as</span> <span class="n">well</span>
+</pre></div>
+</div>
+</section>
+<section id="firmware-upgrade-operation">
+<h2>Firmware upgrade operation<a class="headerlink" href="#firmware-upgrade-operation" title="Permalink to this heading"></a></h2>
+<p>MCUBoot handles only the firmware authenticity check after start-up and the
+firmware switch part of the firmware update process. Downloading the new version
+of the firmware is out-of-scope for MCUBoot. MCUBoot supports three different
+ways to switch to the new firmware and it is assumed that firmware images are
+executed-in-place (XIP). The default behaviour is the overwrite-based image
+upgrade. In this case the active firmware is always executed from the primary
+slot and the secondary slot is a staging area for new images. Before executing
+the new firmware image, the content of the primary slot must be overwritten with
+the content of the secondary slot (the new firmware image). The second option is
+the image swapping strategy when the content of the two memory slots must be
+physically swapped. This needs the scratch area to be defined in the memory
+layout. The third option is the direct execute-in-place version, which
+eliminates the complexity of image swapping and its administration. Active image
+can be executed from either memory slot, but new firmware must be linked to the
+address space of the proper (currently inactive) memory slot.</p>
+<section id="overwrite-operation">
+<h3>Overwrite operation<a class="headerlink" href="#overwrite-operation" title="Permalink to this heading"></a></h3>
+<p>Active image is stored in the primary slot, and this image is started always by
+the bootloader. Therefore images must be linked to the primary slot. If the
+bootloader finds a valid image in the secondary slot, which is marked for
+upgrade, then the content of the primary slot will be simply overwritten with
+the content of the secondary slot, before starting the new image from the
+primary slot. After the content of the primary slot has been successfully
+overwritten, the header and trailer of the new image in the secondary slot is
+erased to prevent the triggering of another unnecessary image upgrade after a
+restart. The overwrite operation is fail-safe and resistant to power-cut
+failures. For more details please refer to the MCUBoot
+<a class="reference external" href="https://www.mcuboot.com/mcuboot/design.html">documentation</a>.</p>
+</section>
+<section id="swapping-operation">
+<h3>Swapping operation<a class="headerlink" href="#swapping-operation" title="Permalink to this heading"></a></h3>
+<p>This operation can be set with the <code class="docutils literal notranslate"><span class="pre">MCUBOOT_UPGRADE_STRATEGY</span></code> compile time
+switch (see <a class="reference internal" href="#build-time-configuration">Build time configuration</a>). With swapping image upgrade strategy
+the active image is also stored in the primary slot and it will always be
+started by the bootloader. If the bootloader finds a valid image in the
+secondary slot, which is marked for upgrade, then contents of the primary slot
+and the secondary slot will be swapped, before starting the new image from the
+primary slot. Scratch area is used as a temporary storage place during image
+swapping. Update mark from the secondary slot is removed when the swapping is
+successful. The boot loader can revert the swapping as a fall-back mechanism to
+recover the previous working firmware version after a faulty update. The swap
+operation is fail-safe and resistant to power-cut failures. For more details
+please refer to the MCUBoot
+<a class="reference external" href="https://www.mcuboot.com/mcuboot/design.html">documentation</a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>After a successful image upgrade the firmware can mark itself as “OK” at
+runtime by setting the image_ok flag in the flash. When this happens, the
+swap is made “permanent” and MCUBoot will then still choose to run it
+during the next boot. Currently TF-M does not set the image_ok flag,
+therefore the bootloader will always perform a “revert” (swap the images
+back) during the next boot.</p>
+</div>
+</section>
+<section id="direct-execute-in-place-operation">
+<h3>Direct execute-in-place operation<a class="headerlink" href="#direct-execute-in-place-operation" title="Permalink to this heading"></a></h3>
+<p>This operation can be set with the <code class="docutils literal notranslate"><span class="pre">MCUBOOT_UPGRADE_STRATEGY</span></code> compile time
+switch (see <a class="reference internal" href="#build-time-configuration">Build time configuration</a>). When enabling direct-xip operation
+then the active image flag is moved between slots during firmware upgrade. If
+firmware is executed-in-place (XIP), then two firmware images must be generated.
+One of them is linked to be executed from the primary slot memory region and the
+other from the secondary slot. The firmware upgrade client, which downloads the
+new image, must be aware, which slot hosts the active firmware and which acts as
+a staging area and it is responsible for downloading the proper firmware image.
+At boot time MCUBoot inspects the version number in the image header and passes
+execution to the newer firmware version. New image must be marked for upgrade
+which is automatically done by Python scripts at compile time. Image
+verification is done the same way in all operational modes. If new image fails
+during authentication then MCUBoot erases the memory slot and starts the other
+image, after successful authentication.</p>
+<p>To select which slot the image is to be executed from, set
+<code class="docutils literal notranslate"><span class="pre">MCUBOOT_EXECUTION_SLOT</span></code> to the desired index. It is suggested that you create
+two build directories when building images using this mode, as intermediate
+dependencies cannot be reused due to changes in the flash layout.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Only single image boot is supported with direct-xip upgrade mode.</p>
+</div>
+</section>
+<section id="ram-loading-firmware-upgrade">
+<h3>RAM Loading firmware upgrade<a class="headerlink" href="#ram-loading-firmware-upgrade" title="Permalink to this heading"></a></h3>
+<p>Musca-S supports an image upgrade mode that is separate to the other (overwrite,
+swapping and dirext-xip) modes. This is the <code class="docutils literal notranslate"><span class="pre">RAM</span> <span class="pre">load</span></code> mode (please refer
+to the table below). Like the direct-xip mode, this selects the newest image
+by reading the image version numbers in the image headers, but instead of
+executing it in place, the newest image is copied to RAM for execution. The load
+address, the location in RAM where the image is copied to, is stored in the
+image header.</p>
+</section>
+<section id="summary-of-different-modes-for-image-upgrade">
+<h3>Summary of different modes for image upgrade<a class="headerlink" href="#summary-of-different-modes-for-image-upgrade" title="Permalink to this heading"></a></h3>
+<p>Different implementations of the image upgrade operation (whether through
+overwriting, swapping, direct-xip or loading into RAM and executing from
+there) are supported by the platforms. The table below shows which of these
+modes are supported by which platforms:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 23%" />
+<col style="width: 18%" />
+<col style="width: 16%" />
+<col style="width: 11%" />
+<col style="width: 17%" />
+<col style="width: 15%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"></th>
+<th class="head"><p>Without BL2 <a class="footnote-reference brackets" href="#id7" id="id1">1</a></p></th>
+<th class="head" colspan="4"><p>With BL2 <a class="footnote-reference brackets" href="#id8" id="id2">2</a></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td></td>
+<td><p>XIP</p></td>
+<td><p>XIP</p></td>
+<td><p>XIP</p></td>
+<td><p>XIP</p></td>
+<td><p>Not XIP</p></td>
+</tr>
+<tr class="row-odd"><td></td>
+<td></td>
+<td><p>Overwrite <a class="footnote-reference brackets" href="#id9" id="id3">3</a></p></td>
+<td><p>Swap <a class="footnote-reference brackets" href="#id10" id="id4">4</a></p></td>
+<td><p>direct-xip <a class="footnote-reference brackets" href="#id11" id="id5">5</a></p></td>
+<td><p>RAM load <a class="footnote-reference brackets" href="#id12" id="id6">6</a></p></td>
+</tr>
+<tr class="row-even"><td><p>AN521</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+<td><p>No</p></td>
+</tr>
+<tr class="row-odd"><td><p>AN519</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+<td><p>No</p></td>
+</tr>
+<tr class="row-even"><td><p>FVP_SSE300_MPS3</p></td>
+<td><p>No</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+<td><p>No</p></td>
+</tr>
+<tr class="row-odd"><td><p>Corstone-310 FVP</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+<td><p>No</p></td>
+</tr>
+<tr class="row-even"><td><p>LPC55S69</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+<td><p>No</p></td>
+<td><p>Yes</p></td>
+<td><p>No</p></td>
+</tr>
+<tr class="row-odd"><td><p>Musca-B1</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+<td><p>No</p></td>
+</tr>
+<tr class="row-even"><td><p>Musca-S1</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+<td><p>No</p></td>
+</tr>
+<tr class="row-odd"><td><p>AN524</p></td>
+<td><p>Yes</p></td>
+<td><p>No</p></td>
+<td><p>No</p></td>
+<td><p>Yes</p></td>
+<td><p>No</p></td>
+</tr>
+<tr class="row-even"><td><p>AN547</p></td>
+<td><p>No</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+<td><p>No</p></td>
+</tr>
+<tr class="row-odd"><td><p>AN552</p></td>
+<td><p>No</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+<td><p>No</p></td>
+</tr>
+<tr class="row-even"><td><p>PSoC64</p></td>
+<td><p>Yes</p></td>
+<td><p>No</p></td>
+<td><p>No</p></td>
+<td><p>No</p></td>
+<td><p>No</p></td>
+</tr>
+<tr class="row-odd"><td><p>STM_DISCO_L562QE</p></td>
+<td><p>No</p></td>
+<td><p>Yes</p></td>
+<td><p>No</p></td>
+<td><p>No</p></td>
+<td><p>No</p></td>
+</tr>
+<tr class="row-even"><td><p>STM_NUCLEO_L552ZE_Q</p></td>
+<td><p>No</p></td>
+<td><p>Yes</p></td>
+<td><p>No</p></td>
+<td><p>No</p></td>
+<td><p>No</p></td>
+</tr>
+<tr class="row-odd"><td><p>nRF9160 DK</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+<td><p>No</p></td>
+<td><p>No</p></td>
+<td><p>No</p></td>
+</tr>
+<tr class="row-even"><td><p>nRF5340 DK</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+<td><p>No</p></td>
+<td><p>No</p></td>
+<td><p>No</p></td>
+</tr>
+<tr class="row-odd"><td><p>BL5340 DVK</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+<td><p>No</p></td>
+<td><p>No</p></td>
+</tr>
+<tr class="row-even"><td><p>RSS</p></td>
+<td><p>No</p></td>
+<td><p>No</p></td>
+<td><p>No</p></td>
+<td><p>No</p></td>
+<td><p>Yes</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="footnote brackets">
+<dt class="label" id="id7"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p>To disable BL2, please set the <code class="docutils literal notranslate"><span class="pre">BL2</span></code> cmake option to <code class="docutils literal notranslate"><span class="pre">OFF</span></code></p>
+</dd>
+<dt class="label" id="id8"><span class="brackets"><a class="fn-backref" href="#id2">2</a></span></dt>
+<dd><p>BL2 is enabled by default</p>
+</dd>
+<dt class="label" id="id9"><span class="brackets"><a class="fn-backref" href="#id3">3</a></span></dt>
+<dd><p>The image executes in-place (XIP) and is in Overwrite mode for image
+update by default</p>
+</dd>
+<dt class="label" id="id10"><span class="brackets"><a class="fn-backref" href="#id4">4</a></span></dt>
+<dd><p>To enable XIP Swap mode, assign the “SWAP_USING_SCRATCH” or
+“SWAP_USING_MOVE” string to the <code class="docutils literal notranslate"><span class="pre">MCUBOOT_UPGRADE_STRATEGY</span></code>
+configuration variable in the build configuration file, or include this
+macro definition in the command line</p>
+</dd>
+<dt class="label" id="id11"><span class="brackets"><a class="fn-backref" href="#id5">5</a></span></dt>
+<dd><p>To enable direct-xip, assign the “DIRECT_XIP” string to the
+<code class="docutils literal notranslate"><span class="pre">MCUBOOT_UPGRADE_STRATEGY</span></code> configuration variable in the build
+configuration file, or include this macro definition in the command line</p>
+</dd>
+<dt class="label" id="id12"><span class="brackets"><a class="fn-backref" href="#id6">6</a></span></dt>
+<dd><p>To enable RAM load, assign the “RAM_LOAD” string to the
+<code class="docutils literal notranslate"><span class="pre">MCUBOOT_UPGRADE_STRATEGY</span></code> configuration variable in the build
+configuration file, or include this macro definition in the command line</p>
+</dd>
+</dl>
+</section>
+</section>
+<section id="multiple-image-boot">
+<h2>Multiple image boot<a class="headerlink" href="#multiple-image-boot" title="Permalink to this heading"></a></h2>
+<p>It is possible to update the firmware images independently to support the
+scenario when secure and non-secure images are provided by different vendors.
+Multiple image boot is supported only together with the overwrite and swap
+firmware upgrade modes.</p>
+<p>It is possible to describe the dependencies of the images on each other in
+order to avoid a faulty upgrade when incompatible versions would be installed.
+These dependencies are part of the image manifest area.
+The dependencies are composed from two parts:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>Image identifier:</strong> The number of the image which the current image (whose
+manifest area contains the dependency entry) depends on. The image identifier
+starts from 0.</p></li>
+<li><p><strong>Minimum version:</strong> The minimum version of other image must be present on
+the device by the end of the upgrade (both images might be updated at the
+same time).</p></li>
+</ul>
+</div></blockquote>
+<p>Dependencies can be added to the images at compile time with the following
+compile time switches:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">MCUBOOT_S_IMAGE_MIN_VER</span></code> It is added to the non-secure image and specifies the
+minimum required version of the secure image.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">MCUBOOT_NS_IMAGE_MIN_VER</span></code> It is added to the secure image and specifies the
+minimum required version of the non-secure image.</p></li>
+</ul>
+</div></blockquote>
+<p>Example of how to provide the secure image minimum version:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cmake</span> <span class="o">-</span><span class="n">DTFM_PLATFORM</span><span class="o">=</span><span class="n">arm</span><span class="o">/</span><span class="n">musca_b1</span> <span class="o">-</span><span class="n">DMCUBOOT_S_IMAGE_MIN_VER</span><span class="o">=</span><span class="mf">1.2.3</span><span class="o">+</span><span class="mi">4</span> <span class="o">..</span>
+</pre></div>
+</div>
+</section>
+<section id="signature-algorithms">
+<h2>Signature algorithms<a class="headerlink" href="#signature-algorithms" title="Permalink to this heading"></a></h2>
+<p>MbedTLS library is used to sign the images. The list of supported signing
+algorithms:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><cite>RSA-2048</cite></p></li>
+<li><p><cite>RSA-3072</cite>: default</p></li>
+</ul>
+</div></blockquote>
+<p>Example keys stored in:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">root-RSA-2048.pem</span></code>   : Used to sign single image (S+NS) or secure image
+in case of multiple image boot</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">root-RSA-2048_1.pem</span></code> : Used to sign non-secure image in case of multiple
+image boot</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">root-RSA-3072.pem</span></code>   : Used to sign single image (S+NS) or secure image
+in case of multiple image boot</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">root-RSA-3072_1.pem</span></code> : Used to sign non-secure image in case of multiple
+image boot</p></li>
+</ul>
+</div></blockquote>
+</section>
+<section id="build-time-configuration">
+<h2>Build time configuration<a class="headerlink" href="#build-time-configuration" title="Permalink to this heading"></a></h2>
+<p>MCUBoot related compile time switches can be set by cmake variables.</p>
+<ul>
+<li><dl class="simple">
+<dt>BL2 (default: True):</dt><dd><ul class="simple">
+<li><p><strong>True:</strong> TF-M built together with bootloader. MCUBoot is executed after
+reset and it authenticates TF-M and starts secure code.</p></li>
+<li><p><strong>False:</strong> TF-M built without bootloader. Secure image linked to the
+beginning of the device memory and executed after reset. If it is false
+then using any of the further compile time switches is invalid.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>MCUBOOT_UPGRADE_STRATEGY (default: “OVERWRITE_ONLY”):</dt><dd><ul class="simple">
+<li><p><strong>“OVERWRITE_ONLY”:</strong> Default firmware upgrade operation with overwrite.</p></li>
+<li><p><strong>“SWAP_USING_SCRATCH”:</strong> Activate swapping firmware upgrade operation
+with a scratch area in flash</p></li>
+<li><p><strong>“SWAP_USING_MOVE”:</strong> Activate swapping firmware upgrade operation
+without a scratch area in flash</p></li>
+<li><p><strong>“DIRECT_XIP”:</strong> Activate direct execute-in-place firmware upgrade
+operation.</p></li>
+<li><p><strong>“RAM_LOAD”:</strong> Activate RAM loading firmware upgrade operation, where
+the latest image is copied to RAM and runs from there instead of being
+executed in-place.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>MCUBOOT_SIGNATURE_TYPE (default: RSA):</dt><dd><ul class="simple">
+<li><p><strong>RSA:</strong> Image is signed with RSA algorithm</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>MCUBOOT_SIGNATURE_KEY_LEN (default: 3072):</dt><dd><ul class="simple">
+<li><p><strong>2048:</strong> Image is signed with 2048 bit key.</p></li>
+<li><p><strong>3072:</strong> Image is signed with 3072 bit key.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>MCUBOOT_IMAGE_NUMBER (default: 2):</dt><dd><ul class="simple">
+<li><p><strong>1:</strong> Single image boot, secure and non-secure images are signed and
+updated together.</p></li>
+<li><p><strong>2:</strong> Multiple image boot, secure and non-secure images are signed and
+updatable independently.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>MCUBOOT_HW_KEY (default: True):</dt><dd><ul class="simple">
+<li><p><strong>True:</strong> The hash of public key is provisioned to the SoC and the image
+manifest contains the whole public key (imgtool uses
+<code class="docutils literal notranslate"><span class="pre">--public_key_format=full</span></code>). MCUBoot validates the key before using it
+for firmware authentication, it calculates the hash of public key from the
+manifest and compare against the retrieved key-hash from the hardware.
+This way MCUBoot is independent from the public key(s).  Key(s) can be
+provisioned any time and by different parties.</p></li>
+<li><p><strong>False:</strong> The whole public key is embedded to the bootloader code and the
+image manifest contains only the hash of the public key (imgtool uses
+<code class="docutils literal notranslate"><span class="pre">--public_key_format=hash</span></code>). MCUBoot validates the key before using it
+for firmware authentication, it calculates the hash of built-in public key
+and compare against the retrieved key-hash from the image manifest. After
+this the bootloader can verify that the image was signed with a private
+key that corresponds to the retrieved key-hash (it can have more public
+keys embedded in and it may have to look for the matching one). All the
+public key(s) must be known at MCUBoot build time.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl>
+<dt>MCUBOOT_LOG_LEVEL:</dt><dd><p>Can be used to configure the level of logging in MCUBoot. The possible
+values are the following:</p>
+<ul class="simple">
+<li><p><strong>OFF</strong></p></li>
+<li><p><strong>ERROR</strong></p></li>
+<li><p><strong>WARNING</strong></p></li>
+<li><p><strong>INFO</strong></p></li>
+<li><p><strong>DEBUG</strong></p></li>
+</ul>
+<p>The logging in MCUBoot can be disabled and thus the code size can be reduced
+by setting it to <code class="docutils literal notranslate"><span class="pre">OFF</span></code>. Its value depends on the build type. If the build
+type is <code class="docutils literal notranslate"><span class="pre">Debug</span></code> then default value is <code class="docutils literal notranslate"><span class="pre">INFO</span></code>. In case of different kinds
+of <code class="docutils literal notranslate"><span class="pre">Release</span></code> builds the default value is <code class="docutils literal notranslate"><span class="pre">OFF</span></code>. The default value can
+be overridden through the command line or in the CMake GUI regardless of the
+build type.</p>
+</dd>
+</dl>
+</li>
+<li><dl>
+<dt>MCUBOOT_ENC_IMAGES (default: False):</dt><dd><ul class="simple">
+<li><p><strong>True:</strong> Adds encrypted image support in the source and encrypts the
+resulting image using the <code class="docutils literal notranslate"><span class="pre">enc-rsa2048-pub.pem</span></code> key found in the MCUBoot
+repository.</p></li>
+<li><p><strong>False:</strong> Doesn’t add encrypted image support and doesn’t encrypt the
+image.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The decryption takes place during the upgrade process, when the images
+are being moved between the slots. This means that boards that don’t
+already have an image on them with MCUBoot that has been compiled with
+<code class="docutils literal notranslate"><span class="pre">MCUBOOT_ENCRYPT_RSA</span></code> enabled need special treatment. In order to load
+an encrypted image to such boards, an upgrade needs to be executed. This
+can be done by using MCUBoot, putting an image in the secondary image
+area, and setting <code class="docutils literal notranslate"><span class="pre">MCUBOOT_ENCRYPT_RSA</span></code> to <code class="docutils literal notranslate"><span class="pre">ON</span></code>. When using the
+<code class="docutils literal notranslate"><span class="pre">OVERWRITE_ONLY</span></code> upgrade strategy, this is enough. When using
+<code class="docutils literal notranslate"><span class="pre">SWAP_USING_SCRATCH</span></code> or <code class="docutils literal notranslate"><span class="pre">SWAP_USING_MOVE</span></code>, an image is needed in
+the primary image area as well, to trigger the update.</p>
+</div>
+<div class="admonition danger">
+<p class="admonition-title">Danger</p>
+<p>DO NOT use the <code class="docutils literal notranslate"><span class="pre">enc-rsa2048-pub.pem</span></code> key in production code, it is
+exclusively for testing!</p>
+</div>
+</dd>
+</dl>
+</li>
+</ul>
+<section id="image-versioning">
+<h3>Image versioning<a class="headerlink" href="#image-versioning" title="Permalink to this heading"></a></h3>
+<p>An image version number is written to its header by one of the Python scripts,
+and this number is used by the bootloader when the direct execute-in-place or
+the RAM loading mode is enabled. It is also used in case of multiple image boot
+when the bootloader checks the image dependencies if any have been added to the
+images.</p>
+<p>The version number of the image (single image boot) can manually be passed in
+through the command line in the cmake configuration step:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cmake</span> <span class="o">-</span><span class="n">DTFM_PLATFORM</span><span class="o">=</span><span class="n">arm</span><span class="o">/</span><span class="n">musca_b1</span> <span class="o">-</span><span class="n">DIMAGE_VERSION_S</span><span class="o">=</span><span class="mf">1.2.3</span><span class="o">+</span><span class="mi">4</span> <span class="o">..</span>
+</pre></div>
+</div>
+<p>Alternatively, the version number can be less specific (e.g 1, 1.2, or 1.2.3),
+where the missing numbers are automatically set to zero. The image version
+number argument is optional, and if it is left out, then the version numbers of
+the image(s) being built in the same directory will automatically change. In
+this case, the last component (the build number) automatically increments from
+the previous one: 0.0.0+1 -&gt; 0.0.0+2, for as many times as the build is re-ran,
+<strong>until a number is explicitly provided</strong>. If automatic versioning is in place
+and then an image version number is provided for the first time, the new number
+will take precedence and be used instead. All subsequent image versions are
+then set to the last number that has been specified, and the build number would
+stop incrementing. Any new version numbers that are provided will overwrite
+the previous one: 0.0.0+1 -&gt; 0.0.0+2. Note: To re-apply automatic image
+versioning, please start a clean build without specifying the image version
+number at all. In case of multiple image boot there are separate compile time
+switches for both images to provide their version: <code class="docutils literal notranslate"><span class="pre">IMAGE_VERSION_S</span></code> and
+<code class="docutils literal notranslate"><span class="pre">IMAGE_VERSION_NS</span></code>. These must be used instead of <code class="docutils literal notranslate"><span class="pre">IMAGE_VERSION_S</span></code>.</p>
+</section>
+<section id="security-counter">
+<h3>Security counter<a class="headerlink" href="#security-counter" title="Permalink to this heading"></a></h3>
+<p>Each signed image contains a security counter in its manifest. It is used by the
+bootloader and its aim is to have an independent (from the image version)
+counter to ensure rollback protection by comparing the new image’s security
+counter against the original (currently active) image’s security counter during
+the image upgrade process. It is added to the manifest (to the TLV area that is
+appended to the end of the image) by one of the Python scripts when signing the
+image. The value of the security counter is security critical data and it is in
+the integrity protected part of the image. The last valid security counter
+should always be stored in a non-volatile and trusted component of the device
+and its value should always be increased if a security flaw was fixed in the
+current image version. The value of the security counter (single image boot) can
+be specified at build time in the cmake configuration step:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cmake</span> <span class="o">-</span><span class="n">DTFM_PLATFORM</span><span class="o">=</span><span class="n">arm</span><span class="o">/</span><span class="n">musca_b1</span> <span class="o">-</span><span class="n">DSECURITY_COUNTER_S</span><span class="o">=</span><span class="mi">42</span> <span class="o">../</span>
+</pre></div>
+</div>
+<p>The security counter can be independent from the image version, but not
+necessarily. Alternatively, if it is not specified at build time with the
+<code class="docutils literal notranslate"><span class="pre">SECURITY_COUNTER</span></code> option the Python script will automatically generate it
+from the image version number (not including the build number) and this value
+will be added to the signed image. In case of multiple image boot there are
+separate compile time switches for both images to provide their security counter
+value: <code class="docutils literal notranslate"><span class="pre">SECURITY_COUNTER_S</span></code> and <code class="docutils literal notranslate"><span class="pre">SECURITY_COUNTER_NS</span></code>. These must be used
+instead of <code class="docutils literal notranslate"><span class="pre">SECURITY_COUNTER_S</span></code>. If these are not defined then the security
+counter values will be derived from the corresponding image version similar to
+the single image boot.</p>
+</section>
+</section>
+<section id="signing-the-images-manually">
+<h2>Signing the images manually<a class="headerlink" href="#signing-the-images-manually" title="Permalink to this heading"></a></h2>
+<p>Normally the build system handles the signing (computing hash over the image
+and security critical manifest data and then signing the hash) of the firmware
+images. However, the images also can be signed manually by using the <code class="docutils literal notranslate"><span class="pre">imgtool</span></code>
+Python program which is located in the MCUboot repository  in the <code class="docutils literal notranslate"><span class="pre">scripts</span></code>
+folder or can be installed with the pip package manager.
+Issue the <code class="docutils literal notranslate"><span class="pre">python3</span> <span class="pre">imgtool.py</span> <span class="pre">sign</span> <span class="pre">--help</span></code> command in the directory for more
+information about the mandatory and optional arguments. The tool takes an image
+in binary or Intel Hex format and adds a header and trailer that MCUBoot is
+expecting. In case of single image boot after a successful build the
+<code class="docutils literal notranslate"><span class="pre">tfm_s_ns.bin</span></code> build artifact (contains the concatenated secure and non-secure
+images) must be passed to the script and in case of multiple image boot the
+<code class="docutils literal notranslate"><span class="pre">tfm_s.bin</span></code> and <code class="docutils literal notranslate"><span class="pre">tfm_ns.bin</span></code> binaries can be passed to prepare the signed
+images.</p>
+<section id="signing-the-secure-image-manually-in-case-of-multiple-image-boot">
+<h3>Signing the secure image manually in case of multiple image boot<a class="headerlink" href="#signing-the-secure-image-manually-in-case-of-multiple-image-boot" title="Permalink to this heading"></a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python3</span> <span class="n">bl2</span><span class="o">/</span><span class="n">ext</span><span class="o">/</span><span class="n">mcuboot</span><span class="o">/</span><span class="n">scripts</span><span class="o">/</span><span class="n">imgtool</span><span class="o">.</span><span class="n">py</span> <span class="n">sign</span> \
+    <span class="o">--</span><span class="n">layout</span> <span class="o">&lt;</span><span class="n">build_dir</span><span class="o">&gt;/</span><span class="n">bl2</span><span class="o">/</span><span class="n">ext</span><span class="o">/</span><span class="n">mcuboot</span><span class="o">/</span><span class="n">CMakeFiles</span><span class="o">/</span><span class="n">signing_layout_s</span><span class="o">.</span><span class="n">dir</span><span class="o">/</span><span class="n">signing_layout_s</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">obj</span> \
+    <span class="o">-</span><span class="n">k</span> <span class="o">&lt;</span><span class="n">tfm_dir</span><span class="o">&gt;/</span><span class="n">bl2</span><span class="o">/</span><span class="n">ext</span><span class="o">/</span><span class="n">mcuboot</span><span class="o">/</span><span class="n">root</span><span class="o">-</span><span class="n">RSA</span><span class="o">-</span><span class="mf">3072.</span><span class="n">pem</span> \
+    <span class="o">--</span><span class="n">public</span><span class="o">-</span><span class="n">key</span><span class="o">-</span><span class="nb">format</span> <span class="n">full</span> \
+    <span class="o">--</span><span class="n">align</span> <span class="mi">1</span> \
+    <span class="o">-</span><span class="n">v</span> <span class="mf">1.2.3</span><span class="o">+</span><span class="mi">4</span> \
+    <span class="o">-</span><span class="n">d</span> <span class="s2">&quot;(1,1.2.3+0)&quot;</span> \
+    <span class="o">-</span><span class="n">s</span> <span class="mi">42</span> \
+    <span class="o">-</span><span class="n">H</span> <span class="mh">0x400</span> \
+    <span class="o">&lt;</span><span class="n">build_dir</span><span class="o">&gt;/</span><span class="nb">bin</span><span class="o">/</span><span class="n">tfm_s</span><span class="o">.</span><span class="n">bin</span> \
+    <span class="o">&lt;</span><span class="n">build_dir</span><span class="o">&gt;/</span><span class="nb">bin</span><span class="o">/</span><span class="n">tfm_s_signed</span><span class="o">.</span><span class="n">bin</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="testing-firmware-upgrade">
+<h2>Testing firmware upgrade<a class="headerlink" href="#testing-firmware-upgrade" title="Permalink to this heading"></a></h2>
+<p>As downloading the new firmware image is out of scope for MCUBoot, the update
+process is started from a state where the original and the new image are already
+programmed to the appropriate memory slots. To generate the original and a new
+firmware package, TF-M is built twice with different build configurations.</p>
+<section id="overwriting-firmware-upgrade">
+<h3>Overwriting firmware upgrade<a class="headerlink" href="#overwriting-firmware-upgrade" title="Permalink to this heading"></a></h3>
+<p>Run TF-M build twice with <code class="docutils literal notranslate"><span class="pre">MCUBOOT_IMAGE_NUMBER</span></code> set to “1” in both cases
+(single image boot), but with two different build configurations: default and
+regression. Save the artifacts between builds, because second run can overwrite
+original binaries. Download default build to the primary slot and regression
+build to the secondary slot.</p>
+<section id="executing-firmware-upgrade-on-fvp-mps2-aemv8m">
+<h4>Executing firmware upgrade on FVP_MPS2_AEMv8M<a class="headerlink" href="#executing-firmware-upgrade-on-fvp-mps2-aemv8m" title="Permalink to this heading"></a></h4>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>&lt;ARM_DS_PATH&gt;/sw/models/bin/FVP_MPS2_AEMv8M<span class="w">  </span><span class="se">\</span>
+--parameter<span class="w"> </span>fvp_mps2.platform_type<span class="o">=</span><span class="m">2</span><span class="w"> </span><span class="se">\</span>
+--parameter<span class="w"> </span>cpu0.baseline<span class="o">=</span><span class="m">0</span><span class="w"> </span><span class="se">\</span>
+--parameter<span class="w"> </span>cpu0.INITVTOR_S<span class="o">=</span>0x10000000<span class="w"> </span><span class="se">\</span>
+--parameter<span class="w"> </span>cpu0.semihosting-enable<span class="o">=</span><span class="m">0</span><span class="w"> </span><span class="se">\</span>
+--parameter<span class="w"> </span>fvp_mps2.DISABLE_GATING<span class="o">=</span><span class="m">0</span><span class="w"> </span><span class="se">\</span>
+--parameter<span class="w"> </span>fvp_mps2.telnetterminal0.start_telnet<span class="o">=</span><span class="m">1</span><span class="w"> </span><span class="se">\</span>
+--parameter<span class="w"> </span>fvp_mps2.telnetterminal1.start_telnet<span class="o">=</span><span class="m">0</span><span class="w"> </span><span class="se">\</span>
+--parameter<span class="w"> </span>fvp_mps2.telnetterminal2.start_telnet<span class="o">=</span><span class="m">0</span><span class="w"> </span><span class="se">\</span>
+--parameter<span class="w"> </span>fvp_mps2.telnetterminal0.quiet<span class="o">=</span><span class="m">0</span><span class="w"> </span><span class="se">\</span>
+--parameter<span class="w"> </span>fvp_mps2.telnetterminal1.quiet<span class="o">=</span><span class="m">1</span><span class="w"> </span><span class="se">\</span>
+--parameter<span class="w"> </span>fvp_mps2.telnetterminal2.quiet<span class="o">=</span><span class="m">1</span><span class="w"> </span><span class="se">\</span>
+--application<span class="w"> </span><span class="nv">cpu0</span><span class="o">=</span>&lt;build_dir&gt;/bin/bl2.axf<span class="w"> </span><span class="se">\</span>
+--data<span class="w"> </span><span class="nv">cpu0</span><span class="o">=</span>&lt;default_build_dir&gt;/bin/tfm_s_ns_signed.bin@0x10080000<span class="w"> </span><span class="se">\</span>
+--data<span class="w"> </span><span class="nv">cpu0</span><span class="o">=</span>&lt;regresssion_build_dir&gt;/bin/tfm_s_ns_signed.bin@0x10180000
+</pre></div>
+</div>
+</section>
+<section id="executing-firmware-upgrade-on-sse-200-fpga-on-mps2-board">
+<h4>Executing firmware upgrade on SSE 200 FPGA on MPS2 board<a class="headerlink" href="#executing-firmware-upgrade-on-sse-200-fpga-on-mps2-board" title="Permalink to this heading"></a></h4>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">TITLE</span><span class="p">:</span> <span class="n">Versatile</span> <span class="n">Express</span> <span class="n">Images</span> <span class="n">Configuration</span> <span class="n">File</span>
+<span class="p">[</span><span class="n">IMAGES</span><span class="p">]</span>
+<span class="n">TOTALIMAGES</span><span class="p">:</span> <span class="mi">3</span>                     <span class="p">;</span><span class="n">Number</span> <span class="n">of</span> <span class="n">Images</span> <span class="p">(</span><span class="n">Max</span><span class="p">:</span> <span class="mi">32</span><span class="p">)</span>
+<span class="n">IMAGE0ADDRESS</span><span class="p">:</span> <span class="mh">0x00000000</span>
+<span class="n">IMAGE0FILE</span><span class="p">:</span> \<span class="n">Software</span>\<span class="n">bl2</span><span class="o">.</span><span class="n">axf</span>      <span class="p">;</span> <span class="n">BL2</span> <span class="n">bootloader</span>
+<span class="n">IMAGE1ADDRESS</span><span class="p">:</span> <span class="mh">0x10080000</span>
+<span class="n">IMAGE1FILE</span><span class="p">:</span> \<span class="n">Software</span>\<span class="n">tfm_sig1</span><span class="o">.</span><span class="n">bin</span> <span class="p">;</span> <span class="n">TF</span><span class="o">-</span><span class="n">M</span> <span class="n">default</span> <span class="n">test</span> <span class="n">binary</span> <span class="n">blob</span>
+<span class="n">IMAGE2ADDRESS</span><span class="p">:</span> <span class="mh">0x10180000</span>
+<span class="n">IMAGE2FILE</span><span class="p">:</span> \<span class="n">Software</span>\<span class="n">tfm_sig2</span><span class="o">.</span><span class="n">bin</span> <span class="p">;</span> <span class="n">TF</span><span class="o">-</span><span class="n">M</span> <span class="n">regression</span> <span class="n">test</span> <span class="n">binary</span> <span class="n">blob</span>
+</pre></div>
+</div>
+<p>The following message will be shown in case of successful firmware upgrade:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>[INF] Starting bootloader
+[INF] Swap type: test
+[INF] Image upgrade secondary slot -&gt; primary slot
+[INF] Erasing the primary slot
+[INF] Copying the secondary slot to the primary slot: 0x100000 bytes
+[INF] Bootloader chainload address offset: 0x80000
+[INF] Jumping to the first image slot
+[Sec Thread] Secure image initializing!
+
+#### Execute test suites for the Secure area ####
+Running Test Suite PSA protected storage S interface tests (TFM_PS_TEST_2XXX)...
+...
+</pre></div>
+</div>
+<p>To update the secure and non-secure images separately (multiple image boot),
+set the <code class="docutils literal notranslate"><span class="pre">MCUBOOT_IMAGE_NUMBER</span></code> switch to “2” (this is the default
+configuration value) and follow the same instructions as in case of single image
+boot.</p>
+</section>
+<section id="executing-multiple-firmware-upgrades-on-sse-200-fpga-on-mps2-board">
+<h4>Executing multiple firmware upgrades on SSE 200 FPGA on MPS2 board<a class="headerlink" href="#executing-multiple-firmware-upgrades-on-sse-200-fpga-on-mps2-board" title="Permalink to this heading"></a></h4>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">TITLE</span><span class="p">:</span> <span class="n">Versatile</span> <span class="n">Express</span> <span class="n">Images</span> <span class="n">Configuration</span> <span class="n">File</span>
+<span class="p">[</span><span class="n">IMAGES</span><span class="p">]</span>
+<span class="n">TOTALIMAGES</span><span class="p">:</span> <span class="mi">4</span>                     <span class="p">;</span><span class="n">Number</span> <span class="n">of</span> <span class="n">Images</span> <span class="p">(</span><span class="n">Max</span><span class="p">:</span> <span class="mi">32</span><span class="p">)</span>
+<span class="n">IMAGE0ADDRESS</span><span class="p">:</span> <span class="mh">0x00000000</span>
+<span class="n">IMAGE0FILE</span><span class="p">:</span> \<span class="n">Software</span>\<span class="n">bl2</span><span class="o">.</span><span class="n">axf</span>      <span class="p">;</span> <span class="n">BL2</span> <span class="n">bootloader</span>
+<span class="n">IMAGE1ADDRESS</span><span class="p">:</span> <span class="mh">0x10080000</span>
+<span class="n">IMAGE1FILE</span><span class="p">:</span> \<span class="n">Software</span>\<span class="n">tfm_sign</span><span class="o">.</span><span class="n">bin</span> <span class="p">;</span> <span class="n">TF</span><span class="o">-</span><span class="n">M</span> <span class="n">default</span> <span class="n">test</span> <span class="n">binary</span> <span class="n">blob</span>
+<span class="n">IMAGE2ADDRESS</span><span class="p">:</span> <span class="mh">0x10180000</span>
+<span class="n">IMAGE2FILE</span><span class="p">:</span> \<span class="n">Software</span>\<span class="n">tfm_ss1</span><span class="o">.</span><span class="n">bin</span>  <span class="p">;</span> <span class="n">TF</span><span class="o">-</span><span class="n">M</span> <span class="n">regression</span> <span class="n">test</span> <span class="n">secure</span> <span class="p">(</span><span class="n">signed</span><span class="p">)</span> <span class="n">image</span>
+<span class="n">IMAGE3ADDRESS</span><span class="p">:</span> <span class="mh">0x10200000</span>
+<span class="n">IMAGE3FILE</span><span class="p">:</span> \<span class="n">Software</span>\<span class="n">tfm_nss1</span><span class="o">.</span><span class="n">bin</span> <span class="p">;</span> <span class="n">TF</span><span class="o">-</span><span class="n">M</span> <span class="n">regression</span> <span class="n">test</span> <span class="n">non</span><span class="o">-</span><span class="n">secure</span> <span class="p">(</span><span class="n">signed</span><span class="p">)</span> <span class="n">image</span>
+</pre></div>
+</div>
+<p>Note that both the concatenated binary blob (the images are signed separately
+and then concatenated) and the separate signed images can be downloaded to the
+device because on this platform (AN521) both the primary slots and the secondary
+slots are contiguous areas in the Flash (see <a class="reference internal" href="#integration-with-tf-m">Integration with TF-M</a>). The
+following message will be shown in case of successful firmware upgrades:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>[INF] Starting bootloader
+[INF] Swap type: test
+[INF] Swap type: test
+[INF] Image upgrade secondary slot -&gt; primary slot
+[INF] Erasing the primary slot
+[INF] Copying the secondary slot to the primary slot: 0x80000 bytes
+[INF] Image upgrade secondary slot -&gt; primary slot
+[INF] Erasing the primary slot
+[INF] Copying the secondary slot to the primary slot: 0x80000 bytes
+[INF] Bootloader chainload address offset: 0x80000
+[INF] Jumping to the first image slot
+[Sec Thread] Secure image initializing!
+TFM level is: 1
+[Sec Thread] Jumping to non-secure code...
+
+#### Execute test suites for the Secure area ####
+Running Test Suite PSA protected storage S interface tests (TFM_PS_TEST_2XXX)...
+...
+</pre></div>
+</div>
+</section>
+</section>
+<section id="swapping-firmware-upgrade">
+<h3>Swapping firmware upgrade<a class="headerlink" href="#swapping-firmware-upgrade" title="Permalink to this heading"></a></h3>
+<p>Follow the same instructions and platform related configurations as in case of
+overwriting build including these changes:</p>
+<ul class="simple">
+<li><p>Set the <code class="docutils literal notranslate"><span class="pre">MCUBOOT_UPGRADE_STRATEGY</span></code> compile time switch to “SWAP”
+before build.</p></li>
+<li><p>Set the <code class="docutils literal notranslate"><span class="pre">MCUBOOT_IMAGE_NUMBER</span></code> compile time switch to “1” (single image
+boot) or “2” (multiple image boot) before build.</p></li>
+</ul>
+<p>During single image boot the following message will be shown in case of
+successful firmware upgrade, <code class="docutils literal notranslate"><span class="pre">Swap</span> <span class="pre">type:</span> <span class="pre">test</span></code> indicates that images were
+swapped:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>[INF] Starting bootloader
+[INF] Image 0: magic= good, copy_done=0x3, image_ok=0x3
+[INF] Scratch: magic=  bad, copy_done=0x0, image_ok=0x2
+[INF] Boot source: primary slot
+[INF] Swap type: test
+[INF] Bootloader chainload address offset: 0x80000
+[INF] Jumping to the first image slot
+[Sec Thread] Secure image initializing!
+
+#### Execute test suites for the Secure area ####
+Running Test Suite PSA protected storage S interface tests (TFM_PS_TEST_2XXX)...
+...
+</pre></div>
+</div>
+</section>
+<section id="direct-execute-in-place-firmware-upgrade">
+<h3>Direct execute-in-place firmware upgrade<a class="headerlink" href="#direct-execute-in-place-firmware-upgrade" title="Permalink to this heading"></a></h3>
+<p>Follow the same instructions and platform related configurations as in case of
+overwriting build including these changes:</p>
+<ul class="simple">
+<li><p>Set the <code class="docutils literal notranslate"><span class="pre">MCUBOOT_UPGRADE_STRATEGY</span></code> compile time switch to “DIRECT_XIP”
+before build.</p></li>
+<li><p>set <code class="docutils literal notranslate"><span class="pre">MCUBOOT_EXECUTION_SLOT</span></code> to <code class="docutils literal notranslate"><span class="pre">1</span></code> in the regression build dir.</p></li>
+<li><p>Make sure the image version number was increased between the two build runs
+either by specifying it manually or by checking in the build log that it was
+incremented automatically.</p></li>
+</ul>
+<section id="id13">
+<h4>Executing firmware upgrade on FVP_MPS2_AEMv8M<a class="headerlink" href="#id13" title="Permalink to this heading"></a></h4>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>&lt;ARM_DS_PATH&gt;/sw/models/bin/FVP_MPS2_AEMv8M<span class="w">  </span><span class="se">\</span>
+--parameter<span class="w"> </span>fvp_mps2.platform_type<span class="o">=</span><span class="m">2</span><span class="w"> </span><span class="se">\</span>
+--parameter<span class="w"> </span>cpu0.baseline<span class="o">=</span><span class="m">0</span><span class="w"> </span><span class="se">\</span>
+--parameter<span class="w"> </span>cpu0.INITVTOR_S<span class="o">=</span>0x10000000<span class="w"> </span><span class="se">\</span>
+--parameter<span class="w"> </span>cpu0.semihosting-enable<span class="o">=</span><span class="m">0</span><span class="w"> </span><span class="se">\</span>
+--parameter<span class="w"> </span>fvp_mps2.DISABLE_GATING<span class="o">=</span><span class="m">0</span><span class="w"> </span><span class="se">\</span>
+--parameter<span class="w"> </span>fvp_mps2.telnetterminal0.start_telnet<span class="o">=</span><span class="m">1</span><span class="w"> </span><span class="se">\</span>
+--parameter<span class="w"> </span>fvp_mps2.telnetterminal1.start_telnet<span class="o">=</span><span class="m">0</span><span class="w"> </span><span class="se">\</span>
+--parameter<span class="w"> </span>fvp_mps2.telnetterminal2.start_telnet<span class="o">=</span><span class="m">0</span><span class="w"> </span><span class="se">\</span>
+--parameter<span class="w"> </span>fvp_mps2.telnetterminal0.quiet<span class="o">=</span><span class="m">0</span><span class="w"> </span><span class="se">\</span>
+--parameter<span class="w"> </span>fvp_mps2.telnetterminal1.quiet<span class="o">=</span><span class="m">1</span><span class="w"> </span><span class="se">\</span>
+--parameter<span class="w"> </span>fvp_mps2.telnetterminal2.quiet<span class="o">=</span><span class="m">1</span><span class="w"> </span><span class="se">\</span>
+--application<span class="w"> </span><span class="nv">cpu0</span><span class="o">=</span>&lt;build_dir&gt;/bin/bl2.axf<span class="w"> </span><span class="se">\</span>
+--data<span class="w"> </span><span class="nv">cpu0</span><span class="o">=</span>&lt;default_build_dir&gt;/bin/tfm_s_ns_signed.bin@0x10080000<span class="w"> </span><span class="se">\</span>
+--data<span class="w"> </span><span class="nv">cpu0</span><span class="o">=</span>&lt;regresssion_build_dir&gt;/bin/tfm_s_ns_signed.bin@0x10180000
+</pre></div>
+</div>
+</section>
+<section id="id14">
+<h4>Executing firmware upgrade on SSE 200 FPGA on MPS2 board<a class="headerlink" href="#id14" title="Permalink to this heading"></a></h4>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">TITLE</span><span class="p">:</span> <span class="n">Versatile</span> <span class="n">Express</span> <span class="n">Images</span> <span class="n">Configuration</span> <span class="n">File</span>
+<span class="p">[</span><span class="n">IMAGES</span><span class="p">]</span>
+<span class="n">TOTALIMAGES</span><span class="p">:</span> <span class="mi">3</span>                     <span class="p">;</span><span class="n">Number</span> <span class="n">of</span> <span class="n">Images</span> <span class="p">(</span><span class="n">Max</span><span class="p">:</span> <span class="mi">32</span><span class="p">)</span>
+<span class="n">IMAGE0ADDRESS</span><span class="p">:</span> <span class="mh">0x00000000</span>
+<span class="n">IMAGE0FILE</span><span class="p">:</span> \<span class="n">Software</span>\<span class="n">bl2</span><span class="o">.</span><span class="n">axf</span>      <span class="p">;</span> <span class="n">BL2</span> <span class="n">bootloader</span>
+<span class="n">IMAGE1ADDRESS</span><span class="p">:</span> <span class="mh">0x10080000</span>
+<span class="n">IMAGE1FILE</span><span class="p">:</span> \<span class="n">Software</span>\<span class="n">tfm_sign</span><span class="o">.</span><span class="n">bin</span> <span class="p">;</span> <span class="n">TF</span><span class="o">-</span><span class="n">M</span> <span class="n">default</span> <span class="n">test</span> <span class="n">binary</span> <span class="n">blob</span>
+<span class="n">IMAGE2ADDRESS</span><span class="p">:</span> <span class="mh">0x10180000</span>
+<span class="n">IMAGE2FILE</span><span class="p">:</span> \<span class="n">Software</span>\<span class="n">tfm_sig1</span><span class="o">.</span><span class="n">bin</span> <span class="p">;</span> <span class="n">TF</span><span class="o">-</span><span class="n">M</span> <span class="n">regression</span> <span class="n">test</span> <span class="n">binary</span> <span class="n">blob</span>
+</pre></div>
+</div>
+</section>
+<section id="executing-firmware-upgrade-on-musca-b1-and-musca-s1-boards">
+<h4>Executing firmware upgrade on Musca-B1 and Musca-S1 boards<a class="headerlink" href="#executing-firmware-upgrade-on-musca-b1-and-musca-s1-boards" title="Permalink to this heading"></a></h4>
+<p>After the two images have been built, they can be concatenated to create the
+combined image using <code class="docutils literal notranslate"><span class="pre">srec_cat</span></code>:</p>
+<ul>
+<li><p>Linux:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">srec_cat</span> <span class="nb">bin</span><span class="o">/</span><span class="n">bl2</span><span class="o">.</span><span class="n">bin</span> <span class="o">-</span><span class="n">Binary</span> <span class="o">-</span><span class="n">offset</span> <span class="mh">0xA000000</span> <span class="n">tfm_sign</span><span class="o">.</span><span class="n">bin</span> <span class="o">-</span><span class="n">Binary</span> <span class="o">-</span><span class="n">offset</span> <span class="mh">0xA020000</span> <span class="n">tfm_sign_1</span><span class="o">.</span><span class="n">bin</span> <span class="o">-</span><span class="n">Binary</span> <span class="o">-</span><span class="n">offset</span> <span class="mh">0xA100000</span> <span class="o">-</span><span class="n">o</span> <span class="n">tfm</span><span class="o">.</span><span class="n">hex</span> <span class="o">-</span><span class="n">Intel</span>
+</pre></div>
+</div>
+</li>
+<li><p>Windows:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">srec_cat</span><span class="o">.</span><span class="n">exe</span> <span class="nb">bin</span>\<span class="n">bl2</span><span class="o">.</span><span class="n">bin</span> <span class="o">-</span><span class="n">Binary</span> <span class="o">-</span><span class="n">offset</span> <span class="mh">0xA000000</span> <span class="n">tfm_sign</span><span class="o">.</span><span class="n">bin</span> <span class="o">-</span><span class="n">Binary</span> <span class="o">-</span><span class="n">offset</span> <span class="mh">0xA020000</span> <span class="n">tfm_sign_1</span><span class="o">.</span><span class="n">bin</span> <span class="o">-</span><span class="n">Binary</span> <span class="o">-</span><span class="n">offset</span> <span class="mh">0xA100000</span> <span class="o">-</span><span class="n">o</span> <span class="n">tfm</span><span class="o">.</span><span class="n">hex</span> <span class="o">-</span><span class="n">Intel</span>
+</pre></div>
+</div>
+</li>
+</ul>
+<p>The following message will be shown in case of successful firmware upgrade,
+notice that image with higher version number (<code class="docutils literal notranslate"><span class="pre">version=1.2.3.5</span></code>) is executed:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>[INF] Starting bootloader
+[INF] Image 0: version=1.2.3.4, magic= good, image_ok=0x3
+[INF] Image 1: version=1.2.3.5, magic= good, image_ok=0x3
+[INF] Booting image from the secondary slot
+[INF] Bootloader chainload address offset: 0xa0000
+[INF] Jumping to the first image slot
+[Sec Thread] Secure image initializing!
+
+#### Execute test suites for the Secure area ####
+Running Test Suite PSA protected storage S interface tests (TFM_PS_TEST_2XXX)...
+...
+</pre></div>
+</div>
+</section>
+<section id="executing-firmware-upgrade-on-corelink-sse-200-subsystem-for-mps3-an524">
+<h4>Executing firmware upgrade on CoreLink SSE-200 Subsystem for MPS3 (AN524)<a class="headerlink" href="#executing-firmware-upgrade-on-corelink-sse-200-subsystem-for-mps3-an524" title="Permalink to this heading"></a></h4>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">TITLE</span><span class="p">:</span> <span class="n">Arm</span> <span class="n">MPS3</span> <span class="n">FPGA</span> <span class="n">prototyping</span> <span class="n">board</span> <span class="n">Images</span> <span class="n">Configuration</span> <span class="n">File</span>
+
+<span class="p">[</span><span class="n">IMAGES</span><span class="p">]</span>
+<span class="n">TOTALIMAGES</span><span class="p">:</span> <span class="mi">3</span>                     <span class="p">;</span><span class="n">Number</span> <span class="n">of</span> <span class="n">Images</span> <span class="p">(</span><span class="n">Max</span><span class="p">:</span> <span class="mi">32</span><span class="p">)</span>
+
+<span class="n">IMAGE0UPDATE</span><span class="p">:</span> <span class="n">AUTO</span>                 <span class="p">;</span><span class="n">Image</span> <span class="n">Update</span><span class="p">:</span><span class="n">NONE</span><span class="o">/</span><span class="n">AUTO</span><span class="o">/</span><span class="n">FORCE</span>
+<span class="n">IMAGE0ADDRESS</span><span class="p">:</span> <span class="mh">0x00000000</span>
+<span class="n">IMAGE0FILE</span><span class="p">:</span> \<span class="n">SOFTWARE</span>\<span class="n">bl2</span><span class="o">.</span><span class="n">bin</span>      <span class="p">;</span><span class="n">BL2</span> <span class="n">bootloader</span>
+<span class="n">IMAGE1UPDATE</span><span class="p">:</span> <span class="n">AUTO</span>
+<span class="n">IMAGE1ADDRESS</span><span class="p">:</span> <span class="mh">0x00040000</span>
+<span class="n">IMAGE1FILE</span><span class="p">:</span> \<span class="n">SOFTWARE</span>\<span class="n">tfm_sig0</span><span class="o">.</span><span class="n">bin</span> <span class="p">;</span><span class="n">TF</span><span class="o">-</span><span class="n">M</span> <span class="n">example</span> <span class="n">application</span> <span class="n">binary</span> <span class="n">blob</span>
+<span class="n">IMAGE2UPDATE</span><span class="p">:</span> <span class="n">AUTO</span>
+<span class="n">IMAGE2ADDRESS</span><span class="p">:</span> <span class="mh">0x000C0000</span>
+<span class="n">IMAGE2FILE</span><span class="p">:</span> \<span class="n">SOFTWARE</span>\<span class="n">tfm_sig1</span><span class="o">.</span><span class="n">bin</span> <span class="p">;</span><span class="n">TF</span><span class="o">-</span><span class="n">M</span> <span class="n">regression</span> <span class="n">test</span> <span class="n">binary</span> <span class="n">blob</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="id15">
+<h3>RAM loading firmware upgrade<a class="headerlink" href="#id15" title="Permalink to this heading"></a></h3>
+<p>To enable RAM loading, please set <code class="docutils literal notranslate"><span class="pre">MCUBOOT_UPGRADE_STRATEGY</span></code> to “RAM_LOAD”
+(either in the configuration file or through the command line), and then specify
+a destination load address in RAM where the image can be copied to and executed
+from. The <code class="docutils literal notranslate"><span class="pre">S_IMAGE_LOAD_ADDRESS</span></code> macro must be specified in the target
+dependent files, and if multiple image boot is enabled then
+<code class="docutils literal notranslate"><span class="pre">NS_IMAGE_LOAD_ADDRESS</span></code> must also be defined. For example with Musca-S, its
+<code class="docutils literal notranslate"><span class="pre">flash_layout.h</span></code> file in the <code class="docutils literal notranslate"><span class="pre">platform</span></code> folder should include <code class="docutils literal notranslate"><span class="pre">#define</span>
+<span class="pre">S_IMAGE_LOAD_ADDRESS</span> <span class="pre">#0xA0020000</span></code></p>
+<section id="executing-firmware-upgrade-on-musca-s-board">
+<h4>Executing firmware upgrade on Musca-S board<a class="headerlink" href="#executing-firmware-upgrade-on-musca-s-board" title="Permalink to this heading"></a></h4>
+<p>After two images have been built, they can be concatenated to create the
+combined image using <code class="docutils literal notranslate"><span class="pre">srec_cat</span></code>:</p>
+<ul>
+<li><p>Linux:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">srec_cat</span> <span class="nb">bin</span><span class="o">/</span><span class="n">bl2</span><span class="o">.</span><span class="n">bin</span> <span class="o">-</span><span class="n">Binary</span> <span class="o">-</span><span class="n">offset</span> <span class="mh">0xA000000</span> <span class="n">tfm_sign_old</span><span class="o">.</span><span class="n">bin</span> <span class="o">-</span><span class="n">Binary</span> <span class="o">-</span><span class="n">offset</span> <span class="mh">0xA020000</span> <span class="n">tfm_sign_new</span><span class="o">.</span><span class="n">bin</span> <span class="o">-</span><span class="n">Binary</span> <span class="o">-</span><span class="n">offset</span> <span class="mh">0xA100000</span> <span class="o">-</span><span class="n">o</span> <span class="n">tfm</span><span class="o">.</span><span class="n">hex</span> <span class="o">-</span><span class="n">Intel</span>
+</pre></div>
+</div>
+</li>
+<li><p>Windows:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">srec_cat</span><span class="o">.</span><span class="n">exe</span> <span class="nb">bin</span>\<span class="n">bl2</span><span class="o">.</span><span class="n">bin</span> <span class="o">-</span><span class="n">Binary</span> <span class="o">-</span><span class="n">offset</span> <span class="mh">0xA000000</span> <span class="n">tfm_sign_old</span><span class="o">.</span><span class="n">bin</span> <span class="o">-</span><span class="n">Binary</span> <span class="o">-</span><span class="n">offset</span> <span class="mh">0xA020000</span> <span class="n">tfm_sign_new</span><span class="o">.</span><span class="n">bin</span> <span class="o">-</span><span class="n">Binary</span> <span class="o">-</span><span class="n">offset</span> <span class="mh">0xA100000</span> <span class="o">-</span><span class="n">o</span> <span class="n">tfm</span><span class="o">.</span><span class="n">hex</span> <span class="o">-</span><span class="n">Intel</span>
+</pre></div>
+</div>
+</li>
+</ul>
+<p>The following message will be shown in case of successful firmware upgrade when,
+RAM loading is enabled, notice that image with higher version number
+(<code class="docutils literal notranslate"><span class="pre">version=0.0.0.2</span></code>) is executed:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>[INF] Starting bootloader
+[INF] Image 0: version=0.0.0.1, magic= good, image_ok=0x3
+[INF] Image 1: version=0.0.0.2, magic= good, image_ok=0x3
+[INF] Image has been copied from the secondary slot in flash to SRAM address 0xA0020000
+[INF] Booting image from SRAM at address 0xA0020000
+[INF] Bootloader chainload address offset: 0x20000
+[INF] Jumping to the first image slot
+[Sec Thread] Secure image initializing!
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+<hr class="docutils" />
+<section id="integration-with-firmware-update-service">
+<h2>Integration with Firmware Update service<a class="headerlink" href="#integration-with-firmware-update-service" title="Permalink to this heading"></a></h2>
+<p>The shim layer of the Firmware Update partition calls the APIs in
+bootutil_misc.c to control the image status.</p>
+<ul class="simple">
+<li><p>Call <code class="docutils literal notranslate"><span class="pre">boot_set_pending_multi()</span></code> to make the image as a candidate image for
+booting.</p></li>
+<li><p>Call <code class="docutils literal notranslate"><span class="pre">boot_set_confirmed_multi()</span></code> to make the image as a permanent image.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Currently, in direct-xip mode and ram-load mode, TF-M cannot get the
+information of which slot contains the running image from the bootloader.
+So the Firmware Update partition cannot decide where to write the new
+image. As a result, the firmware update service is not supported in
+direct-xip mode and ram-load mode.</p>
+</div>
+<p><em>Copyright (c) 2018-2022, Arm Limited. All rights reserved.</em></p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p></p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

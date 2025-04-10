@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TF-M Internal Trusted Storage Service Integration Guide &mdash; Trusted Firmware-M v1.7.0-stm32mp25-alpha-r1-rc3-doc documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/tfm_custom.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/tabs.css" type="text/css" />
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Platform Service Integration Guide" href="tfm_platform_integration_guide.html" />
+    <link rel="prev" title="Crypto Service Integration Guide" href="tfm_crypto_integration_guide.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> Trusted Firmware-M
+            <img src="../../_static/tf_logo_white.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                v1.7.0-stm32mp25-alpha-r1-rc3-doc
+
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../introduction/index.html">Introduction</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started/index.html">Getting Started</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../security/index.html">Security</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../security/security_advisories/index.html">Security Advisories</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/stack_seal_vulnerability.html">Advisory TFMV-1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/svc_caller_sp_fetching_vulnerability.html">Advisory TFMV-2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/crypto_multi_part_ops_abort_fail.html">Advisory TFMV-3</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/profile_small_key_id_encoding_vulnerability.html">Advisory TFMV-4</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/fwu_write_vulnerability.html">Advisory TFMV-5</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../security/threat_models/index.html">Threat Models</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../security/threat_models/generic_threat_model.html">Trusted Firmware-M Generic Threat Model</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../security/security.html">Security Handling</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../releases/index.html">Releases</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/1.7.0.html">v1.7.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/1.6.1.html">v1.6.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/1.6.0.html">v1.6.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/1.5.0.html">v1.5.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/release_process.html">Release Cadence and Process</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../glossary.html">Glossary</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../platform/index.html">Platform Selection</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/arm/index.html">Arm platforms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/corstone1000/readme.html">Corstone-1000</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/mps3/an547/README.html">Corstone-300 FPGA (AN547)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/mps3/an552/README.html">Corstone-300 FPGA and FVP (AN552)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/mps3/corstone310/README.html">Corstone-310 FVP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/musca_b1/readme.html">Musca-B1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/musca_s1/readme.html">Musca-S1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/rss/readme.html">Runtime Security Subsystem</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/nxp/lpcxpresso55s69/README.html">LPCXpresso55S69</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/cypress/psoc64/index.html">Cypress PSoC64</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/cypress/psoc64/cypress_psoc64_spec.html">Cypress PSoC64 Specifics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/cypress/psoc64/libs/core-lib/README.html">Core Library</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/cypress/psoc64/libs/core-lib/RELEASE.html">Core Library Release Notes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/stm/index.html">STMICROELECTRONICS</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32l5xx/readme.html">STM32L5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32mp2/readme.html">STM32MP2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32u5xx/readme.html">STM32U5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/nucleo_l552ze_q/readme.html">NUCLEO-L552ZE-Q</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32l562e_dk/readme.html">STM32L562E-DK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/b_u585i_iot02a/readme.html">B-U585I-IOT02A</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/nordic_nrf/nrf5340dk_nrf5340_cpuapp/README.html">Nordic nRF5340</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/nordic_nrf/nrf9160dk_nrf9160/README.html">Nordic nRF9160</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/lairdconnectivity/bl5340_dvk_cpuapp/README.html">Laird Connectivity BL5340</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/nuvoton/m2351/README.html">NuMaker-PFM-M2351</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/nuvoton/m2354/README.html">NuMaker-PFM-M2354</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../building/tfm_build_instruction.html">Build instructions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../building/run_tfm_examples_on_arm_platforms.html">Run TF-M examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../building/documentation_generation.html">Building the documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../building/tfm_build_instruction_iar.html">IAR toolchain</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../configuration/index.html">Configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../configuration/build_configuration.html">Build configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../configuration/header_file_system.html">Component configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../configuration/kconfig_system.html">Kconfig</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../configuration/profiles/index.html">Profiles</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../configuration/profiles/tfm_profile_small.html"> Small</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../configuration/profiles/tfm_profile_medium_arot-less.html"> ARoT-less</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../configuration/profiles/tfm_profile_medium.html"> Medium</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../configuration/profiles/tfm_profile_large.html"> Large</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../configuration/test_configuration.html">Tests configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Integration Guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../spm_backends.html">SPM Backends</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../non-secure_client_extension_integration_guide.html">NS client integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../os_migration_guide_armv8m.html">OS migration to Armv8-M</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tfm_fpu_support.html">Floating-Point Support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tfm_secure_irq_integration_guide.html">Secure Interrupt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../platform/index.html">Adding a new platform</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../platform/platform_folder.html">Details for the platform folder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/platform_ext_folder.html">Details for the platform/ext folder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/porting_TFM_to_a_new_hardware.html">Porting TF-M to a New Hardware</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/platform_provisioning.html">Platform Provisioning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/platform_deprecation.html">Platform deprecation and removal</a></li>
+</ul>
+</li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Services</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="tfm_attestation_integration_guide.html">Initial Attestation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tfm_crypto_integration_guide.html">Crypto</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Internal Storage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tfm_platform_integration_guide.html">Platform</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tfm_ps_integration_guide.html">Protected Storage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tfm_secure_partition_addition.html">Adding a New Service</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tfm_manifest_tool_user_guide.html">The manifest tool</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../technical_references/design_docs/index.html">Design Documents</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/dual-cpu/index.html">Dual-CPU</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../technical_references/design_docs/dual-cpu/booting_a_dual_core_system.html">Booting a Dual-Core System</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../technical_references/design_docs/dual-cpu/communication_prototype_between_nspe_and_spe_in_dual_core_systems.html">Communication Prototype Between NSPE And SPE In Dual Core System</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../technical_references/design_docs/dual-cpu/mailbox_design_on_dual_core_system.html">Mailbox Design in TF-M on Dual-core System</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../technical_references/design_docs/dual-cpu/tfm_multi_core_access_check.html">Memory Access Check of Trusted Firmware-M in Multi-Core Topology</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/bl1.html">BL1 Immutable bootloader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/code_sharing.html">Code sharing between independently linked XIP binaries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/enum_implicit_casting.html">Fixing implicit casting for C enumeration values</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/ff_isolation.html">FF-M Isolation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/hardware_abstraction_layer.html">Hardware Abstraction Layer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/mailbox_ns_agent_update.html">Mailbox NS Agent Design Update</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/ps_key_management.html">Protected Storage service key management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/secure_boot_hw_key_integration.html">HW crypto key integration in TF-M secure boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/secure_boot_rollback_protection.html">Rollback protection in TF-M secure boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/secure_partition_manager.html">Secure Partition Manager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/source_structure.html">Trusted Firmware-M Source Structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/stateless_rot_service.html">Stateless Root of Trust Services Reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/symmetric_initial_attest.html">Symmetric key algorithm based Initial Attestation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/tfm_builtin_keys.html">TF-M builtin keys</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/tfm_code_generation_with_jinja2.html">Code Generation With Jinja2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/tfm_cooperative_scheduling_rules.html">Cooperative Scheduling Rules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/tfm_crypto_design.html">Crypto Service design</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/tfm_fwu_service.html">Firmware Update Service</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/tfm_its_512_flash.html">Add support for block-aligned flash in Internal Trusted Storage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/tfm_its_service.html">Internal Trusted Storage (ITS) Service</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/tfm_log_system_design_document.html">Log system design document</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/tfm_physical_attack_mitigation.html">Physical attack mitigation in Trusted Firmware-M</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/tfm_psa_inter_process_communication.html">TF-M Inter-Process Communication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/tfm_secure_boot.html">Secure boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/tfm_secure_partition_runtime_library.html">Secure Partition Runtime Library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/tfm_uniform_secure_service_signature.html">Uniform Secure Service Signature</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../tools/index.html">Tools</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contribution</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing/index.html">Guidelines</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/contributing_process.html">The process</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/code_review_guide.html">Code review</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/maintainers.html">Maintainers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/maintainers.html#code-owners">Code owners</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/coding_guide.html">Yet another coding standard :)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/doc_guidelines.html">Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/tfm_design_proposal_guideline.html">Design proposal</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing/lic.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing/dco.html">DCO</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Links</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://ci.trustedfirmware.org/view/TF-M/job/tf-m-build-docs-nightly/lastSuccessfulBuild/artifact/trusted-firmware-m/build/docs/reference_manual/html/index.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://developer.trustedfirmware.org/w/collaboration/security_center">Security Center</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://www.arm.com/architecture/security-features/platform-security">PSA</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">STMICROELECTRONICS</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../stm/releases/index.html">Releases</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/releases/getting_started.html">Getting started</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32l562e_dk/readme.html">STM32L562E-DK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/nucleo_l552ze_q/readme.html">NUCLEO-L552ZE-Q</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/b_u585i_iot02a/readme.html">B-U585I-IOT02A</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/releases/platforms.html">Platforms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32l5xx/readme.html">STM32L5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32mp2/readme.html">STM32MP2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32u5xx/readme.html">STM32U5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/nucleo_l552ze_q/readme.html">NUCLEO-L552ZE-Q</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32l562e_dk/readme.html">STM32L562E-DK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/releases/changelog.html">Change Log &amp; Notes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/releases/v1.7.0-stm32mp25-alpha-r1-rc3/changelog.html">v1.7.0-stm32mp25-alpha-r1-rc3</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../stm/technical/index.html">Technical references</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/technical/a35_td_flavor/index.html">A35-TD flavor</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/technical/a35_td_flavor/memory_layout.html">Memory layout</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/technical/a35_td_flavor/storage.html">Storage</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/technical/m33_td_flavor/index.html">M33-TD flavor</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/technical/m33_td_flavor/memory_layout.html">Memory layout</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/technical/m33_td_flavor/storage.html">Storage</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/technical/devicetree/index.html">Devicetree</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/technical/devicetree/devicetree_tfm.html">Scope and purpose</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/technical/devicetree/devicetree_tfm.html#concept">Concept</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/technical/devicetree/devicetree_tfm.html#how-to-add-device">How to add device</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/technical/initlevel.html">Initlevel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/technical/initial_attestation.html">Initial Attestation Service</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/technical/nv_counter.html">Nv counter</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../stm/ide/index.html">Ide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/ide/cubeide/stm32cubeide.html">STM32CubeIDE</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Trusted Firmware-M</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../index.html">Integration Guide</a> &raquo;</li>
+          <li><a href="index.html">Services</a> &raquo;</li>
+      <li>TF-M Internal Trusted Storage Service Integration Guide</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="tf-m-internal-trusted-storage-service-integration-guide">
+<h1>TF-M Internal Trusted Storage Service Integration Guide<a class="headerlink" href="#tf-m-internal-trusted-storage-service-integration-guide" title="Permalink to this heading"></a></h1>
+<section id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading"></a></h2>
+<p>TF-M Internal Trusted Storage (ITS) service implements PSA Internal Trusted
+Storage APIs.</p>
+<p>The service is backed by hardware isolation of the flash access domain and
+relies on hardware to isolate the flash area from access by the Non-secure
+Processing Environment, as well as the Application Root of Trust at higher
+levels of isolation.</p>
+<p>The current ITS service design relies on hardware abstraction provided by TF-M.
+The ITS service provides a non-hierarchical storage model, as a filesystem,
+where all the assets are managed by a linearly indexed list of metadata.</p>
+<p>The design addresses the following high level requirements as well:</p>
+<ul class="simple">
+<li><p><strong>Confidentiality</strong> - Resistance to unauthorised accesses through
+hardware/software attacks. Assumed to be provided by the internal flash
+device, backed by hardware isolation.</p></li>
+<li><p><strong>Access Authentication</strong> - Mechanism to establish requester’s identity (a
+non-secure entity, secure entity, or a remote server).</p></li>
+<li><p><strong>Integrity</strong> - Resistance to tampering by attackers with physical access is
+assumed to be provided by the internal flash device itself, while resistance
+to tampering by Non-secure or App RoT attackers also requires hardware
+isolation.</p></li>
+<li><p><strong>Reliability</strong> - Resistance to power failure scenarios and incomplete write
+cycles.</p></li>
+<li><p><strong>Configurability</strong> - High level of configurability to scale up/down memory
+footprint to cater for a variety of devices with varying requirements.</p></li>
+<li><p><strong>Performance</strong> - Optimized to be used for resource constrained devices with
+very small silicon footprint, the PPA (power, performance, area) should be
+optimal.</p></li>
+</ul>
+</section>
+<section id="current-its-service-limitations">
+<h2>Current ITS Service Limitations<a class="headerlink" href="#current-its-service-limitations" title="Permalink to this heading"></a></h2>
+<ul class="simple">
+<li><p><strong>Fragmentation</strong> - The current design does not support fragmentation, as an
+asset is stored in a contiguous space in a block. This means that the maximum
+asset size can only be up-to a block size. Each block can potentially store
+multiple assets.
+A delete operation implicitly moves all the assets towards the top of the
+block to avoid fragmentation within block. However, this may also result in
+unutilized space at the end of each block.</p></li>
+<li><p><strong>Non-hierarchical storage model</strong> - The current design uses a
+non-hierarchical storage model, as a filesystem, where all the assets are
+managed by a linearly indexed list of metadata. This model locates the
+metadata in blocks which are always stored in the same flash location. That
+increases the number of writes in a specific flash location as every change in
+the storage area requires a metadata update.</p></li>
+<li><p><strong>Protection against physical storage medium failure</strong> - Complete handling of
+inherent failures of storage mediums (e.g. bad blocks in a NAND based device)
+is not supported by the current design.</p></li>
+<li><p><strong>Lifecycle management</strong> - Currently, it does not support any subscription
+based keys and certificates required in a secure lifecycle management. Hence,
+an asset’s validity time-stamp can not be invalidated based on the system
+time.</p></li>
+<li><p><strong>Provisioning vs user/device data</strong> - In the current design, all assets are
+treated in the same manner. In an alternative design, it may be required to
+create separate partitions for provisioning content and user/device generated
+content. This is to allow safe update of provisioning data during firmware
+updates without the need to wipe out the user/device generated data.</p></li>
+</ul>
+</section>
+<section id="code-structure">
+<h2>Code Structure<a class="headerlink" href="#code-structure" title="Permalink to this heading"></a></h2>
+<p>TF-M Internal Trusted Storage service code is located in
+<code class="docutils literal notranslate"><span class="pre">secure_fw/partitions/internal_trusted_storage/</span></code> and is divided as follows:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Core files</p></li>
+<li><p>Flash filesystem interfaces</p></li>
+<li><p>Flash interfaces</p></li>
+</ul>
+</div></blockquote>
+<p>The PSA ITS interfaces for the TF-M ITS service are located in
+<code class="docutils literal notranslate"><span class="pre">interface/include/psa</span></code>.</p>
+<section id="psa-internal-trusted-storage-interfaces">
+<h3>PSA Internal Trusted Storage Interfaces<a class="headerlink" href="#psa-internal-trusted-storage-interfaces" title="Permalink to this heading"></a></h3>
+<p>The TF-M ITS service exposes the following mandatory PSA ITS interfaces
+version 1.0:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">psa_status_t</span><span class="w"> </span><span class="nf">psa_its_set</span><span class="p">(</span><span class="n">psa_storage_uid_t</span><span class="w"> </span><span class="n">uid</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">data_length</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">p_data</span><span class="p">,</span><span class="w"> </span><span class="n">psa_storage_create_flags_t</span><span class="w"> </span><span class="n">create_flags</span><span class="p">);</span>
+<span class="n">psa_status_t</span><span class="w"> </span><span class="nf">psa_its_get</span><span class="p">(</span><span class="n">psa_storage_uid_t</span><span class="w"> </span><span class="n">uid</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">data_offset</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">data_size</span><span class="p">,</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">p_data</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="o">*</span><span class="n">p_data_length</span><span class="p">);</span>
+<span class="n">psa_status_t</span><span class="w"> </span><span class="nf">psa_its_get_info</span><span class="p">(</span><span class="n">psa_storage_uid_t</span><span class="w"> </span><span class="n">uid</span><span class="p">,</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">psa_storage_info_t</span><span class="w"> </span><span class="o">*</span><span class="n">p_info</span><span class="p">);</span>
+<span class="n">psa_status_t</span><span class="w"> </span><span class="nf">psa_its_remove</span><span class="p">(</span><span class="n">psa_storage_uid_t</span><span class="w"> </span><span class="n">uid</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>These PSA ITS interfaces and TF-M ITS types are defined and documented in
+<code class="docutils literal notranslate"><span class="pre">interface/include/psa/storage_common.h</span></code>,
+<code class="docutils literal notranslate"><span class="pre">interface/include/psa/internal_trusted_storage.h</span></code>, and
+<code class="docutils literal notranslate"><span class="pre">interface/include/tfm_its_defs.h</span></code></p>
+</section>
+<section id="core-files">
+<h3>Core Files<a class="headerlink" href="#core-files" title="Permalink to this heading"></a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">tfm_its_req_mngr.c</span></code> - Contains the ITS request manager implementation which
+handles all requests which arrive to the service. This layer extracts the
+arguments from the input and output vectors, and it calls the internal trusted
+storage layer with the provided parameters.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">tfm_internal_trusted_storage.c</span></code> - Contains the TF-M internal trusted
+storage API implementations which are the entry points to the ITS service.
+Constructs a filesystem configuration using information from the ITS HAL,
+allocates a filesystem context for ITS and makes appropriate FS calls. Also
+handles requests from the PS partition with a separate FS config and context.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">its_utils.c</span></code> - Contains common and basic functionalities used across the
+ITS service code.</p></li>
+</ul>
+</section>
+<section id="flash-filesystem-interface">
+<h3>Flash Filesystem Interface<a class="headerlink" href="#flash-filesystem-interface" title="Permalink to this heading"></a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">flash_fs/its_flash_fs.h</span></code> - Abstracts the flash filesystem operations used
+by the internal trusted storage service. The purpose of this abstraction is to
+have the ability to plug-in other filesystems or filesystem proxies
+(supplicant).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">flash_fs/its_flash_fs.c</span></code> - Contains the <code class="docutils literal notranslate"><span class="pre">its_flash_fs</span></code> implementation for
+the required interfaces.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">flash_fs/its_flash_fs_mblock.c</span></code> - Contains the metadata block manipulation
+functions required to implement the <code class="docutils literal notranslate"><span class="pre">its_flash_fs</span></code> interfaces in
+<code class="docutils literal notranslate"><span class="pre">flash_fs/its_flash_fs.c</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">flash_fs/its_flash_fs_dblock.c</span></code> - Contains the data block manipulation
+functions required to implement the <code class="docutils literal notranslate"><span class="pre">its_flash_fs</span></code> interfaces in
+<code class="docutils literal notranslate"><span class="pre">flash_fs/its_flash_fs.c</span></code>.</p></li>
+</ul>
+<p>The system integrator <strong>may</strong> replace this implementation with its own
+flash filesystem implementation or filesystem proxy (supplicant).</p>
+</section>
+<section id="flash-interface">
+<h3>Flash Interface<a class="headerlink" href="#flash-interface" title="Permalink to this heading"></a></h3>
+<p>The ITS filesystem flash interface is defined by <code class="docutils literal notranslate"><span class="pre">struct</span> <span class="pre">its_flash_fs_ops_t</span></code>
+in <code class="docutils literal notranslate"><span class="pre">flash_fs/its_flash_fs.h</span></code>.</p>
+<p>Implementations of the ITS filesystem flash interface for different types of
+storage can be found in the <code class="docutils literal notranslate"><span class="pre">`internal_trusted_storage/flash</span></code> directory.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">flash/its_flash.h</span></code> - Helper header that includes the correct ITS flash
+interface implementation for the target, and abstracts the allocation of
+different flash device types.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">flash/its_flash_nand.c</span></code> - Implements the ITS flash interface for a NAND
+flash device, on top of the CMSIS flash interface implemented by the target.
+This implementation writes entire block updates in one-shot, so the CMSIS
+flash implementation <strong>must</strong> be able to detect incomplete writes and return
+an error the next time the block is read.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">flash/its_flash_nor.c</span></code> - Implements the ITS flash interface for a NOR flash
+device, on top of the CMSIS flash interface implemented by the target.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">flash/its_flash_ram.c</span></code> - Implements the ITS flash interface for an emulated
+flash device using RAM, on top of the CMSIS flash interface implemented by the
+target.</p></li>
+</ul>
+<p>The CMSIS flash interface <strong>must</strong> be implemented for each target based on its
+flash controller.</p>
+<p>The ITS flash interface depends on target-specific definitions from
+<code class="docutils literal notranslate"><span class="pre">platform/ext/target/&lt;TARGET_NAME&gt;/partition/flash_layout.h</span></code>.
+Please see the <cite>Internal Trusted Storage Service HAL</cite> section for details.</p>
+</section>
+</section>
+<section id="its-service-integration-guide">
+<h2>ITS Service Integration Guide<a class="headerlink" href="#its-service-integration-guide" title="Permalink to this heading"></a></h2>
+<p>This section describes mandatory (i.e. <strong>must</strong> implement) or optional
+(i.e. <strong>may</strong> implement) interfaces which the system integrator has to take in
+to account in order to integrate the internal trusted storage service in a new
+platform.</p>
+<section id="id1">
+<h3>Flash Interface<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h3>
+<p>For ITS service operations, a contiguous set of blocks must be earmarked for
+the internal trusted storage area. The design requires either 2 blocks, or any
+number of blocks greater than or equal to 4. Total number of blocks can not be
+0, 1 or 3. This is a design choice limitation to provide power failure safe
+update operations.</p>
+</section>
+<section id="maximum-asset-size">
+<h3>Maximum Asset Size<a class="headerlink" href="#maximum-asset-size" title="Permalink to this heading"></a></h3>
+<p>An asset is stored in a contiguous space in a logical filesystem block. The
+maximum size of an asset can be up-to the size of the data block. Typically,
+each logical block corresponds to one physical flash erase sector (the smallest
+unit that can erased), but the <code class="docutils literal notranslate"><span class="pre">TFM_HAL_ITS_SECTORS_PER_BLOCK</span></code> configuration
+below allows a number of contiguous erase sectors to form one logical block.</p>
+</section>
+<section id="internal-trusted-storage-service-hal">
+<h3>Internal Trusted Storage Service HAL<a class="headerlink" href="#internal-trusted-storage-service-hal" title="Permalink to this heading"></a></h3>
+<p>The ITS service requires the platform to implement the ITS HAL, defined in
+<code class="docutils literal notranslate"><span class="pre">platform/include/tfm_hal_its.h</span></code>.</p>
+<p>The following C definitions in the HAL are mandatory, and must be defined by the
+platform in a header named <code class="docutils literal notranslate"><span class="pre">flash_layout.h</span></code>:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">TFM_HAL_ITS_FLASH_DRIVER</span></code> - Defines the identifier of the CMSIS Flash
+ARM_DRIVER_FLASH object to use for ITS. It must have been allocated by the
+platform and will be declared extern in the HAL header.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">TFM_HAL_ITS_PROGRAM_UNIT</span></code> - Defines the size of the ITS flash device’s
+physical program unit (the smallest unit of data that can be individually
+programmed to flash). It must be equal to
+<code class="docutils literal notranslate"><span class="pre">TFM_HAL_ITS_FLASH_DRIVER.GetInfo()-&gt;program_unit</span></code>, but made available at
+compile time so that filesystem structures can be statically sized. Valid
+values are powers of two between 1 and the flash sector size, inclusive.</p></li>
+</ul>
+<p>The following C definitions in the HAL may optionally be defined by the platform
+in the <code class="docutils literal notranslate"><span class="pre">flash_layout.h</span></code> header:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">TFM_HAL_ITS_FLASH_AREA_ADDR</span></code> - Defines the base address of the dedicated
+flash area for ITS.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">TFM_HAL_ITS_FLASH_AREA_SIZE</span></code> - Defines the size of the dedicated flash area
+for ITS in bytes.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">TFM_HAL_ITS_SECTORS_PER_BLOCK</span></code> - Defines the number of contiguous physical
+flash erase sectors that form a logical erase block in the filesystem. The
+typical value is <code class="docutils literal notranslate"><span class="pre">1</span></code>, but it may be increased so that the maximum required
+asset size will fit in one logical block.</p></li>
+</ul>
+<p>If any of the above definitions are not provided by the platform, then the
+<code class="docutils literal notranslate"><span class="pre">tfm_hal_its_fs_info()</span></code> HAL API must be implemented instead. This function is
+documented in <code class="docutils literal notranslate"><span class="pre">tfm_hal_its.h</span></code>.</p>
+<p>The sectors reserved to be used for Internal Trusted Storage <strong>must</strong> be
+contiguous.</p>
+</section>
+<section id="internal-trusted-storage-service-optional-platform-definitions">
+<h3>Internal Trusted Storage Service Optional Platform Definitions<a class="headerlink" href="#internal-trusted-storage-service-optional-platform-definitions" title="Permalink to this heading"></a></h3>
+<p>The following optional platform definitions may be defined in
+<code class="docutils literal notranslate"><span class="pre">flash_layout.h</span></code>:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">ITS_RAM_FS_SIZE</span></code> - Defines the size of the RAM FS buffer when using the
+RAM FS emulated flash implementation. The buffer must be at least as large as
+the area earmarked for the filesystem by the HAL.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ITS_FLASH_NAND_BUF_SIZE</span></code> - Defines the size of the write buffer when using
+the NAND flash implementation. The buffer must be at least as large as a
+logical filesystem block.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ITS_MAX_BLOCK_DATA_COPY</span></code> - Defines the buffer size used when copying data
+between blocks, in bytes. If not provided, defaults to 256. Increasing this
+value will increase the memory footprint of the service.</p></li>
+</ul>
+<p>More information about the <code class="docutils literal notranslate"><span class="pre">flash_layout.h</span></code> content, not ITS related, is
+available in <a class="reference internal" href="../platform/platform_ext_folder.html"><span class="doc">Details for the platform/ext folder</span></a> along with other
+platform information.</p>
+</section>
+<section id="its-service-build-definitions">
+<h3>ITS Service Build Definitions<a class="headerlink" href="#its-service-build-definitions" title="Permalink to this heading"></a></h3>
+<p>The ITS service uses a set of C definitions to compile in/out certain features,
+as well as to configure certain service parameters. When using the TF-M build
+system, these definitions are controlled by build flags of the same name. The
+<code class="docutils literal notranslate"><span class="pre">config/config_base.cmake</span></code> file sets the default values of those flags, but
+they can be overwritten based on platform capabilities by setting them in
+<code class="docutils literal notranslate"><span class="pre">platform/ext/target/&lt;TARGET_NAME&gt;/config.cmake</span></code>. The list of ITS service
+build definitions is:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">ITS_CREATE_FLASH_LAYOUT</span></code>- this flag indicates that it is required
+to create an ITS flash layout. If this flag is set, ITS service will
+generate an empty and valid ITS flash layout to store assets. It will
+erase all data located in the assigned ITS memory area before generating
+the ITS layout. This flag is required to be set if the ITS memory area
+is located in a non-persistent memory. This flag can be set if the ITS
+memory area is located in a persistent memory without a valid ITS flash
+layout in it. That is the case when it is the first time in the device
+life that the ITS service is executed.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ITS_VALIDATE_METADATA_FROM_FLASH</span></code>- this flag allows to
+enable/disable the validation mechanism to check the metadata store in flash
+every time the flash data is read from flash. This validation is required
+if the flash is not hardware protected against data corruption.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ITS_RAM_FS</span></code>- setting this flag to <code class="docutils literal notranslate"><span class="pre">ON</span></code> enables the use of RAM instead of
+the persistent storage device to store the FS in the Internal Trusted Storage
+service. This flag is <code class="docutils literal notranslate"><span class="pre">OFF</span></code> by default. The ITS regression tests write/erase
+storage multiple time, so enabling this flag can increase the life of flash
+memory when testing.
+If this flag is set to <code class="docutils literal notranslate"><span class="pre">ON</span></code>, ITS_RAM_FS_SIZE must also be provided. This
+specifies the size of the block of RAM to be used to simulate the flash.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If this flag is disabled when running the regression tests, then it is
+recommended that the persistent storage area is erased before running the
+tests to ensure that all tests can run to completion. The type of persistent
+storage area is platform specific (eFlash, MRAM, etc.) and it is described
+in corresponding flash_layout.h</p>
+</div>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ITS_MAX_ASSET_SIZE</span></code> - Defines the maximum asset size to be stored in the
+ITS area. This size is used to define the temporary buffers used by ITS to
+read/write the asset content from/to flash. The memory used by the temporary
+buffers is allocated statically as ITS does not use dynamic memory allocation.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ITS_NUM_ASSETS</span></code> - Defines the maximum number of assets to be stored in the
+ITS area. This number is used to dimension statically the filesystem metadata
+tables in RAM (fast access) and flash (persistent storage). The memory used by
+the filesystem metadata tables is allocated statically as ITS does not use
+dynamic memory allocation.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ITS_BUF_SIZE</span></code>- Defines the size of the partition’s internal data transfer
+buffer. If not provided, then <code class="docutils literal notranslate"><span class="pre">ITS_MAX_ASSET_SIZE</span></code> is used to allow asset
+data to be copied between the client and the filesystem in one iteration.
+Reducing the buffer size will decrease the RAM usage of the partition at the
+expense of latency, as data will be copied in multiple iterations. <em>Note:</em>
+when data is copied in multiple iterations, the atomicity property of the
+filesystem is lost in the case of an asynchronous power failure.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ITS_STACK_SIZE</span></code>- Defines the stack size of the Internal Trusted Storage
+Secure Partition. This value mainly depends on the platform specific flash
+drivers, the build type(debug, release and minisizerel) and compiler.</p></li>
+</ul>
+<hr class="docutils" />
+<p><em>Copyright (c) 2019-2022, Arm Limited. All rights reserved.</em>
+<em>Copyright (c) 2020, Cypress Semiconductor Corporation. All rights reserved.</em></p>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p></p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

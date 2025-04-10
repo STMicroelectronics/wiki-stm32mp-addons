@@ -1,0 +1,43 @@
+Releases
+========
+
+.. toctree::
+    :maxdepth: 1
+    :glob:
+
+    getting_started
+    platforms.rst
+    changelog.rst
+
+============
+Branch plans
+============
+
+.. uml::
+
+    @startuml
+    concise "stm32mp25" as main
+    concise "releases stm32mp25-dev" as dev
+
+    @main
+        0 is development #line:002052
+
+    @dev
+        0 is {-} #line:002052
+        +5 is "vX.Y.Z-rW" #D4007A;line:002052 : no board
+        +2 is {-} #line:002052
+        +6 is "vX.Y.Z-rW" #D4007A : ev1 (copro)
+        +2 is {-} #line:002052
+        +6 is "vY.Y.Z-rW" #D4007A: ev1 (copro|M33TDCID)
+        +2 is {-} #line:002052
+
+    highlight 5 to 8 #FFD300;line:DimGrey : pre-alpha
+    highlight 13 to 16 #39A9DC;line:DimGrey : alpha
+    highlight 21 to 24 #97C00E;line:DimGrey : beta
+
+    @enduml
+
+--------------
+
+*Copyright (c) 2025 STMicroelectronics. All rights reserved.*
+*SPDX-License-Identifier: BSD-3-Clause*

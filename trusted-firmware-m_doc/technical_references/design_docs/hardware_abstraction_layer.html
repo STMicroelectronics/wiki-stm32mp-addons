@@ -1,0 +1,1194 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hardware Abstraction Layer &mdash; Trusted Firmware-M v1.7.0-stm32mp25-alpha-r1-rc3-doc documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/tfm_custom.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/tabs.css" type="text/css" />
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Mailbox NS Agent Design Update" href="mailbox_ns_agent_update.html" />
+    <link rel="prev" title="FF-M Isolation" href="ff_isolation.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> Trusted Firmware-M
+            <img src="../../_static/tf_logo_white.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                v1.7.0-stm32mp25-alpha-r1-rc3-doc
+
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../introduction/index.html">Introduction</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started/index.html">Getting Started</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../security/index.html">Security</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../security/security_advisories/index.html">Security Advisories</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/stack_seal_vulnerability.html">Advisory TFMV-1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/svc_caller_sp_fetching_vulnerability.html">Advisory TFMV-2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/crypto_multi_part_ops_abort_fail.html">Advisory TFMV-3</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/profile_small_key_id_encoding_vulnerability.html">Advisory TFMV-4</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/fwu_write_vulnerability.html">Advisory TFMV-5</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../security/threat_models/index.html">Threat Models</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../security/threat_models/generic_threat_model.html">Trusted Firmware-M Generic Threat Model</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../security/security.html">Security Handling</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../releases/index.html">Releases</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/1.7.0.html">v1.7.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/1.6.1.html">v1.6.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/1.6.0.html">v1.6.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/1.5.0.html">v1.5.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/release_process.html">Release Cadence and Process</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../glossary.html">Glossary</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../platform/index.html">Platform Selection</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/arm/index.html">Arm platforms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/corstone1000/readme.html">Corstone-1000</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/mps3/an547/README.html">Corstone-300 FPGA (AN547)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/mps3/an552/README.html">Corstone-300 FPGA and FVP (AN552)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/mps3/corstone310/README.html">Corstone-310 FVP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/musca_b1/readme.html">Musca-B1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/musca_s1/readme.html">Musca-S1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/rss/readme.html">Runtime Security Subsystem</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/nxp/lpcxpresso55s69/README.html">LPCXpresso55S69</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/cypress/psoc64/index.html">Cypress PSoC64</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/cypress/psoc64/cypress_psoc64_spec.html">Cypress PSoC64 Specifics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/cypress/psoc64/libs/core-lib/README.html">Core Library</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/cypress/psoc64/libs/core-lib/RELEASE.html">Core Library Release Notes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/stm/index.html">STMICROELECTRONICS</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32l5xx/readme.html">STM32L5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32mp2/readme.html">STM32MP2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32u5xx/readme.html">STM32U5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/nucleo_l552ze_q/readme.html">NUCLEO-L552ZE-Q</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32l562e_dk/readme.html">STM32L562E-DK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/b_u585i_iot02a/readme.html">B-U585I-IOT02A</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/nordic_nrf/nrf5340dk_nrf5340_cpuapp/README.html">Nordic nRF5340</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/nordic_nrf/nrf9160dk_nrf9160/README.html">Nordic nRF9160</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/lairdconnectivity/bl5340_dvk_cpuapp/README.html">Laird Connectivity BL5340</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/nuvoton/m2351/README.html">NuMaker-PFM-M2351</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/nuvoton/m2354/README.html">NuMaker-PFM-M2354</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../building/tfm_build_instruction.html">Build instructions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../building/run_tfm_examples_on_arm_platforms.html">Run TF-M examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../building/documentation_generation.html">Building the documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../building/tfm_build_instruction_iar.html">IAR toolchain</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../configuration/index.html">Configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../configuration/build_configuration.html">Build configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../configuration/header_file_system.html">Component configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../configuration/kconfig_system.html">Kconfig</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../configuration/profiles/index.html">Profiles</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../configuration/profiles/tfm_profile_small.html"> Small</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../configuration/profiles/tfm_profile_medium_arot-less.html"> ARoT-less</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../configuration/profiles/tfm_profile_medium.html"> Medium</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../configuration/profiles/tfm_profile_large.html"> Large</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../configuration/test_configuration.html">Tests configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../integration_guide/index.html">Integration Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../integration_guide/spm_backends.html">SPM Backends</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../integration_guide/non-secure_client_extension_integration_guide.html">NS client integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../integration_guide/os_migration_guide_armv8m.html">OS migration to Armv8-M</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../integration_guide/tfm_fpu_support.html">Floating-Point Support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../integration_guide/tfm_secure_irq_integration_guide.html">Secure Interrupt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../integration_guide/platform/index.html">Adding a new platform</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/platform/platform_folder.html">Details for the platform folder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/platform/platform_ext_folder.html">Details for the platform/ext folder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/platform/porting_TFM_to_a_new_hardware.html">Porting TF-M to a New Hardware</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/platform/platform_provisioning.html">Platform Provisioning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/platform/platform_deprecation.html">Platform deprecation and removal</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../integration_guide/services/index.html">Services</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/services/tfm_attestation_integration_guide.html">Initial Attestation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/services/tfm_crypto_integration_guide.html">Crypto</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/services/tfm_its_integration_guide.html">Internal Storage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/services/tfm_platform_integration_guide.html">Platform</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/services/tfm_ps_integration_guide.html">Protected Storage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/services/tfm_secure_partition_addition.html">Adding a New Service</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/services/tfm_manifest_tool_user_guide.html">The manifest tool</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Design Documents</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="dual-cpu/index.html">Dual-CPU</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="dual-cpu/booting_a_dual_core_system.html">Booting a Dual-Core System</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dual-cpu/communication_prototype_between_nspe_and_spe_in_dual_core_systems.html">Communication Prototype Between NSPE And SPE In Dual Core System</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dual-cpu/mailbox_design_on_dual_core_system.html">Mailbox Design in TF-M on Dual-core System</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dual-cpu/tfm_multi_core_access_check.html">Memory Access Check of Trusted Firmware-M in Multi-Core Topology</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="bl1.html">BL1 Immutable bootloader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="code_sharing.html">Code sharing between independently linked XIP binaries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="enum_implicit_casting.html">Fixing implicit casting for C enumeration values</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ff_isolation.html">FF-M Isolation</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Hardware Abstraction Layer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mailbox_ns_agent_update.html">Mailbox NS Agent Design Update</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ps_key_management.html">Protected Storage service key management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="secure_boot_hw_key_integration.html">HW crypto key integration in TF-M secure boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="secure_boot_rollback_protection.html">Rollback protection in TF-M secure boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="secure_partition_manager.html">Secure Partition Manager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="source_structure.html">Trusted Firmware-M Source Structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="stateless_rot_service.html">Stateless Root of Trust Services Reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="symmetric_initial_attest.html">Symmetric key algorithm based Initial Attestation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tfm_builtin_keys.html">TF-M builtin keys</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tfm_code_generation_with_jinja2.html">Code Generation With Jinja2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tfm_cooperative_scheduling_rules.html">Cooperative Scheduling Rules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tfm_crypto_design.html">Crypto Service design</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tfm_fwu_service.html">Firmware Update Service</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tfm_its_512_flash.html">Add support for block-aligned flash in Internal Trusted Storage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tfm_its_service.html">Internal Trusted Storage (ITS) Service</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tfm_log_system_design_document.html">Log system design document</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tfm_physical_attack_mitigation.html">Physical attack mitigation in Trusted Firmware-M</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tfm_psa_inter_process_communication.html">TF-M Inter-Process Communication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tfm_secure_boot.html">Secure boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tfm_secure_partition_runtime_library.html">Secure Partition Runtime Library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tfm_uniform_secure_service_signature.html">Uniform Secure Service Signature</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../tools/index.html">Tools</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contribution</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing/index.html">Guidelines</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/contributing_process.html">The process</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/code_review_guide.html">Code review</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/maintainers.html">Maintainers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/maintainers.html#code-owners">Code owners</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/coding_guide.html">Yet another coding standard :)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/doc_guidelines.html">Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/tfm_design_proposal_guideline.html">Design proposal</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing/lic.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing/dco.html">DCO</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Links</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://ci.trustedfirmware.org/view/TF-M/job/tf-m-build-docs-nightly/lastSuccessfulBuild/artifact/trusted-firmware-m/build/docs/reference_manual/html/index.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://developer.trustedfirmware.org/w/collaboration/security_center">Security Center</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://www.arm.com/architecture/security-features/platform-security">PSA</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">STMICROELECTRONICS</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../stm/releases/index.html">Releases</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/releases/getting_started.html">Getting started</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32l562e_dk/readme.html">STM32L562E-DK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/nucleo_l552ze_q/readme.html">NUCLEO-L552ZE-Q</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/b_u585i_iot02a/readme.html">B-U585I-IOT02A</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/releases/platforms.html">Platforms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32l5xx/readme.html">STM32L5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32mp2/readme.html">STM32MP2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32u5xx/readme.html">STM32U5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/nucleo_l552ze_q/readme.html">NUCLEO-L552ZE-Q</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32l562e_dk/readme.html">STM32L562E-DK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/releases/changelog.html">Change Log &amp; Notes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/releases/v1.7.0-stm32mp25-alpha-r1-rc3/changelog.html">v1.7.0-stm32mp25-alpha-r1-rc3</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../stm/technical/index.html">Technical references</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/technical/a35_td_flavor/index.html">A35-TD flavor</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/technical/a35_td_flavor/memory_layout.html">Memory layout</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/technical/a35_td_flavor/storage.html">Storage</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/technical/m33_td_flavor/index.html">M33-TD flavor</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/technical/m33_td_flavor/memory_layout.html">Memory layout</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/technical/m33_td_flavor/storage.html">Storage</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/technical/devicetree/index.html">Devicetree</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/technical/devicetree/devicetree_tfm.html">Scope and purpose</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/technical/devicetree/devicetree_tfm.html#concept">Concept</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/technical/devicetree/devicetree_tfm.html#how-to-add-device">How to add device</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/technical/initlevel.html">Initlevel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/technical/initial_attestation.html">Initial Attestation Service</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/technical/nv_counter.html">Nv counter</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../stm/ide/index.html">Ide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/ide/cubeide/stm32cubeide.html">STM32CubeIDE</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Trusted Firmware-M</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="index.html">Design Documents</a> &raquo;</li>
+      <li>Hardware Abstraction Layer</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="hardware-abstraction-layer">
+<h1>Hardware Abstraction Layer<a class="headerlink" href="#hardware-abstraction-layer" title="Permalink to this heading"></a></h1>
+<dl class="field-list simple">
+<dt class="field-odd">Organization</dt>
+<dd class="field-odd"><p>Arm Limited</p>
+</dd>
+<dt class="field-even">Contact</dt>
+<dd class="field-even"><p><a class="reference external" href="mailto:tf-m&#37;&#52;&#48;lists&#46;trustedfirmware&#46;org">tf-m<span>&#64;</span>lists<span>&#46;</span>trustedfirmware<span>&#46;</span>org</a></p>
+</dd>
+<dt class="field-odd">API Version</dt>
+<dd class="field-odd"><p>0.9</p>
+</dd>
+</dl>
+<section id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading"></a></h2>
+<p><a class="reference internal" href="../../glossary.html#term-TF-M"><span class="xref std std-term">TF-M</span></a> <a class="reference internal" href="../../glossary.html#term-HAL"><span class="xref std std-term">HAL</span></a> abstracts the hardware-oriented and platform specific
+operations on the <a class="reference internal" href="../../glossary.html#term-SPE"><span class="xref std std-term">SPE</span></a> side and provides a set of APIs to the upper
+layers such as <a class="reference internal" href="../../glossary.html#term-SPM"><span class="xref std std-term">SPM</span></a>, <a class="reference internal" href="../../glossary.html#term-RoT-Service"><span class="xref std std-term">RoT Service</span></a>.
+The <a class="reference internal" href="../../glossary.html#term-HAL"><span class="xref std std-term">HAL</span></a> aims to cover the platform different aspects whereas common
+architecturally defined aspects are done generically within the common
+<a class="reference internal" href="../../glossary.html#term-SPE"><span class="xref std std-term">SPE</span></a>.
+In some cases, although the operations are defined architecturally,
+it may not be possible to generalize implementations because lots of information
+is only known to platforms.
+It is more efficient to define a <a class="reference internal" href="../../glossary.html#term-HAL"><span class="xref std std-term">HAL</span></a> API for those architectural
+operations as well.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><a class="reference internal" href="../../glossary.html#term-TBSA-M"><span class="xref std std-term">TBSA-M</span></a> provides the hardware requirements for security purposes.
+<a class="reference internal" href="../../glossary.html#term-TF-M"><span class="xref std std-term">TF-M</span></a> <a class="reference internal" href="../../glossary.html#term-HAL"><span class="xref std std-term">HAL</span></a> tries to reference <a class="reference internal" href="../../glossary.html#term-TBSA-M"><span class="xref std std-term">TBSA-M</span></a> recommendations in
+the interfaces from the software perspective only. Please reference
+<a class="reference internal" href="../../glossary.html#term-TBSA-M"><span class="xref std std-term">TBSA-M</span></a> for your security hardware design.</p>
+</div>
+<section id="design-goals">
+<h3>Design Goals<a class="headerlink" href="#design-goals" title="Permalink to this heading"></a></h3>
+<p><a class="reference internal" href="../../glossary.html#term-TF-M"><span class="xref std std-term">TF-M</span></a> <a class="reference internal" href="../../glossary.html#term-HAL"><span class="xref std std-term">HAL</span></a> is designed to simplify the integration efforts on
+different platforms.</p>
+<p><a class="reference internal" href="../../glossary.html#term-TF-M"><span class="xref std std-term">TF-M</span></a> <a class="reference internal" href="../../glossary.html#term-HAL"><span class="xref std std-term">HAL</span></a> is designed to make it easy to use the hardware and
+develop the <a class="reference internal" href="../../glossary.html#term-SPM"><span class="xref std std-term">SPM</span></a> and <a class="reference internal" href="../../glossary.html#term-RoT-Service"><span class="xref std std-term">RoT Service</span></a> which need to access the
+devices.</p>
+<p><a class="reference internal" href="../../glossary.html#term-TF-M"><span class="xref std std-term">TF-M</span></a> <a class="reference internal" href="../../glossary.html#term-HAL"><span class="xref std std-term">HAL</span></a> is designed to make the structure clearer and let the
+<a class="reference internal" href="../../glossary.html#term-TF-M"><span class="xref std std-term">TF-M</span></a> mainly focus on <a class="reference internal" href="../../glossary.html#term-PSA"><span class="xref std std-term">PSA</span></a> implementation.</p>
+</section>
+</section>
+<section id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this heading"></a></h2>
+<p>This section provides an overview of the abstraction layer structure.</p>
+<figure class="align-default">
+<img alt="../../_images/hal_structure.png" src="../../_images/hal_structure.png" />
+</figure>
+<p>Here lists a minimal set of necessary functionalities:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>Isolation API</strong>: Provides the necessary isolation functionalities required
+by the <a class="reference internal" href="../../glossary.html#term-PSA-FF-M"><span class="xref std std-term">PSA-FF-M</span></a> and <a class="reference internal" href="../../glossary.html#term-TBSA-M"><span class="xref std std-term">TBSA-M</span></a>, and provides APIs to <a class="reference internal" href="../../glossary.html#term-SPM"><span class="xref std std-term">SPM</span></a>
+to check the permissions of memory access.</p></li>
+<li><p><strong>Platform API</strong>: Provides the platform initialization, platform-specific
+memory information, system reset, etc.</p></li>
+<li><p><strong>Log dev API</strong>: Provides the log system functions.</p></li>
+<li><p><strong>Interrupt API</strong>: Provides the interrupt functions.</p></li>
+</ul>
+</div></blockquote>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p>There is a non-secure <a class="reference internal" href="../../glossary.html#term-HAL"><span class="xref std std-term">HAL</span></a> that focuses on the mailbox operation API
+for Dual-core topology. For more information about it, please refer to
+<a class="reference internal" href="dual-cpu/mailbox_design_on_dual_core_system.html"><span class="doc">Mailbox Design in TF-M on Dual-core System</span></a>.</p></li>
+<li><p>The minimal set of <a class="reference internal" href="../../glossary.html#term-TF-M"><span class="xref std std-term">TF-M</span></a> <a class="reference internal" href="../../glossary.html#term-HAL"><span class="xref std std-term">HAL</span></a> is sufficient for Secure
+Partitions by using customized peripheral interfaces. To provide easier
+portability for the Secure Partitions, a Secure Partition <a class="reference internal" href="../../glossary.html#term-HAL"><span class="xref std std-term">HAL</span></a> is
+provided in this design too.</p></li>
+<li><p>The debug mechanisms give the external entity the corresponding right to
+access the system assets. <a class="reference internal" href="../../glossary.html#term-TF-M"><span class="xref std std-term">TF-M</span></a> ensures that the external entity is
+permitted access to those assets. Currently, <a class="reference internal" href="../../glossary.html#term-TF-M"><span class="xref std std-term">TF-M</span></a> only needs the
+debug authentication. The whole debug mechanism and related <a class="reference internal" href="../../glossary.html#term-HAL"><span class="xref std std-term">HAL</span></a> will
+be enhanced in the future. Please refer to the <a class="reference internal" href="../../integration_guide/platform/platform_folder.html"><span class="doc">Debug authentication
+settings section</span></a> for more
+details.</p></li>
+</ul>
+</div>
+</section>
+<section id="design-principles">
+<h2>Design Principles<a class="headerlink" href="#design-principles" title="Permalink to this heading"></a></h2>
+<p>As <a class="reference internal" href="../../glossary.html#term-TF-M"><span class="xref std std-term">TF-M</span></a> runs on resource-constrained devices, the <a class="reference internal" href="../../glossary.html#term-HAL"><span class="xref std std-term">HAL</span></a> tries to
+avoid multiple level abstractions which cost more resources.</p>
+<p>Part of the <a class="reference internal" href="../../glossary.html#term-HAL"><span class="xref std std-term">HAL</span></a> interfaces does not focus on exact hardware operations
+such as power on/off or PIN manipulation.
+Instead, the <a class="reference internal" href="../../glossary.html#term-HAL"><span class="xref std std-term">HAL</span></a> abstracts higher-level interfaces to reserve the
+implementation flexibility for the platform vendors.</p>
+<p>The <a class="reference internal" href="../../glossary.html#term-TF-M"><span class="xref std std-term">TF-M</span></a> <a class="reference internal" href="../../glossary.html#term-HAL"><span class="xref std std-term">HAL</span></a> should be easy to deprecate APIs and provide
+compatibilities.
+Any API incompatibility should be detected during building.</p>
+<p><a class="reference internal" href="../../glossary.html#term-TF-M"><span class="xref std std-term">TF-M</span></a> relies on the <a class="reference internal" href="../../glossary.html#term-HAL"><span class="xref std std-term">HAL</span></a> APIs to be implemented correctly and
+trusts the <a class="reference internal" href="../../glossary.html#term-HAL"><span class="xref std std-term">HAL</span></a> APIs.
+<a class="reference internal" href="../../glossary.html#term-TFM"><span class="xref std std-term">TFM</span></a> can provide assertions to detect common programming errors but
+essentially no further extensive checks will be provided.</p>
+</section>
+<section id="source-files">
+<h2>Source Files<a class="headerlink" href="#source-files" title="Permalink to this heading"></a></h2>
+<p>This section describes the source file of the <a class="reference internal" href="../../glossary.html#term-TF-M"><span class="xref std std-term">TF-M</span></a> <a class="reference internal" href="../../glossary.html#term-HAL"><span class="xref std std-term">HAL</span></a>,
+including the header and c files.</p>
+<section id="tfm-hal-defs-h">
+<h3>tfm_hal_defs.h<a class="headerlink" href="#tfm-hal-defs-h" title="Permalink to this heading"></a></h3>
+<p>This header file contains the definitions of common macros and types used by all
+<a class="reference internal" href="../../glossary.html#term-HAL"><span class="xref std std-term">HAL</span></a> APIs. Please refer to <a class="reference internal" href="#status-codes">Status Codes</a> for detailed definitions.</p>
+</section>
+<section id="tfm-hal-module-h-c">
+<h3>tfm_hal_[module].[h/c]<a class="headerlink" href="#tfm-hal-module-h-c" title="Permalink to this heading"></a></h3>
+<p>All other headers and c files are classified by the modules, such as isolation,
+platform, interrupt, devices, etc.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>There are common files in the platform folder include the implemented
+<a class="reference internal" href="../../glossary.html#term-HAL"><span class="xref std std-term">HAL</span></a> APIs. The platform vendors can use them directly but need to
+implement all the sub APIs.</p>
+</div>
+</section>
+</section>
+<section id="status-codes">
+<h2>Status Codes<a class="headerlink" href="#status-codes" title="Permalink to this heading"></a></h2>
+<p>These are common status and error codes for all <a class="reference internal" href="../../glossary.html#term-HAL"><span class="xref std std-term">HAL</span></a> APIs.</p>
+<section id="types">
+<h3>Types<a class="headerlink" href="#types" title="Permalink to this heading"></a></h3>
+<section id="tfm-hal-status-t">
+<h4>tfm_hal_status_t<a class="headerlink" href="#tfm-hal-status-t" title="Permalink to this heading"></a></h4>
+<p>This is a status code to be used as the return type of <a class="reference internal" href="../../glossary.html#term-HAL"><span class="xref std std-term">HAL</span></a> APIs.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">enum</span><span class="w"> </span><span class="n">tfm_hal_status_t</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">TFM_HAL_ERROR_MEM_FAULT</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SCHAR_MIN</span><span class="p">,</span>
+<span class="w">    </span><span class="n">TFM_HAL_ERROR_MAX_VALUE</span><span class="p">,</span>
+<span class="w">    </span><span class="n">TFM_HAL_ERROR_BAD_STATE</span><span class="p">,</span>
+<span class="w">    </span><span class="n">TFM_HAL_ERROR_NOT_SUPPORTED</span><span class="p">,</span>
+<span class="w">    </span><span class="n">TFM_HAL_ERROR_INVALID_INPUT</span><span class="p">,</span>
+<span class="w">    </span><span class="n">TFM_HAL_ERROR_NOT_INIT</span><span class="p">,</span>
+<span class="w">    </span><span class="n">TFM_HAL_ERROR_GENERIC</span><span class="p">,</span>
+<span class="w">    </span><span class="n">TFM_HAL_SUCCESS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="error-codes">
+<h3>Error Codes<a class="headerlink" href="#error-codes" title="Permalink to this heading"></a></h3>
+<p>Negative values indicate an error. Zero and positive values indicate success.</p>
+<p>Here is the general list. The detailed usages for each error code are described
+in the API introduction sections.</p>
+<section id="tfm-hal-success">
+<h4>TFM_HAL_SUCCESS<a class="headerlink" href="#tfm-hal-success" title="Permalink to this heading"></a></h4>
+<p>Status code to indicate general success.</p>
+</section>
+<section id="tfm-hal-error-generic">
+<h4>TFM_HAL_ERROR_GENERIC<a class="headerlink" href="#tfm-hal-error-generic" title="Permalink to this heading"></a></h4>
+<p>Status code to indicate an error that does not correspond to any defined failure
+cause.</p>
+</section>
+<section id="tfm-hal-error-not-init">
+<h4>TFM_HAL_ERROR_NOT_INIT<a class="headerlink" href="#tfm-hal-error-not-init" title="Permalink to this heading"></a></h4>
+<p>Status code to indicate that the module is not initialed.</p>
+</section>
+<section id="tfm-hal-error-invalid-input">
+<h4>TFM_HAL_ERROR_INVALID_INPUT<a class="headerlink" href="#tfm-hal-error-invalid-input" title="Permalink to this heading"></a></h4>
+<p>Status code to indicate that the input is invalid.</p>
+</section>
+<section id="tfm-hal-error-not-supported">
+<h4>TFM_HAL_ERROR_NOT_SUPPORTED<a class="headerlink" href="#tfm-hal-error-not-supported" title="Permalink to this heading"></a></h4>
+<p>Status code to indicate that the requested operation or a parameter is not
+supported.</p>
+</section>
+<section id="tfm-hal-error-bad-state">
+<h4>TFM_HAL_ERROR_BAD_STATE<a class="headerlink" href="#tfm-hal-error-bad-state" title="Permalink to this heading"></a></h4>
+<p>Status code to indicate that the requested action cannot be performed in the
+current state.</p>
+</section>
+<section id="tfm-hal-error-max-value">
+<h4>TFM_HAL_ERROR_MAX_VALUE<a class="headerlink" href="#tfm-hal-error-max-value" title="Permalink to this heading"></a></h4>
+<p>Status code to indicate that the current number has got the max value.</p>
+</section>
+<section id="tfm-hal-error-mem-fault">
+<h4>TFM_HAL_ERROR_MEM_FAULT<a class="headerlink" href="#tfm-hal-error-mem-fault" title="Permalink to this heading"></a></h4>
+<p>Status code to indicate that the memory check failed.</p>
+</section>
+</section>
+</section>
+<section id="api-definition-for-tf-m-spm">
+<h2>API Definition for TF-M SPM<a class="headerlink" href="#api-definition-for-tf-m-spm" title="Permalink to this heading"></a></h2>
+<p>This section describes the APIs defined for <a class="reference internal" href="../../glossary.html#term-TF-M"><span class="xref std std-term">TF-M</span></a> <a class="reference internal" href="../../glossary.html#term-SPM"><span class="xref std std-term">SPM</span></a>.</p>
+<section id="platform-api">
+<h3>Platform API<a class="headerlink" href="#platform-api" title="Permalink to this heading"></a></h3>
+<p>The platform API is a higher-level abstraction layer of the platform, other than
+a dedicated API set for the special hardware devices.</p>
+<section id="apis">
+<h4>APIs<a class="headerlink" href="#apis" title="Permalink to this heading"></a></h4>
+<section id="tfm-hal-platform-init">
+<h5>tfm_hal_platform_init()<a class="headerlink" href="#tfm-hal-platform-init" title="Permalink to this heading"></a></h5>
+<p><strong>Prototype</strong></p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">enum</span><span class="w"> </span><span class="n">tfm_hal_status_t</span><span class="w"> </span><span class="n">tfm_hal_platform_init</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Description</strong></p>
+<p>This API performs the platform initializations <strong>before</strong> the <a class="reference internal" href="../../glossary.html#term-SPM"><span class="xref std std-term">SPM</span></a>
+initialization.</p>
+<p>The initializations could include but not limited to:
+- Fault handlers
+- Reset configurations
+- Debug init
+- NVIC init</p>
+<p><strong>Parameter</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">void</span></code> - None.</p></li>
+</ul>
+<p><strong>Return Values</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">TFM_HAL_SUCCESS</span></code> - Init success.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">TFM_HAL_ERROR_GENERIC</span></code> - Generic errors.</p></li>
+</ul>
+</section>
+<section id="tfm-hal-system-reset">
+<h5>tfm_hal_system_reset()<a class="headerlink" href="#tfm-hal-system-reset" title="Permalink to this heading"></a></h5>
+<p><strong>Prototype</strong></p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="n">tfm_hal_system_reset</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Description</strong></p>
+<p>This API performs a system reset.</p>
+<p>The platform can uninitialize some resources before reset.</p>
+<p>When <code class="docutils literal notranslate"><span class="pre">CONFIG_TFM_HALT_ON_CORE_PANIC</span></code> is disabled this function is called to reset
+the system when a fatal error occurs.</p>
+<p><strong>Parameter</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">void</span></code> - None</p></li>
+</ul>
+<p><strong>Return Values</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">void</span></code> - None</p></li>
+</ul>
+<p><strong>Note</strong></p>
+<p>This API should not return.</p>
+</section>
+<section id="tfm-hal-system-halt">
+<h5>tfm_hal_system_halt()<a class="headerlink" href="#tfm-hal-system-halt" title="Permalink to this heading"></a></h5>
+<p><strong>Prototype</strong></p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="n">tfm_hal_system_halt</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Description</strong></p>
+<p>This API enters the CPU into an infinite loop.</p>
+<p>The platform can uninitialize some resources before looping forever.</p>
+<p>When <code class="docutils literal notranslate"><span class="pre">CONFIG_TFM_HALT_ON_CORE_PANIC</span></code> is enabled this function is called to halt the
+system when a fatal error occurs.</p>
+<p><strong>Parameter</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">void</span></code> - None</p></li>
+</ul>
+<p><strong>Return Values</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">void</span></code> - None</p></li>
+</ul>
+<p><strong>Note</strong></p>
+<p>This API should not return.</p>
+</section>
+</section>
+</section>
+<section id="isolation-api">
+<h3>Isolation API<a class="headerlink" href="#isolation-api" title="Permalink to this heading"></a></h3>
+<p>The <a class="reference internal" href="../../glossary.html#term-PSA-FF-M"><span class="xref std std-term">PSA-FF-M</span></a> defines three isolation levels and a memory access rule to
+provide diverse levels of securitiy. The isolation API provides the functions to
+implement these requirements.</p>
+<p>The Isolation API operates on boundaries. A boundary represents a set of
+protection settings that isolates components and domains. Below are the
+boundary examples in the current implementation:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Boundaries between SPM and Secure Partitions.</p></li>
+<li><p>Boundaries between ARoT domain and PRoT domain.</p></li>
+</ul>
+</div></blockquote>
+<p>There are two types of boundaries:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Static boundaries: Set up when the system is initializing and
+persistent after the initialization. This type of boundary needs the
+set-up operations only.</p></li>
+<li><p>Partition boundaries: Keeps switching from one to another when the system
+is running. This type of boundary needs both set-up and switching
+operations.</p></li>
+</ul>
+</div></blockquote>
+<p>The boundary operations are abstracted as HAL interfaces because isolation
+hardwares can be different for platforms:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>The set-up HAL interface creates a partition boundary based on given
+partition information. This created boundary is bound with the partition
+for subsequent usage. The binding is done by storing the boundary into
+partition runtime data.</p></li>
+<li><p>The activation HAL interface activates the partition boundary to secure
+the execution for the partition to be switched. The target partition’s
+information and boundary are given to the activation HAL to accomplish
+the operation.</p></li>
+</ul>
+</div></blockquote>
+<p>The data representing the partition boundary in runtime is defined with the
+opaque type <code class="docutils literal notranslate"><span class="pre">uintptr_t</span></code>:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>It is required that one value represents one boundary. The different values
+represent different boundaries.</p></li>
+<li><p>The value is created by HAL implementation with its own-defined encoding
+scheme.</p></li>
+</ul>
+</div></blockquote>
+<p>The HAL implementation defined encoding scheme can be designed for
+implementation convenience. For example:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>The implementation scheme can encode attribute flags into integer bits.
+This could help the activation HAL to extract the protection settings
+quickly from this encoded value, or even write to hardware registers
+directly in the most ideal case. The initial TF-M Isolation HAL reference
+implementation applies this scheme.</p></li>
+<li><p>The implementation scheme can reference the addresses of isolation
+hardware description data. This could help the activation HAL to reference
+the protection settings directly by pointers.</p></li>
+</ul>
+</div></blockquote>
+<p>Multiple Secure Partitions can bind with the same boundary value. This
+flexibility is useful for specific configurations. Take Isolation Level 2 as
+an example, assigning PRoT and ARoT domain boundaries to respective partitions
+can make execution more efficient, because switching two partitions in the
+same domain does not need to change the activated boundary.</p>
+<p>The boundary contains the partition’s memory accessibility information, hence
+memory access check shall be performed based on boundary.</p>
+<section id="memory-access-attributes">
+<h4>Memory Access Attributes<a class="headerlink" href="#memory-access-attributes" title="Permalink to this heading"></a></h4>
+<p>The memory access attributes are encoded as bit fields, you can logic OR them to
+have a combination of the atrributes, for example
+<code class="docutils literal notranslate"><span class="pre">TFM_HAL_ACCESS_UNPRIVILEGED</span> <span class="pre">|</span> <span class="pre">TFM_HAL_ACCESS_READABLE</span></code> is unprivileged
+readable. The data type is <cite>uint32_t</cite>.</p>
+<section id="tfm-hal-access-executable">
+<h5>TFM_HAL_ACCESS_EXECUTABLE<a class="headerlink" href="#tfm-hal-access-executable" title="Permalink to this heading"></a></h5>
+<p>The memory is executable.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#define TFM_HAL_ACCESS_EXECUTABLE (1UL &lt;&lt; 0)</span>
+</pre></div>
+</div>
+</section>
+<section id="tfm-hal-access-readable">
+<h5>TFM_HAL_ACCESS_READABLE<a class="headerlink" href="#tfm-hal-access-readable" title="Permalink to this heading"></a></h5>
+<p>The memory is readable.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#define TFM_HAL_ACCESS_READABLE (1UL &lt;&lt; 1)</span>
+</pre></div>
+</div>
+</section>
+<section id="tfm-hal-access-writable">
+<h5>TFM_HAL_ACCESS_WRITABLE<a class="headerlink" href="#tfm-hal-access-writable" title="Permalink to this heading"></a></h5>
+<p>The memory is writable.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#define TFM_HAL_ACCESS_WRITABLE (1UL &lt;&lt; 2)</span>
+</pre></div>
+</div>
+</section>
+<section id="tfm-hal-access-unprivileged">
+<h5>TFM_HAL_ACCESS_UNPRIVILEGED<a class="headerlink" href="#tfm-hal-access-unprivileged" title="Permalink to this heading"></a></h5>
+<p>The memory is unprivileged mode accessible.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#define TFM_HAL_ACCESS_UNPRIVILEGED (1UL &lt;&lt; 3)</span>
+</pre></div>
+</div>
+</section>
+<section id="tfm-hal-access-device">
+<h5>TFM_HAL_ACCESS_DEVICE<a class="headerlink" href="#tfm-hal-access-device" title="Permalink to this heading"></a></h5>
+<p>The memory is a MMIO device.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#define TFM_HAL_ACCESS_DEVICE (1UL &lt;&lt; 4)</span>
+</pre></div>
+</div>
+</section>
+<section id="tfm-hal-access-ns">
+<h5>TFM_HAL_ACCESS_NS<a class="headerlink" href="#tfm-hal-access-ns" title="Permalink to this heading"></a></h5>
+<p>The memory is accessible from <a class="reference internal" href="../../glossary.html#term-NSPE"><span class="xref std std-term">NSPE</span></a></p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#define TFM_HAL_ACCESS_NS (1UL &lt;&lt; 5)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="id1">
+<h4>APIs<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h4>
+<section id="tfm-hal-set-up-static-boundaries">
+<h5>tfm_hal_set_up_static_boundaries()<a class="headerlink" href="#tfm-hal-set-up-static-boundaries" title="Permalink to this heading"></a></h5>
+<p><strong>Prototype</strong></p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">enum</span><span class="w"> </span><span class="n">tfm_hal_status_t</span><span class="w"> </span><span class="n">tfm_hal_set_up_static_boundaries</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Description</strong></p>
+<p>This API sets up the static isolation boundaries which are constant throughout
+the system runtime.</p>
+<p>These boundaries include:</p>
+<ul class="simple">
+<li><p>The boundary between the <a class="reference internal" href="../../glossary.html#term-SPE"><span class="xref std std-term">SPE</span></a> and the <a class="reference internal" href="../../glossary.html#term-NSPE"><span class="xref std std-term">NSPE</span></a></p></li>
+<li><p>The boundary to protect the SPM execution. For example, the PSA RoT
+isolation boundary between the PSA Root of Trust and the Application Root of
+Trust which is for isolation level 2 and 3 only.</p></li>
+</ul>
+<p>Refer to the <a class="reference internal" href="../../glossary.html#term-PSA-FF-M"><span class="xref std std-term">PSA-FF-M</span></a> for the definitions of the isolation boundaries.</p>
+<p><strong>Return Values</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">TFM_HAL_SUCCESS</span></code> - Isolation boundaries have been set up.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">TFM_HAL_ERROR_GENERIC</span></code> - Failed to set up the static boundaries.</p></li>
+</ul>
+</section>
+<section id="tfm-hal-bind-boundary">
+<h5>tfm_hal_bind_boundary()<a class="headerlink" href="#tfm-hal-bind-boundary" title="Permalink to this heading"></a></h5>
+<p><strong>Prototype</strong></p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">enum</span><span class="w"> </span><span class="n">tfm_hal_status_t</span><span class="w"> </span><span class="nf">tfm_hal_bind_boundary</span><span class="p">(</span>
+<span class="w">                                </span><span class="k">const</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">partition_load_info_t</span><span class="w"> </span><span class="o">*</span><span class="n">p_ldinf</span><span class="p">,</span>
+<span class="w">                                </span><span class="kt">uintptr_t</span><span class="w"> </span><span class="o">*</span><span class="n">p_boundary</span><span class="p">);</span>
+</pre></div>
+</div>
+<p><strong>Description</strong></p>
+<p>This API binds partition with a platform-generated boundary. The boundary is
+bound by writing the generated value into <code class="docutils literal notranslate"><span class="pre">p_boundary</span></code>. And this bound
+boundary is used in subsequent calls to <a class="reference internal" href="#tfm-hal-activate-boundary">tfm_hal_activate_boundary()</a> when
+boundary’s owner partition get scheduled for running.</p>
+<p><strong>Parameter</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">p_ldinf</span></code> - Load information of the partition that is under loading.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">p_boundary</span></code> - Pointer for holding a partition’s boundary.</p></li>
+</ul>
+<p><strong>Return Values</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">TFM_HAL_SUCCESS</span></code> - The boundary has been bound successfully.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">TFM_HAL_ERROR_GENERIC</span></code> - Failed to bind the handle.</p></li>
+</ul>
+</section>
+<section id="tfm-hal-activate-boundary">
+<h5>tfm_hal_activate_boundary()<a class="headerlink" href="#tfm-hal-activate-boundary" title="Permalink to this heading"></a></h5>
+<p><strong>Prototype</strong></p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">enum</span><span class="w"> </span><span class="n">tfm_hal_status_t</span><span class="w"> </span><span class="nf">tfm_hal_activate_boundary</span><span class="p">(</span>
+<span class="w">                            </span><span class="k">const</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">partition_load_info_t</span><span class="w"> </span><span class="o">*</span><span class="n">p_ldinf</span><span class="p">,</span>
+<span class="w">                            </span><span class="kt">uintptr_t</span><span class="w"> </span><span class="n">boundary</span><span class="p">);</span>
+</pre></div>
+</div>
+<p><strong>Description</strong></p>
+<p>This API requires the platform to activate the boundary to ensure the given
+Secure Partition can run successfully.</p>
+<p>The access permissions outside the boundary is platform-dependent.</p>
+<p><strong>Parameter</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">p_ldinf</span></code> - The load information of the partition that is going to be run.</p></li>
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">boundary</span></code> - The boundary for the owner partition of <code class="docutils literal notranslate"><span class="pre">p_ldinf</span></code>. This</dt><dd><p>value is bound in function <code class="docutils literal notranslate"><span class="pre">tfm_hal_bind_boundary</span></code>.</p>
+</dd>
+</dl>
+</li>
+</ul>
+<p><strong>Return Values</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">TFM_HAL_SUCCESS</span></code> - the isolation boundary has been set up.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">TFM_HAL_ERROR_GENERIC</span></code> - failed to set upthe isolation boundary.</p></li>
+</ul>
+</section>
+<section id="tfm-hal-memory-check">
+<h5>tfm_hal_memory_check()<a class="headerlink" href="#tfm-hal-memory-check" title="Permalink to this heading"></a></h5>
+<p><strong>Prototype</strong></p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">tfm_hal_status_t</span><span class="w"> </span><span class="n">tfm_hal_memory_check</span><span class="p">(</span><span class="kt">uintptr_t</span><span class="w"> </span><span class="n">boundary</span><span class="p">,</span>
+<span class="w">                                      </span><span class="kt">uintptr_t</span><span class="w"> </span><span class="n">base</span><span class="p">,</span>
+<span class="w">                                      </span><span class="kt">size_t</span><span class="w"> </span><span class="n">size</span><span class="p">,</span>
+<span class="w">                                      </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">access_type</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Description</strong></p>
+<p>This API checks if a given range of memory can be accessed with specified
+access types in boundary. The boundary belongs to a partition which
+contains asset info.</p>
+<p><strong>Parameter</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">boundary</span></code> - Boundary of a Secure Partition.
+Check <cite>tfm_hal_bind_boundary</cite> for details.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">base</span></code> - The base address of the region.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">size</span></code> - The size of the region.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">access_type</span></code> - The memory access types to be checked between given memory
+and boundaries. The <a class="reference internal" href="#memory-access-attributes">Memory Access Attributes</a>.</p></li>
+</ul>
+<p><strong>Return Values</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">TFM_HAL_SUCCESS</span></code> - The memory region has the access permissions.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">TFM_HAL_ERROR_MEM_FAULT</span></code> - The memory region does not have the access
+permissions.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">TFM_HAL_ERROR_INVALID_INPUT</span></code> - Invalid inputs.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">TFM_HAL_ERROR_GENERIC</span></code> - An error occurred.</p></li>
+</ul>
+<p><strong>Note</strong></p>
+<p>If the implementation chooses to encode a pointer as the boundary,
+a platform-specific pointer validation needs to be considered before
+referencing the content in this pointer.</p>
+</section>
+</section>
+</section>
+<section id="log-api">
+<h3>Log API<a class="headerlink" href="#log-api" title="Permalink to this heading"></a></h3>
+<p>The log API is used by the <a class="reference internal" href="../../glossary.html#term-TF-M"><span class="xref std std-term">TF-M</span></a> <a class="reference internal" href="tfm_log_system_design_document.html"><span class="doc">log system</span></a>.
+The log device could be uart, memory, usb, etc.</p>
+<section id="id2">
+<h4>APIs<a class="headerlink" href="#id2" title="Permalink to this heading"></a></h4>
+<section id="tfm-hal-output-partition-log">
+<h5>tfm_hal_output_partition_log()<a class="headerlink" href="#tfm-hal-output-partition-log" title="Permalink to this heading"></a></h5>
+<p><strong>Prototype</strong></p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int32_t</span><span class="w"> </span><span class="n">tfm_hal_output_partition_log</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">str</span><span class="p">,</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">len</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Description</strong></p>
+<p>This API is called by Secure Partition to output logs.</p>
+<p><strong>Parameter</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">str</span></code> - The string to output.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">len</span></code> - Length of the string in bytes.</p></li>
+</ul>
+<p><strong>Return Values</strong></p>
+<ul class="simple">
+<li><p>Positive values - Number of bytes output.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">TFM_HAL_ERROR_NOT_INIT</span></code> - The log device has not been initialized.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">TFM_HAL_ERROR_INVALID_INPUT</span></code> - Invalid inputs when <code class="docutils literal notranslate"><span class="pre">str</span></code> is <code class="docutils literal notranslate"><span class="pre">NULL</span></code> or
+<code class="docutils literal notranslate"><span class="pre">len</span></code> is zero.</p></li>
+</ul>
+<p><strong>Note</strong></p>
+<p>None.</p>
+</section>
+<section id="tfm-hal-output-spm-log">
+<h5>tfm_hal_output_spm_log()<a class="headerlink" href="#tfm-hal-output-spm-log" title="Permalink to this heading"></a></h5>
+<p><strong>Prototype</strong></p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int32_t</span><span class="w"> </span><span class="n">tfm_hal_output_spm_log</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">str</span><span class="p">,</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">len</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Description</strong></p>
+<p>This API is called by <a class="reference internal" href="../../glossary.html#term-SPM"><span class="xref std std-term">SPM</span></a> to output logs.</p>
+<p><strong>Parameter</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">str</span></code> - The string to output.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">len</span></code> - Length of the string in bytes.</p></li>
+</ul>
+<p><strong>Return Values</strong></p>
+<ul class="simple">
+<li><p>Positive numbers - Number of bytes output.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">TFM_HAL_ERROR_NOT_INIT</span></code> - The log device has not been initialized.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">TFM_HAL_ERROR_INVALID_INPUT</span></code> - Invalid inputs when <code class="docutils literal notranslate"><span class="pre">str</span></code> is <code class="docutils literal notranslate"><span class="pre">NULL</span></code>
+or <code class="docutils literal notranslate"><span class="pre">len</span></code> is zero.</p></li>
+</ul>
+<p><strong>Note</strong></p>
+<p>Please check <a class="reference internal" href="tfm_log_system_design_document.html"><span class="doc">TF-M log system</span></a> for more
+information.</p>
+</section>
+</section>
+</section>
+<section id="interrupt-apis">
+<h3>Interrupt APIs<a class="headerlink" href="#interrupt-apis" title="Permalink to this heading"></a></h3>
+<p>The SPM HAL interrupt APIs are intended for operations on Interrupt Controllers
+of platforms.</p>
+<p>APIs for control registers of interrupt sources are not in the scope of this set
+of APIs.
+Secure Partitions should define the APIs for managing interrupts with those MMIO
+registers.</p>
+<section id="id3">
+<h4>APIs<a class="headerlink" href="#id3" title="Permalink to this heading"></a></h4>
+<section id="tfm-hal-irq-enable">
+<h5>tfm_hal_irq_enable()<a class="headerlink" href="#tfm-hal-irq-enable" title="Permalink to this heading"></a></h5>
+<p><strong>Prototype</strong></p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">enum</span><span class="w"> </span><span class="n">tfm_hal_status_t</span><span class="w"> </span><span class="n">tfm_hal_irq_enable</span><span class="p">(</span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">irq_num</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Description</strong></p>
+<p>This API enables an interrupt from the Interrupt Controller of the platform.</p>
+<p><strong>Parameter</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">irq_num</span></code> - the interrupt to be enabled with a number</p></li>
+</ul>
+<p><strong>Return Values</strong></p>
+<ul class="simple">
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">TFM_HAL_ERROR_INVALID_INPUT</span></code> - the <code class="docutils literal notranslate"><span class="pre">irq_num</span></code> exceeds The maximum</dt><dd><p>supported number of external interrupts.</p>
+</dd>
+</dl>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">TFM_HAL_ERROR_GENERIC</span></code> - failed to enable the interrupt.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">TFM_HAL_SUCCESS</span></code> - the interrupt is successfully enabled.</p></li>
+</ul>
+</section>
+<section id="tfm-hal-irq-disable">
+<h5>tfm_hal_irq_disable()<a class="headerlink" href="#tfm-hal-irq-disable" title="Permalink to this heading"></a></h5>
+<p><strong>Prototype</strong></p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">enum</span><span class="w"> </span><span class="n">tfm_hal_status_t</span><span class="w"> </span><span class="n">tfm_hal_irq_disable</span><span class="p">(</span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">irq_num</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Description</strong></p>
+<p>This API disables an interrupt from the Interrupt Controller of the platform.</p>
+<p><strong>Parameter</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">irq_num</span></code> - the interrupt to be disabled with a number</p></li>
+</ul>
+<p><strong>Return Values</strong></p>
+<ul class="simple">
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">TFM_HAL_ERROR_INVALID_INPUT</span></code> - the <code class="docutils literal notranslate"><span class="pre">irq_num</span></code> exceeds The maximum</dt><dd><p>supported number of external interrupts.</p>
+</dd>
+</dl>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">TFM_HAL_ERROR_GENERIC</span></code> - failed to disable the interrupt.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">TFM_HAL_SUCCESS</span></code> - the interrupt is successfully disabled.</p></li>
+</ul>
+</section>
+<section id="tfm-hal-irq-clear-pending">
+<h5>tfm_hal_irq_clear_pending()<a class="headerlink" href="#tfm-hal-irq-clear-pending" title="Permalink to this heading"></a></h5>
+<p><strong>Prototype</strong></p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">enum</span><span class="w"> </span><span class="n">tfm_hal_status_t</span><span class="w"> </span><span class="n">tfm_hal_irq_clear_pending</span><span class="p">(</span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">irq_num</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Description</strong></p>
+<p>This API clears an active and pending interrupt.</p>
+<p><strong>Parameter</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">irq_num</span></code> - the interrupt to be disabled with a number</p></li>
+</ul>
+<p><strong>Return Values</strong></p>
+<ul class="simple">
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">TFM_HAL_ERROR_INVALID_INPUT</span></code> - the <code class="docutils literal notranslate"><span class="pre">irq_num</span></code> exceeds The maximum</dt><dd><p>supported number of external interrupts.</p>
+</dd>
+</dl>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">TFM_HAL_ERROR_GENERIC</span></code> - failed to clear the pending interrupt.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">TFM_HAL_SUCCESS</span></code> - the pending interrupt has been cleared.</p></li>
+</ul>
+</section>
+<section id="initializations">
+<h5>Initializations<a class="headerlink" href="#initializations" title="Permalink to this heading"></a></h5>
+<p><strong>Prototype</strong></p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">enum</span><span class="w"> </span><span class="n">tfm_hal_status_t</span><span class="w"> </span><span class="p">{</span><span class="n">source_symbol</span><span class="p">}</span><span class="n">_init</span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">p_pt</span><span class="p">,</span>
+<span class="w">                                           </span><span class="k">const</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">irq_load_info_t</span><span class="w"> </span><span class="o">*</span><span class="n">p_ildi</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">{source_symbol}</span></code> is:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">irq_{source}</span></code>, if the <code class="docutils literal notranslate"><span class="pre">source</span></code> attribute of the IRQ in Partition manifest
+is a number</p></li>
+<li><p>Lowercase of <code class="docutils literal notranslate"><span class="pre">source</span></code> attribute, if <code class="docutils literal notranslate"><span class="pre">source</span></code> is a symbolic name</p></li>
+</ul>
+<p><strong>Description</strong></p>
+<p>Each interrupt has an initialization function individually.
+The <a class="reference internal" href="../../glossary.html#term-SPM"><span class="xref std std-term">SPM</span></a> calls the functions while loading the Partitions.</p>
+<p>The following initializations are required for each interrupt:</p>
+<ul class="simple">
+<li><p>Setting the priority. The value must between 0 to 0x80 exclusively.</p></li>
+<li><p>Ensuring that the interrupt targets the Secure State.</p></li>
+<li><p>Saving the input parameters for future use.</p></li>
+</ul>
+<p>Platforms can have extra initializations as well.</p>
+<p><strong>Parameter</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">p_pt</span></code> - pointer to Partition runtime struct of the owner Partition</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">p_ildi</span></code> - pointer to <code class="docutils literal notranslate"><span class="pre">irq_load_info_t</span></code> struct of the interrupt</p></li>
+</ul>
+<p><strong>Note</strong></p>
+<p>Please refer to the
+:doc: <cite>IRQ intergration guide&lt;tfm_secure_irq_integration_guide&gt;</cite>
+for more information.</p>
+</section>
+</section>
+</section>
+</section>
+<section id="api-definition-for-secure-partitions">
+<h2>API Definition for Secure Partitions<a class="headerlink" href="#api-definition-for-secure-partitions" title="Permalink to this heading"></a></h2>
+<p>The Secure Partition (SP) <a class="reference internal" href="../../glossary.html#term-HAL"><span class="xref std std-term">HAL</span></a> mainly focuses on two parts:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Peripheral devices. The peripherals accessed by the <a class="reference internal" href="../../glossary.html#term-TF-M"><span class="xref std std-term">TF-M</span></a> default
+Secure Partitions.</p></li>
+<li><p>Secure Partition abstraction support. The Secure Partition data that must be
+provided by the platform.</p></li>
+</ul>
+</div></blockquote>
+<p>The Secure Partition abstraction support will be introduced in the peripheral
+API definition.</p>
+<section id="its-and-ps-flash-api">
+<h3>ITS and PS flash API<a class="headerlink" href="#its-and-ps-flash-api" title="Permalink to this heading"></a></h3>
+<p>There are two kinds of flash:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Internal flash. Accessed by the PSA Internal Trusted Storage (ITS) service.</p></li>
+<li><p>External flash. Accessed by the PSA Protected Storage (PS) service.</p></li>
+</ul>
+</div></blockquote>
+<p>The ITS HAL for the internal flash device is defined in the <code class="docutils literal notranslate"><span class="pre">tfm_hal_its.h</span></code>
+header and the PS HAL in the <code class="docutils literal notranslate"><span class="pre">tfm_hal_ps.h</span></code> header.</p>
+<section id="macros">
+<h4>Macros<a class="headerlink" href="#macros" title="Permalink to this heading"></a></h4>
+<section id="internal-trusted-storage">
+<h5>Internal Trusted Storage<a class="headerlink" href="#internal-trusted-storage" title="Permalink to this heading"></a></h5>
+<section id="tfm-hal-its-flash-driver">
+<h6>TFM_HAL_ITS_FLASH_DRIVER<a class="headerlink" href="#tfm-hal-its-flash-driver" title="Permalink to this heading"></a></h6>
+<p>Defines the identifier of the CMSIS Flash ARM_DRIVER_FLASH object to use for
+ITS. It must have been allocated by the platform and will be declared extern in
+the HAL header.</p>
+</section>
+<section id="tfm-hal-its-program-unit">
+<h6>TFM_HAL_ITS_PROGRAM_UNIT<a class="headerlink" href="#tfm-hal-its-program-unit" title="Permalink to this heading"></a></h6>
+<p>Defines the size of the ITS flash device’s physical program unit (the smallest
+unit of data that can be individually programmed to flash). It must be equal to
+TFM_HAL_ITS_FLASH_DRIVER.GetInfo()-&gt;program_unit, but made available at compile
+time so that filesystem structures can be statically sized.</p>
+</section>
+<section id="tfm-hal-its-flash-area-addr">
+<h6>TFM_HAL_ITS_FLASH_AREA_ADDR<a class="headerlink" href="#tfm-hal-its-flash-area-addr" title="Permalink to this heading"></a></h6>
+<p>Defines the base address of the dedicated flash area for ITS.</p>
+</section>
+<section id="tfm-hal-its-flash-area-size">
+<h6>TFM_HAL_ITS_FLASH_AREA_SIZE<a class="headerlink" href="#tfm-hal-its-flash-area-size" title="Permalink to this heading"></a></h6>
+<p>Defines the size of the dedicated flash area for ITS in bytes.</p>
+</section>
+<section id="tfm-hal-its-sectors-per-block">
+<h6>TFM_HAL_ITS_SECTORS_PER_BLOCK<a class="headerlink" href="#tfm-hal-its-sectors-per-block" title="Permalink to this heading"></a></h6>
+<p>Defines the number of contiguous physical flash erase sectors that form a
+logical filesystem erase block.</p>
+</section>
+</section>
+<section id="protected-storage">
+<h5>Protected Storage<a class="headerlink" href="#protected-storage" title="Permalink to this heading"></a></h5>
+<section id="tfm-hal-ps-flash-driver">
+<h6>TFM_HAL_PS_FLASH_DRIVER<a class="headerlink" href="#tfm-hal-ps-flash-driver" title="Permalink to this heading"></a></h6>
+<p>Defines the identifier of the CMSIS Flash ARM_DRIVER_FLASH object to use for
+PS. It must have been allocated by the platform and will be declared extern in
+the HAL header.</p>
+</section>
+<section id="tfm-hal-ps-program-unit">
+<h6>TFM_HAL_PS_PROGRAM_UNIT<a class="headerlink" href="#tfm-hal-ps-program-unit" title="Permalink to this heading"></a></h6>
+<p>Defines the size of the PS flash device’s physical program unit (the smallest
+unit of data that can be individually programmed to flash). It must be equal to
+TFM_HAL_PS_FLASH_DRIVER.GetInfo()-&gt;program_unit, but made available at compile
+time so that filesystem structures can be statically sized.</p>
+</section>
+<section id="tfm-hal-ps-flash-area-addr">
+<h6>TFM_HAL_PS_FLASH_AREA_ADDR<a class="headerlink" href="#tfm-hal-ps-flash-area-addr" title="Permalink to this heading"></a></h6>
+<p>Defines the base address of the dedicated flash area for PS.</p>
+</section>
+<section id="tfm-hal-ps-flash-area-size">
+<h6>TFM_HAL_PS_FLASH_AREA_SIZE<a class="headerlink" href="#tfm-hal-ps-flash-area-size" title="Permalink to this heading"></a></h6>
+<p>Defines the size of the dedicated flash area for PS in bytes.</p>
+</section>
+<section id="tfm-hal-ps-sectors-per-block">
+<h6>TFM_HAL_PS_SECTORS_PER_BLOCK<a class="headerlink" href="#tfm-hal-ps-sectors-per-block" title="Permalink to this heading"></a></h6>
+<p>Defines the number of contiguous physical flash erase sectors that form a
+logical filesystem erase block.</p>
+</section>
+</section>
+</section>
+<section id="optional-definitions">
+<h4>Optional definitions<a class="headerlink" href="#optional-definitions" title="Permalink to this heading"></a></h4>
+<p>The <code class="docutils literal notranslate"><span class="pre">TFM_HAL_ITS_FLASH_AREA_ADDR</span></code>, <code class="docutils literal notranslate"><span class="pre">TFM_HAL_ITS_FLASH_AREA_SIZE</span></code> and
+<code class="docutils literal notranslate"><span class="pre">TFM_HAL_ITS_SECTORS_PER_BLOCK</span></code> definitions are optional. If not defined, the
+platform must implement <code class="docutils literal notranslate"><span class="pre">tfm_hal_its_fs_info()</span></code> instead.</p>
+<p>Equivalently, <code class="docutils literal notranslate"><span class="pre">tfm_hal_its_ps_info()</span></code> must be implemented by the platform if
+<code class="docutils literal notranslate"><span class="pre">TFM_HAL_ITS_FLASH_AREA_ADDR</span></code>, <code class="docutils literal notranslate"><span class="pre">TFM_HAL_ITS_FLASH_AREA_SIZE</span></code> or
+<code class="docutils literal notranslate"><span class="pre">TFM_HAL_ITS_SECTORS_PER_BLOCK</span></code> is not defined.</p>
+</section>
+<section id="objects">
+<h4>Objects<a class="headerlink" href="#objects" title="Permalink to this heading"></a></h4>
+<section id="arm-driver-flash">
+<h5>ARM_DRIVER_FLASH<a class="headerlink" href="#arm-driver-flash" title="Permalink to this heading"></a></h5>
+<p>The ITS and PS HAL headers each expose a CMSIS Flash Driver instance.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">extern</span><span class="w"> </span><span class="n">ARM_DRIVER_FLASH</span><span class="w"> </span><span class="n">TFM_HAL_ITS_FLASH_DRIVER</span>
+
+<span class="k">extern</span><span class="w"> </span><span class="n">ARM_DRIVER_FLASH</span><span class="w"> </span><span class="n">TFM_HAL_PS_FLASH_DRIVER</span>
+</pre></div>
+</div>
+<p>The CMSIS Flash Driver provides the flash primitives ReadData(), ProgramData()
+and EraseSector() as well as GetInfo() to access flash device properties such
+as the sector size.</p>
+</section>
+</section>
+<section id="id4">
+<h4>Types<a class="headerlink" href="#id4" title="Permalink to this heading"></a></h4>
+<section id="tfm-hal-its-fs-info-t">
+<h5>tfm_hal_its_fs_info_t<a class="headerlink" href="#tfm-hal-its-fs-info-t" title="Permalink to this heading"></a></h5>
+<p>Struct containing information required from the platform at runtime to configure
+the ITS filesystem.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">tfm_hal_its_fs_info_t</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">flash_area_addr</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="n">flash_area_size</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">sectors_per_block</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>Each attribute is described below:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">flash_area_addr</span></code> - Location of the block of flash to use for ITS</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">flash_area_size</span></code> - Number of bytes of flash to use for ITS</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sectors_per_block</span></code> - Number of erase sectors per logical FS block</p></li>
+</ul>
+</div></blockquote>
+</section>
+<section id="tfm-hal-ps-fs-info-t">
+<h5>tfm_hal_ps_fs_info_t<a class="headerlink" href="#tfm-hal-ps-fs-info-t" title="Permalink to this heading"></a></h5>
+<p>Struct containing information required from the platform at runtime to configure
+the PS filesystem.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">tfm_hal_ps_fs_info_t</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">flash_area_addr</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="n">flash_area_size</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">sectors_per_block</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>Each attribute is described below:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">flash_area_addr</span></code> - Location of the block of flash to use for PS</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">flash_area_size</span></code> - Number of bytes of flash to use for PS</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sectors_per_block</span></code> - Number of erase sectors per logical FS block</p></li>
+</ul>
+</div></blockquote>
+</section>
+</section>
+<section id="functions">
+<h4>Functions<a class="headerlink" href="#functions" title="Permalink to this heading"></a></h4>
+<section id="tfm-hal-its-fs-info">
+<h5>tfm_hal_its_fs_info()<a class="headerlink" href="#tfm-hal-its-fs-info" title="Permalink to this heading"></a></h5>
+<p><strong>Prototype</strong></p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">enum</span><span class="w"> </span><span class="n">tfm_hal_status_t</span><span class="w"> </span><span class="nf">tfm_hal_its_fs_info</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">tfm_hal_its_fs_info_t</span><span class="w"> </span><span class="o">*</span><span class="n">fs_info</span><span class="p">);</span>
+</pre></div>
+</div>
+<p><strong>Description</strong></p>
+<p>Retrieves the filesystem configuration parameters for ITS.</p>
+<p><strong>Parameter</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">fs_info</span></code> - Filesystem config information</p></li>
+</ul>
+<p><strong>Return values</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">TFM_HAL_SUCCESS</span></code> - The operation completed successfully</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">TFM_HAL_ERROR_INVALID_INPUT</span></code> - Invalid parameter</p></li>
+</ul>
+<p><strong>Note</strong></p>
+<p>This function should ensure that the values returned do not result in a security
+compromise. The block of flash supplied must meet the security requirements of
+Internal Trusted Storage.</p>
+</section>
+<section id="tfm-hal-ps-fs-info">
+<h5>tfm_hal_ps_fs_info()<a class="headerlink" href="#tfm-hal-ps-fs-info" title="Permalink to this heading"></a></h5>
+<p><strong>Prototype</strong></p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">enum</span><span class="w"> </span><span class="n">tfm_hal_status_t</span><span class="w"> </span><span class="nf">tfm_hal_ps_fs_info</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">tfm_hal_ps_fs_info_t</span><span class="w"> </span><span class="o">*</span><span class="n">fs_info</span><span class="p">);</span>
+</pre></div>
+</div>
+<p><strong>Description</strong></p>
+<p>Retrieves the filesystem configuration parameters for PS.</p>
+<p><strong>Parameter</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">fs_info</span></code> - Filesystem config information</p></li>
+</ul>
+<p><strong>Return values</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">TFM_HAL_SUCCESS</span></code> - The operation completed successfully</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">TFM_HAL_ERROR_INVALID_INPUT</span></code> - Invalid parameter</p></li>
+</ul>
+<p><strong>Note</strong></p>
+<p>This function should ensure that the values returned do not result in a security
+compromise.</p>
+<hr class="docutils" />
+<p><em>Copyright (c) 2020-2022, Arm Limited. All rights reserved.</em>
+<em>Copyright (c) 2022 Cypress Semiconductor Corporation (an Infineon company)
+or an affiliate of Cypress Semiconductor Corporation. All rights reserved.</em></p>
+</section>
+</section>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p></p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

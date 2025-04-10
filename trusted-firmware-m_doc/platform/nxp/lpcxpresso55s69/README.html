@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LPCXpresso55S69 &mdash; Trusted Firmware-M v1.7.0-stm32mp25-alpha-r1-rc3-doc documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/tfm_custom.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/tabs.css" type="text/css" />
+    <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/tabs.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Cypress PSoC64" href="../../cypress/psoc64/index.html" />
+    <link rel="prev" title="Runtime Security Subsystem (RSS)" href="../../arm/rss/readme.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> Trusted Firmware-M
+            <img src="../../../_static/tf_logo_white.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                v1.7.0-stm32mp25-alpha-r1-rc3-doc
+
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../introduction/index.html">Introduction</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../getting_started/index.html">Getting Started</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../security/index.html">Security</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../security/security_advisories/index.html">Security Advisories</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../security/security_advisories/stack_seal_vulnerability.html">Advisory TFMV-1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../security/security_advisories/svc_caller_sp_fetching_vulnerability.html">Advisory TFMV-2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../security/security_advisories/crypto_multi_part_ops_abort_fail.html">Advisory TFMV-3</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../security/security_advisories/profile_small_key_id_encoding_vulnerability.html">Advisory TFMV-4</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../security/security_advisories/fwu_write_vulnerability.html">Advisory TFMV-5</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../security/threat_models/index.html">Threat Models</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../security/threat_models/generic_threat_model.html">Trusted Firmware-M Generic Threat Model</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../security/security.html">Security Handling</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../releases/index.html">Releases</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../releases/1.7.0.html">v1.7.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../releases/1.6.1.html">v1.6.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../releases/1.6.0.html">v1.6.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../releases/1.5.0.html">v1.5.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../releases/release_process.html">Release Cadence and Process</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../glossary.html">Glossary</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">Platform Selection</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../arm/index.html">Arm platforms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../arm/corstone1000/readme.html">Corstone-1000</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../arm/mps3/an547/README.html">Corstone-300 FPGA (AN547)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../arm/mps3/an552/README.html">Corstone-300 FPGA and FVP (AN552)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../arm/mps3/corstone310/README.html">Corstone-310 FVP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../arm/musca_b1/readme.html">Musca-B1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../arm/musca_s1/readme.html">Musca-S1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../arm/rss/readme.html">Runtime Security Subsystem</a></li>
+</ul>
+</li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">LPCXpresso55S69</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../cypress/psoc64/index.html">Cypress PSoC64</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../cypress/psoc64/cypress_psoc64_spec.html">Cypress PSoC64 Specifics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../cypress/psoc64/libs/core-lib/README.html">Core Library</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../cypress/psoc64/libs/core-lib/RELEASE.html">Core Library Release Notes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/index.html">STMICROELECTRONICS</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/common/stm32l5xx/readme.html">STM32L5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/common/stm32mp2/readme.html">STM32MP2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/common/stm32u5xx/readme.html">STM32U5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/nucleo_l552ze_q/readme.html">NUCLEO-L552ZE-Q</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/stm32l562e_dk/readme.html">STM32L562E-DK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/b_u585i_iot02a/readme.html">B-U585I-IOT02A</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../nordic_nrf/nrf5340dk_nrf5340_cpuapp/README.html">Nordic nRF5340</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nordic_nrf/nrf9160dk_nrf9160/README.html">Nordic nRF9160</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../lairdconnectivity/bl5340_dvk_cpuapp/README.html">Laird Connectivity BL5340</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nuvoton/m2351/README.html">NuMaker-PFM-M2351</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nuvoton/m2354/README.html">NuMaker-PFM-M2354</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../building/tfm_build_instruction.html">Build instructions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../building/run_tfm_examples_on_arm_platforms.html">Run TF-M examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../building/documentation_generation.html">Building the documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../building/tfm_build_instruction_iar.html">IAR toolchain</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../configuration/index.html">Configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../configuration/build_configuration.html">Build configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../configuration/header_file_system.html">Component configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../configuration/kconfig_system.html">Kconfig</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../configuration/profiles/index.html">Profiles</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../configuration/profiles/tfm_profile_small.html"> Small</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../configuration/profiles/tfm_profile_medium_arot-less.html"> ARoT-less</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../configuration/profiles/tfm_profile_medium.html"> Medium</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../configuration/profiles/tfm_profile_large.html"> Large</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../configuration/test_configuration.html">Tests configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../integration_guide/index.html">Integration Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../integration_guide/spm_backends.html">SPM Backends</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../integration_guide/non-secure_client_extension_integration_guide.html">NS client integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../integration_guide/os_migration_guide_armv8m.html">OS migration to Armv8-M</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../integration_guide/tfm_fpu_support.html">Floating-Point Support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../integration_guide/tfm_secure_irq_integration_guide.html">Secure Interrupt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../integration_guide/platform/index.html">Adding a new platform</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../integration_guide/platform/platform_folder.html">Details for the platform folder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../integration_guide/platform/platform_ext_folder.html">Details for the platform/ext folder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../integration_guide/platform/porting_TFM_to_a_new_hardware.html">Porting TF-M to a New Hardware</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../integration_guide/platform/platform_provisioning.html">Platform Provisioning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../integration_guide/platform/platform_deprecation.html">Platform deprecation and removal</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../integration_guide/services/index.html">Services</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../integration_guide/services/tfm_attestation_integration_guide.html">Initial Attestation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../integration_guide/services/tfm_crypto_integration_guide.html">Crypto</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../integration_guide/services/tfm_its_integration_guide.html">Internal Storage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../integration_guide/services/tfm_platform_integration_guide.html">Platform</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../integration_guide/services/tfm_ps_integration_guide.html">Protected Storage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../integration_guide/services/tfm_secure_partition_addition.html">Adding a New Service</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../integration_guide/services/tfm_manifest_tool_user_guide.html">The manifest tool</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../technical_references/design_docs/index.html">Design Documents</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical_references/design_docs/dual-cpu/index.html">Dual-CPU</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical_references/design_docs/dual-cpu/booting_a_dual_core_system.html">Booting a Dual-Core System</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical_references/design_docs/dual-cpu/communication_prototype_between_nspe_and_spe_in_dual_core_systems.html">Communication Prototype Between NSPE And SPE In Dual Core System</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical_references/design_docs/dual-cpu/mailbox_design_on_dual_core_system.html">Mailbox Design in TF-M on Dual-core System</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical_references/design_docs/dual-cpu/tfm_multi_core_access_check.html">Memory Access Check of Trusted Firmware-M in Multi-Core Topology</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical_references/design_docs/bl1.html">BL1 Immutable bootloader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical_references/design_docs/code_sharing.html">Code sharing between independently linked XIP binaries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical_references/design_docs/enum_implicit_casting.html">Fixing implicit casting for C enumeration values</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical_references/design_docs/ff_isolation.html">FF-M Isolation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical_references/design_docs/hardware_abstraction_layer.html">Hardware Abstraction Layer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical_references/design_docs/mailbox_ns_agent_update.html">Mailbox NS Agent Design Update</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical_references/design_docs/ps_key_management.html">Protected Storage service key management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical_references/design_docs/secure_boot_hw_key_integration.html">HW crypto key integration in TF-M secure boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical_references/design_docs/secure_boot_rollback_protection.html">Rollback protection in TF-M secure boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical_references/design_docs/secure_partition_manager.html">Secure Partition Manager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical_references/design_docs/source_structure.html">Trusted Firmware-M Source Structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical_references/design_docs/stateless_rot_service.html">Stateless Root of Trust Services Reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical_references/design_docs/symmetric_initial_attest.html">Symmetric key algorithm based Initial Attestation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical_references/design_docs/tfm_builtin_keys.html">TF-M builtin keys</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical_references/design_docs/tfm_code_generation_with_jinja2.html">Code Generation With Jinja2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical_references/design_docs/tfm_cooperative_scheduling_rules.html">Cooperative Scheduling Rules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical_references/design_docs/tfm_crypto_design.html">Crypto Service design</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical_references/design_docs/tfm_fwu_service.html">Firmware Update Service</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical_references/design_docs/tfm_its_512_flash.html">Add support for block-aligned flash in Internal Trusted Storage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical_references/design_docs/tfm_its_service.html">Internal Trusted Storage (ITS) Service</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical_references/design_docs/tfm_log_system_design_document.html">Log system design document</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical_references/design_docs/tfm_physical_attack_mitigation.html">Physical attack mitigation in Trusted Firmware-M</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical_references/design_docs/tfm_psa_inter_process_communication.html">TF-M Inter-Process Communication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical_references/design_docs/tfm_secure_boot.html">Secure boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical_references/design_docs/tfm_secure_partition_runtime_library.html">Secure Partition Runtime Library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical_references/design_docs/tfm_uniform_secure_service_signature.html">Uniform Secure Service Signature</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tools/index.html">Tools</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contribution</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing/index.html">Guidelines</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../contributing/contributing_process.html">The process</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../contributing/code_review_guide.html">Code review</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../contributing/maintainers.html">Maintainers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../contributing/maintainers.html#code-owners">Code owners</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../contributing/coding_guide.html">Yet another coding standard :)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../contributing/doc_guidelines.html">Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../contributing/tfm_design_proposal_guideline.html">Design proposal</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing/lic.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing/dco.html">DCO</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Links</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://ci.trustedfirmware.org/view/TF-M/job/tf-m-build-docs-nightly/lastSuccessfulBuild/artifact/trusted-firmware-m/build/docs/reference_manual/html/index.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://developer.trustedfirmware.org/w/collaboration/security_center">Security Center</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://www.arm.com/architecture/security-features/platform-security">PSA</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">STMICROELECTRONICS</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../stm/releases/index.html">Releases</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../stm/releases/getting_started.html">Getting started</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/stm32l562e_dk/readme.html">STM32L562E-DK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/nucleo_l552ze_q/readme.html">NUCLEO-L552ZE-Q</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/b_u585i_iot02a/readme.html">B-U585I-IOT02A</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../stm/releases/platforms.html">Platforms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/common/stm32l5xx/readme.html">STM32L5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/common/stm32mp2/readme.html">STM32MP2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/common/stm32u5xx/readme.html">STM32U5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/nucleo_l552ze_q/readme.html">NUCLEO-L552ZE-Q</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/stm32l562e_dk/readme.html">STM32L562E-DK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../stm/releases/changelog.html">Change Log &amp; Notes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../stm/releases/v1.7.0-stm32mp25-alpha-r1-rc3/changelog.html">v1.7.0-stm32mp25-alpha-r1-rc3</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../stm/technical/index.html">Technical references</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../stm/technical/a35_td_flavor/index.html">A35-TD flavor</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../stm/technical/a35_td_flavor/memory_layout.html">Memory layout</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../stm/technical/a35_td_flavor/storage.html">Storage</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../stm/technical/m33_td_flavor/index.html">M33-TD flavor</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../stm/technical/m33_td_flavor/memory_layout.html">Memory layout</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../stm/technical/m33_td_flavor/storage.html">Storage</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../stm/technical/devicetree/index.html">Devicetree</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../stm/technical/devicetree/devicetree_tfm.html">Scope and purpose</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../stm/technical/devicetree/devicetree_tfm.html#concept">Concept</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../stm/technical/devicetree/devicetree_tfm.html#how-to-add-device">How to add device</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../stm/technical/initlevel.html">Initlevel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../stm/technical/initial_attestation.html">Initial Attestation Service</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../stm/technical/nv_counter.html">Nv counter</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../stm/ide/index.html">Ide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../stm/ide/cubeide/stm32cubeide.html">STM32CubeIDE</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Trusted Firmware-M</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../index.html">TF-M Platforms</a> &raquo;</li>
+      <li>LPCXpresso55S69</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="lpcxpresso55s69">
+<h1>LPCXpresso55S69<a class="headerlink" href="#lpcxpresso55s69" title="Permalink to this heading"></a></h1>
+<section id="building-tf-m">
+<h2>1. Building TF-M<a class="headerlink" href="#building-tf-m" title="Permalink to this heading"></a></h2>
+<p>There are two options for the TF-M build - with or without secondary bootloader (BL2).</p>
+<section id="building-tf-m-demo-without-bl2">
+<h3>1.1 Building TF-M demo without BL2<a class="headerlink" href="#building-tf-m-demo-without-bl2" title="Permalink to this heading"></a></h3>
+<p>To build S and NS application image for the LPCXpresso55S69, run the <code class="docutils literal notranslate"><span class="pre">build_tfm_demo.py</span></code> script in <code class="docutils literal notranslate"><span class="pre">platform/ext/target/nxp/lpcxpresso55s69/scripts</span></code></p>
+<p>Or do it manually using the following commands:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>cmake<span class="w"> </span>-S<span class="w"> </span>.<span class="w"> </span>-B<span class="w"> </span>build<span class="w"> </span>-DTFM_PLATFORM<span class="o">=</span>nxp/lpcxpresso55s69<span class="w"> </span>-DTFM_TOOLCHAIN_FILE<span class="o">=</span>toolchain_GNUARM.cmake<span class="w"> </span>-DTFM_PROFILE<span class="o">=</span>profile_medium<span class="w"> </span>-DCMAKE_BUILD_TYPE<span class="o">=</span>Relwithdebinfo<span class="w"> </span>-DBL2<span class="o">=</span>OFF<span class="w"> </span>-DTFM_ISOLATION_LEVEL<span class="o">=</span><span class="m">2</span><span class="w"> </span>-G<span class="s2">&quot;Unix Makefiles&quot;</span>
+$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>build<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>make<span class="w"> </span>install
+</pre></div>
+</div>
+</section>
+<section id="building-tf-m-demo-with-bl2">
+<h3>1.2 Building TF-M demo with BL2<a class="headerlink" href="#building-tf-m-demo-with-bl2" title="Permalink to this heading"></a></h3>
+<p>To build S and NS application along with a BL2 (bootloader) image for the
+LPCXpresso55S69 run the <code class="docutils literal notranslate"><span class="pre">build_tfm_demo_bl2.py</span></code> script in <code class="docutils literal notranslate"><span class="pre">platform/ext/target/nxp/lpcxpresso55s69/scripts</span></code></p>
+<p>Or do it manually using the following commands:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>cmake<span class="w"> </span>-S<span class="w"> </span>.<span class="w"> </span>-B<span class="w"> </span>build<span class="w"> </span>-DTFM_PLATFORM<span class="o">=</span>nxp/lpcxpresso55s69<span class="w"> </span>-DTFM_TOOLCHAIN_FILE<span class="o">=</span>toolchain_GNUARM.cmake<span class="w"> </span>-DTFM_PROFILE<span class="o">=</span>profile_medium<span class="w"> </span>-DCMAKE_BUILD_TYPE<span class="o">=</span>Relwithdebinfo<span class="w"> </span>-DTFM_ISOLATION_LEVEL<span class="o">=</span><span class="m">2</span><span class="w"> </span>-G<span class="s2">&quot;Unix Makefiles&quot;</span>
+$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>build<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>make<span class="w"> </span>install
+</pre></div>
+</div>
+</section>
+<section id="building-tf-m-regression-tests">
+<h3>1.3 Building TF-M regression tests<a class="headerlink" href="#building-tf-m-regression-tests" title="Permalink to this heading"></a></h3>
+<p>To run the S and NS regression tests (<code class="docutils literal notranslate"><span class="pre">TEST_S=ON</span></code> and <code class="docutils literal notranslate"><span class="pre">TEST_NS=ON</span></code>), the
+secondary image areas must be set to 0 (firmware updates are not possible).
+Use the <code class="docutils literal notranslate"><span class="pre">build_tfm_regression.py</span></code> script in <code class="docutils literal notranslate"><span class="pre">platform/ext/target/nxp/lpcxpresso55s69/scripts</span></code>
+or do it manually using following commands:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>cmake<span class="w"> </span>-S<span class="w"> </span>.<span class="w"> </span>-B<span class="w"> </span>build<span class="w"> </span>-DTFM_PLATFORM<span class="o">=</span>nxp/lpcxpresso55s69<span class="w"> </span>-DTFM_TOOLCHAIN_FILE<span class="o">=</span>toolchain_GNUARM.cmake<span class="w"> </span>-DTFM_PROFILE<span class="o">=</span>profile_medium<span class="w"> </span>-DCMAKE_BUILD_TYPE<span class="o">=</span>Relwithdebinfo<span class="w"> </span>-DBL2<span class="o">=</span>OFF<span class="w"> </span>-DTEST_S<span class="o">=</span>ON<span class="w"> </span>-DTEST_NS<span class="o">=</span>ON<span class="w"> </span>-DTFM_ISOLATION_LEVEL<span class="o">=</span><span class="m">2</span><span class="w"> </span>-G<span class="s2">&quot;Unix Makefiles&quot;</span>
+$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>build<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>make<span class="w"> </span>install
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Currently <code class="docutils literal notranslate"><span class="pre">Debug</span></code> cannot be selected as build type and regression tests
+cannot be run on the board without modifying the flash layout due to the
+amount of available on-chip flash memory.</p>
+</div>
+</section>
+</section>
+<section id="flashing-tf-m">
+<h2>2. Flashing TF-M<a class="headerlink" href="#flashing-tf-m" title="Permalink to this heading"></a></h2>
+<dl class="simple">
+<dt>After generating the binaries, there are three options to flash them using:</dt><dd><ol class="arabic simple">
+<li><p><strong>External Segger J-Link flasher</strong></p></li>
+<li><p><strong>On-board J-Link debugger</strong> - with update of LPC-Link2 debugger to the Segger J-Link firmware</p></li>
+<li><p><strong>PyOCD</strong> - supports both DAPLink and J-Link interfaces. The LPCXpresso55S69 boards, by default, use DAPLink firmware.</p></li>
+</ol>
+</dd>
+</dl>
+<section id="flashing-with-segger-j-link">
+<h3>2.1 Flashing with Segger J-Link<a class="headerlink" href="#flashing-with-segger-j-link" title="Permalink to this heading"></a></h3>
+<p>For command line flashing it is recommended to use external Segger J-Link flasher or to
+update the LPC-Link 2 debugger on the development board with the firmware provided by Segger,
+which makes the device behave as if there is an on-board J-Link debugger.</p>
+<p>For onboard J-Link debugger option please follow this step:</p>
+<section id="update-the-lpc-link-2-to-segger-j-link">
+<h4>2.1.1 Update the LPC-Link 2 to Segger J-Link<a class="headerlink" href="#update-the-lpc-link-2-to-segger-j-link" title="Permalink to this heading"></a></h4>
+<ul class="simple">
+<li><p>Install a recent version of the <a class="reference external" href="https://www.segger.com/downloads/jlink#J-LinkSoftwareAndDocumentationPack">J-Link Software and Documentation
+Pack</a>.
+Version <strong>6.98b</strong> was used with this guide.</p></li>
+<li><p>Update the on-board LPC-Link 2 to use the latest J-Link firmware,
+following the instructions from Segger: <a class="reference external" href="https://www.segger.com/products/debug-probes/j-link/models/other-j-links/lpc-link-2/">Getting Started with
+LPC-Link2</a>.</p></li>
+<li><p>Link the DFU jumper (J4) and make power cycle</p></li>
+<li><p>Flash the <strong>NXP LPCXpresso On-Board</strong> firmware image with <code class="docutils literal notranslate"><span class="pre">lpcscrypt</span></code> from the <code class="docutils literal notranslate"><span class="pre">lpcscrypt_2.1.2_57/scripts</span></code> folder as follows:</p></li>
+</ul>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-0-TGludXg=" aria-selected="true" class="sphinx-tabs-tab group-tab" id="tab-0-TGludXg=" name="TGludXg=" role="tab" tabindex="0">Linux</button><button aria-controls="panel-0-V2luZG93cw==" aria-selected="false" class="sphinx-tabs-tab group-tab" id="tab-0-V2luZG93cw==" name="V2luZG93cw==" role="tab" tabindex="-1">Windows</button></div><div aria-labelledby="tab-0-TGludXg=" class="sphinx-tabs-panel group-tab" id="panel-0-TGludXg=" name="TGludXg=" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>./program_JLINK<span class="w"> </span>../probe_firmware/LPCXpressoV2/Firmware_JLink_LPCXpressoV2_20190404.bin
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-0-V2luZG93cw==" class="sphinx-tabs-panel group-tab" hidden="true" id="panel-0-V2luZG93cw==" name="V2luZG93cw==" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>program_JLINK<span class="w"> </span>../probe_firmware/LPCXpressoV2/Firmware_JLink_LPCXpressoV2_20190404.bin
+</pre></div>
+</div>
+</div></div>
+<p>Then remove the link on the DFU jumper and power cycle.</p>
+</section>
+<section id="flash-images-with-jlinkcommander">
+<h4>2.1.2 Flash images with <code class="docutils literal notranslate"><span class="pre">JLinkCommander</span></code><a class="headerlink" href="#flash-images-with-jlinkcommander" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>To flash TF-M images use the flash scripts provided in <code class="docutils literal notranslate"><span class="pre">platform/ext/target/nxp/lpcxpresso55s69/scripts</span></code> folder:</dt><dd><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">flash_JLink.py</span></code> - for uploading image without BL2</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">flash_bl2_JLink.py</span></code> - for uploading image with BL2</p></li>
+</ul>
+</dd>
+</dl>
+<p>Or you can do it manually according to paragraph <code class="docutils literal notranslate"><span class="pre">2.1.2.1</span></code>.</p>
+<section id="connect-to-the-board-using-jlinkcommander">
+<h5>2.1.2.1 Connect to the board using <code class="docutils literal notranslate"><span class="pre">JLinkCommander</span></code><a class="headerlink" href="#connect-to-the-board-using-jlinkcommander" title="Permalink to this heading"></a></h5>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-1-TGludXg=" aria-selected="true" class="sphinx-tabs-tab group-tab" id="tab-1-TGludXg=" name="TGludXg=" role="tab" tabindex="0">Linux</button><button aria-controls="panel-1-V2luZG93cw==" aria-selected="false" class="sphinx-tabs-tab group-tab" id="tab-1-V2luZG93cw==" name="V2luZG93cw==" role="tab" tabindex="-1">Windows</button></div><div aria-labelledby="tab-1-TGludXg=" class="sphinx-tabs-panel group-tab" id="panel-1-TGludXg=" name="TGludXg=" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>JLinkExe<span class="w"> </span>-device<span class="w"> </span>lpc55s69<span class="w"> </span>-if<span class="w"> </span>swd<span class="w"> </span>-speed<span class="w"> </span><span class="m">2000</span><span class="w"> </span>-autoconnect<span class="w"> </span><span class="m">1</span>
+
+SEGGER<span class="w"> </span>J-Link<span class="w"> </span>Commander<span class="w"> </span>V6.98b<span class="w"> </span><span class="o">(</span>Compiled<span class="w"> </span>Mar<span class="w"> </span><span class="m">12</span><span class="w"> </span><span class="m">2021</span><span class="w"> </span><span class="m">15</span>:03:29<span class="o">)</span>
+DLL<span class="w"> </span>version<span class="w"> </span>V6.98b,<span class="w"> </span>compiled<span class="w"> </span>Mar<span class="w"> </span><span class="m">12</span><span class="w"> </span><span class="m">2021</span><span class="w"> </span><span class="m">15</span>:02:22
+
+Connecting<span class="w"> </span>to<span class="w"> </span>J-Link<span class="w"> </span>via<span class="w"> </span>USB...O.K.
+Firmware:<span class="w"> </span>J-Link<span class="w"> </span>LPCXpresso<span class="w"> </span>V2<span class="w"> </span>compiled<span class="w"> </span>Apr<span class="w">  </span><span class="m">4</span><span class="w"> </span><span class="m">2019</span><span class="w"> </span><span class="m">16</span>:54:03
+Hardware<span class="w"> </span>version:<span class="w"> </span>V1.00
+S/N:<span class="w"> </span><span class="m">729458359</span>
+<span class="nv">VTref</span><span class="o">=</span><span class="m">3</span>.300V
+Device<span class="w"> </span><span class="s2">&quot;LPC55S69_M33_0&quot;</span><span class="w"> </span>selected.
+...
+Cortex-M33<span class="w"> </span>identified.
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-1-V2luZG93cw==" class="sphinx-tabs-panel group-tab" hidden="true" id="panel-1-V2luZG93cw==" name="V2luZG93cw==" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>JLink<span class="w"> </span>-device<span class="w"> </span>lpc55s69<span class="w"> </span>-if<span class="w"> </span>swd<span class="w"> </span>-speed<span class="w"> </span><span class="m">2000</span><span class="w"> </span>-autoconnect<span class="w"> </span><span class="m">1</span>
+
+SEGGER<span class="w"> </span>J-Link<span class="w"> </span>Commander<span class="w"> </span>V6.98b<span class="w"> </span><span class="o">(</span>Compiled<span class="w"> </span>Mar<span class="w"> </span><span class="m">12</span><span class="w"> </span><span class="m">2021</span><span class="w"> </span><span class="m">15</span>:03:29<span class="o">)</span>
+DLL<span class="w"> </span>version<span class="w"> </span>V6.98b,<span class="w"> </span>compiled<span class="w"> </span>Mar<span class="w"> </span><span class="m">12</span><span class="w"> </span><span class="m">2021</span><span class="w"> </span><span class="m">15</span>:02:22
+
+Connecting<span class="w"> </span>to<span class="w"> </span>J-Link<span class="w"> </span>via<span class="w"> </span>USB...O.K.
+Firmware:<span class="w"> </span>J-Link<span class="w"> </span>LPCXpresso<span class="w"> </span>V2<span class="w"> </span>compiled<span class="w"> </span>Apr<span class="w">  </span><span class="m">4</span><span class="w"> </span><span class="m">2019</span><span class="w"> </span><span class="m">16</span>:54:03
+Hardware<span class="w"> </span>version:<span class="w"> </span>V1.00
+S/N:<span class="w"> </span><span class="m">729458359</span>
+<span class="nv">VTref</span><span class="o">=</span><span class="m">3</span>.300V
+Device<span class="w"> </span><span class="s2">&quot;LPC55S69_M33_0&quot;</span><span class="w"> </span>selected.
+...
+Cortex-M33<span class="w"> </span>identified.
+</pre></div>
+</div>
+</div></div>
+</section>
+<section id="flash-the-built-images">
+<h5>2.1.2.2 Flash the built images<a class="headerlink" href="#flash-the-built-images" title="Permalink to this heading"></a></h5>
+<p>When BL2 is disabled, flash the generated hex secure and non-secure images:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>J-Link&gt; loadfile ${BUILD_DIR}/bl2.hex
+J-Link&gt; loadfile ${BUILD_DIR}/tfm_s_signed.bin 0x00008000
+J-Link&gt; loadfile ${BUILD_DIR}/tfm_ns_signed.bin 0x00030000
+</pre></div>
+</div>
+<p>If you built TF-M with the BL2 secondary bootloader, use following commands:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>J-Link&gt; loadfile ${BUILD_DIR}/tfm_s.hex
+J-Link&gt; loadfile ${BUILD_DIR}/tfm_ns.hex
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+<section id="flashing-with-pyocd">
+<h3>2.2 Flashing with PyOCD<a class="headerlink" href="#flashing-with-pyocd" title="Permalink to this heading"></a></h3>
+<p>PyOCD is an open source Python package for programming and debugging Arm Cortex-M microcontrollers using multiple supported types of USB debug probes.
+See: <a class="reference external" href="https://pypi.org/project/pyocd/">PyOCD</a></p>
+<dl class="simple">
+<dt>To flash TF-M images with PyOCD you can use the flash scripts provided in <code class="docutils literal notranslate"><span class="pre">platform/ext/target/nxp/lpcxpresso55s69/scripts</span></code> folder:</dt><dd><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">flash_PyOCD.py</span></code> - for uploading image without BL2</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">flash_bl2_PyOCD.py</span></code> - for uploading image with BL2</p></li>
+</ul>
+</dd>
+</dl>
+<p>You should get the following output (flashing without BL2):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python flash_PyOCD.py
+0001749:INFO:eraser:Mass erasing device...
+0001749:INFO:eraser:Erasing chip...
+0001902:INFO:eraser:Done
+0001902:INFO:eraser:Successfully erased.
+[====================] 100%
+0007694:INFO:loader:Erased 262144 bytes (8 sectors), programmed 203776 bytes (398 pages), skipped 0 bytes (0 pages) at 33.91 kB/s
+[====================] 100%
+0005187:INFO:loader:Erased 131072 bytes (4 sectors), programmed 121856 bytes (238 pages), skipped 0 bytes (0 pages) at 34.13 kB/s
+</pre></div>
+</div>
+<p>Or do it manually according the following steps:</p>
+<p>If you built TF-M with the BL2 secondary bootloader, use the following commands:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ pyocd erase --mass -t LPC55S69
+$ pyocd flash ${BUILD_DIR}/tfm_s.hex -t LPC55S69
+$ pyocd flash ${BUILD_DIR}/tfm_ns.hex -t LPC55S69
+</pre></div>
+</div>
+<p>When BL2 is disabled, flash the generated hex secure and non-secure images:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ pyocd erase --mass -t LPC55S69
+$ pyocd flash ${BUILD_DIR}/bl2.hex -t LPC55S69
+$ pyocd flash ${BUILD_DIR}/tfm_s_signed.bin --base-address 0x8000 -t LPC55S69
+$ pyocd flash ${BUILD_DIR}/tfm_ns_signed.bin --base-address 0x30000 -t LPC55S69
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>At present, the reset target command does not seem to respond, so you can reset the device to start firmware execution via the physical RESET button (S4). There is sometimes also a stability issue with the flash erasing, so if the script freezes, it is needed to terminate the script, physically reset the target an rerun it again.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>When using PyOCD on Windows, there might currently occur an issue with the <code class="docutils literal notranslate"><span class="pre">libusb</span></code> library. In that case, download the <code class="docutils literal notranslate"><span class="pre">libusb</span></code> library from <a class="reference external" href="https://libusb.info/">here</a> and copy .DLL file into the Python installation folder (next to python.exe)</p>
+</div>
+</section>
+</section>
+<section id="debugging">
+<h2>3. Debugging<a class="headerlink" href="#debugging" title="Permalink to this heading"></a></h2>
+<section id="debugging-with-segger-ozone">
+<h3>3.1 Debugging with Segger Ozone<a class="headerlink" href="#debugging-with-segger-ozone" title="Permalink to this heading"></a></h3>
+<p>If you have a commercially licensed Segger J-Link, or if you meet the
+license terms for it’s use, <a class="reference external" href="https://www.segger.com/products/development-tools/ozone-j-link-debugger/">Segger’s cross-platform Ozone
+tool</a>
+can be used to debug TF-M firmware images.</p>
+<p>To debug, flash the BL2, S and NS firmware images using the <code class="docutils literal notranslate"><span class="pre">flash.py</span></code>
+script or command-line options described earlier in this guide, and
+configure a new project on Ozone as follows:</p>
+<ul class="simple">
+<li><p>Device: LPC55S69</p></li>
+<li><p>Target Interface: SWD</p></li>
+<li><p>Target Interface Speed: 2 MHz</p></li>
+<li><p>Host Interface: USB</p></li>
+<li><p>Program File: build/secure_fw/tfm_s.axf (etc.)</p></li>
+</ul>
+<p>Once the project has been set up, and the firmware has previously been
+flashed to the board, connect to the target via:</p>
+<ul class="simple">
+<li><p>Debug &gt; Start Debug Session &gt; Attach to a Running Program</p></li>
+</ul>
+<p>At this point, you can set a breakpoint somewhere in the code, such as
+in <code class="docutils literal notranslate"><span class="pre">startup_LPC55S69_cm33_core0.s</span></code> at the start of the
+<code class="docutils literal notranslate"><span class="pre">Reset_Handler</span></code>, or near a line like <code class="docutils literal notranslate"><span class="pre">bl</span>&#160;&#160;&#160; <span class="pre">SystemInit</span></code>, or at
+another appropriate location, and reset the device to debug.</p>
+</section>
+<section id="debugging-with-gdb">
+<h3>3.2 Debugging with GDB<a class="headerlink" href="#debugging-with-gdb" title="Permalink to this heading"></a></h3>
+<blockquote>
+<div><p><strong>NOTE</strong>: If you are debugging, make sure to set the
+build type variable to <code class="docutils literal notranslate"><span class="pre">-DCMAKE_BUILD_TYPE=Debug</span></code> when
+building TF-M so that debug information is available to GDB.</p>
+<p><strong>NOTE</strong>: When debugging with the mbed-crypto library, it is needed to add an
+additional <code class="docutils literal notranslate"><span class="pre">-DMBEDCRYPTO_BUILD_TYPE=DEBUG</span></code> compile-time switch.</p>
+</div></blockquote>
+<section id="start-the-gdb-server-pointing-to-the-secure-application-image">
+<h4>3.2.1 Start the GDB server, pointing to the secure application image:<a class="headerlink" href="#start-the-gdb-server-pointing-to-the-secure-application-image" title="Permalink to this heading"></a></h4>
+<p>You can use JLinkGDBServer or PyOCD server depending on the interface configured in the previous step.</p>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-2-Si1MaW5rIEdEQiBzZXJ2ZXI=" aria-selected="true" class="sphinx-tabs-tab group-tab" id="tab-2-Si1MaW5rIEdEQiBzZXJ2ZXI=" name="Si1MaW5rIEdEQiBzZXJ2ZXI=" role="tab" tabindex="0">J-Link GDB server</button><button aria-controls="panel-2-UHlPQ0QgR0RCIHNlcnZlcg==" aria-selected="false" class="sphinx-tabs-tab group-tab" id="tab-2-UHlPQ0QgR0RCIHNlcnZlcg==" name="UHlPQ0QgR0RCIHNlcnZlcg==" role="tab" tabindex="-1">PyOCD GDB server</button></div><div aria-labelledby="tab-2-Si1MaW5rIEdEQiBzZXJ2ZXI=" class="sphinx-tabs-panel group-tab" id="panel-2-Si1MaW5rIEdEQiBzZXJ2ZXI=" name="Si1MaW5rIEdEQiBzZXJ2ZXI=" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>JLinkGDBServer<span class="w"> </span>-device<span class="w"> </span>lpc55s69<span class="w"> </span>-if<span class="w"> </span>swd<span class="w"> </span>-speed<span class="w"> </span><span class="m">2000</span>
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-2-UHlPQ0QgR0RCIHNlcnZlcg==" class="sphinx-tabs-panel group-tab" hidden="true" id="panel-2-UHlPQ0QgR0RCIHNlcnZlcg==" name="UHlPQ0QgR0RCIHNlcnZlcg==" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>pyocd<span class="w"> </span>gdbserver<span class="w"> </span>-f<span class="w"> </span>2000k<span class="w"> </span>-t<span class="w"> </span>LPC55S69
+</pre></div>
+</div>
+</div></div>
+</section>
+<section id="connecting-to-the-gdb-server">
+<h4>3.2.2 Connecting to the GDB server<a class="headerlink" href="#connecting-to-the-gdb-server" title="Permalink to this heading"></a></h4>
+<p>In a separate terminal, start the GDB client in <code class="docutils literal notranslate"><span class="pre">tui</span></code> (text UI) mode:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>arm-none-eabi-gdb<span class="w"> </span>--tui<span class="w"> </span>secure_fw/tfm_s.axf
+</pre></div>
+</div>
+<p>Then from the client connect to the remote GDB server that was started
+earlier:</p>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-3-Si1MaW5rIEdEQiBzZXJ2ZXI=" aria-selected="true" class="sphinx-tabs-tab group-tab" id="tab-3-Si1MaW5rIEdEQiBzZXJ2ZXI=" name="Si1MaW5rIEdEQiBzZXJ2ZXI=" role="tab" tabindex="0">J-Link GDB server</button><button aria-controls="panel-3-UHlPQ0QgR0RCIHNlcnZlcg==" aria-selected="false" class="sphinx-tabs-tab group-tab" id="tab-3-UHlPQ0QgR0RCIHNlcnZlcg==" name="UHlPQ0QgR0RCIHNlcnZlcg==" role="tab" tabindex="-1">PyOCD GDB server</button></div><div aria-labelledby="tab-3-Si1MaW5rIEdEQiBzZXJ2ZXI=" class="sphinx-tabs-panel group-tab" id="panel-3-Si1MaW5rIEdEQiBzZXJ2ZXI=" name="Si1MaW5rIEdEQiBzZXJ2ZXI=" role="tabpanel" tabindex="0"><p>With <code class="docutils literal notranslate"><span class="pre">JLinkGDBServer</span></code> (default port 2331):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">(</span>gdb<span class="o">)</span><span class="w"> </span>target<span class="w"> </span>remote:2331
+Remote<span class="w"> </span>debugging<span class="w"> </span>using<span class="w"> </span>:2331
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-3-UHlPQ0QgR0RCIHNlcnZlcg==" class="sphinx-tabs-panel group-tab" hidden="true" id="panel-3-UHlPQ0QgR0RCIHNlcnZlcg==" name="UHlPQ0QgR0RCIHNlcnZlcg==" role="tabpanel" tabindex="0"><p>With <code class="docutils literal notranslate"><span class="pre">pyocd</span> <span class="pre">gdbserver</span></code> (default port 3333):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">(</span>gdb<span class="o">)</span><span class="w"> </span>target<span class="w"> </span>remote:3333
+Remote<span class="w"> </span>debugging<span class="w"> </span>using<span class="w"> </span>:3333
+</pre></div>
+</div>
+</div></div>
+</section>
+<section id="reset-and-stop-at-main">
+<h4>3.2.3 Reset and stop at <code class="docutils literal notranslate"><span class="pre">main</span></code><a class="headerlink" href="#reset-and-stop-at-main" title="Permalink to this heading"></a></h4>
+<p>Set a breakpoint at <code class="docutils literal notranslate"><span class="pre">main()</span></code> (found in <code class="docutils literal notranslate"><span class="pre">tfm_core.c</span></code>), reset the
+device (<code class="docutils literal notranslate"><span class="pre">monitor</span> <span class="pre">reset</span></code>), and continue (<code class="docutils literal notranslate"><span class="pre">c</span></code>) execution.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>(gdb) break main
+Breakpoint 1 at 0x10024220: file [path]/secure_fw/core/tfm_core.c, line 189.
+(gdb) monitor reset
+(gdb) c
+Continuing.
+Note: automatically using hardware breakpoints for read-only addresses.
+
+Breakpoint 1, main ()
+    at [path]/secure_fw/core/tfm_core.c:189
+189     tfm_arch_init_secure_msp((uint32_t)&amp;REGION_NAME(Image$$, ARM_LIB_STACK,
+</pre></div>
+</div>
+</section>
+<section id="commonly-used-gdb-commands">
+<h4>3.2.4 Commonly used GDB commands<a class="headerlink" href="#commonly-used-gdb-commands" title="Permalink to this heading"></a></h4>
+<p>You can start, step through, and analyse the code using some of the
+following GDB commands:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 75%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>GDB Command</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">next</span></code></p></td>
+<td><p>Execute the next statement in the program</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">step</span></code></p></td>
+<td><p>Step until new source line, entering called functions</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">until</span> <span class="pre">&lt;n&gt;</span></code></p></td>
+<td><p>Run until source line <code class="docutils literal notranslate"><span class="pre">n</span></code> in the current file</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">info</span> <span class="pre">locals</span></code></p></td>
+<td><p>Display the local variables and their current values</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">bt</span></code></p></td>
+<td><p>Display a stack backtrace up to the current function</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">print</span> <span class="pre">&lt;x&gt;</span></code></p></td>
+<td><p>Print the expression (ex. <code class="docutils literal notranslate"><span class="pre">print</span> <span class="pre">my_var</span></code>)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">x</span></code></p></td>
+<td><p>Examine memory (ex. <code class="docutils literal notranslate"><span class="pre">x/s</span> <span class="pre">*my_string</span></code>)</p></td>
+</tr>
+</tbody>
+</table>
+<p>From here, you should consult a tutorial or book on GDB to know how to debug
+common problems.</p>
+<hr class="docutils" />
+<p><em>Copyright (c) 2021, NXP Semiconductors. All rights reserved.</em>
+<em>Copyright (c) 2020, Linaro. All rights reserved.</em>
+<em>Copyright (c) 2020-2021, Arm Limited. All rights reserved.</em>
+<em>SPDX-License-Identifier: BSD-3-Clause</em></p>
+</section>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p></p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

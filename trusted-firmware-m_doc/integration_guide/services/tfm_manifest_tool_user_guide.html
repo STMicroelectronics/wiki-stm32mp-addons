@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TF-M Manifest Tool User Guide &mdash; Trusted Firmware-M v1.7.0-stm32mp25-alpha-r1-rc3-doc documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/tfm_custom.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/tabs.css" type="text/css" />
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Design Documents" href="../../technical_references/design_docs/index.html" />
+    <link rel="prev" title="Adding Secure Partition" href="tfm_secure_partition_addition.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> Trusted Firmware-M
+            <img src="../../_static/tf_logo_white.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                v1.7.0-stm32mp25-alpha-r1-rc3-doc
+
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../introduction/index.html">Introduction</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started/index.html">Getting Started</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../security/index.html">Security</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../security/security_advisories/index.html">Security Advisories</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/stack_seal_vulnerability.html">Advisory TFMV-1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/svc_caller_sp_fetching_vulnerability.html">Advisory TFMV-2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/crypto_multi_part_ops_abort_fail.html">Advisory TFMV-3</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/profile_small_key_id_encoding_vulnerability.html">Advisory TFMV-4</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/fwu_write_vulnerability.html">Advisory TFMV-5</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../security/threat_models/index.html">Threat Models</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../security/threat_models/generic_threat_model.html">Trusted Firmware-M Generic Threat Model</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../security/security.html">Security Handling</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../releases/index.html">Releases</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/1.7.0.html">v1.7.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/1.6.1.html">v1.6.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/1.6.0.html">v1.6.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/1.5.0.html">v1.5.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/release_process.html">Release Cadence and Process</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../glossary.html">Glossary</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../platform/index.html">Platform Selection</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/arm/index.html">Arm platforms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/corstone1000/readme.html">Corstone-1000</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/mps3/an547/README.html">Corstone-300 FPGA (AN547)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/mps3/an552/README.html">Corstone-300 FPGA and FVP (AN552)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/mps3/corstone310/README.html">Corstone-310 FVP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/musca_b1/readme.html">Musca-B1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/musca_s1/readme.html">Musca-S1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/rss/readme.html">Runtime Security Subsystem</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/nxp/lpcxpresso55s69/README.html">LPCXpresso55S69</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/cypress/psoc64/index.html">Cypress PSoC64</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/cypress/psoc64/cypress_psoc64_spec.html">Cypress PSoC64 Specifics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/cypress/psoc64/libs/core-lib/README.html">Core Library</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/cypress/psoc64/libs/core-lib/RELEASE.html">Core Library Release Notes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/stm/index.html">STMICROELECTRONICS</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32l5xx/readme.html">STM32L5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32mp2/readme.html">STM32MP2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32u5xx/readme.html">STM32U5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/nucleo_l552ze_q/readme.html">NUCLEO-L552ZE-Q</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32l562e_dk/readme.html">STM32L562E-DK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/b_u585i_iot02a/readme.html">B-U585I-IOT02A</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/nordic_nrf/nrf5340dk_nrf5340_cpuapp/README.html">Nordic nRF5340</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/nordic_nrf/nrf9160dk_nrf9160/README.html">Nordic nRF9160</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/lairdconnectivity/bl5340_dvk_cpuapp/README.html">Laird Connectivity BL5340</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/nuvoton/m2351/README.html">NuMaker-PFM-M2351</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/nuvoton/m2354/README.html">NuMaker-PFM-M2354</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../building/tfm_build_instruction.html">Build instructions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../building/run_tfm_examples_on_arm_platforms.html">Run TF-M examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../building/documentation_generation.html">Building the documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../building/tfm_build_instruction_iar.html">IAR toolchain</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../configuration/index.html">Configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../configuration/build_configuration.html">Build configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../configuration/header_file_system.html">Component configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../configuration/kconfig_system.html">Kconfig</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../configuration/profiles/index.html">Profiles</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../configuration/profiles/tfm_profile_small.html"> Small</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../configuration/profiles/tfm_profile_medium_arot-less.html"> ARoT-less</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../configuration/profiles/tfm_profile_medium.html"> Medium</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../configuration/profiles/tfm_profile_large.html"> Large</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../configuration/test_configuration.html">Tests configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Integration Guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../spm_backends.html">SPM Backends</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../non-secure_client_extension_integration_guide.html">NS client integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../os_migration_guide_armv8m.html">OS migration to Armv8-M</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tfm_fpu_support.html">Floating-Point Support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tfm_secure_irq_integration_guide.html">Secure Interrupt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../platform/index.html">Adding a new platform</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../platform/platform_folder.html">Details for the platform folder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/platform_ext_folder.html">Details for the platform/ext folder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/porting_TFM_to_a_new_hardware.html">Porting TF-M to a New Hardware</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/platform_provisioning.html">Platform Provisioning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/platform_deprecation.html">Platform deprecation and removal</a></li>
+</ul>
+</li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Services</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="tfm_attestation_integration_guide.html">Initial Attestation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tfm_crypto_integration_guide.html">Crypto</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tfm_its_integration_guide.html">Internal Storage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tfm_platform_integration_guide.html">Platform</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tfm_ps_integration_guide.html">Protected Storage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tfm_secure_partition_addition.html">Adding a New Service</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">The manifest tool</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../technical_references/design_docs/index.html">Design Documents</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/dual-cpu/index.html">Dual-CPU</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../technical_references/design_docs/dual-cpu/booting_a_dual_core_system.html">Booting a Dual-Core System</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../technical_references/design_docs/dual-cpu/communication_prototype_between_nspe_and_spe_in_dual_core_systems.html">Communication Prototype Between NSPE And SPE In Dual Core System</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../technical_references/design_docs/dual-cpu/mailbox_design_on_dual_core_system.html">Mailbox Design in TF-M on Dual-core System</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../technical_references/design_docs/dual-cpu/tfm_multi_core_access_check.html">Memory Access Check of Trusted Firmware-M in Multi-Core Topology</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/bl1.html">BL1 Immutable bootloader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/code_sharing.html">Code sharing between independently linked XIP binaries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/enum_implicit_casting.html">Fixing implicit casting for C enumeration values</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/ff_isolation.html">FF-M Isolation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/hardware_abstraction_layer.html">Hardware Abstraction Layer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/mailbox_ns_agent_update.html">Mailbox NS Agent Design Update</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/ps_key_management.html">Protected Storage service key management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/secure_boot_hw_key_integration.html">HW crypto key integration in TF-M secure boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/secure_boot_rollback_protection.html">Rollback protection in TF-M secure boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/secure_partition_manager.html">Secure Partition Manager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/source_structure.html">Trusted Firmware-M Source Structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/stateless_rot_service.html">Stateless Root of Trust Services Reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/symmetric_initial_attest.html">Symmetric key algorithm based Initial Attestation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/tfm_builtin_keys.html">TF-M builtin keys</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/tfm_code_generation_with_jinja2.html">Code Generation With Jinja2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/tfm_cooperative_scheduling_rules.html">Cooperative Scheduling Rules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/tfm_crypto_design.html">Crypto Service design</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/tfm_fwu_service.html">Firmware Update Service</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/tfm_its_512_flash.html">Add support for block-aligned flash in Internal Trusted Storage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/tfm_its_service.html">Internal Trusted Storage (ITS) Service</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/tfm_log_system_design_document.html">Log system design document</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/tfm_physical_attack_mitigation.html">Physical attack mitigation in Trusted Firmware-M</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/tfm_psa_inter_process_communication.html">TF-M Inter-Process Communication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/tfm_secure_boot.html">Secure boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/tfm_secure_partition_runtime_library.html">Secure Partition Runtime Library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/tfm_uniform_secure_service_signature.html">Uniform Secure Service Signature</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../tools/index.html">Tools</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contribution</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing/index.html">Guidelines</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/contributing_process.html">The process</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/code_review_guide.html">Code review</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/maintainers.html">Maintainers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/maintainers.html#code-owners">Code owners</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/coding_guide.html">Yet another coding standard :)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/doc_guidelines.html">Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/tfm_design_proposal_guideline.html">Design proposal</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing/lic.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing/dco.html">DCO</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Links</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://ci.trustedfirmware.org/view/TF-M/job/tf-m-build-docs-nightly/lastSuccessfulBuild/artifact/trusted-firmware-m/build/docs/reference_manual/html/index.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://developer.trustedfirmware.org/w/collaboration/security_center">Security Center</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://www.arm.com/architecture/security-features/platform-security">PSA</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">STMICROELECTRONICS</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../stm/releases/index.html">Releases</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/releases/getting_started.html">Getting started</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32l562e_dk/readme.html">STM32L562E-DK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/nucleo_l552ze_q/readme.html">NUCLEO-L552ZE-Q</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/b_u585i_iot02a/readme.html">B-U585I-IOT02A</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/releases/platforms.html">Platforms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32l5xx/readme.html">STM32L5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32mp2/readme.html">STM32MP2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32u5xx/readme.html">STM32U5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/nucleo_l552ze_q/readme.html">NUCLEO-L552ZE-Q</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32l562e_dk/readme.html">STM32L562E-DK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/releases/changelog.html">Change Log &amp; Notes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/releases/v1.7.0-stm32mp25-alpha-r1-rc3/changelog.html">v1.7.0-stm32mp25-alpha-r1-rc3</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../stm/technical/index.html">Technical references</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/technical/a35_td_flavor/index.html">A35-TD flavor</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/technical/a35_td_flavor/memory_layout.html">Memory layout</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/technical/a35_td_flavor/storage.html">Storage</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/technical/m33_td_flavor/index.html">M33-TD flavor</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/technical/m33_td_flavor/memory_layout.html">Memory layout</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/technical/m33_td_flavor/storage.html">Storage</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/technical/devicetree/index.html">Devicetree</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/technical/devicetree/devicetree_tfm.html">Scope and purpose</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/technical/devicetree/devicetree_tfm.html#concept">Concept</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/technical/devicetree/devicetree_tfm.html#how-to-add-device">How to add device</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/technical/initlevel.html">Initlevel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/technical/initial_attestation.html">Initial Attestation Service</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/technical/nv_counter.html">Nv counter</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../stm/ide/index.html">Ide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/ide/cubeide/stm32cubeide.html">STM32CubeIDE</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Trusted Firmware-M</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../index.html">Integration Guide</a> &raquo;</li>
+          <li><a href="index.html">Services</a> &raquo;</li>
+      <li>TF-M Manifest Tool User Guide</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="tf-m-manifest-tool-user-guide">
+<h1>TF-M Manifest Tool User Guide<a class="headerlink" href="#tf-m-manifest-tool-user-guide" title="Permalink to this heading"></a></h1>
+<p>This document describes the TF-M manifest tool and its usage.
+The target audiences are mainly platform integrators and Secure Partition
+developers.</p>
+<p>This document assumes that audiences have knowledge about the terminologies
+defined in PSA Firmware Framework (FF-M) v1.0 <a class="footnote-reference brackets" href="#id10" id="id1">1</a> and the FF-M v1.1 extensions
+<a class="footnote-reference brackets" href="#id11" id="id2">2</a>, such as Secure Partition and manifests.</p>
+<section id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading"></a></h2>
+<p>The TF-M manifest tool is a python script which is used to parse Secure
+Partition manifests and generate source header files defined by FF-M <a class="footnote-reference brackets" href="#id10" id="id3">1</a> such
+as <code class="docutils literal notranslate"><span class="pre">psa_manifest/pid.h</span></code> and <code class="docutils literal notranslate"><span class="pre">psa_manifest/sid.h</span></code>.
+It also generates TF-M specific files for building.</p>
+<p>In the TF-M build system, the manifest tool is invoked during building
+automatically. Arguments are passed through CMake variables and they are
+customizable.
+See <a class="reference internal" href="#usage-in-tf-m-build-system">Usage in TF-M Build System</a> for more details.</p>
+<p>It can be also used as a standalone tool.</p>
+</section>
+<section id="arguments">
+<h2>Arguments<a class="headerlink" href="#arguments" title="Permalink to this heading"></a></h2>
+<p>The tool takes 5 arguments at most.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>tfm_parse_manifest_list.py<span class="w"> </span><span class="o">[</span>-h<span class="o">]</span><span class="w"> </span>-o<span class="w"> </span>out_dir
+<span class="w">                           </span>-m<span class="w"> </span>manifest<span class="w"> </span>list<span class="w"> </span><span class="o">[</span>manifest<span class="w"> </span>list<span class="w"> </span>...<span class="o">]</span>
+<span class="w">                           </span>-f<span class="w"> </span>file-list<span class="w"> </span><span class="o">[</span>file-list<span class="w"> </span>...<span class="o">]</span>
+<span class="w">                           </span>-c<span class="w"> </span>config-files<span class="w"> </span><span class="o">[</span>config-files<span class="w"> </span>...<span class="o">]</span>
+<span class="w">                           </span><span class="o">[</span>-q<span class="o">]</span>
+</pre></div>
+</div>
+<p><strong>-o/–outdir</strong></p>
+<p>Required.</p>
+<p>The directory to hold the output files.</p>
+<p><strong>-m/–manifest-lists</strong></p>
+<p>Required. At least one item must be provided.</p>
+<p>A list of TF-M Secure Partition manifest lists which contain one or more
+Secure Partition manifests in each.
+See <a class="reference internal" href="#manifest-list">Manifest List</a> for details.</p>
+<p><strong>-f/–file-list</strong></p>
+<p>Required. At least one item must be provided.</p>
+<p>A list of files that describe what files the tool should generate.
+See <a class="reference internal" href="#generated-file-list">Generated File List</a> for details.</p>
+<p><strong>-c/–config-files</strong></p>
+<p>Required. At least one item must be provided.</p>
+<p>A list of header files which contain build configurations such as isolation
+level and Secure Partition enabled status.
+See <a class="reference internal" href="#configuration-header-file">Configuration Header File</a> for details.</p>
+<p><strong>-q/–quiet</strong></p>
+<p>Optional.</p>
+<p>Reduces log messages, only warnings and errors will be printed.</p>
+<section id="manifest-list">
+<span id="tfm-manifest-list"></span><h3>Manifest List<a class="headerlink" href="#manifest-list" title="Permalink to this heading"></a></h3>
+<p>A manifest list is a YAML <a class="footnote-reference brackets" href="#id12" id="id4">3</a> file that describes a list of Secure Partition
+manifests.
+Refer to the TF-M default manifest list <a class="footnote-reference brackets" href="#id13" id="id5">4</a> as an example.</p>
+<p>Each manifest list must contain a <code class="docutils literal notranslate"><span class="pre">manifest_list</span></code> attribute which collects the
+descriptions of Secure Partition manifests.
+Following are the supported attributes of in the manifest lists.</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">description</span></code></p>
+<p>Required.</p>
+<p>Descriptive information for the tool to refer to the Secure Partition, for
+example in logs.</p>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">manifest</span></code></p>
+<p>Required.</p>
+<p>The manifest file of the Secure Partition.
+Both absolute path and relative path to the manifest list are supported.
+Environment variables are supported.</p>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">output_path</span></code></p>
+<p>Optional.</p>
+<p>The directory to hold the Secure Partition specific output files.
+See <a class="reference internal" href="#generated-file-list">Generated File List</a> for more details.</p>
+<p>Both absolute path and relative path to the directory specified by
+<code class="docutils literal notranslate"><span class="pre">-o/--outdir</span></code> are supported.
+Environment variables are supported.</p>
+<p>It is set to the directory specified by <code class="docutils literal notranslate"><span class="pre">-o/--outdir</span></code> if omitted.</p>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">conditional</span></code></p>
+<p>Optional.</p>
+<p>The configuration to enable or disable this Secure Partition.
+The value must be defined in one of the <a class="reference internal" href="#configuration-header-file">Configuration Header File</a>.
+If it is omitted, the Secure Partition is always enabled.</p>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pid</span></code></p>
+<p>Optional.</p>
+<p>The Secure Partition ID (PID).</p>
+<p><strong>For non-test purpose Secure Partitions, it is required.</strong>
+See <a class="reference internal" href="tfm_secure_partition_addition.html"><span class="doc">Adding Secure Partition</span></a>
+for the PID allocations.</p>
+<p>For test purpose Secure Partitions, this attribute is optional.
+The manifest tool assigns one for the Secure Partition.
+The value is not guaranteed to the same for different builds.</p>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">linker_pattern</span></code></p>
+<p>Optional.</p>
+<p>The information for linker to place the symbols of the Secure Partition.
+It is only required if you are using the linker scripts provided by TF-M.
+Each Secure Partition is expected to be built as a library.
+The name of the library must follow the format of
+<code class="docutils literal notranslate"><span class="pre">tfm_&lt;type&gt;_partition_&lt;name&gt;</span></code>.
+The valid value for <code class="docutils literal notranslate"><span class="pre">&lt;type&gt;</span></code> is <code class="docutils literal notranslate"><span class="pre">[psa_rot,</span> <span class="pre">app_rot]</span></code> corresponding to the
+type of the Secure Partitions.
+The <code class="docutils literal notranslate"><span class="pre">&lt;name&gt;</span></code> is any string to distinguish the Secure Partition from others.</p>
+<p>Supported patterns are:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">library_list</span></code>, must be <code class="docutils literal notranslate"><span class="pre">*tfm_*partition_&lt;name&gt;.*</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">object_list</span></code></p>
+<p>Any object files containing symbols belonging to the Secure Partition that
+are not included in the Secure Partitions library.</p>
+</li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="generated-file-list">
+<h3>Generated File List<a class="headerlink" href="#generated-file-list" title="Permalink to this heading"></a></h3>
+<p>A generated file list is a YAML file that describes the files to be generated
+by the manifest tool.
+Refer to TF-M default generated file list <a class="footnote-reference brackets" href="#id14" id="id6">5</a> as an example.</p>
+<p>Each one must contain a <code class="docutils literal notranslate"><span class="pre">file_list</span></code> attribute which collects the files to
+generate.
+Each item in the <code class="docutils literal notranslate"><span class="pre">file_list</span></code> must contain the following attributes.</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">template</span></code></p>
+<p>This attribute is the file path of a Jinja2 <a class="footnote-reference brackets" href="#id15" id="id7">6</a> template.
+The TF-M manifest tool uses Jinja2 template engine for file generations.
+It can be a relative path to TF-M root directory or an absolute path.
+Environment variables are supported.</p>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">output</span></code></p>
+<p>The output file of the <code class="docutils literal notranslate"><span class="pre">template</span></code>.
+Both absolute path and relative path to the directory specified by
+<code class="docutils literal notranslate"><span class="pre">-o/--outdir</span></code> are supported.
+Environment variables are supported.</p>
+</li>
+</ul>
+<p><strong>The tfm_generated_file_list.yaml is essential to build TF-M.</strong></p>
+<p>There are several files that are required for each Secure Partition,
+so they are not in any generated file lists since one template generates
+multiple files.</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">psa_manifest/&lt;manifestfilename&gt;.h</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">manifestfilename</span></code> is the file name of the manifest.
+This file contains internal definitions for the Secure Partition
+implementation, such as RoT Service signals and Secure Functions.
+Refer to FF-M <a class="footnote-reference brackets" href="#id10" id="id8">1</a> for more details.
+The corresponding template is <code class="docutils literal notranslate"><span class="pre">manifestfilename.template</span></code></p>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">intermedia_&lt;manifestfilename&gt;.c</span></code></p>
+<p>TF-M specific, which holds the stacks of Secure Partitions.
+This file must be built with the Secure Partition libraries.
+The corresponding template is <code class="docutils literal notranslate"><span class="pre">partition_intermedia.template</span></code>.</p>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">load_info_&lt;manifestfilename&gt;.c</span></code></p>
+<p>TF-M specific, which contains the load information of Secure Partitions.
+This file must be built with the TF-M SPM library.
+The corresponding template is <code class="docutils literal notranslate"><span class="pre">partition_load_info.template</span></code>.</p>
+</li>
+</ul>
+<p>These files are generated to <code class="docutils literal notranslate"><span class="pre">output_path</span></code> specified by each Secure Partition
+in the manifest lists.</p>
+</section>
+<section id="configuration-header-file">
+<h3>Configuration Header File<a class="headerlink" href="#configuration-header-file" title="Permalink to this heading"></a></h3>
+<p>The format of each configuration item must be</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#define CONFIG_NAME   VALUE</span>
+</pre></div>
+</div>
+<p>The following format is also supported for boolean type configurations.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#define CONFIG_NAME</span>
+</pre></div>
+</div>
+<p>The configurations can be divided into two categories.</p>
+<ul>
+<li><p>Generic configurations:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">PSA_FRAMEWORK_ISOLATION_LEVEL</span></code></p>
+<p>The isolation level, required. Valid values are <code class="docutils literal notranslate"><span class="pre">[1,</span> <span class="pre">2,</span> <span class="pre">3]</span></code>.</p>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">CONFIG_TFM_SPM_BACKEND</span></code></p>
+<p>The backend of SPM, required. Valid values are <code class="docutils literal notranslate"><span class="pre">[SFN,</span> <span class="pre">IPC]</span></code>.
+See <a class="reference internal" href="../spm_backends.html"><span class="doc">SPM backends</span></a>
+for details of backends.</p>
+</li>
+</ul>
+</li>
+<li><p>Secure Partition enablement configurations</p>
+<p>Configurations used to enable or disable Secure Partitions.
+The configuration names must match the values of <code class="docutils literal notranslate"><span class="pre">conditional</span></code> attributes in
+<a class="reference internal" href="#manifest-list">Manifest List</a>. Valid values are <code class="docutils literal notranslate"><span class="pre">[0,</span> <span class="pre">1]</span></code>.
+It’s optional for a Secure Partition which does not have the <code class="docutils literal notranslate"><span class="pre">conditional</span></code>
+attribute.</p>
+</li>
+</ul>
+<p>The configurations can be split to multiple files corresponding to the multiple
+manifest lists.</p>
+</section>
+</section>
+<section id="usage-in-tf-m-build-system">
+<h2>Usage in TF-M Build System<a class="headerlink" href="#usage-in-tf-m-build-system" title="Permalink to this heading"></a></h2>
+<p>In the TF-M build system, the manifest tool is invoked during building
+automatically.
+The arguments can be customized by altering the CMake configurations.</p>
+<p>The manifest lists are passed to the manifest tool via the <code class="docutils literal notranslate"><span class="pre">TFM_MANIFEST_LIST</span></code>
+CMake configuration.
+The default value is the <code class="docutils literal notranslate"><span class="pre">tfm_manifest_list.yaml</span></code>.
+It can be overridden or appended with other manifest lists.</p>
+<p>Corresponding manifest lists of test Secure Partitions are appended if either
+TF-M regression or PSA compliance tests are enabled.</p>
+<p>The generated file lists are passed via <code class="docutils literal notranslate"><span class="pre">GENERATED_FILE_LISTS</span></code>.
+It can be also overridden or appended with other file lists.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">-q</span></code> argument is appended if <code class="docutils literal notranslate"><span class="pre">PARSE_MANIFEST_QUIET_FLAG</span></code> is enabled.</p>
+<p>Paths in manifest lists and generated file lists can have CMake variables as
+long as the are absolute paths.
+The lists then must be processed by the CMake command <code class="docutils literal notranslate"><span class="pre">configure_file()</span></code> <a class="footnote-reference brackets" href="#id16" id="id9">7</a>
+before passing to the manifest tool.</p>
+<p>The configuration header file is generated by the build system automatically.</p>
+</section>
+<section id="references">
+<h2>References<a class="headerlink" href="#references" title="Permalink to this heading"></a></h2>
+<dl class="footnote brackets">
+<dt class="label" id="id10"><span class="brackets">1</span><span class="fn-backref">(<a href="#id1">1</a>,<a href="#id3">2</a>,<a href="#id8">3</a>)</span></dt>
+<dd><p><a class="reference external" href="https://developer.arm.com/-/media/Files/pdf/PlatformSecurityArchitecture/Architect/DEN0063-PSA_Firmware_Framework-1.0.0-2.pdf?revision=2d1429fa-4b5b-461a-a60e-4ef3d8f7f4b4">FF-M v1.0 Specification</a></p>
+</dd>
+<dt class="label" id="id11"><span class="brackets"><a class="fn-backref" href="#id2">2</a></span></dt>
+<dd><p><a class="reference external" href="https://documentation-service.arm.com/static/600067c09b9c2d1bb22cd1c5?token=">FF-M v1.1 Extension</a></p>
+</dd>
+<dt class="label" id="id12"><span class="brackets"><a class="fn-backref" href="#id4">3</a></span></dt>
+<dd><p><a class="reference external" href="https://yaml.org/">YAML</a></p>
+</dd>
+<dt class="label" id="id13"><span class="brackets"><a class="fn-backref" href="#id5">4</a></span></dt>
+<dd><p><a class="reference external" href="https://git.trustedfirmware.org/TF-M/trusted-firmware-m.git/tree/tools/tfm_manifest_list.yaml">TF-M manifest list</a></p>
+</dd>
+<dt class="label" id="id14"><span class="brackets"><a class="fn-backref" href="#id6">5</a></span></dt>
+<dd><p><a class="reference external" href="https://git.trustedfirmware.org/TF-M/trusted-firmware-m.git/tree/tools/tfm_generated_file_list.yaml">TF-M generated file list</a></p>
+</dd>
+<dt class="label" id="id15"><span class="brackets"><a class="fn-backref" href="#id7">6</a></span></dt>
+<dd><p><a class="reference external" href="https://jinja.palletsprojects.com/en/3.1.x/">Jinja2</a></p>
+</dd>
+<dt class="label" id="id16"><span class="brackets"><a class="fn-backref" href="#id9">7</a></span></dt>
+<dd><p><a class="reference external" href="https://cmake.org/cmake/help/latest/command/configure_file.html">CMake configure_file()</a></p>
+</dd>
+</dl>
+<hr class="docutils" />
+<p><em>Copyright (c) 2022, Arm Limited. All rights reserved.</em>
+<em>Copyright (c) 2022 Cypress Semiconductor Corporation (an Infineon company)
+or an affiliate of Cypress Semiconductor Corporation. All rights reserved.</em></p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p></p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,1144 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Secure Partition Manager &mdash; Trusted Firmware-M v1.7.0-stm32mp25-alpha-r1-rc3-doc documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/tfm_custom.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/tabs.css" type="text/css" />
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Trusted Firmware-M Source Structure" href="source_structure.html" />
+    <link rel="prev" title="Rollback protection in TF-M secure boot" href="secure_boot_rollback_protection.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> Trusted Firmware-M
+            <img src="../../_static/tf_logo_white.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                v1.7.0-stm32mp25-alpha-r1-rc3-doc
+
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../introduction/index.html">Introduction</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started/index.html">Getting Started</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../security/index.html">Security</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../security/security_advisories/index.html">Security Advisories</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/stack_seal_vulnerability.html">Advisory TFMV-1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/svc_caller_sp_fetching_vulnerability.html">Advisory TFMV-2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/crypto_multi_part_ops_abort_fail.html">Advisory TFMV-3</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/profile_small_key_id_encoding_vulnerability.html">Advisory TFMV-4</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/fwu_write_vulnerability.html">Advisory TFMV-5</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../security/threat_models/index.html">Threat Models</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../security/threat_models/generic_threat_model.html">Trusted Firmware-M Generic Threat Model</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../security/security.html">Security Handling</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../releases/index.html">Releases</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/1.7.0.html">v1.7.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/1.6.1.html">v1.6.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/1.6.0.html">v1.6.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/1.5.0.html">v1.5.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/release_process.html">Release Cadence and Process</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../glossary.html">Glossary</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../platform/index.html">Platform Selection</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/arm/index.html">Arm platforms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/corstone1000/readme.html">Corstone-1000</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/mps3/an547/README.html">Corstone-300 FPGA (AN547)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/mps3/an552/README.html">Corstone-300 FPGA and FVP (AN552)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/mps3/corstone310/README.html">Corstone-310 FVP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/musca_b1/readme.html">Musca-B1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/musca_s1/readme.html">Musca-S1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/rss/readme.html">Runtime Security Subsystem</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/nxp/lpcxpresso55s69/README.html">LPCXpresso55S69</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/cypress/psoc64/index.html">Cypress PSoC64</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/cypress/psoc64/cypress_psoc64_spec.html">Cypress PSoC64 Specifics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/cypress/psoc64/libs/core-lib/README.html">Core Library</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/cypress/psoc64/libs/core-lib/RELEASE.html">Core Library Release Notes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/stm/index.html">STMICROELECTRONICS</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32l5xx/readme.html">STM32L5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32mp2/readme.html">STM32MP2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32u5xx/readme.html">STM32U5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/nucleo_l552ze_q/readme.html">NUCLEO-L552ZE-Q</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32l562e_dk/readme.html">STM32L562E-DK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/b_u585i_iot02a/readme.html">B-U585I-IOT02A</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/nordic_nrf/nrf5340dk_nrf5340_cpuapp/README.html">Nordic nRF5340</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/nordic_nrf/nrf9160dk_nrf9160/README.html">Nordic nRF9160</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/lairdconnectivity/bl5340_dvk_cpuapp/README.html">Laird Connectivity BL5340</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/nuvoton/m2351/README.html">NuMaker-PFM-M2351</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/nuvoton/m2354/README.html">NuMaker-PFM-M2354</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../building/tfm_build_instruction.html">Build instructions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../building/run_tfm_examples_on_arm_platforms.html">Run TF-M examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../building/documentation_generation.html">Building the documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../building/tfm_build_instruction_iar.html">IAR toolchain</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../configuration/index.html">Configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../configuration/build_configuration.html">Build configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../configuration/header_file_system.html">Component configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../configuration/kconfig_system.html">Kconfig</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../configuration/profiles/index.html">Profiles</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../configuration/profiles/tfm_profile_small.html"> Small</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../configuration/profiles/tfm_profile_medium_arot-less.html"> ARoT-less</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../configuration/profiles/tfm_profile_medium.html"> Medium</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../configuration/profiles/tfm_profile_large.html"> Large</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../configuration/test_configuration.html">Tests configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../integration_guide/index.html">Integration Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../integration_guide/spm_backends.html">SPM Backends</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../integration_guide/non-secure_client_extension_integration_guide.html">NS client integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../integration_guide/os_migration_guide_armv8m.html">OS migration to Armv8-M</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../integration_guide/tfm_fpu_support.html">Floating-Point Support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../integration_guide/tfm_secure_irq_integration_guide.html">Secure Interrupt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../integration_guide/platform/index.html">Adding a new platform</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/platform/platform_folder.html">Details for the platform folder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/platform/platform_ext_folder.html">Details for the platform/ext folder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/platform/porting_TFM_to_a_new_hardware.html">Porting TF-M to a New Hardware</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/platform/platform_provisioning.html">Platform Provisioning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/platform/platform_deprecation.html">Platform deprecation and removal</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../integration_guide/services/index.html">Services</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/services/tfm_attestation_integration_guide.html">Initial Attestation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/services/tfm_crypto_integration_guide.html">Crypto</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/services/tfm_its_integration_guide.html">Internal Storage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/services/tfm_platform_integration_guide.html">Platform</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/services/tfm_ps_integration_guide.html">Protected Storage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/services/tfm_secure_partition_addition.html">Adding a New Service</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/services/tfm_manifest_tool_user_guide.html">The manifest tool</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Design Documents</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="dual-cpu/index.html">Dual-CPU</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="dual-cpu/booting_a_dual_core_system.html">Booting a Dual-Core System</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dual-cpu/communication_prototype_between_nspe_and_spe_in_dual_core_systems.html">Communication Prototype Between NSPE And SPE In Dual Core System</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dual-cpu/mailbox_design_on_dual_core_system.html">Mailbox Design in TF-M on Dual-core System</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dual-cpu/tfm_multi_core_access_check.html">Memory Access Check of Trusted Firmware-M in Multi-Core Topology</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="bl1.html">BL1 Immutable bootloader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="code_sharing.html">Code sharing between independently linked XIP binaries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="enum_implicit_casting.html">Fixing implicit casting for C enumeration values</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ff_isolation.html">FF-M Isolation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hardware_abstraction_layer.html">Hardware Abstraction Layer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mailbox_ns_agent_update.html">Mailbox NS Agent Design Update</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ps_key_management.html">Protected Storage service key management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="secure_boot_hw_key_integration.html">HW crypto key integration in TF-M secure boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="secure_boot_rollback_protection.html">Rollback protection in TF-M secure boot</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Secure Partition Manager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="source_structure.html">Trusted Firmware-M Source Structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="stateless_rot_service.html">Stateless Root of Trust Services Reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="symmetric_initial_attest.html">Symmetric key algorithm based Initial Attestation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tfm_builtin_keys.html">TF-M builtin keys</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tfm_code_generation_with_jinja2.html">Code Generation With Jinja2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tfm_cooperative_scheduling_rules.html">Cooperative Scheduling Rules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tfm_crypto_design.html">Crypto Service design</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tfm_fwu_service.html">Firmware Update Service</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tfm_its_512_flash.html">Add support for block-aligned flash in Internal Trusted Storage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tfm_its_service.html">Internal Trusted Storage (ITS) Service</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tfm_log_system_design_document.html">Log system design document</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tfm_physical_attack_mitigation.html">Physical attack mitigation in Trusted Firmware-M</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tfm_psa_inter_process_communication.html">TF-M Inter-Process Communication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tfm_secure_boot.html">Secure boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tfm_secure_partition_runtime_library.html">Secure Partition Runtime Library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tfm_uniform_secure_service_signature.html">Uniform Secure Service Signature</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../tools/index.html">Tools</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contribution</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing/index.html">Guidelines</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/contributing_process.html">The process</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/code_review_guide.html">Code review</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/maintainers.html">Maintainers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/maintainers.html#code-owners">Code owners</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/coding_guide.html">Yet another coding standard :)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/doc_guidelines.html">Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/tfm_design_proposal_guideline.html">Design proposal</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing/lic.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing/dco.html">DCO</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Links</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://ci.trustedfirmware.org/view/TF-M/job/tf-m-build-docs-nightly/lastSuccessfulBuild/artifact/trusted-firmware-m/build/docs/reference_manual/html/index.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://developer.trustedfirmware.org/w/collaboration/security_center">Security Center</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://www.arm.com/architecture/security-features/platform-security">PSA</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">STMICROELECTRONICS</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../stm/releases/index.html">Releases</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/releases/getting_started.html">Getting started</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32l562e_dk/readme.html">STM32L562E-DK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/nucleo_l552ze_q/readme.html">NUCLEO-L552ZE-Q</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/b_u585i_iot02a/readme.html">B-U585I-IOT02A</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/releases/platforms.html">Platforms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32l5xx/readme.html">STM32L5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32mp2/readme.html">STM32MP2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32u5xx/readme.html">STM32U5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/nucleo_l552ze_q/readme.html">NUCLEO-L552ZE-Q</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32l562e_dk/readme.html">STM32L562E-DK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/releases/changelog.html">Change Log &amp; Notes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/releases/v1.7.0-stm32mp25-alpha-r1-rc3/changelog.html">v1.7.0-stm32mp25-alpha-r1-rc3</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../stm/technical/index.html">Technical references</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/technical/a35_td_flavor/index.html">A35-TD flavor</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/technical/a35_td_flavor/memory_layout.html">Memory layout</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/technical/a35_td_flavor/storage.html">Storage</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/technical/m33_td_flavor/index.html">M33-TD flavor</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/technical/m33_td_flavor/memory_layout.html">Memory layout</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/technical/m33_td_flavor/storage.html">Storage</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/technical/devicetree/index.html">Devicetree</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/technical/devicetree/devicetree_tfm.html">Scope and purpose</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/technical/devicetree/devicetree_tfm.html#concept">Concept</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/technical/devicetree/devicetree_tfm.html#how-to-add-device">How to add device</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/technical/initlevel.html">Initlevel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/technical/initial_attestation.html">Initial Attestation Service</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/technical/nv_counter.html">Nv counter</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../stm/ide/index.html">Ide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/ide/cubeide/stm32cubeide.html">STM32CubeIDE</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Trusted Firmware-M</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="index.html">Design Documents</a> &raquo;</li>
+      <li>Secure Partition Manager</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="secure-partition-manager">
+<h1>Secure Partition Manager<a class="headerlink" href="#secure-partition-manager" title="Permalink to this heading"></a></h1>
+<p>This document describes the Secure Partition Manager(<cite>SPM</cite>) implementation
+design in Trusted Firmware-M (<cite>TF-M</cite>).</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p>The FF-M in this document refers to the accumulated result of two
+specifications:
+<a class="reference external" href="https://developer.arm.com/documentation/aes0039/latest">FF-M v1.1 Update</a>
+on
+<a class="reference external" href="https://developer.arm.com/-/media/Files/pdf/PlatformSecurityArchitecture/Architect/DEN0063-PSA_Firmware_Framework-1.0.0-2.pdf?revision=2d1429fa-4b5b-461a-a60e-4ef3d8f7f4b4&amp;la=en&amp;hash=BE8C59DBC98212591E1F935C2312D497011CD8C7">FF-M v1.0</a>.</p></li>
+<li><p>The words marked as <cite>interpreted</cite> are defined terms. Find the terms in
+referenced documents if it is not described in this document.</p></li>
+</ul>
+</div>
+<section id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading"></a></h2>
+<p>The service access process of FF-M:</p>
+<figure class="align-center" id="fig-tfmdev">
+<a class="reference internal image-reference" href="../../_images/tfmdev.svg"><img alt="../../_images/tfmdev.svg" src="../../_images/tfmdev.svg" width="80%" /></a>
+<figcaption>
+<p><span class="caption-number">Figure 5: </span><span class="caption-text">FF-M service access process</span><a class="headerlink" href="#fig-tfmdev" title="Permalink to this image"></a></p>
+</figcaption>
+</figure>
+<p>Secure services (aka <cite>Service</cite>) is the component providing secure
+functionalities in <cite>SPE</cite>, and <cite>Client</cite> is the user of the <cite>Service</cite>. A service
+act as a client when it is accessing its depending services.</p>
+<p>Services are grouped into <cite>Secure Partition</cite> (aka <cite>partition</cite>). A partition:</p>
+<ul class="simple">
+<li><p>Contains services with the same purpose.</p></li>
+<li><p>Provides implementation required isolation boundaries.</p></li>
+<li><p>Is a software development unit.</p></li>
+</ul>
+<p>Each service exposes its <cite>Service ID</cite> (<cite>SID</cite>) and <cite>Handle</cite> for client access
+usage. Clients access services by <cite>SID</cite> or <cite>Handle</cite> through FF-M <cite>Client API</cite>.
+Partitions use FF-M <cite>Secure Partition API</cite> when it needs to operate on client
+data or reply to a client.</p>
+<p><cite>SPM</cite> is the centre of an FF-M compliant implementation, which set up and
+maintains a firmware framework that:</p>
+<ul class="simple">
+<li><p>Implements <cite>Client API</cite> and <cite>Secure Partition API</cite>.</p></li>
+<li><p>Manages partition runtime to follow FF-M.</p></li>
+<li><p>Involves necessary implementation-defined items to support the
+implementation.</p></li>
+</ul>
+<p>SPM interfaces are consist of these two categories:</p>
+<ul class="simple">
+<li><p>FF-M defined API.</p></li>
+<li><p>Extended API to support the implementation.</p></li>
+</ul>
+<p>Both API categories are compliant with FF-M concepts and guidelines. The core
+concept of TF-M SPM surrounds the FF-M defined service management and access
+process. Besides this, another important implementation part is partition
+runtime management.</p>
+<section id="partition-runtime-model">
+<h3>Partition runtime model<a class="headerlink" href="#partition-runtime-model" title="Permalink to this heading"></a></h3>
+<p>One partition must work under as <cite>ONE</cite> of the runtime models:
+<cite>Inter-process communication</cite> (<cite>IPC</cite>) model or <cite>Secure Function</cite> (<cite>SFN</cite>)
+model.</p>
+<p>A partition that runs under the <cite>IPC</cite> model looks like a classic <cite>process</cite>.
+There is <cite>ONE</cite> thread inside the partition keeps waiting for signals. SPM
+converts the service accessing info from the <cite>Client API</cite> call into messages
+and assert a signal to the partition. The partition calls corresponded service
+function indicated by the signal and its bound message, and reply service
+returned result to the client. The advantages of this model:</p>
+<ul class="simple">
+<li><p>It provides better isolation by limiting the interfaces on data interactive.
+Data are preferred to be processed in a local buffer.</p></li>
+<li><p>It provides a mechanism for handling multiple service access. There is no
+memory mapping mechanism in the MCU system, hence it is hard to provide
+multiple function call contexts when serving multiple-threaded clients if
+the service access is implemented in a function-call based mechanism. This
+model converts multiple service accesses into messages, let the partition
+handles the service access in messages one by one.</p></li>
+</ul>
+<p>The <cite>Secure Function</cite> (<cite>SFN</cite>) model partition is close to a <cite>library</cite>. Each
+service is provided as a function entry inside the partition. SPM launches
+the target service function after the service is found. The whole procedure
+(from client to service function) is a function call. This model:</p>
+<ul class="simple">
+<li><p>Saves the workloads spent on <cite>IPC</cite> scheduling.</p></li>
+</ul>
+<p>Meanwhile, it relaxes the data interactive mechanism, for example, allow
+direct memory access (MMIOVEC). And it is hard to enable multiple-threaded
+clients service access because of multiple call context-maintenance
+difficulties.</p>
+<p>An implementation contains only <cite>SFN</cite> partitions fits better in the
+resource-constrained devices, it is called an <cite>SFN model implementation</cite>. And
+it is an <cite>IPC model implementation</cite> when <cite>IPC</cite> partitions exist in the system.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><cite>IPC model implementation</cite> can handle access to the services in the <cite>SFN</cite>
+partition.</p>
+</div>
+</section>
+<section id="components-and-isolation-levels">
+<h3>Components and isolation levels<a class="headerlink" href="#components-and-isolation-levels" title="Permalink to this heading"></a></h3>
+<p>There are <cite>THREE</cite> isolation levels defined in <cite>FF-M</cite>. These levels can
+fulfil different security requirements by defining different isolation
+boundaries.</p>
+<figure class="align-center" id="fig-modelisolation">
+<a class="reference internal image-reference" href="../../_images/modelisolation.svg"><img alt="../../_images/modelisolation.svg" src="../../_images/modelisolation.svg" width="80%" /></a>
+<figcaption>
+<p><span class="caption-number">Figure 6: </span><span class="caption-text">Components and isolation boundaries</span><a class="headerlink" href="#fig-modelisolation" title="Permalink to this image"></a></p>
+</figcaption>
+</figure>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Concept <cite>ARoT</cite>, <cite>PRoT</cite>, <cite>domain</cite>, and boundaries are in the <cite>FF-M</cite>
+specification.</p>
+</div>
+<p>Not like an <cite>SPE</cite> client that can call <cite>Client API</cite> to access the secure
+services in one step, an <cite>NSPE</cite> client needs to cross the secure boundaries
+first before calling <cite>Client API</cite>. The component <cite>NS Agent</cite> in
+<a class="reference internal" href="#fig-modelisolation"><span class="std std-numref">Figure 6:</span></a> represents <cite>NSPE</cite> clients after they crossed
+the secure boundaries. This could help <cite>SPM</cite> handles the request in a
+unified way instead of care about the special boundaries.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><cite>NS Agent</cite> is a necessary implementation-defined component out of FF-M
+specification. <cite>NS Agent</cite> has a dedicated stack because secure and
+non-secure can not share the stack. It also has dedicated execution bodies.
+For example, RPC-based <cite>NS Agent</cite> has a while loop that keeps waiting for
+messages; and Trustzone-based <cite>NS Agent</cite> has veneer code to take over <cite>NSPE</cite>
+secure call. This makes <cite>NS Agent</cite> is a component more like a <cite>process</cite>.
+Hence in the simplest implementation (<cite>SFN model implementation</cite> mentioned
+above), <cite>NS Agent</cite> is the only process in the system, the scheduling
+logic can be extremely simplified since no other process execution needs to
+be scheduled. But the scheduling interface is still necessary to SPM, this
+could help SPM treat both <cite>SFN</cite> and <cite>IPC</cite> model implementation in a unified
+way.</p>
+<p>Check <a class="reference internal" href="#ns-agent">NS Agent</a> for details.</p>
+</div>
+</section>
+<section id="implementation-principle">
+<h3>Implementation principle<a class="headerlink" href="#implementation-principle" title="Permalink to this heading"></a></h3>
+<p>The principles for TF-M SPM implementation:</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<ul class="simple">
+<li><p>SPM can treat these components as the client: NS Agent, SFN Partition,
+and IPC partition.</p></li>
+<li><p>These components can provide services: SFN Partition, IPC partition, and
+built-in services. A built-in service is built up with SPM together.</p></li>
+<li><p>All partition services must be accessed by <cite>Client API</cite>.</p></li>
+<li><p>Partitions interact with client data by <cite>Secure Partition API</cite>.</p></li>
+<li><p>Built-in services are strongly recommended to be accessed by <cite>Client API</cite>.
+Customized interfaces are restricted.</p></li>
+<li><p>Built-in services can call SPM internal interfaces directly.</p></li>
+</ul>
+</div>
+</section>
+</section>
+<section id="runtime-management">
+<h2>Runtime management<a class="headerlink" href="#runtime-management" title="Permalink to this heading"></a></h2>
+<p>The runtime execution runs among the components, there are <strong>4</strong> runtime
+states:</p>
+<ul class="simple">
+<li><p><cite>Initializing</cite> state, to set up the SPM runtime environment after system
+powers up</p></li>
+<li><p><cite>IDLE</cite> state, when SPM runtime environment is set up and partitions are
+ready for service access.</p></li>
+<li><p><cite>Serving</cite> state, when partition is under initializing or service access
+handling.</p></li>
+<li><p><cite>Background</cite> state, such as the arrival of secure interrupt or unexpected
+faults. <cite>Background</cite> state returns to the state it preempts. <cite>Background</cite>
+state can be nested.</p></li>
+</ul>
+<p>The state transition diagram:</p>
+<figure class="align-center" id="fig-spestate">
+<a class="reference internal image-reference" href="../../_images/spestate.svg"><img alt="../../_images/spestate.svg" src="../../_images/spestate.svg" width="70%" /></a>
+<figcaption>
+<p><span class="caption-number">Figure 7: </span><span class="caption-text">SPE runtime execution states</span><a class="headerlink" href="#fig-spestate" title="Permalink to this image"></a></p>
+</figcaption>
+</figure>
+<section id="initializing">
+<h3>Initializing<a class="headerlink" href="#initializing" title="Permalink to this heading"></a></h3>
+<p>The goal of TF-M initializing is to perform necessary initialization and
+move to the <a class="reference internal" href="#serving">Serving</a> state. This state starts with platform-specific power
+on sequence, then <cite>SPM</cite> takes over the execution to perform these operations:</p>
+<ol class="arabic simple">
+<li><p>A preparation initialization process before SPM runtime initialization.</p></li>
+<li><p>SPM runtime initialization.</p></li>
+<li><p>A post initialization happens after the SPM runtime initialization and
+before the first partition gets launched.</p></li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>These procedures and their sub-routines are recommended to be applied with
+execution measurement mechansim to mitigate the <cite>Hardware Fault Injection</cite>
+attack.</p>
+</div>
+<section id="preparation-initialization">
+<h4>Preparation initialization<a class="headerlink" href="#preparation-initialization" title="Permalink to this heading"></a></h4>
+<p>The purpose of this preparation initialization is to provide a chance for
+performing those security required but generic platform power-on skipped
+operations, such as:</p>
+<ul class="simple">
+<li><p>Restrict <cite>SPM</cite> execution, for example, set up memory overflow settings for
+SPM runtime memory, or set code out of SPM as un-executable, even though
+SPM is a privileged component in general.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">logging</span></code>-related peripheral can be set up <strong>AT THIS STEP</strong>, if
+logging is enabled and it needs peripheral support. There is no standalone
+initializing HAL API proposed for logging, so here is an ideal place for
+initializing them.</p>
+</div>
+<p>This procedure is abstracted into one <cite>HAL</cite>, and a few example procedures
+are implemented as its sub-routines for reference:</p>
+<ul class="simple">
+<li><p>Architecture extensions initialization, Check chapter
+<a class="reference internal" href="#architecture-security-settings">Architecture security settings</a> for detailed information.</p></li>
+<li><p>Isolation and lifecycle initialization.</p></li>
+</ul>
+<p>The load isolation boundaries need to be set up here, such as SPE/NSPE
+boundary, and ARoT/PRoT boundary if isolation level 2 is applied.</p>
+<p>The lifecycle is initiated by a secure bootloader usually. And in this stage
+of SPM initializing, SPM double-checks the lifecycle set up status (following
+a specific lifecycle management guidelines). Note that the hardware debugger
+setting can be part of lifecycle settings.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Double-check debugger setting when performing a product release.</p>
+</div>
+</section>
+<section id="spm-runtime-initialization">
+<h4>SPM runtime initialization<a class="headerlink" href="#spm-runtime-initialization" title="Permalink to this heading"></a></h4>
+<p>This procedure initializes necessary runtime operations such as memory
+allocator, loading partitions and partition-specific initialization
+(binding partitions with platform resources).</p>
+<p>The general processes:</p>
+<ol class="arabic">
+<li><p>Initialize runtime functionalities, such as memory allocator.</p></li>
+<li><p>Load partitions by repeating below steps:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Find a partition load information.</p></li>
+<li><p>Allocate runtime objects for this partition.</p></li>
+<li><p>Link the runtime objects with load information.</p></li>
+<li><p>Init partition contexts (Thread and call context).</p></li>
+<li><p>Init partition isolation boundaries (MMIO e.g.).</p></li>
+<li><p>Init partition interrupts.</p></li>
+</ul>
+</div></blockquote>
+</li>
+</ol>
+<p>After no more partitions to be loaded, the SPM runtime is set up but
+partitions’ initialization routines have not run yet - the partition runtime
+context is initialized for the routine call.</p>
+<p>The partition initialization routine is a special service that serves SPM
+only, because:</p>
+<ul class="simple">
+<li><p>SPM needs to call the initialization routine, just like it calls into
+the service routine.</p></li>
+<li><p>The partition initialization routine can access its depending services.
+Putting initialization routine in the same runtime environment as common
+service routines can avoid special operations.</p></li>
+</ul>
+<p>Hence a <cite>Partition initialization client</cite> needs to be created to initialize
+the SFN partitions, because:</p>
+<ul class="simple">
+<li><p><cite>SPM runtime initialization</cite> happen inside a special runtime environment
+compare to the partition runtime execution, then an environment switching
+is needed.</p></li>
+<li><p>IPC partitions are initialized by the scheduler and dependencies are
+handled by signals and messages asynchronously, hence IPC partitions can
+process the dependencies by their own.</p></li>
+</ul>
+<p>The <cite>Partition initialization client</cite> is created differently based on the
+implementation runtime model:</p>
+<ul class="simple">
+<li><p>A SFN client is created under the SFN model implementation.</p></li>
+<li><p>A IPC client is created under the IPC model implementation. This client
+thread has the highest priority.</p></li>
+</ul>
+<p>As the other partitions, the client is created with context standby, and it
+is executed after the <a class="reference internal" href="#post-initialization">Post initialization</a> stage.</p>
+</section>
+<section id="post-initialization">
+<h4>Post initialization<a class="headerlink" href="#post-initialization" title="Permalink to this heading"></a></h4>
+<p>Platform code can change specific partition settings in this procedure before
+partitions start. A few SPM API is callable at this stage, such as set a
+signal into a specific partition, or customized peripheral settings.</p>
+</section>
+</section>
+<section id="serving">
+<h3>Serving<a class="headerlink" href="#serving" title="Permalink to this heading"></a></h3>
+<p>Two execution categories work under this state:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#partition-initialization-routine-execution">Partition initialization routine execution</a>.</p></li>
+<li><p><a class="reference internal" href="#secure-service-access">Secure service access</a>.</p></li>
+</ul>
+<p>This state indicates the serving is ongoing. It is mainly the service routine
+execution, plus a few SPM executions when SPM API gets called.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>The service access process introduce in this chapter
+(Such as <a class="reference internal" href="#secure-service-access">Secure service access</a>) is abstracted from the FF-M
+specification. Reference the FF-M specification for the details of each
+step.</p>
+</div>
+<section id="partition-initialization-routine-execution">
+<h4>Partition initialization routine execution<a class="headerlink" href="#partition-initialization-routine-execution" title="Permalink to this heading"></a></h4>
+<p>The partition initialization routines get called. One partition may access its
+depending services during initializing, then this procedure is a
+<a class="reference internal" href="#secure-service-access">Secure service access</a>.</p>
+<p>The initialization routine gets called initially by
+<cite>Partition initialization client</cite>, also can be called by Client API before
+service access, if the target partition is not initialized but a service
+access request is raised by one client.</p>
+</section>
+<section id="secure-service-access">
+<h4>Secure service access<a class="headerlink" href="#secure-service-access" title="Permalink to this heading"></a></h4>
+<p>The process of service access:</p>
+<ol class="arabic simple">
+<li><p>A <cite>client</cite> calls an FF-M Client API.</p></li>
+<li><p><cite>SPM</cite> validates inputs and looks up for the targeted service.</p></li>
+<li><p><cite>SPM</cite> constructs the request to be delivered under a proper runtime
+mechanism.</p></li>
+<li><p>The target service gets executed. It can perform internal executions or
+access depending services to prepare the response. It also can wait for
+specific signals.</p></li>
+<li><p>The target service calls FF-M Secure Partition API to request a reply to
+the client.</p></li>
+<li><p>SPM delivers the response to the client, and the API called by the client
+returns.</p></li>
+</ol>
+<p>The mechanism of how SPM interact with the target partition depends on the
+partition runtime model.</p>
+<ul class="simple">
+<li><p>Access to a service in an SFN partition is a function call, which does not
+switch the current process indicator.</p></li>
+<li><p>Access to a service in an IPC partition leads to scheduling, which switches
+the current process indicator.</p></li>
+<li><p>When the execution roams between components because of a function call or
+scheduling, the isolation boundaries NEED to be switched if there are
+boundaries between components.</p></li>
+</ul>
+<figure class="align-center" id="fig-hybridruntime">
+<a class="reference internal image-reference" href="../../_images/hybridruntime.svg"><img alt="../../_images/hybridruntime.svg" src="../../_images/hybridruntime.svg" width="60%" /></a>
+</figure>
+<p>No matter what kind of partition a client is trying to access, the SPM API is
+called firstly as it is the interface for service access. There are two ABI
+types when calling SPM API: Cross-boundary or No-cross-boundary.</p>
+</section>
+<section id="calling-spm-api">
+<h4>Calling SPM API<a class="headerlink" href="#calling-spm-api" title="Permalink to this heading"></a></h4>
+<p>SPM is placed in the PRoT domain. It MAY have isolation boundaries under
+particular isolation levels. For example:</p>
+<ul class="simple">
+<li><p>There are boundaries between ARoT components and SPM under isolated level 2
+and 3.</p></li>
+</ul>
+<p>Then API SPM provided needs to support the function call (no boundary
+switching) and cross-boundary call. A direct call reaches the API entrance
+directly, while a cross-boundary call needs a mechanism (Supervisor call e.g.)
+to cross the boundary first before reaching the API entrance.</p>
+<figure class="align-center" id="fig-twocalltypes">
+<a class="reference internal image-reference" href="../../_images/twocalltypes.svg"><img alt="../../_images/twocalltypes.svg" src="../../_images/twocalltypes.svg" width="60%" /></a>
+<figcaption>
+<p><span class="caption-number">Figure 8: </span><span class="caption-text">SPM call types</span><a class="headerlink" href="#fig-twocalltypes" title="Permalink to this image"></a></p>
+</figcaption>
+</figure>
+</section>
+<section id="spm-internal-execution-flow">
+<h4>SPM internal execution flow<a class="headerlink" href="#spm-internal-execution-flow" title="Permalink to this heading"></a></h4>
+<p>SPM internal execution flow as shown in diagram:</p>
+<figure class="align-center" id="fig-abi-scheduler">
+<a class="reference internal image-reference" href="../../_images/abi_scheduler.svg"><img alt="../../_images/abi_scheduler.svg" src="../../_images/abi_scheduler.svg" width="60%" /></a>
+<figcaption>
+<p><span class="caption-number">Figure 9: </span><span class="caption-text">SPM API runtime</span><a class="headerlink" href="#fig-abi-scheduler" title="Permalink to this image"></a></p>
+</figcaption>
+</figure>
+<p>The process:</p>
+<ul class="simple">
+<li><p>PSA API gets called by one of the ABI mentioned in the last chapter as
+<cite>ABI 1</cite> in the diagram.</p></li>
+<li><p>The unified API Handler calls FF-M and backend subroutines in sequence.</p></li>
+<li><p>The <cite>FF-M</cite> subroutine performs <cite>FF-M</cite> defined operations.</p></li>
+<li><p>The backend operations perform target partition runtime model decided
+operations. For example, enqueue message into the target partition under
+the IPC runtime model, or prepare to call context with the message as the
+parameters under the SFN runtime model.</p></li>
+<li><p>API Handler triggers different ABI based on the result of the backends.</p></li>
+</ul>
+<p>The API handler:</p>
+<ul class="simple">
+<li><p>Can process the <cite>PROGRAMMER_ERROR</cite> in a unified place.</p></li>
+<li><p>Can see the prepared caller and callee context, with exited SPM context. It
+is an ideal place for subsequent operations such as context switching.</p></li>
+</ul>
+<p>A example code:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">abi</span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">p</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">spm_api</span><span class="p">(</span><span class="n">p</span><span class="p">);</span>
+<span class="w">    </span><span class="cm">/*</span>
+<span class="cm">     * Now both the caller and calle context are</span>
+<span class="cm">     * managed by spm_api.</span>
+<span class="cm">     */</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">status</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">ACTION1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="cm">/*</span>
+<span class="cm">         * Check if extra operations are required</span>
+<span class="cm">         * instead of a direct return.</span>
+<span class="cm">         */</span>
+<span class="w">        </span><span class="n">exit_action1</span><span class="p">();</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The explanation about <cite>Scheduler Lock</cite>:</p>
+<p>Some FF-M API runs as a generic thread to prevent long time exclusive
+execution. When a preemption happens, a new partition thread can call SPM API
+again, makes SPM API nested. It needs extra memory in SPM to be allocated to
+store the preempted context. Lock the scheduler while SPM API is executing can
+ensure SPM API complete execution after preemption is handled. There can be
+multiple ways to lock the scheduler:</p>
+<ul class="simple">
+<li><p>Set a scheduler lock.</p></li>
+<li><p>Set SPM API thread priority as the highest.</p></li>
+</ul>
+</section>
+<section id="backend-service-messaging">
+<h4>Backend service messaging<a class="headerlink" href="#backend-service-messaging" title="Permalink to this heading"></a></h4>
+<p>A message to service is created after the target service is found and the
+target partition runtime model is known. The preparation before ABI triggers
+the final accessing:</p>
+<ul class="simple">
+<li><p>The message is pushed into partition memory under a specific ABI mechanism
+if the target partition model is <cite>SFN</cite> and there are boundaries between SPM
+and the target partition. After this, requests a specific call type to the
+SPM ABI module.</p></li>
+<li><p>The target service routine is get called with the message parameter if
+there are no boundaries between SPM and the target partition and the
+partition runtime is <cite>SFN</cite>.</p></li>
+<li><p>The message is queued into the partition message list if the target
+partition runtime model is <cite>IPC</cite>.</p></li>
+<li><p>IPC partition replies to the client by <cite>psa_reply</cite>, which is another SPM API
+call procedure.</p></li>
+<li><p>SFN partition return triggers an implied <cite>psa_reply</cite>, which is also another
+SPM API call procedure.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The backends also handle the isolation boundary switching.</p>
+</div>
+</section>
+<section id="sessions-and-contexts">
+<h4>Sessions and contexts<a class="headerlink" href="#sessions-and-contexts" title="Permalink to this heading"></a></h4>
+<p>FF-M API allows multiple sessions for a service if the service is classic
+connection-based. The service can maintain multiple local session data and use
+<cite>rhande</cite> in the message body to identify which client this session is bound
+with.</p>
+<p>But this does not mean when an ongoing service accessing is preempted,
+another service access request can get a chance for new access. This is
+because of the limited context storage - supporting multiple contexts in a
+common service costs much memory, and runtime operations(allocation and
+re-location). Limited the context content in the stack only can mitigate the
+effort, but this requirement requires too much for the service development.</p>
+<p>The implementation-decisions are:</p>
+<ul class="simple">
+<li><p>IPC partitions handles messages one by one, the client get blocked before
+the service replying to the client.</p></li>
+<li><p>The client is blocked when accessing services are handling a service
+request in an SFN partition.</p></li>
+</ul>
+</section>
+<section id="abi-type-summary">
+<h4>ABI type summary<a class="headerlink" href="#abi-type-summary" title="Permalink to this heading"></a></h4>
+<p>The interface type is decided by the runtime model of the target component.
+Hence PSA API has two types of ABI: <cite>Cross-boundary ABI</cite> and
+<cite>Function call ABI</cite>. After SPM operations, one more component runtime type
+shows up: The IPC partition, hence <cite>schedule</cite> is the mechanism when accessing
+services inside an IPC partition.</p>
+<figure class="align-center" id="fig-spmabi">
+<a class="reference internal image-reference" href="../../_images/spmabitypes.svg"><img alt="../../_images/spmabitypes.svg" src="../../_images/spmabitypes.svg" width="60%" /></a>
+<figcaption>
+<p><span class="caption-number">Figure 10: </span><span class="caption-text">ABI types</span><a class="headerlink" href="#fig-spmabi" title="Permalink to this image"></a></p>
+</figcaption>
+</figure>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The API that does not switch context returns directly, which is not
+covered in the above diagram.</p>
+</div>
+</section>
+</section>
+<section id="idle-state">
+<h3>IDLE state<a class="headerlink" href="#idle-state" title="Permalink to this heading"></a></h3>
+<p>The <cite>IDLE state</cite> can be represented by the <cite>NS Agent</cite> action:</p>
+<ul class="simple">
+<li><p>Launching NSPE software (Trustzone case, e.g.), or send a signal to NSPE
+software (RPC case, e.g.).</p></li>
+</ul>
+<p>It is because <cite>NS Agent</cite> is the last component being initialized in the
+system. Its execution indicates other partitions’ initialization has
+accomplished.</p>
+</section>
+<section id="background-state">
+<h3>Background state<a class="headerlink" href="#background-state" title="Permalink to this heading"></a></h3>
+<p>Background execution can happen at any time when the arrival of interrupts or
+execution faults. An ongoing background execution indicates the state is a
+<cite>Background state</cite>. The characteristics:</p>
+<ul class="simple">
+<li><p>The background state has a higher execution priority than other states -
+other states stall when the background state is executing.</p></li>
+<li><p>Background execution can be nested. For example, an
+interrupt handler can preempt an ongoing interrupt execution.</p></li>
+<li><p>Particular partition code can be involved in the background state, for
+example, the <cite>First Level Interrupt Handler (FLIH)</cite> of one partition.</p></li>
+<li><p>Background state MUST return to the state it preempts.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Interrupt handling is a common background state example. Check Interrupt
+design document for details.</p>
+</div>
+</section>
+</section>
+<section id="practical-implementation-items">
+<h2>Practical implementation items<a class="headerlink" href="#practical-implementation-items" title="Permalink to this heading"></a></h2>
+<p>This chapter describes the practical implementation contents.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Arm M-profile architecture is the default hardware architecture when
+describing architecture-specific items.</p>
+</div>
+<p>The general M-profile programming is not involved in this document. The
+following chapters introduce the mandatory settings for security
+requirements.</p>
+<section id="architecture-security-settings">
+<h3>Architecture security settings<a class="headerlink" href="#architecture-security-settings" title="Permalink to this heading"></a></h3>
+<p>When an <cite>Armv8m Security Extension</cite> (Aka <cite>Trustzone-M</cite>) is available in the
+system, these settings are required to be set:</p>
+<ul class="simple">
+<li><p>The MSPLIM needs to be set correctly to prevent stack overflow.</p></li>
+<li><p>The exception handler priority needs to be decided.</p></li>
+<li><p>Boost the secure handler mode priority to prevent NSPE from preempting SPE
+handler mode execution(<cite>AIRCR.PRIS</cite>).</p></li>
+<li><p>Disable NSPE hardware faults when a secure fault is happening. Trap in the
+secure fault with the highest priority can be a valid option.</p></li>
+<li><p>Push seals on the stack top when a stack is allocated (<cite>TFMV-1</cite>). Also
+check <a class="reference internal" href="#stack-seal">Stack seal</a> chapter for details.</p></li>
+</ul>
+<p>Besides <cite>Armv8m Security Extension</cite>, these settings need to care when
+<cite>Floatpoint Extension</cite> is enabled for partition usage:</p>
+<ul class="simple">
+<li><p><cite>FPCCR.TS</cite>, <cite>FPCCR.CLRONRET</cite> and <cite>FPCCR.CLRONRETS</cite> need to be set when
+booting.</p></li>
+<li><p><cite>CPACR.CP10</cite> and <cite>CPACR.CP11</cite> need to be set when booting.</p></li>
+</ul>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Floatpoint usage is prohibited in SPM and background execution.</p>
+</div>
+<section id="stack-seal">
+<h4>Stack seal<a class="headerlink" href="#stack-seal" title="Permalink to this heading"></a></h4>
+<p>When Trustzone-M is applied, the architecture specification recommends sealing
+the secure stack by:</p>
+<ul class="simple">
+<li><p>Push two <cite>SEAL</cite> values (<cite>0xFEF5EDA5</cite>) at the stack bottom, when a stack is
+allocated.</p></li>
+<li><p>Push two <cite>SEAL</cite> values on the stack pointer which is going to be switched
+out.</p></li>
+</ul>
+<p>Check architecture specification and vulnerability <cite>TFMV-1</cite> for details.</p>
+</section>
+<section id="trustzone-m-reentrant">
+<h4>Trustzone-M reentrant<a class="headerlink" href="#trustzone-m-reentrant" title="Permalink to this heading"></a></h4>
+<p>The Trustzone-M has characteristics that:</p>
+<ul class="simple">
+<li><p>SPE keeps the last assigned stack pointer value when execution leaves SPE.</p></li>
+<li><p>SPE execution can be preempted by NSPE which causes an execution left.</p></li>
+</ul>
+<p>It is possible that NSPE preemption caused a second thread calls into SPE and
+re-uses the secure stack contains the first thread’s context, which obviously
+causes information leakage and runtime state inconsistent.</p>
+<p>Armv8.1-M provides the hardware setting <cite>CCR_S.TRD</cite> to prevent the reentrant.
+On an Armv8.0-M architecture, extra software logic needs to be added at the
+veneer entry:</p>
+<ul class="simple">
+<li><p>Check if the local stack points to a <cite>SEAL</cite> when veneer code get executed.</p></li>
+</ul>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cm">/* This is a theoretical code that is not in a real project. */</span>
+<span class="n">veneer</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">content</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">get_sp_value</span><span class="p">();</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">context</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">SEAL</span><span class="p">)</span><span class="w"> </span><span class="cm">/* Error if reentrant detected */</span>
+<span class="w">        </span><span class="n">error</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="spm-runtime-abi">
+<h3>SPM Runtime ABI<a class="headerlink" href="#spm-runtime-abi" title="Permalink to this heading"></a></h3>
+<p>This chapter describes the runtime implementation of SPM.</p>
+<section id="scheduling">
+<h4>Scheduling<a class="headerlink" href="#scheduling" title="Permalink to this heading"></a></h4>
+<p>The scheduling logic is put inside the PendSV mode. PendSV mode’s priority
+is set as one level higher than the default thread mode priority. If
+<cite>Trustzone-M</cite> is present, the priority is set as the lowest just above NS
+exception priority to prevent a preemption in secure exceptions.</p>
+<p>PendSV is an ideal place for scheduling logic, because:</p>
+<ul class="simple">
+<li><p>An interrupt triggered scheduling during PendSV execution lead to another
+PendSV execution before exception return to the thread mode, which can find
+the latest run-able thread.</p></li>
+</ul>
+</section>
+<section id="function-call-abi">
+<h4>Function call ABI<a class="headerlink" href="#function-call-abi" title="Permalink to this heading"></a></h4>
+<p>In the diagram <a class="reference internal" href="#fig-abi-scheduler"><span class="std std-numref">Figure 9:</span></a>, the ABI can have two basic
+types: cross-boundary and direct call (No-cross-boundary).</p>
+<p>When applying <cite>SVCall</cite> (<cite>SVC</cite>) as the cross-boundary mechanism, the
+implementation can be straight like:</p>
+<ul class="simple">
+<li><p>The SVC handler calls SPM internal routines, and eventually back to the
+handler before an exit.</p></li>
+</ul>
+<p>Under the IPC model implementation, to re-use <cite>ABI 2</cite> in <cite>No-cross-boundary</cite>,
+a software ABI needs to be provided.</p>
+<p>While under the SFN model plus isolation level 1, both <cite>ABI 1</cite> and <cite>ABI 2</cite> can
+be a direct function call.</p>
+</section>
+</section>
+<section id="ns-agent">
+<h3>NS Agent<a class="headerlink" href="#ns-agent" title="Permalink to this heading"></a></h3>
+<p>The <cite>NS Agent`(`NSA</cite>) forwards NSPE service access request to SPM. It is a
+special <cite>partition</cite> that:</p>
+<ul class="simple">
+<li><p>It does not provide FF-M aligned secure services.</p></li>
+<li><p>It runs with the second-lowest priority under <cite>IPC model implementation</cite>
+(The IDLE thread has the lowest priority).</p></li>
+<li><p>It has isolation boundaries and an individual stacks.</p></li>
+<li><p>It requires specific services and mechanisms compared to common partitions.</p></li>
+</ul>
+<p>There are two known types for NS Agent:</p>
+<ul class="simple">
+<li><p>Trustzone-M based.</p></li>
+<li><p>Remote Procedure Call (RPC) based.</p></li>
+</ul>
+<p>This process is put inside the ARoT domain, to prevent assign unnecessary
+PRoT permissions to the NSPE request parsing logic.</p>
+<section id="trustzone-m-specific">
+<h4>Trustzone-M specific<a class="headerlink" href="#trustzone-m-specific" title="Permalink to this heading"></a></h4>
+<p>The functionalities of a Truszone-M specific NSA is:</p>
+<ul class="simple">
+<li><p>Launch NSPE when booting.</p></li>
+<li><p>Wait in the veneer code, and get executed when NSPE accesses services.</p></li>
+</ul>
+<p>As there may be multiple NSPE threads calling into SPE, and SPM wants to
+identify them, special mechanisms can be proposed to provide the identification.
+Check specific NS ID client ID or context related documents for details.</p>
+<figure class="align-center" id="fig-tzcontext">
+<a class="reference internal image-reference" href="../../_images/tzcontext.svg"><img alt="../../_images/tzcontext.svg" src="../../_images/tzcontext.svg" width="40%" /></a>
+<figcaption>
+<p><span class="caption-number">Figure 11: </span><span class="caption-text">TZ NSA and specific service</span><a class="headerlink" href="#fig-tzcontext" title="Permalink to this image"></a></p>
+</figcaption>
+</figure>
+</section>
+<section id="rpc-specific">
+<h4>RPC specific<a class="headerlink" href="#rpc-specific" title="Permalink to this heading"></a></h4>
+<p>Compare to Trustzone-M NSA, RPC NSA looks closer to a generic partition:</p>
+<ul class="simple">
+<li><p>It has a message loop, keep waiting for RPC events.</p></li>
+<li><p>It converts received RPC events into FF-M API call to target services.</p></li>
+</ul>
+<p>And compared to generic partitions, the differences are:</p>
+<ul class="simple">
+<li><p>It parses RPC messages to know which NSPE thread is accessing services.
+Hence it needs special interfaces to help SPM to identify the NSPE clients.</p></li>
+<li><p>It needs to check NSPE client memory and map to local before calling SPM API.</p></li>
+<li><p>It cannot be blocked during API calls, which affects handling the RPC
+requests.</p></li>
+</ul>
+</section>
+</section>
+<section id="partition">
+<h3>Partition<a class="headerlink" href="#partition" title="Permalink to this heading"></a></h3>
+<p>A partition is a set of services in the same scope. Services are generally
+implemented as functions, and the partition exposes the services in different
+ways bases on the partition model: <cite>IPC</cite> or <cite>SFN</cite>.</p>
+<p>A partition build generates these outputs:</p>
+<ul class="simple">
+<li><p>A partition load information, used by SPM.</p></li>
+<li><p>A partition program containing service interface and logic, typically a
+library.</p></li>
+<li><p>An optional service API set for easier client usage, by encapsulating
+the low-level <cite>FF-M</cite> Client API. These API needs to be integrated
+into client space.</p></li>
+</ul>
+<section id="partition-loading">
+<h4>Partition loading<a class="headerlink" href="#partition-loading" title="Permalink to this heading"></a></h4>
+<p>SPM needs to set up runtime objects to manage partitions by parsing the load
+information of partitions. In general, the partition load information is
+stored in a const memory are can be random read directly, hence SPM can direct
+link runtime objects to the load information without a copy operation. This
+is called a <cite>Static Load</cite> mechanism.</p>
+<p>Each partition has different numbers of dependencies and services, this makes
+the load information size of each partition is different, it would be hard
+to put such variable size elements in an array. The solution here is putting
+these elements in a dedicated section, for SPM enumerating while loading.
+Each partition can define variable size load information type bases on the
+common load info type.</p>
+<p>The common load information:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">partition_load_info_t</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">uint32_t</span><span class="w">        </span><span class="n">psa_ff_ver</span><span class="p">;</span><span class="w">     </span><span class="cm">/* Encode the version with magic    */</span>
+<span class="w">    </span><span class="kt">int32_t</span><span class="w">         </span><span class="n">pid</span><span class="p">;</span><span class="w">            </span><span class="cm">/* Partition ID                     */</span>
+<span class="w">    </span><span class="kt">uint32_t</span><span class="w">        </span><span class="n">flags</span><span class="p">;</span><span class="w">          </span><span class="cm">/* ARoT/PRoT, SFN/IPC, priority     */</span>
+<span class="w">    </span><span class="kt">uintptr_t</span><span class="w">       </span><span class="n">entry</span><span class="p">;</span><span class="w">          </span><span class="cm">/* Entry point                      */</span>
+<span class="w">    </span><span class="kt">size_t</span><span class="w">          </span><span class="n">stack_size</span><span class="p">;</span><span class="w">     </span><span class="cm">/* Stack size                       */</span>
+<span class="w">    </span><span class="kt">size_t</span><span class="w">          </span><span class="n">heap_size</span><span class="p">;</span><span class="w">      </span><span class="cm">/* Heap size                        */</span>
+<span class="w">    </span><span class="kt">uint32_t</span><span class="w">        </span><span class="n">ndeps</span><span class="p">;</span><span class="w">          </span><span class="cm">/* Dependency number                */</span>
+<span class="w">    </span><span class="kt">uint32_t</span><span class="w">        </span><span class="n">nservices</span><span class="p">;</span><span class="w">      </span><span class="cm">/* Service number                   */</span>
+<span class="w">    </span><span class="kt">uint32_t</span><span class="w">        </span><span class="n">nassets</span><span class="p">;</span><span class="w">        </span><span class="cm">/* Asset numbers                    */</span>
+<span class="w">    </span><span class="kt">uint32_t</span><span class="w">        </span><span class="n">nirqs</span><span class="p">;</span><span class="w">          </span><span class="cm">/* Number of IRQ owned by Partition */</span>
+<span class="p">};</span>
+
+<span class="n">And</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">example</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">specific</span><span class="w"> </span><span class="n">partition</span><span class="w"> </span><span class="n">load</span><span class="w"> </span><span class="n">info</span><span class="o">:</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">partition_example_load_info_t</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">partition_load_info_t</span><span class="w"> </span><span class="n">ldi</span><span class="p">;</span><span class="w">      </span><span class="cm">/* Common info info          */</span>
+<span class="w">    </span><span class="kt">uint32_t</span><span class="w">                     </span><span class="n">deps</span><span class="p">[</span><span class="mi">10</span><span class="p">];</span><span class="w"> </span><span class="cm">/* Dependencies              */</span>
+<span class="w">    </span><span class="cm">/*                    ... other infos ...                           */</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+</section>
+<section id="peripheral-binding">
+<h4>Peripheral binding<a class="headerlink" href="#peripheral-binding" title="Permalink to this heading"></a></h4>
+<p>A partition can declare multiple peripherals (Interrupts are part of
+peripherals). The peripherals binding process:</p>
+<ul class="simple">
+<li><p>The tooling references symbols in a fixed pattern in the partition load
+information.</p></li>
+<li><p>The HAL implementation needs to provide the symbols being referenced.</p></li>
+<li><p>SPM calls HAL API to bind the partition info with devices When the partition
+gets loading.</p></li>
+<li><p>The platform HAL acknowledges the binding if validation pass on SPM given
+load information.</p></li>
+</ul>
+</section>
+</section>
+</section>
+<section id="integration-and-development">
+<h2>Integration and development<a class="headerlink" href="#integration-and-development" title="Permalink to this heading"></a></h2>
+<p>These modules are expected to be object/library level modularised, each
+module should be generated into object/library at build time:</p>
+<table class="colwidths-given docutils align-default" id="id1">
+<caption><span class="caption-number">Table 39: </span><span class="caption-text">Object level modularization</span><a class="headerlink" href="#id1" title="Permalink to this table"></a></caption>
+<colgroup>
+<col style="width: 40%" />
+<col style="width: 60%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>SPM</p></td>
+<td><p>All SPM related modules such as SPM, system, and so on.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Platform</p></td>
+<td><p>Platform sources are switchable.</p></td>
+</tr>
+<tr class="row-even"><td><p>Services and Secure Partition</p></td>
+<td><p>These items should be standalone.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Service Runtime Library</p></td>
+<td><p>This is a shared runtime library.</p></td>
+</tr>
+</tbody>
+</table>
+<section id="hal">
+<h3>HAL<a class="headerlink" href="#hal" title="Permalink to this heading"></a></h3>
+<p>The HAL here mainly refers to the SPM HAL. The SPM HAL implementation is
+running with the same privilege level and hardware mode with SPM. The
+implementation is object level modularized with SPM.</p>
+<p>Check the <cite>HAL</cite> design document for details.</p>
+</section>
+<section id="configurations">
+<h3>Configurations<a class="headerlink" href="#configurations" title="Permalink to this heading"></a></h3>
+<p>The same TF-M code base is flexible to address different implementation
+requirements, from the simplest device with isolation level 1 to the most
+complicated device with isolation level 3 and optional isolation rules.</p>
+<p>These configurations are set by switches, during the build time, as runtime
+support costs extra resources. The common configurations are named <cite>profile</cite>.
+There are several profiles defined.</p>
+</section>
+</section>
+<section id="history">
+<h2>History<a class="headerlink" href="#history" title="Permalink to this heading"></a></h2>
+<table class="colwidths-given docutils align-default" id="id2">
+<caption><span class="caption-number">Table 40: </span><span class="caption-text">Revision</span><a class="headerlink" href="#id2" title="Permalink to this table"></a></caption>
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Date</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>2021 Apr-Sep</p></td>
+<td><p>Updated to cover the implementation for <cite>FF-M v1.1</cite> features.</p></td>
+</tr>
+<tr class="row-odd"><td><p>2018</p></td>
+<td><p>Created as ‘TF-M Inter-Process Communication’ which is deprecated as
+this document covers whole SPM content.</p></td>
+</tr>
+</tbody>
+</table>
+<hr class="docutils" />
+<p><em>Copyright (c) 2021, Arm Limited. All rights reserved.</em></p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p></p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

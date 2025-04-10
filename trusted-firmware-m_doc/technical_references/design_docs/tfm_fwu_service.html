@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Firmware Update Service &mdash; Trusted Firmware-M v1.7.0-stm32mp25-alpha-r1-rc3-doc documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/tfm_custom.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/tabs.css" type="text/css" />
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Add support for block-aligned flash in Internal Trusted Storage" href="tfm_its_512_flash.html" />
+    <link rel="prev" title="Crypto Service design" href="tfm_crypto_design.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> Trusted Firmware-M
+            <img src="../../_static/tf_logo_white.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                v1.7.0-stm32mp25-alpha-r1-rc3-doc
+
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../introduction/index.html">Introduction</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started/index.html">Getting Started</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../security/index.html">Security</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../security/security_advisories/index.html">Security Advisories</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/stack_seal_vulnerability.html">Advisory TFMV-1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/svc_caller_sp_fetching_vulnerability.html">Advisory TFMV-2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/crypto_multi_part_ops_abort_fail.html">Advisory TFMV-3</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/profile_small_key_id_encoding_vulnerability.html">Advisory TFMV-4</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/fwu_write_vulnerability.html">Advisory TFMV-5</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../security/threat_models/index.html">Threat Models</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../security/threat_models/generic_threat_model.html">Trusted Firmware-M Generic Threat Model</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../security/security.html">Security Handling</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../releases/index.html">Releases</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/1.7.0.html">v1.7.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/1.6.1.html">v1.6.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/1.6.0.html">v1.6.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/1.5.0.html">v1.5.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/release_process.html">Release Cadence and Process</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../glossary.html">Glossary</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../platform/index.html">Platform Selection</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/arm/index.html">Arm platforms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/corstone1000/readme.html">Corstone-1000</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/mps3/an547/README.html">Corstone-300 FPGA (AN547)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/mps3/an552/README.html">Corstone-300 FPGA and FVP (AN552)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/mps3/corstone310/README.html">Corstone-310 FVP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/musca_b1/readme.html">Musca-B1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/musca_s1/readme.html">Musca-S1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/rss/readme.html">Runtime Security Subsystem</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/nxp/lpcxpresso55s69/README.html">LPCXpresso55S69</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/cypress/psoc64/index.html">Cypress PSoC64</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/cypress/psoc64/cypress_psoc64_spec.html">Cypress PSoC64 Specifics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/cypress/psoc64/libs/core-lib/README.html">Core Library</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/cypress/psoc64/libs/core-lib/RELEASE.html">Core Library Release Notes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/stm/index.html">STMICROELECTRONICS</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32l5xx/readme.html">STM32L5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32mp2/readme.html">STM32MP2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32u5xx/readme.html">STM32U5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/nucleo_l552ze_q/readme.html">NUCLEO-L552ZE-Q</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32l562e_dk/readme.html">STM32L562E-DK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/b_u585i_iot02a/readme.html">B-U585I-IOT02A</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/nordic_nrf/nrf5340dk_nrf5340_cpuapp/README.html">Nordic nRF5340</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/nordic_nrf/nrf9160dk_nrf9160/README.html">Nordic nRF9160</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/lairdconnectivity/bl5340_dvk_cpuapp/README.html">Laird Connectivity BL5340</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/nuvoton/m2351/README.html">NuMaker-PFM-M2351</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/nuvoton/m2354/README.html">NuMaker-PFM-M2354</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../building/tfm_build_instruction.html">Build instructions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../building/run_tfm_examples_on_arm_platforms.html">Run TF-M examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../building/documentation_generation.html">Building the documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../building/tfm_build_instruction_iar.html">IAR toolchain</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../configuration/index.html">Configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../configuration/build_configuration.html">Build configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../configuration/header_file_system.html">Component configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../configuration/kconfig_system.html">Kconfig</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../configuration/profiles/index.html">Profiles</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../configuration/profiles/tfm_profile_small.html"> Small</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../configuration/profiles/tfm_profile_medium_arot-less.html"> ARoT-less</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../configuration/profiles/tfm_profile_medium.html"> Medium</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../configuration/profiles/tfm_profile_large.html"> Large</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../configuration/test_configuration.html">Tests configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../integration_guide/index.html">Integration Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../integration_guide/spm_backends.html">SPM Backends</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../integration_guide/non-secure_client_extension_integration_guide.html">NS client integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../integration_guide/os_migration_guide_armv8m.html">OS migration to Armv8-M</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../integration_guide/tfm_fpu_support.html">Floating-Point Support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../integration_guide/tfm_secure_irq_integration_guide.html">Secure Interrupt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../integration_guide/platform/index.html">Adding a new platform</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/platform/platform_folder.html">Details for the platform folder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/platform/platform_ext_folder.html">Details for the platform/ext folder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/platform/porting_TFM_to_a_new_hardware.html">Porting TF-M to a New Hardware</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/platform/platform_provisioning.html">Platform Provisioning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/platform/platform_deprecation.html">Platform deprecation and removal</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../integration_guide/services/index.html">Services</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/services/tfm_attestation_integration_guide.html">Initial Attestation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/services/tfm_crypto_integration_guide.html">Crypto</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/services/tfm_its_integration_guide.html">Internal Storage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/services/tfm_platform_integration_guide.html">Platform</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/services/tfm_ps_integration_guide.html">Protected Storage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/services/tfm_secure_partition_addition.html">Adding a New Service</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/services/tfm_manifest_tool_user_guide.html">The manifest tool</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Design Documents</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="dual-cpu/index.html">Dual-CPU</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="dual-cpu/booting_a_dual_core_system.html">Booting a Dual-Core System</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dual-cpu/communication_prototype_between_nspe_and_spe_in_dual_core_systems.html">Communication Prototype Between NSPE And SPE In Dual Core System</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dual-cpu/mailbox_design_on_dual_core_system.html">Mailbox Design in TF-M on Dual-core System</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dual-cpu/tfm_multi_core_access_check.html">Memory Access Check of Trusted Firmware-M in Multi-Core Topology</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="bl1.html">BL1 Immutable bootloader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="code_sharing.html">Code sharing between independently linked XIP binaries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="enum_implicit_casting.html">Fixing implicit casting for C enumeration values</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ff_isolation.html">FF-M Isolation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hardware_abstraction_layer.html">Hardware Abstraction Layer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mailbox_ns_agent_update.html">Mailbox NS Agent Design Update</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ps_key_management.html">Protected Storage service key management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="secure_boot_hw_key_integration.html">HW crypto key integration in TF-M secure boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="secure_boot_rollback_protection.html">Rollback protection in TF-M secure boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="secure_partition_manager.html">Secure Partition Manager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="source_structure.html">Trusted Firmware-M Source Structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="stateless_rot_service.html">Stateless Root of Trust Services Reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="symmetric_initial_attest.html">Symmetric key algorithm based Initial Attestation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tfm_builtin_keys.html">TF-M builtin keys</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tfm_code_generation_with_jinja2.html">Code Generation With Jinja2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tfm_cooperative_scheduling_rules.html">Cooperative Scheduling Rules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tfm_crypto_design.html">Crypto Service design</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Firmware Update Service</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tfm_its_512_flash.html">Add support for block-aligned flash in Internal Trusted Storage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tfm_its_service.html">Internal Trusted Storage (ITS) Service</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tfm_log_system_design_document.html">Log system design document</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tfm_physical_attack_mitigation.html">Physical attack mitigation in Trusted Firmware-M</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tfm_psa_inter_process_communication.html">TF-M Inter-Process Communication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tfm_secure_boot.html">Secure boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tfm_secure_partition_runtime_library.html">Secure Partition Runtime Library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tfm_uniform_secure_service_signature.html">Uniform Secure Service Signature</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../tools/index.html">Tools</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contribution</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing/index.html">Guidelines</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/contributing_process.html">The process</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/code_review_guide.html">Code review</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/maintainers.html">Maintainers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/maintainers.html#code-owners">Code owners</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/coding_guide.html">Yet another coding standard :)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/doc_guidelines.html">Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/tfm_design_proposal_guideline.html">Design proposal</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing/lic.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing/dco.html">DCO</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Links</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://ci.trustedfirmware.org/view/TF-M/job/tf-m-build-docs-nightly/lastSuccessfulBuild/artifact/trusted-firmware-m/build/docs/reference_manual/html/index.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://developer.trustedfirmware.org/w/collaboration/security_center">Security Center</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://www.arm.com/architecture/security-features/platform-security">PSA</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">STMICROELECTRONICS</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../stm/releases/index.html">Releases</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/releases/getting_started.html">Getting started</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32l562e_dk/readme.html">STM32L562E-DK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/nucleo_l552ze_q/readme.html">NUCLEO-L552ZE-Q</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/b_u585i_iot02a/readme.html">B-U585I-IOT02A</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/releases/platforms.html">Platforms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32l5xx/readme.html">STM32L5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32mp2/readme.html">STM32MP2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32u5xx/readme.html">STM32U5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/nucleo_l552ze_q/readme.html">NUCLEO-L552ZE-Q</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32l562e_dk/readme.html">STM32L562E-DK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/releases/changelog.html">Change Log &amp; Notes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/releases/v1.7.0-stm32mp25-alpha-r1-rc3/changelog.html">v1.7.0-stm32mp25-alpha-r1-rc3</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../stm/technical/index.html">Technical references</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/technical/a35_td_flavor/index.html">A35-TD flavor</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/technical/a35_td_flavor/memory_layout.html">Memory layout</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/technical/a35_td_flavor/storage.html">Storage</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/technical/m33_td_flavor/index.html">M33-TD flavor</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/technical/m33_td_flavor/memory_layout.html">Memory layout</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/technical/m33_td_flavor/storage.html">Storage</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/technical/devicetree/index.html">Devicetree</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/technical/devicetree/devicetree_tfm.html">Scope and purpose</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/technical/devicetree/devicetree_tfm.html#concept">Concept</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/technical/devicetree/devicetree_tfm.html#how-to-add-device">How to add device</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/technical/initlevel.html">Initlevel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/technical/initial_attestation.html">Initial Attestation Service</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/technical/nv_counter.html">Nv counter</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../stm/ide/index.html">Ide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/ide/cubeide/stm32cubeide.html">STM32CubeIDE</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Trusted Firmware-M</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="index.html">Design Documents</a> &raquo;</li>
+      <li>Firmware Update Service</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="firmware-update-service">
+<h1><a class="toc-backref" href="#id5">Firmware Update Service</a><a class="headerlink" href="#firmware-update-service" title="Permalink to this heading"></a></h1>
+<dl class="field-list simple">
+<dt class="field-odd">Author</dt>
+<dd class="field-odd"><p>Sherry Zhang</p>
+</dd>
+<dt class="field-even">Organization</dt>
+<dd class="field-even"><p>Arm Limited</p>
+</dd>
+<dt class="field-odd">Contact</dt>
+<dd class="field-odd"><p>Sherry Zhang &lt;<a class="reference external" href="mailto:Sherry&#46;Zhang2&#37;&#52;&#48;arm&#46;com">Sherry<span>&#46;</span>Zhang2<span>&#64;</span>arm<span>&#46;</span>com</a>&gt;</p>
+</dd>
+</dl>
+<div class="contents topic" id="table-of-contents">
+<p class="topic-title">Table of Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#firmware-update-service" id="id5">Firmware Update Service</a></p>
+<ul>
+<li><p><a class="reference internal" href="#introduction-of-firmware-update-service" id="id6">Introduction of Firmware Update service</a></p></li>
+<li><p><a class="reference internal" href="#components" id="id7">Components</a></p></li>
+<li><p><a class="reference internal" href="#service-api-description" id="id8">Service API description</a></p></li>
+<li><p><a class="reference internal" href="#shim-layer-between-fwu-and-bootloader" id="id9">Shim Layer between FWU and bootloader</a></p>
+<ul>
+<li><p><a class="reference internal" href="#shim-layer-introduction" id="id10">Shim layer introduction</a></p></li>
+<li><p><a class="reference internal" href="#interfaces-of-the-shim-layer" id="id11">Interfaces of the shim Layer</a></p>
+<ul>
+<li><p><a class="reference internal" href="#fwu-bootloader-init-function" id="id12">fwu_bootloader_init(function)</a></p>
+<ul>
+<li><p><a class="reference internal" href="#prototype" id="id13">Prototype</a></p></li>
+<li><p><a class="reference internal" href="#description" id="id14">Description</a></p></li>
+<li><p><a class="reference internal" href="#parameters" id="id15">Parameters</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#fwu-bootloader-staging-area-init-function" id="id16">fwu_bootloader_staging_area_init(function)</a></p></li>
+<li><p><a class="reference internal" href="#fwu-bootloader-load-image-function" id="id17">fwu_bootloader_load_image(function)</a></p></li>
+<li><p><a class="reference internal" href="#fwu-bootloader-install-image-function" id="id18">fwu_bootloader_install_image(function)</a></p></li>
+<li><p><a class="reference internal" href="#fwu-bootloader-mark-image-accepted-function" id="id19">fwu_bootloader_mark_image_accepted(function)</a></p></li>
+<li><p><a class="reference internal" href="#fwu-bootloader-reject-staged-image-function" id="id20">fwu_bootloader_reject_staged_image(function)</a></p></li>
+<li><p><a class="reference internal" href="#fwu-bootloader-reject-trial-image-function" id="id21">fwu_bootloader_reject_trial_image(function)</a></p></li>
+<li><p><a class="reference internal" href="#fwu-bootloader-clean-component-function" id="id22">fwu_bootloader_clean_component(function)</a></p></li>
+<li><p><a class="reference internal" href="#fwu-bootloader-get-image-info-function" id="id23">fwu_bootloader_get_image_info(function)</a></p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#additional-shared-data-between-bl2-and-spe" id="id24">Additional shared data between BL2 and SPE</a></p></li>
+<li><p><a class="reference internal" href="#build-configurations-related-to-fwu-partition" id="id25">Build configurations related to FWU partition</a></p></li>
+<li><p><a class="reference internal" href="#limitations-of-current-implementation" id="id26">Limitations of current implementation</a></p></li>
+<li><p><a class="reference internal" href="#benefits-analysis-on-this-partition" id="id27">Benefits Analysis on this Partition</a></p>
+<ul>
+<li><p><a class="reference internal" href="#implement-the-fwu-functionality-in-the-non-secure-side" id="id28">Implement the FWU functionality in the non-secure side</a></p></li>
+<li><p><a class="reference internal" href="#pros-and-cons-for-implementing-fwu-apis-in-secure-side" id="id29">Pros and Cons for implementing FWU APIs in secure side</a></p>
+<ul>
+<li><p><a class="reference internal" href="#pros" id="id30">Pros</a></p></li>
+<li><p><a class="reference internal" href="#cons" id="id31">Cons</a></p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#reference" id="id32">Reference</a></p></li>
+</ul>
+</li>
+</ul>
+</div>
+<section id="introduction-of-firmware-update-service">
+<h2><a class="toc-backref" href="#id6">Introduction of Firmware Update service</a><a class="headerlink" href="#introduction-of-firmware-update-service" title="Permalink to this heading"></a></h2>
+<p>The Firmware Update(FWU) service provides the functionality of updating firmware
+images. It provides a standard interface for updating firmware and it is
+platform independent. TF-M defines a shim layer to support cooperation between
+bootloader and FWU service.</p>
+<p>This partition supports the following features:</p>
+<ul class="simple">
+<li><p>Query the firmware store information.</p></li>
+<li><p>Image preparation: prepare a new firmware image in the component’s firmware store.</p></li>
+<li><p>Image installation: install prepared firmware images on all components that have been prepared for installation.</p></li>
+<li><p>Image trial: manage a trial of new firmware images atomically on all components that are in TRIAL state.</p></li>
+</ul>
+<p>A typical flow through the component states is shown below <a class="footnote-reference brackets" href="#id4" id="id1">1</a>.</p>
+<figure class="align-center" id="the-component-state-model-transitions">
+<a class="reference internal image-reference" href="../../_images/fwu-states.svg"><img alt="../../_images/fwu-states.svg" height="564" src="../../_images/fwu-states.svg" width="261" /></a>
+</figure>
+</section>
+<section id="components">
+<h2><a class="toc-backref" href="#id7">Components</a><a class="headerlink" href="#components" title="Permalink to this heading"></a></h2>
+<dl>
+<dt>The structure of the TF-M Firmware Update service is listed below:</dt><dd><table class="docutils align-default">
+<colgroup>
+<col style="width: 16%" />
+<col style="width: 35%" />
+<col style="width: 49%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Component name</strong></p></th>
+<th class="head"><p><strong>Description</strong></p></th>
+<th class="head"><p><strong>Location</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Client API interface</p></td>
+<td><p>This module exports the client API of PSA Firmware Update to
+the users.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">./interface/src/tfm_fwu_api.c</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Manifest</p></td>
+<td><p>The manifest file is a description of the service components.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">./secure_fw/partitions/firmware_update/tfm_firmware_update.yaml</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>NSPE client API interface</p></td>
+<td><p>This module exports the client API of PSA Firmware Update to
+the NSPE(i.e. to the applications).</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">./interface/src/tfm_fwu_api.c</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>IPC request handlers</p></td>
+<td><p>This module handles all the secure requests in IPC model.
+It maitains the image state context and calls the image ID
+converter to achieve the firmware update functionalities.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">./secure_fw/partitions/firmware_update/tfm_fwu_req_mngr.c</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>Shim layer between FWU and
+bootloader</p></td>
+<td><p>This module provides the APIs with the functionality of
+operating the bootloader to cooperate with the Firmware Update
+service</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">./secure_fw/partitions/firmware_update/bootloader/tfm_bootloader_fwu_abstraction.h</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Shim layer example based on
+MCUboot</p></td>
+<td><p>This module is the implementation of the shim layer between
+FWU and bootloader based on MCUboot.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">./secure_fw/partitions/firmware_update/bootloader/mcuboot/tfm_mcuboot_fwu.c</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</dd>
+</dl>
+</section>
+<section id="service-api-description">
+<h2><a class="toc-backref" href="#id8">Service API description</a><a class="headerlink" href="#service-api-description" title="Permalink to this heading"></a></h2>
+<p>This service follows the PSA Firmware Update API spec of version 1.0 <a class="footnote-reference brackets" href="#id4" id="id2">1</a>. Please refer to
+Firmware Update spec for the detailed description.</p>
+</section>
+<section id="shim-layer-between-fwu-and-bootloader">
+<h2><a class="toc-backref" href="#id9">Shim Layer between FWU and bootloader</a><a class="headerlink" href="#shim-layer-between-fwu-and-bootloader" title="Permalink to this heading"></a></h2>
+<p>The firmware update operations are achieved by calling the shim layer APIs
+between bootloader and FWU.</p>
+<section id="shim-layer-introduction">
+<h3><a class="toc-backref" href="#id10">Shim layer introduction</a><a class="headerlink" href="#shim-layer-introduction" title="Permalink to this heading"></a></h3>
+<p>This shim layer provides the APIs with the functionality of operating the
+bootloader to cooperate with the Firmware Update service. This shim layer
+is decoupled from bootloader implementation. Users can specify a specific
+bootloader by setting <code class="docutils literal notranslate"><span class="pre">TFM_FWU_BOOTLOADER_LIB</span></code> build configuration and
+adding the specific build scripts into that file. By default, the MCUboot
+is chosen as the bootloader.</p>
+</section>
+<section id="interfaces-of-the-shim-layer">
+<h3><a class="toc-backref" href="#id11">Interfaces of the shim Layer</a><a class="headerlink" href="#interfaces-of-the-shim-layer" title="Permalink to this heading"></a></h3>
+<section id="fwu-bootloader-init-function">
+<h4><a class="toc-backref" href="#id12">fwu_bootloader_init(function)</a><a class="headerlink" href="#fwu-bootloader-init-function" title="Permalink to this heading"></a></h4>
+<section id="prototype">
+<h5><a class="toc-backref" href="#id13">Prototype</a><a class="headerlink" href="#prototype" title="Permalink to this heading"></a></h5>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">psa_status_t</span><span class="w"> </span><span class="nf">fwu_bootloader_init</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="description">
+<h5><a class="toc-backref" href="#id14">Description</a><a class="headerlink" href="#description" title="Permalink to this heading"></a></h5>
+<p>Bootloader related initialization for the firmware update. It reads
+some necessary shared data from the memory if needed. It initializes
+the flash drivers defined in FLASH_DRIVER_LIST. Platform can define
+FLASH_DRIVER_LIST in flash_layout.h to overload the default driver list.</p>
+</section>
+<section id="parameters">
+<h5><a class="toc-backref" href="#id15">Parameters</a><a class="headerlink" href="#parameters" title="Permalink to this heading"></a></h5>
+<blockquote>
+<div><p>N/A</p>
+</div></blockquote>
+</section>
+</section>
+<section id="fwu-bootloader-staging-area-init-function">
+<h4><a class="toc-backref" href="#id16">fwu_bootloader_staging_area_init(function)</a><a class="headerlink" href="#fwu-bootloader-staging-area-init-function" title="Permalink to this heading"></a></h4>
+<p><strong>Prototype</strong></p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">psa_status_t</span><span class="w"> </span><span class="nf">fwu_bootloader_staging_area_init</span><span class="p">(</span><span class="n">psa_fwu_component_t</span><span class="w"> </span><span class="n">component</span><span class="p">,</span>
+<span class="w">                                              </span><span class="k">const</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">manifest</span><span class="p">,</span>
+<span class="w">                                              </span><span class="kt">size_t</span><span class="w"> </span><span class="n">manifest_size</span><span class="p">);</span>
+</pre></div>
+</div>
+<p><strong>Description</strong></p>
+<p>The component is in READY state. Prepare the staging area of the component for image download.
+For example, initialize the staging area, open the flash area, and so on.</p>
+<p><strong>Parameters</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">component</span></code>: The identifier of the target component in bootloader.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">manifest</span></code>: A pointer to a buffer containing a detached manifest for the update.
+If the manifest is bundled with the firmware image, manifest must be NULL.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">manifest_size</span></code>: Size of the manifest buffer in bytes.</p></li>
+</ul>
+</section>
+<section id="fwu-bootloader-load-image-function">
+<h4><a class="toc-backref" href="#id17">fwu_bootloader_load_image(function)</a><a class="headerlink" href="#fwu-bootloader-load-image-function" title="Permalink to this heading"></a></h4>
+<p><strong>Prototype</strong></p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">psa_status_t</span><span class="w"> </span><span class="nf">fwu_bootloader_load_image</span><span class="p">(</span><span class="n">psa_fwu_component_t</span><span class="w"> </span><span class="n">component</span><span class="p">,</span>
+<span class="w">                                       </span><span class="kt">size_t</span><span class="w">        </span><span class="n">image_offset</span><span class="p">,</span>
+<span class="w">                                       </span><span class="k">const</span><span class="w"> </span><span class="kt">void</span><span class="w">    </span><span class="o">*</span><span class="n">block</span><span class="p">,</span>
+<span class="w">                                       </span><span class="kt">size_t</span><span class="w">        </span><span class="n">block_size</span><span class="p">);</span>
+</pre></div>
+</div>
+<p><strong>Description</strong></p>
+<p>Load the image into the target component.</p>
+<p><strong>Parameters</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">component</span></code>: The identifier of the target component in bootloader.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">image_offset</span></code>: The offset of the image being passed into block, in bytes.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">block</span></code>: A buffer containing a block of image data. This might be a complete image or a subset.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">block_size</span></code>: Size of block.</p></li>
+</ul>
+</section>
+<section id="fwu-bootloader-install-image-function">
+<h4><a class="toc-backref" href="#id18">fwu_bootloader_install_image(function)</a><a class="headerlink" href="#fwu-bootloader-install-image-function" title="Permalink to this heading"></a></h4>
+<p><strong>Prototype</strong></p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">psa_status_t</span><span class="w"> </span><span class="nf">fwu_bootloader_install_image</span><span class="p">(</span><span class="n">psa_fwu_component_t</span><span class="w"> </span><span class="o">*</span><span class="n">candidates</span><span class="p">,</span>
+<span class="w">                                          </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">number</span><span class="p">);</span>
+</pre></div>
+</div>
+<p><strong>Description</strong></p>
+<p>Check the authenticity and integrity of the image. If a reboot is required to
+complete the check, then mark this image as a candidate so that the next time
+bootloader runs it will take this image as a candidate one to bootup. Return
+the error code PSA_SUCCESS_REBOOT.</p>
+<p><strong>Parameters</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">candidates</span></code>: A list of components in CANDIDATE state.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">number</span></code>: Number of components in CANDIDATE state.</p></li>
+</ul>
+</section>
+<section id="fwu-bootloader-mark-image-accepted-function">
+<h4><a class="toc-backref" href="#id19">fwu_bootloader_mark_image_accepted(function)</a><a class="headerlink" href="#fwu-bootloader-mark-image-accepted-function" title="Permalink to this heading"></a></h4>
+<p><strong>Prototype</strong></p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">psa_status_t</span><span class="w"> </span><span class="nf">fwu_bootloader_mark_image_accepted</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">psa_fwu_component_t</span><span class="w"> </span><span class="o">*</span><span class="n">trials</span><span class="p">,</span>
+<span class="w">                                                </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">number</span><span class="p">);</span>
+</pre></div>
+</div>
+<p><strong>Description</strong></p>
+<p>Call this API to mark the TRIAL(running) image in component as confirmed to avoid
+revert when next time bootup. Usually, this API is called after the running
+images have been verified as valid.</p>
+<p><strong>Parameters</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">trials</span></code>: A list of components in TRIAL state.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">number</span></code>: Number of components in TRIAL state.</p></li>
+</ul>
+</section>
+<section id="fwu-bootloader-reject-staged-image-function">
+<h4><a class="toc-backref" href="#id20">fwu_bootloader_reject_staged_image(function)</a><a class="headerlink" href="#fwu-bootloader-reject-staged-image-function" title="Permalink to this heading"></a></h4>
+<p><strong>Prototype</strong></p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">psa_status_t</span><span class="w"> </span><span class="nf">fwu_bootloader_reject_staged_image</span><span class="p">(</span><span class="n">psa_fwu_component_t</span><span class="w"> </span><span class="n">component</span><span class="p">);</span>
+</pre></div>
+</div>
+<p><strong>Description</strong></p>
+<p>The component is in STAGED state. Call this API to Uninstall the staged image in the
+component so that this image will not be treated as a candidate next time bootup.</p>
+<p><strong>Parameters</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">component</span></code>: The identifier of the target component in bootloader.</p></li>
+</ul>
+</section>
+<section id="fwu-bootloader-reject-trial-image-function">
+<h4><a class="toc-backref" href="#id21">fwu_bootloader_reject_trial_image(function)</a><a class="headerlink" href="#fwu-bootloader-reject-trial-image-function" title="Permalink to this heading"></a></h4>
+<p><strong>Prototype</strong></p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">psa_status_t</span><span class="w"> </span><span class="nf">fwu_bootloader_reject_trial_image</span><span class="p">(</span><span class="n">psa_fwu_component_t</span><span class="w"> </span><span class="n">component</span><span class="p">);</span>
+</pre></div>
+</div>
+<p><strong>Description</strong></p>
+<p>The component is in TRIAL state. Mark the running image in the component as rejected.</p>
+<p><strong>Parameters</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">component</span></code>: The identifier of the target component in bootloader.</p></li>
+</ul>
+</section>
+<section id="fwu-bootloader-clean-component-function">
+<h4><a class="toc-backref" href="#id22">fwu_bootloader_clean_component(function)</a><a class="headerlink" href="#fwu-bootloader-clean-component-function" title="Permalink to this heading"></a></h4>
+<p><strong>Prototype</strong></p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">psa_status_t</span><span class="w"> </span><span class="nf">fwu_bootloader_clean_component</span><span class="p">(</span><span class="n">psa_fwu_component_t</span><span class="w"> </span><span class="n">component</span><span class="p">);</span>
+</pre></div>
+</div>
+<p><strong>Description</strong></p>
+<p>The component is in FAILED or UPDATED state. Clean the staging area of the component.</p>
+<p><strong>Parameters</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">component</span></code>: The identifier of the target component in bootloader.</p></li>
+</ul>
+</section>
+<section id="fwu-bootloader-get-image-info-function">
+<h4><a class="toc-backref" href="#id23">fwu_bootloader_get_image_info(function)</a><a class="headerlink" href="#fwu-bootloader-get-image-info-function" title="Permalink to this heading"></a></h4>
+<p><strong>Prototype</strong></p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">psa_status_t</span><span class="w"> </span><span class="nf">fwu_bootloader_get_image_info</span><span class="p">(</span><span class="n">psa_fwu_component_t</span><span class="w"> </span><span class="n">component</span><span class="p">,</span>
+<span class="w">                                           </span><span class="kt">bool</span><span class="w"> </span><span class="n">query_state</span><span class="p">,</span>
+<span class="w">                                           </span><span class="kt">bool</span><span class="w"> </span><span class="n">query_impl_info</span><span class="p">,</span>
+<span class="w">                                           </span><span class="n">psa_fwu_component_info_t</span><span class="w"> </span><span class="o">*</span><span class="n">info</span><span class="p">);</span>
+</pre></div>
+</div>
+<p><strong>Description</strong></p>
+<p>Get the image information of the given bootloader_image_id in the staging area
+or the running area.</p>
+<p><strong>Parameters</strong></p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">component</span></code>: The identifier of the target component in bootloader.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">query_state</span></code>: Whether query the ‘state’ field of psa_fwu_component_info_t.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">query_impl_info</span></code>: Whether Query ‘impl’ field of psa_fwu_component_info_t.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">info</span></code>: Buffer containing return the component information.</p></li>
+</ul>
+</div></blockquote>
+</section>
+</section>
+</section>
+<section id="additional-shared-data-between-bl2-and-spe">
+<h2><a class="toc-backref" href="#id24">Additional shared data between BL2 and SPE</a><a class="headerlink" href="#additional-shared-data-between-bl2-and-spe" title="Permalink to this heading"></a></h2>
+<p>An additional TLV area “image version” is added into the shared memory between
+BL2 and TF-M. So that the firmware update partition can get the image version.
+Even though the image version information is also included in the <code class="docutils literal notranslate"><span class="pre">BOOT</span> <span class="pre">RECORD</span></code>
+TLV area which is encoded by CBOR, adding a dedicated <code class="docutils literal notranslate"><span class="pre">image</span> <span class="pre">version</span></code> TLV area
+is preferred to avoid involving the CBOR encoder which can increase the code
+size. The FWU partition will read the shared data at the partition
+initialization.</p>
+</section>
+<section id="build-configurations-related-to-fwu-partition">
+<h2><a class="toc-backref" href="#id25">Build configurations related to FWU partition</a><a class="headerlink" href="#build-configurations-related-to-fwu-partition" title="Permalink to this heading"></a></h2>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">TFM_PARTITION_FIRMWARE_UPDATE</span></code> Controls whether FWU partition is enabled or not.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">TFM_FWU_BOOTLOADER_LIB</span></code> Bootloader configure file for FWU partition.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">TFM_CONFIG_FWU_MAX_WRITE_SIZE</span></code> The maximum permitted size for block in psa_fwu_write, in bytes.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">TFM_FWU_BUF_SIZE</span></code> Size of the FWU internal data transfer buffer (defaults to
+TFM_CONFIG_FWU_MAX_WRITE_SIZE if not set).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">FWU_STACK_SIZE</span></code> The stack size of FWU Partition.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">FWU_DEVICE_CONFIG_FILE</span></code> The device configuration file for FWU partition. The default value is
+the configuration file generated for MCUboot. The following macros should be defined in the
+configuration file:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">FWU_COMPONENT_NUMBER</span></code> The number of components on the device.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In this design, component ID ranges from 0 to <code class="docutils literal notranslate"><span class="pre">FWU_COMPONENT_NUMBER</span></code> - 1.</p>
+</div>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">FWU_SUPPORT_TRIAL_STATE</span></code> Whether TRIAL component state is supported.</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">TEST_NS_FWU</span></code> FWU nonsecure tests switch.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">TEST_S_FWU</span></code> FWU secure tests switch.</p>
+<blockquote>
+<div><div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The running image which supports revert mechanism should be confirmed before initiating a
+firmware update process. For example, if the running image is built with
+<code class="docutils literal notranslate"><span class="pre">-DMCUBOOT_UPGRADE_STRATEGY=SWAP_USING_MOVE</span></code>, the image should be confirmed either by
+adding <code class="docutils literal notranslate"><span class="pre">-DMCUBOOT_CONFIRM_IMAGE=ON</span></code> build option or by calling <code class="docutils literal notranslate"><span class="pre">psa_fwu_accept()</span></code> API
+before initiating a firmware update process. Otherwise, <code class="docutils literal notranslate"><span class="pre">PSA_ERROR_BAD_STATE</span></code> will be
+returned by <code class="docutils literal notranslate"><span class="pre">psa_fwu_start()</span></code>.</p>
+</div>
+</div></blockquote>
+</li>
+</ul>
+</section>
+<section id="limitations-of-current-implementation">
+<h2><a class="toc-backref" href="#id26">Limitations of current implementation</a><a class="headerlink" href="#limitations-of-current-implementation" title="Permalink to this heading"></a></h2>
+<p>Currently, the MCUboot based implementation does not record image update results like failure or
+success. And FWU partition does not detect failure errors in bootloader installation. If an image
+installation fails in the bootloader and the old image still runs after reboot, <code class="docutils literal notranslate"><span class="pre">PSA_FWU_READY</span></code>
+state will be returned by <code class="docutils literal notranslate"><span class="pre">psa_fwu_query()</span></code> after reboot.</p>
+<p>Currently, image download recovery after a reboot is not supported. If a reboot happens in image
+preparation, the downloaded image data will be ignored after the reboot.</p>
+</section>
+<section id="benefits-analysis-on-this-partition">
+<h2><a class="toc-backref" href="#id27">Benefits Analysis on this Partition</a><a class="headerlink" href="#benefits-analysis-on-this-partition" title="Permalink to this heading"></a></h2>
+<section id="implement-the-fwu-functionality-in-the-non-secure-side">
+<h3><a class="toc-backref" href="#id28">Implement the FWU functionality in the non-secure side</a><a class="headerlink" href="#implement-the-fwu-functionality-in-the-non-secure-side" title="Permalink to this heading"></a></h3>
+<p>The APIs listed in PSA Firmware Update API spec <a class="footnote-reference brackets" href="#id4" id="id3">1</a> can also be implemented in
+the non-secure side.</p>
+</section>
+<section id="pros-and-cons-for-implementing-fwu-apis-in-secure-side">
+<h3><a class="toc-backref" href="#id29">Pros and Cons for implementing FWU APIs in secure side</a><a class="headerlink" href="#pros-and-cons-for-implementing-fwu-apis-in-secure-side" title="Permalink to this heading"></a></h3>
+<section id="pros">
+<h4><a class="toc-backref" href="#id30">Pros</a><a class="headerlink" href="#pros" title="Permalink to this heading"></a></h4>
+<ul class="simple">
+<li><p>It protects the image in the passive or staging area from being tampered with
+by the NSPE. Otherwise, a malicious actor from NSPE can tamper the image
+stored in the non-secure area to break image update.</p></li>
+<li><p>It protects secure image information from disclosure. In some cases, the
+non-secure side shall not be permitted to get secure image information.</p></li>
+<li><p>It protects the active image from being manipulated by NSPE. Some bootloader
+supports testing the image. After the image is successfully installed and
+starts to run, the user should set the image as permanent image if the image
+passes the test. To achieve this, the area of the active image needs to be
+accessed. In this case, implementing FWU service in SPE can prevent NSPE
+from manipulating the active image area.</p></li>
+<li><p>On some devices, such as the Arm Musca-B1 board, the passive or staging area
+is restricted as secure access only. In this case, the FWU partition should
+be implemented in the secure side.</p></li>
+</ul>
+</section>
+<section id="cons">
+<h4><a class="toc-backref" href="#id31">Cons</a><a class="headerlink" href="#cons" title="Permalink to this heading"></a></h4>
+<ul class="simple">
+<li><p>It increases the image size of the secure image.</p></li>
+<li><p>It increases the execution latency and footprint. Compared to implementing
+FWU in NSPE directly, calling the Firmware Update APIs which are implemented
+in the secure side increases the execution latency and footprint.</p></li>
+<li><p>It can increase the attack surface of the secure runtime.</p></li>
+</ul>
+<p>Users can decide whether to call the FWU service in TF-M directly or implement
+the Firmware Update APIs in the non-secure side based on the pros and cons
+analysis above.</p>
+</section>
+</section>
+</section>
+<section id="reference">
+<h2><a class="toc-backref" href="#id32">Reference</a><a class="headerlink" href="#reference" title="Permalink to this heading"></a></h2>
+<dl class="footnote brackets">
+<dt class="label" id="id4"><span class="brackets">1</span><span class="fn-backref">(<a href="#id1">1</a>,<a href="#id2">2</a>,<a href="#id3">3</a>)</span></dt>
+<dd><p><a class="reference external" href="https://arm-software.github.io/psa-api/fwu/1.0/">PSA Firwmare Update API</a></p>
+</dd>
+</dl>
+<hr class="docutils" />
+<p><em>Copyright (c) 2021-2022, Arm Limited. All rights reserved.</em></p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p></p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

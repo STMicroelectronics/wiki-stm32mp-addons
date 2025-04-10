@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cypress PSoC64 Specifics &mdash; Trusted Firmware-M v1.7.0-stm32mp25-alpha-r1-rc3-doc documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/tfm_custom.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/tabs.css" type="text/css" />
+    <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Core Library" href="libs/core-lib/README.html" />
+    <link rel="prev" title="Cypress PSoC64" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> Trusted Firmware-M
+            <img src="../../../_static/tf_logo_white.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                v1.7.0-stm32mp25-alpha-r1-rc3-doc
+
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../introduction/index.html">Introduction</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../getting_started/index.html">Getting Started</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../security/index.html">Security</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../security/security_advisories/index.html">Security Advisories</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../security/security_advisories/stack_seal_vulnerability.html">Advisory TFMV-1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../security/security_advisories/svc_caller_sp_fetching_vulnerability.html">Advisory TFMV-2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../security/security_advisories/crypto_multi_part_ops_abort_fail.html">Advisory TFMV-3</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../security/security_advisories/profile_small_key_id_encoding_vulnerability.html">Advisory TFMV-4</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../security/security_advisories/fwu_write_vulnerability.html">Advisory TFMV-5</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../security/threat_models/index.html">Threat Models</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../security/threat_models/generic_threat_model.html">Trusted Firmware-M Generic Threat Model</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../security/security.html">Security Handling</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../releases/index.html">Releases</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../releases/1.7.0.html">v1.7.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../releases/1.6.1.html">v1.6.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../releases/1.6.0.html">v1.6.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../releases/1.5.0.html">v1.5.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../releases/release_process.html">Release Cadence and Process</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../glossary.html">Glossary</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">Platform Selection</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../arm/index.html">Arm platforms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../arm/corstone1000/readme.html">Corstone-1000</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../arm/mps3/an547/README.html">Corstone-300 FPGA (AN547)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../arm/mps3/an552/README.html">Corstone-300 FPGA and FVP (AN552)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../arm/mps3/corstone310/README.html">Corstone-310 FVP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../arm/musca_b1/readme.html">Musca-B1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../arm/musca_s1/readme.html">Musca-S1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../arm/rss/readme.html">Runtime Security Subsystem</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxp/lpcxpresso55s69/README.html">LPCXpresso55S69</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Cypress PSoC64</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Cypress PSoC64 Specifics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="libs/core-lib/README.html">Core Library</a></li>
+<li class="toctree-l3"><a class="reference internal" href="libs/core-lib/RELEASE.html">Core Library Release Notes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/index.html">STMICROELECTRONICS</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/common/stm32l5xx/readme.html">STM32L5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/common/stm32mp2/readme.html">STM32MP2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/common/stm32u5xx/readme.html">STM32U5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/nucleo_l552ze_q/readme.html">NUCLEO-L552ZE-Q</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/stm32l562e_dk/readme.html">STM32L562E-DK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/b_u585i_iot02a/readme.html">B-U585I-IOT02A</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../nordic_nrf/nrf5340dk_nrf5340_cpuapp/README.html">Nordic nRF5340</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nordic_nrf/nrf9160dk_nrf9160/README.html">Nordic nRF9160</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../lairdconnectivity/bl5340_dvk_cpuapp/README.html">Laird Connectivity BL5340</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nuvoton/m2351/README.html">NuMaker-PFM-M2351</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nuvoton/m2354/README.html">NuMaker-PFM-M2354</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../building/tfm_build_instruction.html">Build instructions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../building/run_tfm_examples_on_arm_platforms.html">Run TF-M examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../building/documentation_generation.html">Building the documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../building/tfm_build_instruction_iar.html">IAR toolchain</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../configuration/index.html">Configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../configuration/build_configuration.html">Build configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../configuration/header_file_system.html">Component configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../configuration/kconfig_system.html">Kconfig</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../configuration/profiles/index.html">Profiles</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../configuration/profiles/tfm_profile_small.html"> Small</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../configuration/profiles/tfm_profile_medium_arot-less.html"> ARoT-less</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../configuration/profiles/tfm_profile_medium.html"> Medium</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../configuration/profiles/tfm_profile_large.html"> Large</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../configuration/test_configuration.html">Tests configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../integration_guide/index.html">Integration Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../integration_guide/spm_backends.html">SPM Backends</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../integration_guide/non-secure_client_extension_integration_guide.html">NS client integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../integration_guide/os_migration_guide_armv8m.html">OS migration to Armv8-M</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../integration_guide/tfm_fpu_support.html">Floating-Point Support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../integration_guide/tfm_secure_irq_integration_guide.html">Secure Interrupt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../integration_guide/platform/index.html">Adding a new platform</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../integration_guide/platform/platform_folder.html">Details for the platform folder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../integration_guide/platform/platform_ext_folder.html">Details for the platform/ext folder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../integration_guide/platform/porting_TFM_to_a_new_hardware.html">Porting TF-M to a New Hardware</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../integration_guide/platform/platform_provisioning.html">Platform Provisioning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../integration_guide/platform/platform_deprecation.html">Platform deprecation and removal</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../integration_guide/services/index.html">Services</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../integration_guide/services/tfm_attestation_integration_guide.html">Initial Attestation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../integration_guide/services/tfm_crypto_integration_guide.html">Crypto</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../integration_guide/services/tfm_its_integration_guide.html">Internal Storage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../integration_guide/services/tfm_platform_integration_guide.html">Platform</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../integration_guide/services/tfm_ps_integration_guide.html">Protected Storage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../integration_guide/services/tfm_secure_partition_addition.html">Adding a New Service</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../integration_guide/services/tfm_manifest_tool_user_guide.html">The manifest tool</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../technical_references/design_docs/index.html">Design Documents</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical_references/design_docs/dual-cpu/index.html">Dual-CPU</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical_references/design_docs/dual-cpu/booting_a_dual_core_system.html">Booting a Dual-Core System</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical_references/design_docs/dual-cpu/communication_prototype_between_nspe_and_spe_in_dual_core_systems.html">Communication Prototype Between NSPE And SPE In Dual Core System</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical_references/design_docs/dual-cpu/mailbox_design_on_dual_core_system.html">Mailbox Design in TF-M on Dual-core System</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../technical_references/design_docs/dual-cpu/tfm_multi_core_access_check.html">Memory Access Check of Trusted Firmware-M in Multi-Core Topology</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical_references/design_docs/bl1.html">BL1 Immutable bootloader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical_references/design_docs/code_sharing.html">Code sharing between independently linked XIP binaries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical_references/design_docs/enum_implicit_casting.html">Fixing implicit casting for C enumeration values</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical_references/design_docs/ff_isolation.html">FF-M Isolation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical_references/design_docs/hardware_abstraction_layer.html">Hardware Abstraction Layer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical_references/design_docs/mailbox_ns_agent_update.html">Mailbox NS Agent Design Update</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical_references/design_docs/ps_key_management.html">Protected Storage service key management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical_references/design_docs/secure_boot_hw_key_integration.html">HW crypto key integration in TF-M secure boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical_references/design_docs/secure_boot_rollback_protection.html">Rollback protection in TF-M secure boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical_references/design_docs/secure_partition_manager.html">Secure Partition Manager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical_references/design_docs/source_structure.html">Trusted Firmware-M Source Structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical_references/design_docs/stateless_rot_service.html">Stateless Root of Trust Services Reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical_references/design_docs/symmetric_initial_attest.html">Symmetric key algorithm based Initial Attestation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical_references/design_docs/tfm_builtin_keys.html">TF-M builtin keys</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical_references/design_docs/tfm_code_generation_with_jinja2.html">Code Generation With Jinja2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical_references/design_docs/tfm_cooperative_scheduling_rules.html">Cooperative Scheduling Rules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical_references/design_docs/tfm_crypto_design.html">Crypto Service design</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical_references/design_docs/tfm_fwu_service.html">Firmware Update Service</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical_references/design_docs/tfm_its_512_flash.html">Add support for block-aligned flash in Internal Trusted Storage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical_references/design_docs/tfm_its_service.html">Internal Trusted Storage (ITS) Service</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical_references/design_docs/tfm_log_system_design_document.html">Log system design document</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical_references/design_docs/tfm_physical_attack_mitigation.html">Physical attack mitigation in Trusted Firmware-M</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical_references/design_docs/tfm_psa_inter_process_communication.html">TF-M Inter-Process Communication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical_references/design_docs/tfm_secure_boot.html">Secure boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical_references/design_docs/tfm_secure_partition_runtime_library.html">Secure Partition Runtime Library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical_references/design_docs/tfm_uniform_secure_service_signature.html">Uniform Secure Service Signature</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tools/index.html">Tools</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contribution</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing/index.html">Guidelines</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../contributing/contributing_process.html">The process</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../contributing/code_review_guide.html">Code review</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../contributing/maintainers.html">Maintainers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../contributing/maintainers.html#code-owners">Code owners</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../contributing/coding_guide.html">Yet another coding standard :)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../contributing/doc_guidelines.html">Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../contributing/tfm_design_proposal_guideline.html">Design proposal</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing/lic.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing/dco.html">DCO</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Links</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://ci.trustedfirmware.org/view/TF-M/job/tf-m-build-docs-nightly/lastSuccessfulBuild/artifact/trusted-firmware-m/build/docs/reference_manual/html/index.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://developer.trustedfirmware.org/w/collaboration/security_center">Security Center</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://www.arm.com/architecture/security-features/platform-security">PSA</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">STMICROELECTRONICS</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../stm/releases/index.html">Releases</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../stm/releases/getting_started.html">Getting started</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/stm32l562e_dk/readme.html">STM32L562E-DK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/nucleo_l552ze_q/readme.html">NUCLEO-L552ZE-Q</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/b_u585i_iot02a/readme.html">B-U585I-IOT02A</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../stm/releases/platforms.html">Platforms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/common/stm32l5xx/readme.html">STM32L5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/common/stm32mp2/readme.html">STM32MP2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/common/stm32u5xx/readme.html">STM32U5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/nucleo_l552ze_q/readme.html">NUCLEO-L552ZE-Q</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/stm32l562e_dk/readme.html">STM32L562E-DK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../stm/releases/changelog.html">Change Log &amp; Notes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../stm/releases/v1.7.0-stm32mp25-alpha-r1-rc3/changelog.html">v1.7.0-stm32mp25-alpha-r1-rc3</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../stm/technical/index.html">Technical references</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../stm/technical/a35_td_flavor/index.html">A35-TD flavor</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../stm/technical/a35_td_flavor/memory_layout.html">Memory layout</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../stm/technical/a35_td_flavor/storage.html">Storage</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../stm/technical/m33_td_flavor/index.html">M33-TD flavor</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../stm/technical/m33_td_flavor/memory_layout.html">Memory layout</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../stm/technical/m33_td_flavor/storage.html">Storage</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../stm/technical/devicetree/index.html">Devicetree</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../stm/technical/devicetree/devicetree_tfm.html">Scope and purpose</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../stm/technical/devicetree/devicetree_tfm.html#concept">Concept</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../stm/technical/devicetree/devicetree_tfm.html#how-to-add-device">How to add device</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../stm/technical/initlevel.html">Initlevel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../stm/technical/initial_attestation.html">Initial Attestation Service</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../stm/technical/nv_counter.html">Nv counter</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../stm/ide/index.html">Ide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../stm/ide/cubeide/stm32cubeide.html">STM32CubeIDE</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Trusted Firmware-M</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../index.html">TF-M Platforms</a> &raquo;</li>
+          <li><a href="index.html">Cypress PSoC64</a> &raquo;</li>
+      <li>Cypress PSoC64 Specifics</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="cypress-psoc64-specifics">
+<h1>Cypress PSoC64 Specifics<a class="headerlink" href="#cypress-psoc64-specifics" title="Permalink to this heading"></a></h1>
+<section id="prerequisites">
+<h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this heading"></a></h2>
+<p>PSoC64 must first be provisioned with SecureBoot firmware and a provisioning packet
+containing policy and secure keys. Please refer to the guide at
+<a class="reference external" href="https://www.cypress.com/documentation/software-and-drivers/psoc-64-secure-mcu-secure-boot-sdk-user-guide">https://www.cypress.com/documentation/software-and-drivers/psoc-64-secure-mcu-secure-boot-sdk-user-guide</a>
+Use the following policy file for provisioning and signing:
+policy_multi_CM0_CM4_tfm.json</p>
+<p>Please make sure you have all required software installed as explained in the
+<a class="reference internal" href="../../../getting_started/tfm_getting_started.html"><span class="doc">TF-M getting started</span></a>.</p>
+<p>Please also make sure that all the source code are fetched by following
+<a class="reference internal" href="../../../building/tfm_build_instruction.html"><span class="doc">general building instruction</span></a>.</p>
+<p>Install CySecureTools or update it to the newest version (2.0.0 at the time of
+writing)</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip3<span class="w"> </span>install<span class="w"> </span>--upgrade<span class="w"> </span>--force-reinstall<span class="w"> </span>cysecuretools
+</pre></div>
+</div>
+<p>PyOCD is installed by CySecureTools as a dependency.</p>
+<p>For more details please refer to
+<a class="reference external" href="https://pypi.org/project/cysecuretools">CySecureTools</a> page.</p>
+<p>Install OpenOCD with PSoC6 support. Download the latest revision 4.1.0
+or newer from:
+<a class="reference external" href="https://github.com/cypresssemiconductorco/openocd/releases">https://github.com/cypresssemiconductorco/openocd/releases</a></p>
+<p>Lastly, the PSoC64 board KitProg firmware needs to be 2.00.744 or greater.
+Please use Cypress Modus Toolbox or CyProgrammer to update it if needed.</p>
+</section>
+<section id="building-multi-core-tf-m-on-cypress-psoc64">
+<h2>Building Multi-Core TF-M on Cypress PSoC64<a class="headerlink" href="#building-multi-core-tf-m-on-cypress-psoc64" title="Permalink to this heading"></a></h2>
+<section id="configuring-the-build">
+<h3>Configuring the build<a class="headerlink" href="#configuring-the-build" title="Permalink to this heading"></a></h3>
+<p>The build configuration for TF-M is provided to the build system using command
+line arguments. Required arguments are noted below.</p>
+<blockquote>
+<div><ul>
+<li><ul class="simple">
+<li><p>-DTFM_PLATFORM=cypress/psoc64</p></li>
+<li><p>Specifies target platform name <code class="docutils literal notranslate"><span class="pre">psoc64</span></code></p></li>
+</ul>
+</li>
+<li><ul>
+<li><p>-DTFM_TOOLCHAIN_FILE=&lt;path to toolchain file&gt;</p></li>
+<li><p>Specifies the compiler toolchain
+The possible values are:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;TFM</span> <span class="pre">root</span> <span class="pre">dir&gt;/toolchain_ARMCLANG.cmake</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;TFM</span> <span class="pre">root</span> <span class="pre">dir&gt;/toolchain_GNUARM.cmake</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;TFM</span> <span class="pre">root</span> <span class="pre">dir&gt;/toolchain_IARARM.cmake</span></code></p></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</li>
+</ul>
+</div></blockquote>
+<p>see <a class="reference internal" href="../../../configuration/build_configuration.html#tfm-cmake-configuration"><span class="std std-ref">Build configuration</span></a> for
+more information.</p>
+</section>
+<section id="build-instructions">
+<h3>Build Instructions<a class="headerlink" href="#build-instructions" title="Permalink to this heading"></a></h3>
+<p>The following instructions build multi-core TF-M without regression test suites
+in Isolation Level 1 on Linux.
+Both the compiler and the debugging type can be changed to other configurations
+listed above.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>&lt;TF-M<span class="w"> </span>base<span class="w"> </span>folder&gt;
+<span class="nb">cd</span><span class="w"> </span>&lt;trusted-firmware-m<span class="w"> </span>folder&gt;
+
+mkdir<span class="w"> </span>&lt;build<span class="w"> </span>folder&gt;
+<span class="nb">pushd</span><span class="w"> </span>&lt;build<span class="w"> </span>folder&gt;
+cmake<span class="w"> </span>-DTFM_PLATFORM<span class="o">=</span>cypress/psoc64<span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>-DTFM_TOOLCHAIN_FILE<span class="o">=</span>../toolchain_ARMCLANG.cmake<span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>../
+<span class="nb">popd</span>
+cmake<span class="w"> </span>--build<span class="w"> </span>&lt;build<span class="w"> </span>folder&gt;<span class="w"> </span>--<span class="w"> </span>-j<span class="w"> </span><span class="nv">VERBOSE</span><span class="o">=</span><span class="m">1</span>
+</pre></div>
+</div>
+<p>The following instructions build multi-core TF-M with regression test suites
+in Isolation Level 1 on Linux.
+Both the compiler and the debugging type can be changed to other configurations
+listed above.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>&lt;TF-M<span class="w"> </span>base<span class="w"> </span>folder&gt;
+<span class="nb">cd</span><span class="w"> </span>&lt;trusted-firmware-m<span class="w"> </span>folder&gt;
+
+mkdir<span class="w"> </span>&lt;build<span class="w"> </span>folder&gt;
+<span class="nb">pushd</span><span class="w"> </span>&lt;build<span class="w"> </span>folder&gt;
+cmake<span class="w"> </span>-DTFM_PLATFORM<span class="o">=</span>cypress/psoc64<span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>-DTFM_TOOLCHAIN_FILE<span class="o">=</span>../toolchain_ARMCLANG.cmake<span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>-DTEST_S<span class="o">=</span>ON<span class="w"> </span>-DTEST_NS<span class="o">=</span>ON<span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>../
+<span class="nb">popd</span>
+cmake<span class="w"> </span>--build<span class="w"> </span>&lt;build<span class="w"> </span>folder&gt;<span class="w"> </span>--<span class="w"> </span>-j<span class="w"> </span><span class="nv">VERBOSE</span><span class="o">=</span><span class="m">1</span>
+</pre></div>
+</div>
+<p>The following instructions build multi-core TF-M with PSA API test suite for
+the attestation service in Isolation Level 1 on Linux.
+Both the compiler and the debugging type can be changed to other configurations
+listed above.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>&lt;TF-M<span class="w"> </span>base<span class="w"> </span>folder&gt;
+<span class="nb">cd</span><span class="w"> </span>&lt;trusted-firmware-m<span class="w"> </span>folder&gt;
+
+mkdir<span class="w"> </span>&lt;build<span class="w"> </span>folder&gt;
+<span class="nb">pushd</span><span class="w"> </span>&lt;build<span class="w"> </span>folder&gt;
+cmake<span class="w"> </span>-DTFM_PLATFORM<span class="o">=</span>cypress/psoc64<span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>-DTFM_TOOLCHAIN_FILE<span class="o">=</span>../toolchain_ARMCLANG.cmake<span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>-DTEST_PSA_API<span class="o">=</span>INITIAL_ATTESTATION<span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>../
+<span class="nb">popd</span>
+cmake<span class="w"> </span>--build<span class="w"> </span>&lt;build<span class="w"> </span>folder&gt;<span class="w"> </span>--<span class="w"> </span>-j<span class="w"> </span><span class="nv">VERBOSE</span><span class="o">=</span><span class="m">1</span>
+</pre></div>
+</div>
+<p>The following instructions build multi-core TF-M without regression test suites
+in Isolation Level 2 on Linux.
+Both the compiler and the debugging type can be changed to other configurations
+listed above.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>&lt;TF-M<span class="w"> </span>base<span class="w"> </span>folder&gt;
+<span class="nb">cd</span><span class="w"> </span>&lt;trusted-firmware-m<span class="w"> </span>folder&gt;
+
+mkdir<span class="w"> </span>&lt;build<span class="w"> </span>folder&gt;
+<span class="nb">pushd</span><span class="w"> </span>&lt;build<span class="w"> </span>folder&gt;
+cmake<span class="w"> </span>-DTFM_PLATFORM<span class="o">=</span>cypress/psoc64<span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>-DTFM_TOOLCHAIN_FILE<span class="o">=</span>../toolchain_ARMCLANG.cmake<span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>-DTFM_ISOLATION_LEVEL<span class="o">=</span><span class="m">2</span><span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>../
+<span class="nb">popd</span>
+cmake<span class="w"> </span>--build<span class="w"> </span>&lt;build<span class="w"> </span>folder&gt;<span class="w"> </span>--<span class="w"> </span>-j<span class="w"> </span><span class="nv">VERBOSE</span><span class="o">=</span><span class="m">1</span>
+</pre></div>
+</div>
+<p>The following instructions build multi-core TF-M with regression test suites
+in Isolation Level 2 on Linux.
+Both the compiler and the debugging type can be changed to other configurations
+listed above.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>&lt;TF-M<span class="w"> </span>base<span class="w"> </span>folder&gt;
+<span class="nb">cd</span><span class="w"> </span>&lt;trusted-firmware-m<span class="w"> </span>folder&gt;
+
+mkdir<span class="w"> </span>&lt;build<span class="w"> </span>folder&gt;
+<span class="nb">pushd</span><span class="w"> </span>&lt;build<span class="w"> </span>folder&gt;
+cmake<span class="w"> </span>-DTFM_PLATFORM<span class="o">=</span>cypress/psoc64<span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>-DTFM_TOOLCHAIN_FILE<span class="o">=</span>../toolchain_ARMCLANG.cmake<span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>-DTFM_ISOLATION_LEVEL<span class="o">=</span><span class="m">2</span><span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>-DTEST_S<span class="o">=</span>ON<span class="w"> </span>-DTEST_NS<span class="o">=</span>ON<span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>../
+<span class="nb">popd</span>
+cmake<span class="w"> </span>--build<span class="w"> </span>&lt;build<span class="w"> </span>folder&gt;<span class="w"> </span>--<span class="w"> </span>-j<span class="w"> </span><span class="nv">VERBOSE</span><span class="o">=</span><span class="m">1</span>
+</pre></div>
+</div>
+<p>The following instructions build multi-core TF-M with PSA API test suite for
+the protected storage service in Isolation Level 2 on Linux.
+Both the compiler and the debugging type can be changed to other configurations
+listed above.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>&lt;TF-M<span class="w"> </span>base<span class="w"> </span>folder&gt;
+<span class="nb">cd</span><span class="w"> </span>&lt;trusted-firmware-m<span class="w"> </span>folder&gt;
+
+mkdir<span class="w"> </span>&lt;build<span class="w"> </span>folder&gt;
+<span class="nb">pushd</span><span class="w"> </span>&lt;build<span class="w"> </span>folder&gt;
+cmake<span class="w"> </span>-DTFM_PLATFORM<span class="o">=</span>cypress/psoc64<span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>-DTFM_TOOLCHAIN_FILE<span class="o">=</span>../toolchain_ARMCLANG.cmake<span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>-DTFM_ISOLATION_LEVEL<span class="o">=</span><span class="m">2</span><span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>-DTEST_PSA_API<span class="o">=</span>PROTECTED_STORAGE<span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>../
+<span class="nb">popd</span>
+cmake<span class="w"> </span>--build<span class="w"> </span>&lt;build<span class="w"> </span>folder&gt;<span class="w"> </span>--<span class="w"> </span>-j<span class="w"> </span><span class="nv">VERBOSE</span><span class="o">=</span><span class="m">1</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="signing">
+<h2>Signing<a class="headerlink" href="#signing" title="Permalink to this heading"></a></h2>
+<section id="signing-keys">
+<h3>Signing keys<a class="headerlink" href="#signing-keys" title="Permalink to this heading"></a></h3>
+<p>Copy secure keys used in the board provisioning process to
+platform/ext/target/cypress/psoc64/security/keys:</p>
+<p>The keys included in the repository are for reference and development only.
+DO NOT USE THESE KEYS IN ANY ACTUAL DEPLOYMENT!</p>
+<p>Note: provisioned board in SECURE state is required, otherwise refer to
+Cypress documentation for details on the provisioning process.
+<a class="reference external" href="https://www.cypress.com/documentation/software-and-drivers/psoc-64-secure-mcu-secure-boot-sdk-user-guide">https://www.cypress.com/documentation/software-and-drivers/psoc-64-secure-mcu-secure-boot-sdk-user-guide</a></p>
+<p>If the board was previously provisioned with signing keys and policy, copy
+secure signing keys used in the board provisioning process to
+platform/ext/target/cypress/psoc64/security/keys:</p>
+<dl class="simple">
+<dt>TFM_S_KEY.json</dt><dd><p>Private OEM key for signing CM0P image</p>
+</dd>
+<dt>TFM_S_KEY_PRIV.pem</dt><dd><p>Private OEM key for signing CM0P image in PEM format</p>
+</dd>
+<dt>TFM_NS_KEY.json</dt><dd><p>Private OEM key for signing CM4 image</p>
+</dd>
+<dt>TFM_NS_KEY_PRIV.pem</dt><dd><p>Private OEM key for signing CM4 image in PEM format</p>
+</dd>
+</dl>
+<p>Alternatively, you can generate a new set of signing keys using cysecuretools
+create-keys command and provision the keys to the board, if the previously
+provisioned policy allows board’s re-provisioning.</p>
+<p>Initialize cysecuretools environment:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>platform/ext/target/cypress/psoc64/security
+cysecuretools<span class="w"> </span>-t<span class="w"> </span>cy8ckit-064s0s2-4343w<span class="w"> </span>init
+</pre></div>
+</div>
+<p>Generate a new set of keys:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cysecuretools<span class="w"> </span>-t<span class="w"> </span>cy8ckit-064s0s2-4343w<span class="w"> </span>-p<span class="w"> </span>policy/policy_multi_CM0_CM4_tfm.json<span class="w"> </span>create-keys
+</pre></div>
+</div>
+<p>Re-provision the new keys to the board:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cysecuretools<span class="w"> </span>-t<span class="w"> </span>cy8ckit-064s0s2-4343w<span class="w"> </span>-p<span class="w"> </span>policy/policy_multi_CM0_CM4_tfm.json<span class="w"> </span>re-provision-device
+</pre></div>
+</div>
+</section>
+<section id="signing-the-images">
+<h3>Signing the images<a class="headerlink" href="#signing-the-images" title="Permalink to this heading"></a></h3>
+<p>Sign the images using CySecureTools CLI tool.
+Note: the tool overwrites unsigned file with a signed one, it also creates an
+unsigned copy &lt;filename&gt;_unsigned.hex.</p>
+<p>SPE image:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cysecuretools<span class="w"> </span><span class="se">\</span>
+--policy<span class="w"> </span>platform/ext/target/cypress/psoc64/security/policy/policy_multi_CM0_CM4_tfm.json<span class="w"> </span><span class="se">\</span>
+--target<span class="w"> </span>cy8ckit-064s0s2-4343w<span class="w"> </span><span class="se">\</span>
+sign-image<span class="w"> </span><span class="se">\</span>
+--hex<span class="w"> </span>&lt;build<span class="w"> </span>folder&gt;/bin/tfm_s.hex<span class="w"> </span><span class="se">\</span>
+--image-type<span class="w"> </span>BOOT<span class="w"> </span><span class="se">\</span>
+--image-id<span class="w"> </span><span class="m">1</span>
+</pre></div>
+</div>
+<p>NSPE image:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cysecuretools<span class="w"> </span><span class="se">\</span>
+--policy<span class="w"> </span>platform/ext/target/cypress/psoc64/security/policy/policy_multi_CM0_CM4_tfm.json<span class="w"> </span><span class="se">\</span>
+--target<span class="w"> </span>cy8ckit-064s0s2-4343w<span class="w"> </span><span class="se">\</span>
+sign-image<span class="w"> </span><span class="se">\</span>
+--hex<span class="w"> </span>&lt;build<span class="w"> </span>folder&gt;/bin/tfm_ns.hex<span class="w"> </span><span class="se">\</span>
+--image-type<span class="w"> </span>BOOT<span class="w"> </span><span class="se">\</span>
+--image-id<span class="w"> </span><span class="m">16</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>CySecureTools sign-image overwrites unsigned file with a signed one,
+also it creates an unsigned copy _unsigned.hex.</p></li>
+<li><p>image-type option: “–image-type BOOT” creates a signed hex file with offsets
+for the primary image slot. Use “–image-type UPGRADE” if you want to create
+an image for the secondary “upgrade” slot.
+When booting, CyBootloader will validate image in the secondary slot and copy
+it to the primary boot slot.</p></li>
+<li><p>image-id option: Each image has its own ID. By default, SPE image running on
+CM0P core has ID=1, NSPE image running on CM4 core has ID=16. Refer to the
+policy file for the actual ID’s.</p></li>
+</ul>
+</section>
+</section>
+<section id="programming-the-device">
+<h2>Programming the Device<a class="headerlink" href="#programming-the-device" title="Permalink to this heading"></a></h2>
+<p>After building and signing, the TFM images must be programmed into flash
+memory on the PSoC64 device. There are three methods to program it.</p>
+<section id="daplink-mode">
+<h3>DAPLink mode<a class="headerlink" href="#daplink-mode" title="Permalink to this heading"></a></h3>
+<p>Using KitProg3 mode button, switch it to DAPLink mode.
+Mode LED should start blinking rapidly and depending on the host computer
+settings DAPLINK will be mounted as a media storage device.
+Otherwise, mount it manually.</p>
+<p>Copy tfm hex files one by one to the DAPLINK device:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cp<span class="w"> </span>&lt;build<span class="w"> </span>folder&gt;/bin/tfm_ns.hex<span class="w"> </span>&lt;mount<span class="w"> </span>point&gt;/DAPLINK/<span class="p">;</span><span class="w"> </span>sync
+cp<span class="w"> </span>&lt;build<span class="w"> </span>folder&gt;/bin/tfm_s.hex<span class="w"> </span>&lt;mount<span class="w"> </span>point&gt;/DAPLINK/<span class="p">;</span><span class="w"> </span>sync
+</pre></div>
+</div>
+</section>
+<section id="openocd">
+<h3>OpenOCD<a class="headerlink" href="#openocd" title="Permalink to this heading"></a></h3>
+<p>Using KitProg3 mode button, switch to KitProg3 CMSIS-DAP BULK. Status LED
+should be ON and not blinking for CMSIS-DAP BULK.</p>
+<p>Before programming the images, erase PS partition if needed.
+This will clear all data and force PS to reformat partition.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="si">${</span><span class="nv">OPENOCD_PATH</span><span class="si">}</span>/bin/openocd<span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>-s<span class="w"> </span><span class="si">${</span><span class="nv">OPENOCD_PATH</span><span class="si">}</span>/scripts<span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>-f<span class="w"> </span>interface/kitprog3.cfg<span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>-f<span class="w"> </span>target/psoc6_2m_secure.cfg<span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>-c<span class="w"> </span><span class="s2">&quot;init; reset init&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>-c<span class="w"> </span><span class="s2">&quot;flash erase_address 0x101c0000 0x10000&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>-c<span class="w"> </span><span class="s2">&quot;shutdown&quot;</span>
+</pre></div>
+</div>
+<p>Note that the <code class="docutils literal notranslate"><span class="pre">0x101C0000</span></code> in the command above must match the PS start
+address of the secure primary image specified in the file:</p>
+<blockquote>
+<div><p>platform/ext/target/cypress/psoc64/partition/flash_layout.h</p>
+</div></blockquote>
+<p>so be sure to change it if you change that file.</p>
+<p>To program the signed tfm_s and tfm_ns images to the device with openocd
+(assuming OPENOCD_PATH is pointing at the openocd installation directory)
+run the following commands:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">OPENOCD_PATH</span><span class="o">=</span>&lt;cyprogrammer<span class="w"> </span>dir&gt;/openocd
+<span class="nv">BUILD_DIR</span><span class="o">=</span>&lt;build<span class="w"> </span>folder&gt;
+
+<span class="si">${</span><span class="nv">OPENOCD_PATH</span><span class="si">}</span>/bin/openocd<span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>-s<span class="w"> </span><span class="si">${</span><span class="nv">OPENOCD_PATH</span><span class="si">}</span>/scripts<span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>-f<span class="w"> </span>interface/kitprog3.cfg<span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>-f<span class="w"> </span>target/psoc6_2m_secure.cfg<span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>-c<span class="w"> </span><span class="s2">&quot;init; reset init&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>-c<span class="w"> </span><span class="s2">&quot;flash write_image erase </span><span class="si">${</span><span class="nv">BUILD_DIR</span><span class="si">}</span><span class="s2">/bin/tfm_s.hex&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>-c<span class="w"> </span><span class="s2">&quot;shutdown&quot;</span>
+
+<span class="si">${</span><span class="nv">OPENOCD_PATH</span><span class="si">}</span>/bin/openocd<span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>-s<span class="w"> </span><span class="si">${</span><span class="nv">OPENOCD_PATH</span><span class="si">}</span>/scripts<span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>-f<span class="w"> </span>interface/kitprog3.cfg<span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>-f<span class="w"> </span>target/psoc6_2m_secure.cfg<span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>-c<span class="w"> </span><span class="s2">&quot;init; reset init&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>-c<span class="w"> </span><span class="s2">&quot;flash write_image erase </span><span class="si">${</span><span class="nv">BUILD_DIR</span><span class="si">}</span><span class="s2">/bin/tfm_ns.hex&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>-c<span class="w"> </span><span class="s2">&quot;reset run&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="pyocd">
+<h3>PyOCD<a class="headerlink" href="#pyocd" title="Permalink to this heading"></a></h3>
+<p>PyOCD is installed by CySecureTools automatically. It can be used
+to program TFM images into the board.</p>
+<p>Using KitProg3 mode button, switch to KitProg3 DAPLink mode.
+Mode LED should start blinking rapidly.</p>
+<p>Optionally, erase PS partition:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pyocd<span class="w"> </span>erase<span class="w"> </span>-b<span class="w"> </span>CY8CKIT-064S0S2-4343W<span class="w"> </span>-s<span class="w"> </span>0x101c0000+0x10000
+</pre></div>
+</div>
+<p>To program the signed tfm_s and tfm_ns images to the device with pyocd
+run the following commands:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pyocd<span class="w"> </span>flash<span class="w"> </span>-b<span class="w"> </span>CY8CKIT-064S0S2-4343W<span class="w"> </span><span class="si">${</span><span class="nv">BUILD_DIR</span><span class="si">}</span>/bin/tfm_s.hex
+
+pyocd<span class="w"> </span>flash<span class="w"> </span>-b<span class="w"> </span>CY8CKIT-064S0S2-4343W<span class="w"> </span><span class="si">${</span><span class="nv">BUILD_DIR</span><span class="si">}</span>/bin/tfm_ns.hex
+</pre></div>
+</div>
+</section>
+</section>
+<section id="provisioning-device-certificates">
+<h2>Provisioning device certificates<a class="headerlink" href="#provisioning-device-certificates" title="Permalink to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p>If not done yet, change to the psoc64 security directory and initialize
+cysecuretools environment:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>platform/ext/target/cypress/psoc64/security
+cysecuretools<span class="w"> </span>-t<span class="w"> </span>cy8ckit-064s0s2-4343w<span class="w"> </span>init
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li><p>Create and copy rootCA files to “certificates” directory next to the policy
+directory (please refer to documentation of the used OS)</p></li>
+<li><p>Switch the board in DAPLink mode by pressing the mode button or by issuing
+the following fw-loader command (fw-loader comes with Modus ToolBox software).
+Mode LED should be slowly blinking:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>fw-loader<span class="w"> </span>--mode<span class="w"> </span>kp3-daplink
+</pre></div>
+</div>
+<ol class="arabic simple" start="4">
+<li><p>Run reprov_helper.py. If running the script with default parameters,
+the script can be run as is:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w"> </span>python3<span class="w"> </span>reprov_helper.py
+
+Otherwise,<span class="w"> </span>run<span class="w"> </span>it<span class="w"> </span>with<span class="w"> </span>--help<span class="w"> </span>parameter<span class="w"> </span>to<span class="w"> </span>get<span class="w"> </span>the<span class="w"> </span>full<span class="w"> </span>list<span class="w"> </span>of<span class="w"> </span>options.
+</pre></div>
+</div>
+<ol class="arabic simple" start="5">
+<li><p>Confirm selected options. When prompted for a serial number, enter the board
+unique serial number (digits only, e.g. 00183).</p></li>
+<li><p>Script will ask if you want to create new signing keys. Answer Yes to
+generate new signing keys in the keys directory, or No to retain and use the
+existing keys. After re-provisioning, from now on any images for
+this board will have to be signed with these keys.</p></li>
+<li><p>The script will erase user images.
+Then the script will read device public key and create device certificates
+based on the board serial number, root certificate and the device public key.</p></li>
+</ol>
+</section>
+<section id="provisioning-amazon-web-services-root-and-device-certificates">
+<h2>Provisioning Amazon Web Services root and device certificates<a class="headerlink" href="#provisioning-amazon-web-services-root-and-device-certificates" title="Permalink to this heading"></a></h2>
+<p>Device running Amazon FreeRTOS and using Amazon Web Services (AWS)
+requires AWS root and unique device certificate signed with the device key
+for authentication. These certificates have to be provisioned into device.
+The process is the following:</p>
+<ol class="arabic simple">
+<li><p>If not done yet, change to the psoc64 security directory and initialize
+cysecuretools environment:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>platform/ext/target/cypress/psoc64/security
+cysecuretools<span class="w"> </span>-t<span class="w"> </span>cy8ckit-064s0s2-4343w<span class="w"> </span>init
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li><p>Obtain and copy rootCA files to  “certificates” directory next to the policy
+directory (please refer to AWS documentation)</p></li>
+<li><p>Switch the board in DAPLink mode by pressing the mode button or by issuing
+the following fw-loader command (fw-loader comes with Modus ToolBox software).
+Mode LED should be slowly blinking:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>fw-loader<span class="w"> </span>--mode<span class="w"> </span>kp3-daplink
+</pre></div>
+</div>
+<ol class="arabic simple" start="4">
+<li><p>Run reprov_helper.py. If running the script with default parameters,
+the script can be run as is:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w"> </span>python3<span class="w"> </span>reprov_helper.py
+
+Otherwise,<span class="w"> </span>run<span class="w"> </span>it<span class="w"> </span>with<span class="w"> </span>--help<span class="w"> </span>parameter<span class="w"> </span>to<span class="w"> </span>get<span class="w"> </span>the<span class="w"> </span>full<span class="w"> </span>list<span class="w"> </span>of<span class="w"> </span>options.
+</pre></div>
+</div>
+<ol class="arabic simple" start="5">
+<li><p>Confirm selected options. When prompted for a serial number, enter the board
+unique serial number (digits only, e.g. 00183).</p></li>
+<li><p>Script will ask if you want to create new signing keys. Answer Yes to
+generate new signing keys in the keys directory, or No to retain and use the
+existing keys. After re-provisioning, from now on any images for
+this board will have to be signed with these keys.</p></li>
+<li><p>The script will erase user images.
+Then the script will read device public key and create device certificates
+based on the board serial number, root certificate and the device public key.</p></li>
+</ol>
+<hr class="docutils" />
+<p><em>Copyright (c) 2017-2021, Arm Limited. All rights reserved.</em></p>
+<p><em>Copyright (c) 2019-2020, Cypress Semiconductor Corporation. All rights reserved.</em></p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p></p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Memory Access Check of Trusted Firmware-M in Multi-Core Topology &mdash; Trusted Firmware-M v1.7.0-stm32mp25-alpha-r1-rc3-doc documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/tfm_custom.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/tabs.css" type="text/css" />
+    <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="BL1 Immutable bootloader" href="../bl1.html" />
+    <link rel="prev" title="Mailbox Design in TF-M on Dual-core System" href="mailbox_design_on_dual_core_system.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> Trusted Firmware-M
+            <img src="../../../_static/tf_logo_white.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                v1.7.0-stm32mp25-alpha-r1-rc3-doc
+
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../introduction/index.html">Introduction</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../getting_started/index.html">Getting Started</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../security/index.html">Security</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../security/security_advisories/index.html">Security Advisories</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../security/security_advisories/stack_seal_vulnerability.html">Advisory TFMV-1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../security/security_advisories/svc_caller_sp_fetching_vulnerability.html">Advisory TFMV-2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../security/security_advisories/crypto_multi_part_ops_abort_fail.html">Advisory TFMV-3</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../security/security_advisories/profile_small_key_id_encoding_vulnerability.html">Advisory TFMV-4</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../security/security_advisories/fwu_write_vulnerability.html">Advisory TFMV-5</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../security/threat_models/index.html">Threat Models</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../security/threat_models/generic_threat_model.html">Trusted Firmware-M Generic Threat Model</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../security/security.html">Security Handling</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../releases/index.html">Releases</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../releases/1.7.0.html">v1.7.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../releases/1.6.1.html">v1.6.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../releases/1.6.0.html">v1.6.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../releases/1.5.0.html">v1.5.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../releases/release_process.html">Release Cadence and Process</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../glossary.html">Glossary</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../platform/index.html">Platform Selection</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../platform/arm/index.html">Arm platforms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../platform/arm/corstone1000/readme.html">Corstone-1000</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../platform/arm/mps3/an547/README.html">Corstone-300 FPGA (AN547)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../platform/arm/mps3/an552/README.html">Corstone-300 FPGA and FVP (AN552)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../platform/arm/mps3/corstone310/README.html">Corstone-310 FVP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../platform/arm/musca_b1/readme.html">Musca-B1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../platform/arm/musca_s1/readme.html">Musca-S1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../platform/arm/rss/readme.html">Runtime Security Subsystem</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../platform/nxp/lpcxpresso55s69/README.html">LPCXpresso55S69</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../platform/cypress/psoc64/index.html">Cypress PSoC64</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../platform/cypress/psoc64/cypress_psoc64_spec.html">Cypress PSoC64 Specifics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../platform/cypress/psoc64/libs/core-lib/README.html">Core Library</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../platform/cypress/psoc64/libs/core-lib/RELEASE.html">Core Library Release Notes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../platform/stm/index.html">STMICROELECTRONICS</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../platform/stm/common/stm32l5xx/readme.html">STM32L5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../platform/stm/common/stm32mp2/readme.html">STM32MP2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../platform/stm/common/stm32u5xx/readme.html">STM32U5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../platform/stm/nucleo_l552ze_q/readme.html">NUCLEO-L552ZE-Q</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../platform/stm/stm32l562e_dk/readme.html">STM32L562E-DK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../platform/stm/b_u585i_iot02a/readme.html">B-U585I-IOT02A</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../platform/nordic_nrf/nrf5340dk_nrf5340_cpuapp/README.html">Nordic nRF5340</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../platform/nordic_nrf/nrf9160dk_nrf9160/README.html">Nordic nRF9160</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../platform/lairdconnectivity/bl5340_dvk_cpuapp/README.html">Laird Connectivity BL5340</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../platform/nuvoton/m2351/README.html">NuMaker-PFM-M2351</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../platform/nuvoton/m2354/README.html">NuMaker-PFM-M2354</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../building/tfm_build_instruction.html">Build instructions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../building/run_tfm_examples_on_arm_platforms.html">Run TF-M examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../building/documentation_generation.html">Building the documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../building/tfm_build_instruction_iar.html">IAR toolchain</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../configuration/index.html">Configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../configuration/build_configuration.html">Build configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../configuration/header_file_system.html">Component configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../configuration/kconfig_system.html">Kconfig</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../configuration/profiles/index.html">Profiles</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../configuration/profiles/tfm_profile_small.html"> Small</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../configuration/profiles/tfm_profile_medium_arot-less.html"> ARoT-less</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../configuration/profiles/tfm_profile_medium.html"> Medium</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../configuration/profiles/tfm_profile_large.html"> Large</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../configuration/test_configuration.html">Tests configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../integration_guide/index.html">Integration Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../integration_guide/spm_backends.html">SPM Backends</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../integration_guide/non-secure_client_extension_integration_guide.html">NS client integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../integration_guide/os_migration_guide_armv8m.html">OS migration to Armv8-M</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../integration_guide/tfm_fpu_support.html">Floating-Point Support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../integration_guide/tfm_secure_irq_integration_guide.html">Secure Interrupt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../integration_guide/platform/index.html">Adding a new platform</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../integration_guide/platform/platform_folder.html">Details for the platform folder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../integration_guide/platform/platform_ext_folder.html">Details for the platform/ext folder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../integration_guide/platform/porting_TFM_to_a_new_hardware.html">Porting TF-M to a New Hardware</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../integration_guide/platform/platform_provisioning.html">Platform Provisioning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../integration_guide/platform/platform_deprecation.html">Platform deprecation and removal</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../integration_guide/services/index.html">Services</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../integration_guide/services/tfm_attestation_integration_guide.html">Initial Attestation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../integration_guide/services/tfm_crypto_integration_guide.html">Crypto</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../integration_guide/services/tfm_its_integration_guide.html">Internal Storage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../integration_guide/services/tfm_platform_integration_guide.html">Platform</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../integration_guide/services/tfm_ps_integration_guide.html">Protected Storage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../integration_guide/services/tfm_secure_partition_addition.html">Adding a New Service</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../integration_guide/services/tfm_manifest_tool_user_guide.html">The manifest tool</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Design Documents</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Dual-CPU</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="booting_a_dual_core_system.html">Booting a Dual-Core System</a></li>
+<li class="toctree-l3"><a class="reference internal" href="communication_prototype_between_nspe_and_spe_in_dual_core_systems.html">Communication Prototype Between NSPE And SPE In Dual Core System</a></li>
+<li class="toctree-l3"><a class="reference internal" href="mailbox_design_on_dual_core_system.html">Mailbox Design in TF-M on Dual-core System</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Memory Access Check of Trusted Firmware-M in Multi-Core Topology</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../bl1.html">BL1 Immutable bootloader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code_sharing.html">Code sharing between independently linked XIP binaries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../enum_implicit_casting.html">Fixing implicit casting for C enumeration values</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ff_isolation.html">FF-M Isolation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hardware_abstraction_layer.html">Hardware Abstraction Layer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mailbox_ns_agent_update.html">Mailbox NS Agent Design Update</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ps_key_management.html">Protected Storage service key management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../secure_boot_hw_key_integration.html">HW crypto key integration in TF-M secure boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../secure_boot_rollback_protection.html">Rollback protection in TF-M secure boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../secure_partition_manager.html">Secure Partition Manager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../source_structure.html">Trusted Firmware-M Source Structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../stateless_rot_service.html">Stateless Root of Trust Services Reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../symmetric_initial_attest.html">Symmetric key algorithm based Initial Attestation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tfm_builtin_keys.html">TF-M builtin keys</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tfm_code_generation_with_jinja2.html">Code Generation With Jinja2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tfm_cooperative_scheduling_rules.html">Cooperative Scheduling Rules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tfm_crypto_design.html">Crypto Service design</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tfm_fwu_service.html">Firmware Update Service</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tfm_its_512_flash.html">Add support for block-aligned flash in Internal Trusted Storage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tfm_its_service.html">Internal Trusted Storage (ITS) Service</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tfm_log_system_design_document.html">Log system design document</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tfm_physical_attack_mitigation.html">Physical attack mitigation in Trusted Firmware-M</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tfm_psa_inter_process_communication.html">TF-M Inter-Process Communication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tfm_secure_boot.html">Secure boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tfm_secure_partition_runtime_library.html">Secure Partition Runtime Library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tfm_uniform_secure_service_signature.html">Uniform Secure Service Signature</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tools/index.html">Tools</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contribution</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing/index.html">Guidelines</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../contributing/contributing_process.html">The process</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../contributing/code_review_guide.html">Code review</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../contributing/maintainers.html">Maintainers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../contributing/maintainers.html#code-owners">Code owners</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../contributing/coding_guide.html">Yet another coding standard :)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../contributing/doc_guidelines.html">Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../contributing/tfm_design_proposal_guideline.html">Design proposal</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing/lic.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing/dco.html">DCO</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Links</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://ci.trustedfirmware.org/view/TF-M/job/tf-m-build-docs-nightly/lastSuccessfulBuild/artifact/trusted-firmware-m/build/docs/reference_manual/html/index.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://developer.trustedfirmware.org/w/collaboration/security_center">Security Center</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://www.arm.com/architecture/security-features/platform-security">PSA</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">STMICROELECTRONICS</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../stm/releases/index.html">Releases</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../stm/releases/getting_started.html">Getting started</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../platform/stm/stm32l562e_dk/readme.html">STM32L562E-DK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../platform/stm/nucleo_l552ze_q/readme.html">NUCLEO-L552ZE-Q</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../platform/stm/b_u585i_iot02a/readme.html">B-U585I-IOT02A</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../stm/releases/platforms.html">Platforms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../platform/stm/common/stm32l5xx/readme.html">STM32L5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../platform/stm/common/stm32mp2/readme.html">STM32MP2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../platform/stm/common/stm32u5xx/readme.html">STM32U5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../platform/stm/nucleo_l552ze_q/readme.html">NUCLEO-L552ZE-Q</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../platform/stm/stm32l562e_dk/readme.html">STM32L562E-DK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../stm/releases/changelog.html">Change Log &amp; Notes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../stm/releases/v1.7.0-stm32mp25-alpha-r1-rc3/changelog.html">v1.7.0-stm32mp25-alpha-r1-rc3</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../stm/technical/index.html">Technical references</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../stm/technical/a35_td_flavor/index.html">A35-TD flavor</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../stm/technical/a35_td_flavor/memory_layout.html">Memory layout</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../stm/technical/a35_td_flavor/storage.html">Storage</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../stm/technical/m33_td_flavor/index.html">M33-TD flavor</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../stm/technical/m33_td_flavor/memory_layout.html">Memory layout</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../stm/technical/m33_td_flavor/storage.html">Storage</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../stm/technical/devicetree/index.html">Devicetree</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../stm/technical/devicetree/devicetree_tfm.html">Scope and purpose</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../stm/technical/devicetree/devicetree_tfm.html#concept">Concept</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../stm/technical/devicetree/devicetree_tfm.html#how-to-add-device">How to add device</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../stm/technical/initlevel.html">Initlevel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../stm/technical/initial_attestation.html">Initial Attestation Service</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../stm/technical/nv_counter.html">Nv counter</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../stm/ide/index.html">Ide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../stm/ide/cubeide/stm32cubeide.html">STM32CubeIDE</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Trusted Firmware-M</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../index.html">Design Documents</a> &raquo;</li>
+          <li><a href="index.html">Dual-CPU</a> &raquo;</li>
+      <li>Memory Access Check of Trusted Firmware-M in Multi-Core Topology</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="memory-access-check-of-trusted-firmware-m-in-multi-core-topology">
+<h1>Memory Access Check of Trusted Firmware-M in Multi-Core Topology<a class="headerlink" href="#memory-access-check-of-trusted-firmware-m-in-multi-core-topology" title="Permalink to this heading"></a></h1>
+<dl class="field-list simple">
+<dt class="field-odd">Author</dt>
+<dd class="field-odd"><p>David Hu</p>
+</dd>
+<dt class="field-even">Organization</dt>
+<dd class="field-even"><p>Arm Limited</p>
+</dd>
+<dt class="field-odd">Contact</dt>
+<dd class="field-odd"><p><a class="reference external" href="mailto:david&#46;hu&#37;&#52;&#48;arm&#46;com">david<span>&#46;</span>hu<span>&#64;</span>arm<span>&#46;</span>com</a></p>
+</dd>
+</dl>
+<section id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading"></a></h2>
+<p>TF-M memory access check functions <code class="docutils literal notranslate"><span class="pre">tfm_core_has_read_access_to_region()</span></code> and
+<code class="docutils literal notranslate"><span class="pre">tfm_core_has_write_access_to_region()</span></code> check whether an access has proper
+permission to read or write the target memory region.</p>
+<p>On single Armv8-M core platform, TF-M memory access check implementation relies
+on <a class="reference external" href="https://developer.arm.com/architectures/cpu-architecture/m-profile/docs/100720/0100/secure-software-guidelines/armv8m-security-extension">Armv8-M Security Extension</a> (CMSE) intrinsic
+<code class="docutils literal notranslate"><span class="pre">cmse_check_address_range()</span></code>.
+The secure core may not implement CMSE on multi-core platforms. Even if CMSE is
+implemented on a multi-core platform, additional check on system-level security
+and memory access management units are still necessary since CMSE intrinsics and
+TT instructions are only aware of MPU/SAU/IDAU inside the core.</p>
+<p>As a result, TF-M in multi-core topology requires a dedicated access check
+process which can work without CMSE support. This document discuss about the
+design of the memory access check in multi-core topology.</p>
+</section>
+<section id="overall-design">
+<h2>Overall Design<a class="headerlink" href="#overall-design" title="Permalink to this heading"></a></h2>
+<section id="memory-access-check-policy">
+<h3>Memory Access Check Policy<a class="headerlink" href="#memory-access-check-policy" title="Permalink to this heading"></a></h3>
+<p>The policies vary in diverse Isolation Levels.</p>
+<p>When TF-M works in Isolation Level 1, the access check in multi-core topology
+checks</p>
+<ul class="simple">
+<li><p>Memory region is valid according to system settings</p></li>
+<li><p>Non-secure client call request should not access secure memory.</p></li>
+<li><p>Secure services should not directly access non-secure memory. According to PSA
+Firmware Framework, Secure services should call Secure Partition APIs to ask
+TF-M SPM to fetch non-secure input/output buffer for them.</p></li>
+<li><p>Whether read/write attribute match between access and memory region</p></li>
+</ul>
+<p>When TF-M works in Isolation Level 2, the access check in multi-core topology
+checks:</p>
+<ul class="simple">
+<li><p>Memory region is valid according to system settings</p></li>
+<li><p>Non-secure client call request should not access secure memory.</p></li>
+<li><p>Secure services should not directly access non-secure memory. According to PSA
+Firmware Framework, Secure services should call Secure Partition APIs to ask
+TF-M SPM to fetch non-secure input/outputs buffer for them.</p></li>
+<li><p>Whether read/write attribute match between access and memory region</p></li>
+<li><p>Unprivileged secure access should not access privileged secure memory region</p></li>
+</ul>
+<p>The check policy in Isolation Level 3 will be defined according to TF-M future
+implementation.</p>
+<p>The above policies will be adjusted according to TF-M implementation and PSA
+specs.</p>
+</section>
+<section id="general-check-process-in-tf-m-core">
+<h3>General Check Process in TF-M Core<a class="headerlink" href="#general-check-process-in-tf-m-core" title="Permalink to this heading"></a></h3>
+<p>In multi-core topology, <code class="docutils literal notranslate"><span class="pre">tfm_core_has_read_access_to_region()</span></code> and
+<code class="docutils literal notranslate"><span class="pre">tfm_core_has_write_access_to_region()</span></code> are still invoked to keep an uniform
+interface to TF-M Core/SPM.</p>
+<p>Multi-core topology specific implementations of
+<code class="docutils literal notranslate"><span class="pre">tfm_core_has_read_access_to_region()</span></code> and
+<code class="docutils literal notranslate"><span class="pre">tfm_core_has_write_access_to_region()</span></code> are similar to those in single Armv8-M
+scenario.
+Both functions set corresponding flags according to the parameters and
+invoke static function <code class="docutils literal notranslate"><span class="pre">has_access_to_region()</span></code> to execute the check process.
+Both implementations should be placed in multi-core topology specific files
+separated from single Armv8-M access check.</p>
+<p>A reference code of <code class="docutils literal notranslate"><span class="pre">tfm_core_has_read_access_to_region()</span></code> implementation is
+shown below.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int32_t</span><span class="w"> </span><span class="nf">tfm_core_has_read_access_to_region</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">p</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">s</span><span class="p">,</span>
+<span class="w">                                           </span><span class="kt">bool</span><span class="w"> </span><span class="n">ns_caller</span><span class="p">,</span>
+<span class="w">                                           </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">privileged</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">flags</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MEM_CHECK_MPU_READ</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">privileged</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">TFM_PARTITION_UNPRIVILEGED_MODE</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">flags</span><span class="w"> </span><span class="o">|=</span><span class="w"> </span><span class="n">MEM_CHECK_MPU_UNPRIV</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ns_caller</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">flags</span><span class="w"> </span><span class="o">|=</span><span class="w"> </span><span class="n">MEM_CHECK_NONSECURE</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">has_access_to_region</span><span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="w"> </span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="n">flags</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>A reference code of <code class="docutils literal notranslate"><span class="pre">tfm_core_has_write_access_to_region()</span></code> implementation is
+shown below.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int32_t</span><span class="w"> </span><span class="nf">tfm_core_has_write_access_to_region</span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">p</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">s</span><span class="p">,</span>
+<span class="w">                                            </span><span class="kt">bool</span><span class="w"> </span><span class="n">ns_caller</span><span class="p">,</span>
+<span class="w">                                            </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">privileged</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">flags</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MEM_CHECK_MPU_READWRITE</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">privileged</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">TFM_PARTITION_UNPRIVILEGED_MODE</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">flags</span><span class="w"> </span><span class="o">|=</span><span class="w"> </span><span class="n">MEM_CHECK_MPU_UNPRIV</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ns_caller</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">flags</span><span class="w"> </span><span class="o">|=</span><span class="w"> </span><span class="n">MEM_CHECK_NONSECURE</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">has_access_to_region</span><span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="w"> </span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="n">flags</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The flags <code class="docutils literal notranslate"><span class="pre">MEM_CHECK_MPU_READ</span></code>, <code class="docutils literal notranslate"><span class="pre">MEM_CHECK_MPU_UNPRIV</span></code>,
+<code class="docutils literal notranslate"><span class="pre">MEM_CHECK_MPU_READWRITE</span></code> and <code class="docutils literal notranslate"><span class="pre">MEM_CHECK_NONSECURE</span></code> above will be described
+in the section <a class="reference internal" href="#access-permission-flags">Access Permission Flags</a>.</p>
+<p>The prototype of static function <code class="docutils literal notranslate"><span class="pre">has_access_to_region()</span></code> follows that in
+single Armv8-M. The multi-core topology specific <code class="docutils literal notranslate"><span class="pre">has_access_to_region()</span></code>
+executes a general process to check if the access can access the target region.</p>
+<p>During the check process, <code class="docutils literal notranslate"><span class="pre">has_access_to_region()</span></code> invokes three HAL APIs
+<code class="docutils literal notranslate"><span class="pre">tfm_spm_hal_get_mem_security_attr()</span></code>, <code class="docutils literal notranslate"><span class="pre">tfm_spm_hal_get_ns_access_attr()</span></code>
+and <code class="docutils literal notranslate"><span class="pre">tfm_spm_hal_get_secure_access_attr()</span></code> to retrieve the attributes of
+target memory region. <code class="docutils literal notranslate"><span class="pre">has_access_to_region()</span></code> compares the access permission
+with memory region attributes and determines whether the access is allowed to
+access the region according to policy described in <a class="reference internal" href="#memory-access-check-policy">Memory Access Check Policy</a>
+above.</p>
+<div class="line-block">
+<div class="line"><code class="docutils literal notranslate"><span class="pre">tfm_spm_hal_get_mem_security_attr()</span></code> retrieves the security attributes of
+the target memory region.</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">tfm_spm_hal_get_secure_access_attr()</span></code> retrieves secure access attributes of
+the target memory region.</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">tfm_spm_hal_get_ns_access_attr()</span></code> retrieves non-secure access attributes of
+the target memory region.</div>
+<div class="line">All three functions are implemented by multi-core platform support. The
+definitions are specified in the section <a class="reference internal" href="#hal-apis">HAL APIs</a> below.</div>
+</div>
+<p>The pseudo code of <code class="docutils literal notranslate"><span class="pre">has_access_to_region()</span></code> is shown below.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="k">static</span><span class="w"> </span><span class="kt">int32_t</span><span class="w"> </span><span class="nf">has_access_to_region</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">p</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">flags</span><span class="p">)</span>
+<span class="linenos"> 2</span><span class="p">{</span>
+<span class="linenos"> 3</span><span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">security_attr_info_t</span><span class="w"> </span><span class="n">security_attr</span><span class="p">;</span>
+<span class="linenos"> 4</span><span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">mem_attr_info_t</span><span class="w"> </span><span class="n">mem_attr</span><span class="p">;</span>
+<span class="linenos"> 5</span>
+<span class="linenos"> 6</span><span class="w">    </span><span class="cm">/* The memory access check should be executed inside TF-M PSA RoT */</span>
+<span class="linenos"> 7</span><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">not</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="n">privileged</span><span class="w"> </span><span class="n">level</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="linenos"> 8</span><span class="w">        </span><span class="n">abort</span><span class="p">;</span>
+<span class="linenos"> 9</span><span class="w">    </span><span class="p">}</span>
+<span class="linenos">10</span>
+<span class="linenos">11</span><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">memory</span><span class="w"> </span><span class="n">region</span><span class="w"> </span><span class="n">exceeds</span><span class="w"> </span><span class="n">memory</span><span class="w"> </span><span class="n">space</span><span class="w"> </span><span class="n">limitation</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="linenos">12</span><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">TFM_ERROR_GENERIC</span><span class="p">;</span>
+<span class="linenos">13</span><span class="w">    </span><span class="p">}</span>
+<span class="linenos">14</span>
+<span class="linenos">15</span><span class="w">    </span><span class="cm">/* Set initial value */</span>
+<span class="linenos">16</span><span class="w">    </span><span class="n">security_attr_init</span><span class="p">(</span><span class="o">&amp;</span><span class="n">security_attr</span><span class="p">);</span>
+<span class="linenos">17</span>
+<span class="linenos">18</span><span class="w">    </span><span class="cm">/* Retrieve security attributes of memory region */</span>
+<span class="hll"><span class="linenos">19</span><span class="w">    </span><span class="n">tfm_spm_hal_get_mem_security_attr</span><span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="w"> </span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">security_attr</span><span class="p">);</span>
+</span><span class="linenos">20</span>
+<span class="linenos">21</span><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">security_attr</span><span class="p">.</span><span class="n">is_valid</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="linenos">22</span><span class="w">        </span><span class="cm">/* Invalid memory region */</span>
+<span class="linenos">23</span><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">TFM_ERROR_GENERIC</span><span class="p">;</span>
+<span class="linenos">24</span><span class="w">    </span><span class="p">}</span>
+<span class="linenos">25</span>
+<span class="linenos">26</span><span class="w">    </span><span class="cm">/* Compare according to current Isolation Level */</span>
+<span class="linenos">27</span><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">Parameter</span><span class="w"> </span><span class="n">flags</span><span class="w"> </span><span class="n">mismatch</span><span class="w"> </span><span class="n">security</span><span class="w"> </span><span class="n">attributes</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="linenos">28</span><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">TFM_ERROR_GENERIC</span><span class="p">;</span>
+<span class="linenos">29</span><span class="w">    </span><span class="p">}</span>
+<span class="linenos">30</span>
+<span class="linenos">31</span><span class="w">    </span><span class="cm">/* Set initial value */</span>
+<span class="linenos">32</span><span class="w">    </span><span class="n">mem_attr_init</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mem_attr</span><span class="p">);</span>
+<span class="linenos">33</span>
+<span class="linenos">34</span><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">security_attr</span><span class="p">.</span><span class="n">is_secure</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="linenos">35</span><span class="w">        </span><span class="cm">/* Retrieve access attributes of secure memory region */</span>
+<span class="hll"><span class="linenos">36</span><span class="w">        </span><span class="n">tfm_spm_hal_get_secure_access_attr</span><span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="w"> </span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">mem_attr</span><span class="p">);</span>
+</span><span class="linenos">37</span>
+<span class="linenos">38</span><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">Not</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="n">Isolation</span><span class="w"> </span><span class="n">Level</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="linenos">39</span><span class="w">            </span><span class="cm">/* Secure MPU must be enabled in Isolation Level 2 and 3 */</span>
+<span class="linenos">40</span><span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">mem_attr</span><span class="o">-&gt;</span><span class="n">is_mpu_enabled</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="linenos">41</span><span class="w">                </span><span class="n">abort</span><span class="p">;</span>
+<span class="linenos">42</span><span class="w">            </span><span class="p">}</span>
+<span class="linenos">43</span><span class="w">        </span><span class="p">}</span>
+<span class="linenos">44</span><span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="linenos">45</span><span class="w">        </span><span class="cm">/* Retrieve access attributes of non-secure memory region. */</span>
+<span class="hll"><span class="linenos">46</span><span class="w">        </span><span class="n">tfm_spm_hal_get_ns_access_attr</span><span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="w"> </span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">mem_attr</span><span class="p">);</span>
+</span><span class="linenos">47</span><span class="w">    </span><span class="p">}</span>
+<span class="linenos">48</span>
+<span class="linenos">49</span><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">mem_attr</span><span class="p">.</span><span class="n">is_valid</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="linenos">50</span><span class="w">        </span><span class="cm">/* Invalid memory region */</span>
+<span class="linenos">51</span><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">TFM_ERROR_GENERIC</span><span class="p">;</span>
+<span class="linenos">52</span><span class="w">    </span><span class="p">}</span>
+<span class="linenos">53</span>
+<span class="linenos">54</span><span class="w">    </span><span class="cm">/*</span>
+<span class="linenos">55</span><span class="cm">     * Compare according to current Isolation Level and non-secure/secure</span>
+<span class="linenos">56</span><span class="cm">     * access.</span>
+<span class="linenos">57</span><span class="cm">     */</span>
+<span class="linenos">58</span><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">access</span><span class="w"> </span><span class="n">flags</span><span class="w"> </span><span class="n">matches</span><span class="w"> </span><span class="n">MPU</span><span class="w"> </span><span class="n">attributes</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="linenos">59</span><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">TFM_SUCCESS</span><span class="p">;</span>
+<span class="linenos">60</span><span class="w">    </span><span class="p">}</span>
+<span class="linenos">61</span>
+<span class="linenos">62</span><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">TFM_ERROR_GENERIC</span><span class="p">;</span>
+<span class="linenos">63</span><span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>It cannot be guaranteed that TF-M provides a comprehensive memory access
+check on non-secure memory for NSPE client call If non-secure memory
+protection or isolation is required in a multi-core system, NSPE software
+should implement and execute the check functionalities in NSPE, rather than
+relying on TF-M access check.</p>
+<p>For example, all the access from NSPE client calls to non-secure memory are
+classified as unprivileged in current TF-M implementation. Multi-core access
+check may skip the privileged/unprivileged permission check for non-secure
+access.</p>
+<p>If a multi-core system enforces the privileged/unprivileged isolation and
+protection of non-secure area, NSPE software should execute the corresponding
+check functionalities before submitting the NSPE client call request to SPE.</p>
+</div>
+</section>
+</section>
+<section id="data-types-and-apis">
+<h2>Data Types and APIs<a class="headerlink" href="#data-types-and-apis" title="Permalink to this heading"></a></h2>
+<section id="data-types">
+<h3>Data Types<a class="headerlink" href="#data-types" title="Permalink to this heading"></a></h3>
+<section id="access-permission-flags">
+<h4>Access Permission Flags<a class="headerlink" href="#access-permission-flags" title="Permalink to this heading"></a></h4>
+<p>The following flags are defined to indicate the access permission attributes.
+Each flag is mapped to the corresponding CMSE macro. Please refer to
+<a class="reference external" href="http://infocenter.arm.com/help/topic/com.arm.doc.ecm0359818/ECM0359818_armv8m_security_extensions_reqs_on_dev_tools_1_0.pdf">ARMv8-M Security Extensions: Requirements on Development Tools</a>
+for details of each CMSE macro.</p>
+<section id="mem-check-mpu-readwrite">
+<h5><code class="docutils literal notranslate"><span class="pre">MEM_CHECK_MPU_READWRITE</span></code><a class="headerlink" href="#mem-check-mpu-readwrite" title="Permalink to this heading"></a></h5>
+<p>Mapped to CMSE macro <code class="docutils literal notranslate"><span class="pre">CMSE_MPU_READWRITE</span></code> to indicate that the access requires
+both read and write permission to the target memory region.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#define MEM_CHECK_MPU_READWRITE   (1 &lt;&lt; 0x0)</span>
+</pre></div>
+</div>
+</section>
+<section id="mem-check-mpu-unpriv">
+<h5><code class="docutils literal notranslate"><span class="pre">MEM_CHECK_MPU_UNPRIV</span></code><a class="headerlink" href="#mem-check-mpu-unpriv" title="Permalink to this heading"></a></h5>
+<p>Mapped to CMSE macro <code class="docutils literal notranslate"><span class="pre">CMSE_MPU_UNPRIV</span></code> to indicate that it is an unprivileged
+access.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#define MEM_CHECK_MPU_UNPRIV      (1 &lt;&lt; 0x2)</span>
+</pre></div>
+</div>
+</section>
+<section id="mem-check-mpu-read">
+<h5><code class="docutils literal notranslate"><span class="pre">MEM_CHECK_MPU_READ</span></code><a class="headerlink" href="#mem-check-mpu-read" title="Permalink to this heading"></a></h5>
+<p>Mapped to CMSE macro <code class="docutils literal notranslate"><span class="pre">CMSE_MPU_READ</span></code>. It indicates that it is a read-only
+access to target memory region.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#define MEM_CHECK_MPU_READ        (1 &lt;&lt; 0x3)</span>
+</pre></div>
+</div>
+</section>
+<section id="mem-check-nonsecure">
+<h5><code class="docutils literal notranslate"><span class="pre">MEM_CHECK_NONSECURE</span></code><a class="headerlink" href="#mem-check-nonsecure" title="Permalink to this heading"></a></h5>
+<p>Mapped to CSME macro <code class="docutils literal notranslate"><span class="pre">CMSE_NONSECURE</span></code> to indicate that it is a access from
+non-secure client call request.
+If this flag is unset, it indicates the access is required from SPE.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#define MEM_CHECK_AU_NONSECURE    (1 &lt;&lt; 0x1)</span>
+<span class="cp">#define MEM_CHECK_MPU_NONSECURE   (1 &lt;&lt; 0x4)</span>
+<span class="cp">#define MEM_CHECK_NONSECURE       (MEM_CHECK_AU_NONSECURE | \</span>
+<span class="cp">                                   MEM_CHECK_MPU_NONSECURE)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="security-attributes-information">
+<h4>Security Attributes Information<a class="headerlink" href="#security-attributes-information" title="Permalink to this heading"></a></h4>
+<p>The structure <code class="docutils literal notranslate"><span class="pre">security_attr_info_t</span></code> contains the security attributes
+information of the target memory region.
+<code class="docutils literal notranslate"><span class="pre">tfm_spm_hal_get_mem_security_attr()</span></code> implementation should fill the structure
+fields according to the platform specific secure isolation setting.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">security_attr_info_t</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">is_valid</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">is_secure</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line"><code class="docutils literal notranslate"><span class="pre">is_valid</span></code> indicates whether the target memory region is valid according to
+platform resource assignment and security isolation configurations.</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">is_secure</span></code> indicates the target memory region is secure or non-secure. The
+value is only valid when <code class="docutils literal notranslate"><span class="pre">is_valid</span></code> is <code class="docutils literal notranslate"><span class="pre">true</span></code>.</div>
+</div>
+</section>
+<section id="memory-attributes-information">
+<h4>Memory Attributes Information<a class="headerlink" href="#memory-attributes-information" title="Permalink to this heading"></a></h4>
+<p>The structure <code class="docutils literal notranslate"><span class="pre">mem_attr_info_t</span></code> contains the memory access attributes
+information of the target memory region.
+<code class="docutils literal notranslate"><span class="pre">tfm_spm_hal_get_secure_access_attr()</span></code> and
+<code class="docutils literal notranslate"><span class="pre">tfm_spm_hal_get_ns_access_attr()</span></code> implementations should fill the structure
+fields according to the memory protection settings.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">mem_attr_info_t</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">is_mpu_enabled</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">is_valid</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">is_xn</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">is_priv_rd_allow</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">is_priv_wr_allow</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">is_unpriv_rd_allow</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">is_unpriv_wr_allow</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line"><code class="docutils literal notranslate"><span class="pre">is_mpu_enabled</span></code> indicates whether the MPU and other management unit are
+enabled and work normally.</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">is_valid</span></code> indicates whether the target memory region is valid according to
+platform resource assignment and memory protection configurations.</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">is_xn</span></code> indicates whether the target memory region is Execute Never. This
+field is only valid when <code class="docutils literal notranslate"><span class="pre">is_valid</span></code> is <code class="docutils literal notranslate"><span class="pre">true</span></code>.</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">is_priv_rd_allow</span></code> and <code class="docutils literal notranslate"><span class="pre">is_priv_wr_allow</span></code> indicates whether the target
+memory region allows privileged read/write. Both the fields are valid only
+when  <code class="docutils literal notranslate"><span class="pre">is_valid</span></code> is <code class="docutils literal notranslate"><span class="pre">true</span></code>.</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">is_unpriv_rd_allow</span></code> and <code class="docutils literal notranslate"><span class="pre">is_unpriv_wr_allow</span></code> indicates whether the target
+memory region allows unprivileged read/write. Both the fields are valid only
+when  <code class="docutils literal notranslate"><span class="pre">is_valid</span></code> is <code class="docutils literal notranslate"><span class="pre">true</span></code>.</div>
+</div>
+</section>
+</section>
+<section id="hal-apis">
+<h3>HAL APIs<a class="headerlink" href="#hal-apis" title="Permalink to this heading"></a></h3>
+<section id="tfm-spm-hal-get-mem-security-attr">
+<h4><code class="docutils literal notranslate"><span class="pre">tfm_spm_hal_get_mem_security_attr()</span></code><a class="headerlink" href="#tfm-spm-hal-get-mem-security-attr" title="Permalink to this heading"></a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">tfm_spm_hal_get_mem_security_attr()</span></code> retrieves the current active security
+configuration information and fills the <code class="docutils literal notranslate"><span class="pre">security_attr_info_t</span></code>.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">tfm_spm_hal_get_mem_security_attr</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">p</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">s</span><span class="p">,</span>
+<span class="w">                                       </span><span class="k">struct</span><span class="w"> </span><span class="nc">security_attr_info_t</span><span class="w"> </span><span class="o">*</span><span class="n">p_attr</span><span class="p">);</span>
+</pre></div>
+</div>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 81%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td colspan="2"><p><strong>Paramters</strong></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">p</span></code></p></td>
+<td><p>Base address of the target memory region</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">s</span></code></p></td>
+<td><p>Size of the target memory region</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">p_attr</span></code></p></td>
+<td><p>Pointer to the <code class="docutils literal notranslate"><span class="pre">security_attr_info_t</span></code> to be filled</p></td>
+</tr>
+<tr class="row-odd"><td colspan="2"><p><strong>Return</strong></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">void</span></code></p></td>
+<td><p>None</p></td>
+</tr>
+</tbody>
+</table>
+<p>The implementation should be decoupled from TF-M current isolation level or
+access check policy.</p>
+<p>All the fields in <code class="docutils literal notranslate"><span class="pre">security_attr_info_t</span></code> should be explicitly set in
+<code class="docutils literal notranslate"><span class="pre">tfm_spm_hal_get_mem_security_attr()</span></code>.</p>
+<p>If the target memory region crosses boundaries of different security regions or
+levels in security isolation configuration,
+<code class="docutils literal notranslate"><span class="pre">tfm_spm_hal_get_mem_security_attr()</span></code> should determine whether the memory
+region violates current security isolation.
+It is recommended to mark the target memory region as invalid in such case, even
+if the adjoining regions or levels may have the same security configuration.</p>
+<p>If the target memory region is not explicitly specified in memory security
+configuration, <code class="docutils literal notranslate"><span class="pre">tfm_spm_hal_get_mem_security_attr()</span></code> can return the following
+values according to actual use case:</p>
+<ul class="simple">
+<li><p>Either set <code class="docutils literal notranslate"><span class="pre">is_valid</span> <span class="pre">=</span> <span class="pre">false</span></code></p></li>
+<li><p>Or set <code class="docutils literal notranslate"><span class="pre">is_valid</span> <span class="pre">=</span> <span class="pre">true</span></code> and set <code class="docutils literal notranslate"><span class="pre">is_secure</span></code> according to platform
+specific policy.</p></li>
+</ul>
+</section>
+<section id="tfm-spm-hal-get-secure-access-attr">
+<h4><code class="docutils literal notranslate"><span class="pre">tfm_spm_hal_get_secure_access_attr()</span></code><a class="headerlink" href="#tfm-spm-hal-get-secure-access-attr" title="Permalink to this heading"></a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">tfm_spm_hal_get_secure_access_attr()</span></code> retrieves the secure memory protection
+configuration information and fills the <code class="docutils literal notranslate"><span class="pre">mem_attr_info_t</span></code>.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">tfm_spm_hal_get_secure_access_attr</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">p</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">s</span><span class="p">,</span>
+<span class="w">                                        </span><span class="k">struct</span><span class="w"> </span><span class="nc">mem_attr_info_t</span><span class="w"> </span><span class="o">*</span><span class="n">p_attr</span><span class="p">);</span>
+</pre></div>
+</div>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 81%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td colspan="2"><p><strong>Paramters</strong></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">p</span></code></p></td>
+<td><p>Base address of the target memory region</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">s</span></code></p></td>
+<td><p>Size of the target memory region</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">p_attr</span></code></p></td>
+<td><p>Pointer to the <code class="docutils literal notranslate"><span class="pre">mem_attr_info_t</span></code> to be filled</p></td>
+</tr>
+<tr class="row-odd"><td colspan="2"><p><strong>Return</strong></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">void</span></code></p></td>
+<td><p>None</p></td>
+</tr>
+</tbody>
+</table>
+<p>The implementation should be decoupled from TF-M current isolation level or
+access check policy.</p>
+<p>All the fields in <code class="docutils literal notranslate"><span class="pre">mem_attr_info_t</span></code> should be explicitly set in
+<code class="docutils literal notranslate"><span class="pre">tfm_spm_hal_get_secure_access_attr()</span></code>, according to current active memory
+protection configuration. It is recommended to retrieve the attributes from
+secure MPU and other hardware memory protection unit(s). But the implementation
+can be simplified by checking system-level memory region layout setting.</p>
+<p>If the target memory region is not specified in current active secure memory
+protection configuration, <code class="docutils literal notranslate"><span class="pre">tfm_spm_hal_get_secure_access_attr()</span></code> can select
+the following values according to actual use case.</p>
+<ul class="simple">
+<li><p>Either directly set <code class="docutils literal notranslate"><span class="pre">is_valid</span></code> to <code class="docutils literal notranslate"><span class="pre">false</span></code></p></li>
+<li><p>Or set <code class="docutils literal notranslate"><span class="pre">is_valid</span></code> to <code class="docutils literal notranslate"><span class="pre">true</span></code> and set other fields according to other memory
+assignment information, such as system-level memory region layout.</p></li>
+</ul>
+<p>If secure memory protection unit(s) is <em>disabled</em> and the target memory
+region is a valid area according to platform resource assignment,
+<code class="docutils literal notranslate"><span class="pre">tfm_spm_hal_get_secure_access_attr()</span></code> must set <code class="docutils literal notranslate"><span class="pre">is_mpu_enabled</span></code> to
+<code class="docutils literal notranslate"><span class="pre">false</span></code> and set other fields according to current system-level memory region
+layout.</p>
+</section>
+<section id="tfm-spm-hal-get-ns-access-attr">
+<h4><code class="docutils literal notranslate"><span class="pre">tfm_spm_hal_get_ns_access_attr()</span></code><a class="headerlink" href="#tfm-spm-hal-get-ns-access-attr" title="Permalink to this heading"></a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">tfm_spm_hal_get_ns_access_attr()</span></code> retrieves the non-secure memory protection
+configuration information and fills the <code class="docutils literal notranslate"><span class="pre">mem_attr_info_t</span></code>.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">tfm_spm_hal_get_ns_access_attr</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">p</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">s</span><span class="p">,</span>
+<span class="w">                                    </span><span class="k">struct</span><span class="w"> </span><span class="nc">mem_attr_info_t</span><span class="w"> </span><span class="o">*</span><span class="n">p_attr</span><span class="p">);</span>
+</pre></div>
+</div>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 81%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td colspan="2"><p><strong>Paramters</strong></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">p</span></code></p></td>
+<td><p>Base address of the target memory region</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">s</span></code></p></td>
+<td><p>Size of the target memory region</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">p_attr</span></code></p></td>
+<td><p>Pointer to the <code class="docutils literal notranslate"><span class="pre">mem_attr_info_t</span></code> to be filled</p></td>
+</tr>
+<tr class="row-odd"><td colspan="2"><p><strong>Return</strong></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">void</span></code></p></td>
+<td><p>None</p></td>
+</tr>
+</tbody>
+</table>
+<p>The implementation should be decoupled from TF-M current isolation level or
+access check policy.</p>
+<p>Since non-secure core runs asynchronously, the non-secure MPU setting may be
+modified by NSPE OS and the attributes of the target memory region can be
+unavailable during <code class="docutils literal notranslate"><span class="pre">tfm_spm_hal_get_ns_access_attr()</span></code> execution in TF-M.
+When the target memory region is not specified in non-secure MPU,
+<code class="docutils literal notranslate"><span class="pre">tfm_spm_hal_get_ns_access_attr()</span></code> can set the fields according to other
+memory setting information, such as system-level memory region layout.</p>
+<p>If non-secure memory protection unit(s) is <em>disabled</em> and the target memory
+region is a valid area according to platform resource assignment,
+<code class="docutils literal notranslate"><span class="pre">tfm_spm_hal_get_ns_access_attr()</span></code> can set the following fields in
+<code class="docutils literal notranslate"><span class="pre">mem_attr_info_t</span></code> to default values:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">is_mpu_enabled</span> <span class="pre">=</span> <span class="pre">false</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">is_valid</span> <span class="pre">=</span> <span class="pre">true</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">is_xn</span> <span class="pre">=</span> <span class="pre">true</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">is_priv_rd_allow</span> <span class="pre">=</span> <span class="pre">true</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">is_unpriv_rd_allow</span> <span class="pre">=</span> <span class="pre">true</span></code></p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">is_priv_wr_allow</span></code> and <code class="docutils literal notranslate"><span class="pre">is_unpriv_wr_allow</span></code> can be set according to current
+system-level memory region layout, such as whether it is in code section or data
+section.</p>
+<hr class="docutils" />
+<p><em>Copyright (c) 2019-2020, Arm Limited. All rights reserved.</em></p>
+</section>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p></p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Initial Attestation Service Integration Guide &mdash; Trusted Firmware-M v1.7.0-stm32mp25-alpha-r1-rc3-doc documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/tfm_custom.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/tabs.css" type="text/css" />
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Crypto Service Integration Guide" href="tfm_crypto_integration_guide.html" />
+    <link rel="prev" title="Services" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> Trusted Firmware-M
+            <img src="../../_static/tf_logo_white.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                v1.7.0-stm32mp25-alpha-r1-rc3-doc
+
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../introduction/index.html">Introduction</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started/index.html">Getting Started</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../security/index.html">Security</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../security/security_advisories/index.html">Security Advisories</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/stack_seal_vulnerability.html">Advisory TFMV-1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/svc_caller_sp_fetching_vulnerability.html">Advisory TFMV-2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/crypto_multi_part_ops_abort_fail.html">Advisory TFMV-3</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/profile_small_key_id_encoding_vulnerability.html">Advisory TFMV-4</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/fwu_write_vulnerability.html">Advisory TFMV-5</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../security/threat_models/index.html">Threat Models</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../security/threat_models/generic_threat_model.html">Trusted Firmware-M Generic Threat Model</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../security/security.html">Security Handling</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../releases/index.html">Releases</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/1.7.0.html">v1.7.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/1.6.1.html">v1.6.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/1.6.0.html">v1.6.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/1.5.0.html">v1.5.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/release_process.html">Release Cadence and Process</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../glossary.html">Glossary</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../platform/index.html">Platform Selection</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/arm/index.html">Arm platforms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/corstone1000/readme.html">Corstone-1000</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/mps3/an547/README.html">Corstone-300 FPGA (AN547)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/mps3/an552/README.html">Corstone-300 FPGA and FVP (AN552)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/mps3/corstone310/README.html">Corstone-310 FVP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/musca_b1/readme.html">Musca-B1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/musca_s1/readme.html">Musca-S1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/rss/readme.html">Runtime Security Subsystem</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/nxp/lpcxpresso55s69/README.html">LPCXpresso55S69</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/cypress/psoc64/index.html">Cypress PSoC64</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/cypress/psoc64/cypress_psoc64_spec.html">Cypress PSoC64 Specifics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/cypress/psoc64/libs/core-lib/README.html">Core Library</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/cypress/psoc64/libs/core-lib/RELEASE.html">Core Library Release Notes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/stm/index.html">STMICROELECTRONICS</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32l5xx/readme.html">STM32L5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32mp2/readme.html">STM32MP2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32u5xx/readme.html">STM32U5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/nucleo_l552ze_q/readme.html">NUCLEO-L552ZE-Q</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32l562e_dk/readme.html">STM32L562E-DK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/b_u585i_iot02a/readme.html">B-U585I-IOT02A</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/nordic_nrf/nrf5340dk_nrf5340_cpuapp/README.html">Nordic nRF5340</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/nordic_nrf/nrf9160dk_nrf9160/README.html">Nordic nRF9160</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/lairdconnectivity/bl5340_dvk_cpuapp/README.html">Laird Connectivity BL5340</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/nuvoton/m2351/README.html">NuMaker-PFM-M2351</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/nuvoton/m2354/README.html">NuMaker-PFM-M2354</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../building/tfm_build_instruction.html">Build instructions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../building/run_tfm_examples_on_arm_platforms.html">Run TF-M examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../building/documentation_generation.html">Building the documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../building/tfm_build_instruction_iar.html">IAR toolchain</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../configuration/index.html">Configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../configuration/build_configuration.html">Build configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../configuration/header_file_system.html">Component configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../configuration/kconfig_system.html">Kconfig</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../configuration/profiles/index.html">Profiles</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../configuration/profiles/tfm_profile_small.html"> Small</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../configuration/profiles/tfm_profile_medium_arot-less.html"> ARoT-less</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../configuration/profiles/tfm_profile_medium.html"> Medium</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../configuration/profiles/tfm_profile_large.html"> Large</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../configuration/test_configuration.html">Tests configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Integration Guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../spm_backends.html">SPM Backends</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../non-secure_client_extension_integration_guide.html">NS client integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../os_migration_guide_armv8m.html">OS migration to Armv8-M</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tfm_fpu_support.html">Floating-Point Support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tfm_secure_irq_integration_guide.html">Secure Interrupt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../platform/index.html">Adding a new platform</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../platform/platform_folder.html">Details for the platform folder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/platform_ext_folder.html">Details for the platform/ext folder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/porting_TFM_to_a_new_hardware.html">Porting TF-M to a New Hardware</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/platform_provisioning.html">Platform Provisioning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/platform_deprecation.html">Platform deprecation and removal</a></li>
+</ul>
+</li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Services</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Initial Attestation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tfm_crypto_integration_guide.html">Crypto</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tfm_its_integration_guide.html">Internal Storage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tfm_platform_integration_guide.html">Platform</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tfm_ps_integration_guide.html">Protected Storage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tfm_secure_partition_addition.html">Adding a New Service</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tfm_manifest_tool_user_guide.html">The manifest tool</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../technical_references/design_docs/index.html">Design Documents</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/dual-cpu/index.html">Dual-CPU</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../technical_references/design_docs/dual-cpu/booting_a_dual_core_system.html">Booting a Dual-Core System</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../technical_references/design_docs/dual-cpu/communication_prototype_between_nspe_and_spe_in_dual_core_systems.html">Communication Prototype Between NSPE And SPE In Dual Core System</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../technical_references/design_docs/dual-cpu/mailbox_design_on_dual_core_system.html">Mailbox Design in TF-M on Dual-core System</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../technical_references/design_docs/dual-cpu/tfm_multi_core_access_check.html">Memory Access Check of Trusted Firmware-M in Multi-Core Topology</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/bl1.html">BL1 Immutable bootloader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/code_sharing.html">Code sharing between independently linked XIP binaries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/enum_implicit_casting.html">Fixing implicit casting for C enumeration values</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/ff_isolation.html">FF-M Isolation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/hardware_abstraction_layer.html">Hardware Abstraction Layer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/mailbox_ns_agent_update.html">Mailbox NS Agent Design Update</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/ps_key_management.html">Protected Storage service key management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/secure_boot_hw_key_integration.html">HW crypto key integration in TF-M secure boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/secure_boot_rollback_protection.html">Rollback protection in TF-M secure boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/secure_partition_manager.html">Secure Partition Manager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/source_structure.html">Trusted Firmware-M Source Structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/stateless_rot_service.html">Stateless Root of Trust Services Reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/symmetric_initial_attest.html">Symmetric key algorithm based Initial Attestation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/tfm_builtin_keys.html">TF-M builtin keys</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/tfm_code_generation_with_jinja2.html">Code Generation With Jinja2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/tfm_cooperative_scheduling_rules.html">Cooperative Scheduling Rules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/tfm_crypto_design.html">Crypto Service design</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/tfm_fwu_service.html">Firmware Update Service</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/tfm_its_512_flash.html">Add support for block-aligned flash in Internal Trusted Storage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/tfm_its_service.html">Internal Trusted Storage (ITS) Service</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/tfm_log_system_design_document.html">Log system design document</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/tfm_physical_attack_mitigation.html">Physical attack mitigation in Trusted Firmware-M</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/tfm_psa_inter_process_communication.html">TF-M Inter-Process Communication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/tfm_secure_boot.html">Secure boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/tfm_secure_partition_runtime_library.html">Secure Partition Runtime Library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/tfm_uniform_secure_service_signature.html">Uniform Secure Service Signature</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../tools/index.html">Tools</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contribution</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing/index.html">Guidelines</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/contributing_process.html">The process</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/code_review_guide.html">Code review</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/maintainers.html">Maintainers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/maintainers.html#code-owners">Code owners</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/coding_guide.html">Yet another coding standard :)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/doc_guidelines.html">Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/tfm_design_proposal_guideline.html">Design proposal</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing/lic.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing/dco.html">DCO</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Links</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://ci.trustedfirmware.org/view/TF-M/job/tf-m-build-docs-nightly/lastSuccessfulBuild/artifact/trusted-firmware-m/build/docs/reference_manual/html/index.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://developer.trustedfirmware.org/w/collaboration/security_center">Security Center</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://www.arm.com/architecture/security-features/platform-security">PSA</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">STMICROELECTRONICS</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../stm/releases/index.html">Releases</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/releases/getting_started.html">Getting started</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32l562e_dk/readme.html">STM32L562E-DK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/nucleo_l552ze_q/readme.html">NUCLEO-L552ZE-Q</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/b_u585i_iot02a/readme.html">B-U585I-IOT02A</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/releases/platforms.html">Platforms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32l5xx/readme.html">STM32L5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32mp2/readme.html">STM32MP2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32u5xx/readme.html">STM32U5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/nucleo_l552ze_q/readme.html">NUCLEO-L552ZE-Q</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32l562e_dk/readme.html">STM32L562E-DK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/releases/changelog.html">Change Log &amp; Notes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/releases/v1.7.0-stm32mp25-alpha-r1-rc3/changelog.html">v1.7.0-stm32mp25-alpha-r1-rc3</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../stm/technical/index.html">Technical references</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/technical/a35_td_flavor/index.html">A35-TD flavor</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/technical/a35_td_flavor/memory_layout.html">Memory layout</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/technical/a35_td_flavor/storage.html">Storage</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/technical/m33_td_flavor/index.html">M33-TD flavor</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/technical/m33_td_flavor/memory_layout.html">Memory layout</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/technical/m33_td_flavor/storage.html">Storage</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/technical/devicetree/index.html">Devicetree</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/technical/devicetree/devicetree_tfm.html">Scope and purpose</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/technical/devicetree/devicetree_tfm.html#concept">Concept</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/technical/devicetree/devicetree_tfm.html#how-to-add-device">How to add device</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/technical/initlevel.html">Initlevel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/technical/initial_attestation.html">Initial Attestation Service</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/technical/nv_counter.html">Nv counter</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../stm/ide/index.html">Ide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/ide/cubeide/stm32cubeide.html">STM32CubeIDE</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Trusted Firmware-M</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../index.html">Integration Guide</a> &raquo;</li>
+          <li><a href="index.html">Services</a> &raquo;</li>
+      <li>Initial Attestation Service Integration Guide</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="initial-attestation-service-integration-guide">
+<h1>Initial Attestation Service Integration Guide<a class="headerlink" href="#initial-attestation-service-integration-guide" title="Permalink to this heading"></a></h1>
+<section id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading"></a></h2>
+<p>TF-M Initial Attestation Service allows the application to prove the device
+identity during an authentication process to a verification entity. The initial
+attestation service can create a token on request, which contains a fix set of
+device specific data.</p>
+<p>TF-M Initial Attestation Service by default enables asymmetric key algorithm
+based attestation (<em>asymmetric attestation</em> for short). Symmetric key algorithm
+based attestation (<em>symmetric attestation</em> for short) can be enabled instead by
+selecting build option <code class="docutils literal notranslate"><span class="pre">SYMMETRIC_INITIAL_ATTESTATION</span></code>.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>In asymmetric attestation, device must contain an attestation key pair,
+which is unique per device. The token is signed with the private part of
+attestation key pair. The public part of the key pair is known by the
+verification entity. The public key is used to verify the token
+authenticity.</p></li>
+<li><p>In symmetric attestation, device should contain a symmetric attestation
+key to generate the authentication tag of token content. The verification
+entity uses the same symmetric key to verify the token authenticity.</p></li>
+</ul>
+</div></blockquote>
+<p>The data items in the token used to verify the device integrity and assess its
+trustworthiness. Attestation key provisioning is out of scope for the
+attestation service and is expected to take part during manufacturing of the
+device.</p>
+</section>
+<section id="claims-in-the-initial-attestation-token">
+<h2>Claims in the initial attestation token<a class="headerlink" href="#claims-in-the-initial-attestation-token" title="Permalink to this heading"></a></h2>
+<p>The initial attestation token is formed of claims. A claim is a data item,
+which is represented in a key - value structure. The following fixed set of
+claims are included in the token:</p>
+<blockquote>
+<div><ul>
+<li><p><strong>Auth challenge</strong>: Input object from caller. Can be a single nonce from
+server or hash of nonce and attested data. It is intended to provide
+freshness to report and the caller has responsibility to arrange
+this. Allowed length: 32, 48, 64 bytes. The claim is modeled to be
+eventually represented by the EAT standard claim nonce. Until such a
+time as that standard exists, the claim will be represented by a custom
+claim. Value is encoded as byte string.</p></li>
+<li><p><strong>Instance ID</strong>: It represents the unique identifier of the instance.
+In the PSA definition it is:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>a hash of the public attestation key of the instance in asymmetric
+attestation.</p></li>
+<li><p>hashes of the symmetric attestation key of the instance in symmetric
+attestation.</p></li>
+</ul>
+</div></blockquote>
+<p>The claim is modeled to be eventually represented by the EAT standard
+claim UEID of type GUID. Until such a time as that standard exists, the
+claim will be represented by a custom claim Value is encoded as byte
+string.</p>
+</li>
+<li><p><strong>Verification service indicator</strong>: Optional, recommended claim. It
+is used by a Relying Party to locate a validation service for the
+token. The value is a text string that can be used to locate the service
+or a URL specifying the address of the service. The claim is modelled to
+be eventually represented by the EAT standard claim origination. Until
+such a time as that standard exists, the claim will be represented by
+a custom claim. Value is encoded as text string.</p></li>
+<li><p><strong>Profile definition</strong>: Optional, recommended claim. It contains the
+name of a document that describes the ‘profile’ of the token, being
+a full description of the claims, their usage, verification and token
+signing. The document name may include versioning. Custom claim with a
+value encoded as text string.</p></li>
+<li><p><strong>Implementation ID</strong>: Uniquely identifies the underlying immutable PSA
+RoT. A verification service can use this claim to locate the details of
+the verification process. Such details include the implementation’s origin
+and associated certification state. Custom claim with a value encoded as
+byte string.</p></li>
+<li><p><strong>Client ID</strong>: The partition ID of that secure partition or non-secure
+thread who called the initial attestation API. Custom claim with a value
+encoded as a <cite>signed</cite> integer. Negative number represents non-secure
+caller, positive numbers represents secure callers, zero is invalid.</p></li>
+<li><p><strong>Security lifecycle</strong>: It represents the current lifecycle state of
+the instance. Custom claim with a value encoded as an integer.</p></li>
+<li><p><strong>Hardware version</strong>: Optional claim. Globally unique number in EAN-13
+format identifying the GDSII that went to fabrication, HW and ROM. It can
+be used to reference the security level of the PSA-ROT via a certification
+website. Custom claim with a value is encoded as text string.</p></li>
+<li><p><strong>Boot seed</strong>: It represents a random value created at system boot
+time that will allow differentiation of reports from different system
+sessions. The size is 32 bytes. Custom claim with a value is encoded as
+byte string.</p></li>
+<li><p><strong>Software components</strong>: Optional, but required in order to be compliant
+with the PSA-SM. It represents the software state of the system. The value
+of the claim is an array of CBOR map entries, with one entry per software
+component within the device. Each map contains multiple claims that
+describe evidence about the details of the software component.</p></li>
+<li><p><strong>No software measurements</strong>: Optional, but required if no software
+component claims are made. In the event that the implementation does not
+contain any software measurements then it is mandatory to include this
+claim to indicate this is a deliberate state. Custom claim with a value
+encoded as an unsigned integer set to 1.</p></li>
+</ul>
+</div></blockquote>
+<p>Each software component claim can include the following properties. Any property
+that is not optional must be included:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>Measurement type</strong>: Optional claim. It represents the role of the
+software component. Value is encoded as short(!) text string.</p></li>
+<li><p><strong>Measurement value</strong>: It represents a hash of the invariant software
+component in memory at start-up time. The value must be a cryptographic
+hash of 256 bits or stronger. Value is encoded as byte string.</p></li>
+<li><p><strong>Version</strong>: Optional claim. It represents the issued software
+version. Value is encoded as text string.</p></li>
+<li><p><strong>Signer ID</strong>: Optional claim, but required in order to be compliant with
+the PSA-SM. It represents the hash of a signing authority public key.
+Value is encoded as byte string.</p></li>
+<li><p><strong>Measurement description</strong>: Optional claim. It represents the way in
+which the measurement value of the software component is computed. Value
+is encoded as text string containing an abbreviated description (name)
+of the measurement method.</p></li>
+</ul>
+</div></blockquote>
+</section>
+<section id="initial-attestation-token-iat-data-encoding">
+<h2>Initial attestation token (IAT) data encoding<a class="headerlink" href="#initial-attestation-token-iat-data-encoding" title="Permalink to this heading"></a></h2>
+<p>The initial attestation token is planned to be aligned with future version of
+<a class="reference external" href="https://tools.ietf.org/html/draft-mandyam-eat-01">Entity Attestation Token</a>
+format. The token is encoded according to the
+<a class="reference external" href="https://tools.ietf.org/html/rfc7049">CBOR</a> format and signed according to
+<a class="reference external" href="https://tools.ietf.org/html/rfc8152">COSE</a> standard.</p>
+</section>
+<section id="code-structure">
+<h2>Code structure<a class="headerlink" href="#code-structure" title="Permalink to this heading"></a></h2>
+<p>The PSA interface for the Initial Attestation Service is located in
+<code class="docutils literal notranslate"><span class="pre">interface/include</span></code>. The only header to be included by applications that want
+to use functions from the PSA API is <code class="docutils literal notranslate"><span class="pre">psa/initial_attestation.h</span></code>.</p>
+<p>The TF-M Initial Attestation Service source files are located in
+<code class="docutils literal notranslate"><span class="pre">secure_fw/partitions/initial_attestation</span></code>.</p>
+<section id="service-source-files">
+<h3>Service source files<a class="headerlink" href="#service-source-files" title="Permalink to this heading"></a></h3>
+<ul class="simple">
+<li><dl class="simple">
+<dt>CBOR library</dt><dd><ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">lib/ext/qcbor</span></code> This library is used to create a proper CBOR token.
+It can be used on 32-bit and 64-bit machines. It was designed to suite
+constrained devices with low memory usage and without dynamic memory
+allocation.
+Its source code is fetched automatically during the build configuration
+step from an external repository: <a class="reference external" href="https://github.com/laurencelundblade/QCBOR">QCBOR library</a>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;qcbor_src&gt;/inc/qcbor/qcbor_encode.h</span></code>: Public API documentation of
+CBOR library (encoding).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;qcbor_src&gt;/inc/qcbor/qcbor_decode.h</span></code>: Public API documentation of
+CBOR library (decoding).</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>COSE library:</dt><dd><ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">lib/ext/t_cose</span></code>: This library is used to sign a CBOR token and create
+the COSE header and signature around the initial attestation token. Only
+a subset of the <a class="reference external" href="https://tools.ietf.org/html/rfc8152">COSE</a> standard
+is implemented. The COSE_Sign1 and COSE_Mac0 (only available in TF-M fork)
+signature schemas are supported.</p></li>
+<li><p>It is a fork of this external <a class="reference external" href="https://github.com/laurencelundblade/t_cose">t_cose library</a>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">lib/ext/t_cose/src/t_cose_crypto.h</span></code>: Expose an API to bind <code class="docutils literal notranslate"><span class="pre">t_cose</span></code>
+library with available crypto library in the device.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">lib/ext/t_cose/crypto_adapters/t_cose_psa_crypto.c</span></code>: Implements the
+exposed API and ports <code class="docutils literal notranslate"><span class="pre">t_cose</span></code> to the PSA Crypto API.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Initial Attestation Service:</dt><dd><ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">attest_core.c</span></code> : Implements core functionalities such as implementation
+of APIs, retrieval of claims and token creation.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">attest_token_encode.c</span></code>: Implements the token creation functions such as
+start and finish token creation and adding claims to the token.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">attest_asymmetric_key.c</span></code>: Calculate the Instance ID value based on
+asymmetric initial attestation key.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">tfm_attest.c</span></code>: Implements the SPM abstraction layer, and bind the
+attestation service to the SPM implementation in TF-M project.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">tfm_attest_req_mngr.c</span></code>: Includes the initialization entry of
+attestation service and handles attestation service requests in IPC
+model.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">attest_symmetric_key.c</span></code>: Calculate the Instance ID value based on
+symmetric initial attestation key.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</section>
+<section id="service-interface-definitions">
+<h3>Service interface definitions<a class="headerlink" href="#service-interface-definitions" title="Permalink to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>Boot loader interface</strong>: The attestation service might include data
+in the token about the distinct software components in the device. This data
+is provided by the boot loader and must be encoded in the TLV format,
+definition is described below in the boot loader interface paragraph. Possible
+claims in the boot status are describe above in the software components
+paragraph.</p></li>
+<li><dl class="simple">
+<dt><strong>Hardware abstraction layer</strong>:</dt><dd><ul>
+<li><p>Headers are located in <code class="docutils literal notranslate"><span class="pre">platform/include</span></code> folder.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">tfm_attest_hal.h</span></code>: Expose an API to get the following claims:
+security lifecycle, verification service indicator, profile definition.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">tfm_plat_boot_seed.h</span></code>: Expose an API to get the boot seed claim.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">tfm_plat_device_id.h</span></code>: Expose an API to get the following claims:
+implementation ID, hardware version.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><strong>SPM interface</strong>:</dt><dd><ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">attestation.h</span></code>: Expose an API to bind attestation service to an SPM
+implementation.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><strong>PSA interface</strong>:</dt><dd><ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">psa/initial_attestation.h</span></code>: Public API definition of initial
+attestation service.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><strong>Crypto interface</strong>:</dt><dd><ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">t_cose_crypto.h</span></code>: Expose an API to bind the <code class="docutils literal notranslate"><span class="pre">t_cose</span></code> implementation
+to any cryptographic library.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</section>
+<section id="psa-interface">
+<h3>PSA interface<a class="headerlink" href="#psa-interface" title="Permalink to this heading"></a></h3>
+<p>The TF-M Initial Attestation Service exposes the following PSA
+interface:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">psa_status_t</span>
+<span class="nf">psa_initial_attest_get_token</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="n">auth_challenge</span><span class="p">,</span>
+<span class="w">                             </span><span class="kt">size_t</span><span class="w">         </span><span class="n">challenge_size</span><span class="p">,</span>
+<span class="w">                             </span><span class="kt">uint8_t</span><span class="w">       </span><span class="o">*</span><span class="n">token_buf</span><span class="p">,</span>
+<span class="w">                             </span><span class="kt">size_t</span><span class="w">         </span><span class="n">token_buf_size</span><span class="p">,</span>
+<span class="w">                             </span><span class="kt">size_t</span><span class="w">        </span><span class="o">*</span><span class="n">token_size</span><span class="p">);</span>
+
+<span class="n">psa_status_t</span>
+<span class="nf">psa_initial_attest_get_token_size</span><span class="p">(</span><span class="kt">size_t</span><span class="w"> </span><span class="n">challenge_size</span><span class="p">,</span>
+<span class="w">                                  </span><span class="kt">size_t</span><span class="w"> </span><span class="o">*</span><span class="n">token_size</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>The caller must allocate a large enough buffer, where the token is going to be
+created by Initial Attestation Service. The size of the created token is highly
+dependent on the number of software components in the system and the provided
+attributes of these. The <code class="docutils literal notranslate"><span class="pre">psa_initial_attest_get_token_size()</span></code> function can be
+called to get the exact size of the created token.</p>
+<p>System integrators might need to port these interfaces to a custom secure
+partition manager implementation (SPM). Implementations in TF-M project can be
+found here:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">interface/src/tfm_attest_api.c</span></code>: interface implementation.</p></li>
+</ul>
+</section>
+<section id="secure-partition-manager-spm-interface">
+<h3>Secure Partition Manager (SPM) interface<a class="headerlink" href="#secure-partition-manager-spm-interface" title="Permalink to this heading"></a></h3>
+<p>The Initial Attestation Service defines the following interface towards the
+secure partition manager (SPM). System integrators <strong>must</strong> port this interface
+according to their SPM implementation.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">enum</span><span class="w"> </span><span class="n">psa_attest_err_t</span>
+<span class="nf">attest_get_boot_data</span><span class="p">(</span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">major_type</span><span class="p">,</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">ptr</span><span class="p">,</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">len</span><span class="p">);</span>
+
+<span class="k">enum</span><span class="w"> </span><span class="n">psa_attest_err_t</span>
+<span class="nf">attest_get_caller_client_id</span><span class="p">(</span><span class="kt">int32_t</span><span class="w"> </span><span class="o">*</span><span class="n">caller_id</span><span class="p">);</span>
+</pre></div>
+</div>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">attest_get_boot_data()</span></code>: Service can retrieve the relevant data from shared
+memory area between boot loader and runtime software. It might be the case
+that only SPM has direct access to the shared memory area, therefore this
+function can be used to copy the service related data from shared memory to
+a local memory buffer. In TF-M implementation this function must be called
+during service initialization phase, because the shared memory region is
+deliberately overlapping with secure main stack to spare some memory and reuse
+this area during execution. If boot loader is not available in the system to
+provide attributes of software components then this function must be
+implemented in a way that just initialize service’s memory buffer to:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">shared_data_tlv_header</span><span class="w"> </span><span class="o">*</span><span class="n">tlv_header</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">shared_data_tlv_header</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="n">ptr</span><span class="p">;</span>
+<span class="n">tlv_header</span><span class="o">-&gt;</span><span class="n">tlv_magic</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="mi">2016</span><span class="p">;</span>
+<span class="n">tlv_header</span><span class="o">-&gt;</span><span class="n">tlv_tot_len</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">shared_data_tlv_header</span><span class="w"> </span><span class="o">*</span><span class="n">tlv_header</span><span class="p">);</span>
+</pre></div>
+</div>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">attest_get_caller_client_id()</span></code>: Retrieves the ID of the caller thread.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">tfm_client.h</span></code>: Service relies on the following external definitions, which
+must be present or included in this header file:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">psa_invec</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">base</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="n">len</span><span class="p">;</span>
+<span class="p">}</span><span class="w"> </span><span class="n">psa_invec</span><span class="p">;</span>
+
+<span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">psa_outvec</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">base</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="n">len</span><span class="p">;</span>
+<span class="p">}</span><span class="w"> </span><span class="n">psa_outvec</span><span class="p">;</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="hardware-abstraction-layer">
+<h3>Hardware abstraction layer<a class="headerlink" href="#hardware-abstraction-layer" title="Permalink to this heading"></a></h3>
+<p>The following API definitions are intended to retrieve the platform specific
+claims. System integrators <strong>must</strong> implement these interface according to their
+SoC and software design. Detailed definition of the claims are above
+in the claims in the initial attestation token paragraph.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">tfm_attest_hal_get_security_lifecycle()</span></code>: Get the security lifecycle of the
+device.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">tfm_attest_hal_get_verification_service()</span></code>: Get the verification
+service indicator for initial attestation.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">tfm_attest_hal_get_profile_definition()</span></code>: Get the name of the profile
+definition document for initial attestation.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">tfm_plat_get_boot_seed()</span></code>: Get the boot seed, which is a constant random
+number during a boot cycle.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">tfm_plat_get_implementation_id</span></code>: Get the implementation ID of the
+device.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">tfm_plat_get_cert_ref</span></code>: Get the hardware version of the device.</p></li>
+</ul>
+</section>
+<section id="boot-loader-interface">
+<h3>Boot loader interface<a class="headerlink" href="#boot-loader-interface" title="Permalink to this heading"></a></h3>
+<p>It is <strong>recommended</strong> to have a secure boot loader in the boot chain, which is
+capable of measuring the runtime firmware components (calculates the hash value
+of firmware images) and provide other attributes of these (version, type, etc).
+If the used boot loader is not capable of sharing these information with the
+runtime software then the <code class="docutils literal notranslate"><span class="pre">BOOT_DATA_AVAILABLE</span></code> compiler flag <strong>must</strong> be
+set to OFF (see <a class="reference internal" href="#related-compile-time-options">Related compile time options</a>).</p>
+<p>The shared data between boot loader and runtime software is TLV encoded. The
+definition of TLV structure is described in <code class="docutils literal notranslate"><span class="pre">bl2/include/tfm_boot_status.h</span></code>.
+The shared data is stored in a well known location in secure internal memory
+and this is a contract between boot loader and runtime SW.</p>
+<p>The structure of shared data must be the following:</p>
+<ul>
+<li><p>At the beginning there must be a header: <code class="docutils literal notranslate"><span class="pre">struct</span> <span class="pre">shared_data_tlv_header</span></code>
+This contains a magic number and a size field which covers the entire size
+of the shared data area including this header.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">shared_data_tlv_header</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">tlv_magic</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">tlv_tot_len</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+</li>
+<li><p>The header is followed by the entries which are composed from an
+entry header structure: <code class="docutils literal notranslate"><span class="pre">struct</span> <span class="pre">shared_data_tlv_entry</span></code> and the data. In
+the entry header there is a type and a length field. The <code class="docutils literal notranslate"><span class="pre">tlv_type</span></code> field
+identifies the consumer of the entry in the runtime software and specify the
+subtype of that data item. The <code class="docutils literal notranslate"><span class="pre">tlv_len</span></code> field covers the length of the
+data (not including the size of the entry header).</p>
+<p>After the entry header structure comes the actual data.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">shared_data_tlv_entry</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">tlv_type</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">tlv_len</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+</li>
+<li><p>Arbitrary number and size of data entry can be in the shared memory
+area.</p></li>
+</ul>
+<p>The figure below gives of overview about the <code class="docutils literal notranslate"><span class="pre">tlv_type</span></code> field in the entry
+header. The <code class="docutils literal notranslate"><span class="pre">tlv_type</span></code> always composed from a major and minorbnumber. Major
+number identifies the addressee in runtime software, which the databentry is
+sent to. Minor number used to encode more info about the data entry. The actual
+definition of minor number could change per major number. In case of boot
+status data, which is going to be processed by initial attestation service
+the minor number is split further to two part: <code class="docutils literal notranslate"><span class="pre">sw_module</span></code> and <code class="docutils literal notranslate"><span class="pre">claim</span></code>. The
+<code class="docutils literal notranslate"><span class="pre">sw_module</span></code> identifies the SW component in the system which the data item
+belongs to and the <code class="docutils literal notranslate"><span class="pre">claim</span></code> part identifies the exact type of the data.</p>
+<p><code class="docutils literal notranslate"><span class="pre">tlv_type</span></code> description:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">|------------------------------------------------</span> <span class="o">|</span>
+<span class="o">|</span>                  <span class="n">tlv_type</span> <span class="p">(</span><span class="mi">16</span> <span class="n">bits</span><span class="p">)</span>             <span class="o">|</span>
+<span class="o">|-------------------------------------------------|</span>
+<span class="o">|</span>   <span class="n">tlv_major</span><span class="p">(</span><span class="mi">4</span> <span class="n">bits</span><span class="p">)</span>   <span class="o">|</span>   <span class="n">tlv_minor</span><span class="p">(</span><span class="mi">12</span> <span class="n">bits</span><span class="p">)</span>    <span class="o">|</span>
+<span class="o">|-------------------------------------------------|</span>
+<span class="o">|</span> <span class="n">MAJOR_IAS</span>   <span class="o">|</span> <span class="n">sw_module</span><span class="p">(</span><span class="mi">6</span> <span class="n">bits</span><span class="p">)</span> <span class="o">|</span> <span class="n">claim</span><span class="p">(</span><span class="mi">6</span> <span class="n">bits</span><span class="p">)</span> <span class="o">|</span>
+<span class="o">|-------------------------------------------------|</span>
+<span class="o">|</span> <span class="n">MAJOR_CORE</span>  <span class="o">|</span>          <span class="n">TBD</span>                      <span class="o">|</span>
+<span class="o">|-------------------------------------------------|</span>
+</pre></div>
+</div>
+<p>Overall structure of shared data:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">---------------------------------------------------------------</span>
+<span class="o">|</span> <span class="n">Magic</span> <span class="n">number</span><span class="p">(</span><span class="n">uint16_t</span><span class="p">)</span> <span class="o">|</span> <span class="n">Shared</span> <span class="n">data</span> <span class="n">total</span> <span class="n">length</span><span class="p">(</span><span class="n">uint16_t</span><span class="p">)</span> <span class="o">|</span>
+<span class="o">---------------------------------------------------------------</span>
+<span class="o">|</span> <span class="n">Major_type</span><span class="p">(</span><span class="mi">4</span> <span class="n">bits</span><span class="p">)</span> <span class="o">|</span> <span class="n">Minor_type</span><span class="p">(</span><span class="mi">12</span> <span class="n">bits</span><span class="p">)</span> <span class="o">|</span> <span class="n">Length</span><span class="p">(</span><span class="n">uint16_t</span><span class="p">)</span> <span class="o">|</span>
+<span class="o">---------------------------------------------------------------</span>
+<span class="o">|</span>                         <span class="n">Raw</span> <span class="n">data</span>                            <span class="o">|</span>
+<span class="o">---------------------------------------------------------------</span>
+<span class="o">|</span>                              <span class="o">.</span>                              <span class="o">|</span>
+<span class="o">|</span>                              <span class="o">.</span>                              <span class="o">|</span>
+<span class="o">|</span>                              <span class="o">.</span>                              <span class="o">|</span>
+<span class="o">---------------------------------------------------------------</span>
+<span class="o">|</span> <span class="n">Major_type</span><span class="p">(</span><span class="mi">4</span> <span class="n">bits</span><span class="p">)</span> <span class="o">|</span> <span class="n">Minor_type</span><span class="p">(</span><span class="mi">12</span> <span class="n">bits</span><span class="p">)</span> <span class="o">|</span> <span class="n">Length</span><span class="p">(</span><span class="n">uint16_t</span><span class="p">)</span> <span class="o">|</span>
+<span class="o">---------------------------------------------------------------</span>
+<span class="o">|</span>                         <span class="n">Raw</span> <span class="n">data</span>                            <span class="o">|</span>
+<span class="o">---------------------------------------------------------------</span>
+</pre></div>
+</div>
+</section>
+<section id="crypto-interface">
+<h3>Crypto interface<a class="headerlink" href="#crypto-interface" title="Permalink to this heading"></a></h3>
+<section id="asymmetric-key-algorithm-based-attestation">
+<h4>Asymmetric key algorithm based attestation<a class="headerlink" href="#asymmetric-key-algorithm-based-attestation" title="Permalink to this heading"></a></h4>
+<p>Device <strong>must</strong> contain an asymmetric key pair. The private part of it is used
+to sign the initial attestation token. Current implementation supports only the
+ECDSA P256 signature over SHA256. The public part of the key pair is used to
+create the key identifier (kid) in the unprotected part of the COSE header. The
+kid is used by verification entity to look up the corresponding public key to
+verify the signature in the token. The <cite>t_cose</cite> part of the initial attestation
+service implements the signature generation and kid creation. But the actual
+calculation of token’s hash and signature is done by the Crypto service in the
+device. System integrators might need to re-implement the following functions
+if they want to use initial attestation service with a different cryptographic
+library than Crypto service:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">t_cose_crypto_pub_key_sign()</span></code>: Calculates the signature over a hash value.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">t_cose_crypto_get_ec_pub_key()</span></code>: Get the public key to create the key
+identifier.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">t_cose_crypto_hash_start()</span></code>: Start a multipart hash operation.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">t_cose_crypto_hash_update()</span></code>: Add a message fragment to a multipart hash
+operation.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">t_cose_crypto_hash_finish()</span></code>:Finish the calculation of the hash of a
+message.</p></li>
+</ul>
+<p>Interface needed by verification code:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">t_cose_crypto_pub_key_verify()</span></code>: Verify the signature over a hash value.</p></li>
+</ul>
+<section id="key-handling">
+<h5>Key handling<a class="headerlink" href="#key-handling" title="Permalink to this heading"></a></h5>
+<p>The provisioning of the initial attestation key is out of scope of the service
+and this document. It is assumed that device maker provisions the unique
+asymmetric key pair during the manufacturing process. Software integrators
+<strong>must</strong> make sure that <code class="docutils literal notranslate"><span class="pre">TFM_BUILTIN_KEY_SLOT_IAK</span></code> is available via the Crypto
+service, which will then be used by the Attestation partition to perform the
+required signing operations via the PSA crypto interface.</p>
+</section>
+</section>
+<section id="symmetric-key-algorithm-based-attestation">
+<h4>Symmetric key algorithm based attestation<a class="headerlink" href="#symmetric-key-algorithm-based-attestation" title="Permalink to this heading"></a></h4>
+<p>Device <strong>must</strong> contain a symmetric key to generate the authentication tag of
+the initial attestation token. A key identifier (kid) can be encoded in the
+unprotected part of the COSE header. It helps verification entity look up the
+symmetric key to verify the authentication tag in the token.</p>
+<p>The <cite>t_cose</cite> part of the initial attestation service implements the
+authentication tag generation. The authentication tag generation is done by the
+Crypto service. System integrators might need to re-implement the following
+functions if platforms provide a different cryptographic library than Crypto
+service:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">t_cose_crypto_hmac_sign_setup()</span></code>: Set up a multi-part HMAC calculation
+operation.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">t_cose_crypto_hmac_update()</span></code>: Add a message fragment to a multi-part HMAC
+operation.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">t_cose_crypto_hmac_sign_finish()</span></code>: Finish the calculation of the HMAC of a
+message.</p></li>
+</ul>
+<p>Interface needed by verification code:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">t_cose_crypto_hmac_verify_setup()</span></code>: Set up a multi-part HMAC verification
+operation.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">t_cose_crypto_hmac_verify_finish()</span></code>: Finish the verification of the HMAC of
+a message.</p></li>
+</ul>
+<p>It also requires the same hash operations as listed in asymmetric key algorithm
+based initial attestation above, in attestation test cases.</p>
+<section id="id1">
+<h5>Key handling<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h5>
+<p>The provisioning of the initial attestation key is out of scope of the service
+and this document. It is assumed that device maker provisions the symmetric key
+during the manufacturing process. The following API is defined to retrieve the
+symmetric attestation key from platform layer. Software integrators <strong>must</strong>
+port this interface according to their SoC design and make sure that key is
+available by Crypto service:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">tfm_plat_get_symmetric_iak()</span></code>: Get the symmetric initial attestation key
+raw data.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">tfm_plat_get_symmetric_iak_id()</span></code>: Get the key identifier of the symmetric
+initial attestation key. The key identifier can be used as <code class="docutils literal notranslate"><span class="pre">kid</span></code> parameter
+in COSE header. Optional.</p></li>
+</ul>
+</section>
+</section>
+</section>
+<section id="initial-attestation-service-compile-time-options">
+<h3>Initial Attestation Service compile time options<a class="headerlink" href="#initial-attestation-service-compile-time-options" title="Permalink to this heading"></a></h3>
+<p>There is a defined set of flags that can be used to compile in/out certain
+service features. The <code class="docutils literal notranslate"><span class="pre">CommonConfig.cmake</span></code> file sets the default values of
+those flags. The list of flags are:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">ATTEST_INCLUDE_OPTIONAL_CLAIMS</span></code>: Include also the optional claims to the
+attestation token. Default value: ON.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ATTEST_INCLUDE_COSE_KEY_ID</span></code>: COSE key-id is an optional field in the COSE
+unprotected header. Key-id is calculated and added to the COSE header based
+on the value of this flag. Default value: OFF.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ATTEST_CLAIM_VALUE_CHECK</span></code>: Check attestation claims against hard-coded
+values found in <code class="docutils literal notranslate"><span class="pre">platform/ext/common/template/attest_hal.c</span></code>. Default value
+is OFF. Set to ON in a platform’s CMake file if the attest HAL is not yet
+properly ported to it.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SYMMETRIC_INITIAL_ATTESTATION</span></code>: Select symmetric initial attestation.
+Default value: OFF.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ATTEST_INCLUDE_TEST_CODE</span></code>: The initial attestation implementation is
+instrumented with additional test code. This is required in order to run
+some of the initial attestation regression tests.
+These tests are not required to be run by platform integrators, and are
+only meant to be used for development or modification of the initial
+attestation implementation.
+Enabling this option enables T_COSE_DISABLE_SHORT_CIRCUIT_SIGN which will
+short circuit the signing operation.
+Default value: OFF.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ATTEST_STACK_SIZE</span></code>- Defines the stack size of the Initial Attestation Partition.
+This value mainly depends on the build type(debug, release and minisizerel) and
+compiler.</p></li>
+</ul>
+<section id="related-compile-time-options">
+<h4>Related compile time options<a class="headerlink" href="#related-compile-time-options" title="Permalink to this heading"></a></h4>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">BOOT_DATA_AVAILABLE</span></code>: The boot data is expected to be present in the shared
+data area between the boot loader and the runtime firmware when it’s ON.
+Otherwise, when it’s OFF does not check the content of the shared data area
+but instead assumes that the TLV header is present and valid (the magic number
+is correct) and there are no data entries. Its default value depends on the
+BL2 flag.</p></li>
+</ul>
+</section>
+</section>
+</section>
+<section id="comparison-of-asymmetric-and-symmetric-algorithm-based-token-authentication">
+<h2>Comparison of asymmetric and symmetric algorithm based token authentication<a class="headerlink" href="#comparison-of-asymmetric-and-symmetric-algorithm-based-token-authentication" title="Permalink to this heading"></a></h2>
+<p>The symmetric key based authentication requires a more complex infrastructure
+for key management. Symmetric keys must be kept secret because they are
+sensitive asset, like the private key in case of asymmetric cryptographic
+algorithms. The main difference is that private keys are only stored on
+device, with proper hardware protection against external access, but symmetric
+keys must be known by both party (device and verifier), so they must also be
+stored in a central server of a relying party (who verifies the tokens).
+If keys are revealed then devices can be impersonated. If the database with
+the symmetric keys becomes compromised then all corresponding devices become
+untrusted. Since a centralised database of symmetric keys may need to be network
+connected, this can be considered to be a valuable target for attackers. The
+advantage of ECDSA based token authentication is that sensitive assets is only
+stored one place (in the device) and only one unique key per device. So if a
+device is compromised then only that single device become untrusted. In this
+case, the database of the relying party contains the corresponding public keys,
+which are not considered to be a confidential assets, so they can be shared with
+anybody. This shows the main advantage of asymmetric based authentication,
+because verification of attestation tokens can be done by a third party,
+such as cloud service providers (CSP). Thus Device Maker (DM) or Chip Maker (CM)
+does not need to operate such a service.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 23%" />
+<col style="width: 38%" />
+<col style="width: 38%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"></th>
+<th class="head"><p>Symmetric</p></th>
+<th class="head"><p>Asymmetric</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Authentication mode</p></td>
+<td><p>HMAC over SHA256</p></td>
+<td><p>ECDSA P256 over SHA256</p></td>
+</tr>
+<tr class="row-odd"><td><p>Crypto key type in HW</p></td>
+<td><p>Symmetric key</p></td>
+<td><p>ECDSA private key (secp256r1)</p></td>
+</tr>
+<tr class="row-even"><td><p>Secrets are stored</p></td>
+<td><p>Device and database</p></td>
+<td><p>Device only</p></td>
+</tr>
+<tr class="row-odd"><td><p>Verification database
+contains</p></td>
+<td><p>Same symmetric key</p></td>
+<td><p>Public keys</p></td>
+</tr>
+<tr class="row-even"><td><p>COSE authentication tag
+in the token</p></td>
+<td><p>COSE_Mac0</p></td>
+<td><p>COSE_Sign1</p></td>
+</tr>
+<tr class="row-odd"><td><p>Verification entity</p></td>
+<td><p>CM or DM, who provisioned the
+symmetric key</p></td>
+<td><p>Can be anybody: third party provisioning
+service, cloud service provider, CM, DM</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="verification">
+<h2>Verification<a class="headerlink" href="#verification" title="Permalink to this heading"></a></h2>
+<section id="regression-test">
+<h3>Regression test<a class="headerlink" href="#regression-test" title="Permalink to this heading"></a></h3>
+<p>The initial attestation token is verified by the attestation test suite in
+<code class="docutils literal notranslate"><span class="pre">test/secure_fw/suites/attestation</span></code>. The test suite is responsible for
+verifying the token signature and parsing the token to verify its encoding and
+the presence of the mandatory claims. This test suite can be executed on the
+device. It is part of the regression test suite. The test suite is configurable
+in the <code class="docutils literal notranslate"><span class="pre">test/secure_fw/suites/attestation/attest_token_test_values.h</span></code> header
+file. In this file there are two attributes for each claim which are
+configurable (more details in the header file):</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Requirements of presence: optional or mandatory</p></li>
+<li><p>Expected value: Value check can be disabled or expected value can be provided
+here.</p></li>
+</ul>
+</div></blockquote>
+<p>For asymmetric initial attestation test, the <strong>dummy</strong> initial attestation
+public key is hard-coded in <code class="docutils literal notranslate"><span class="pre">tfm_initial_attest_pub_key.c</span></code>, which is exported
+and built with initial attestation regresstion test when tests are enabled.
+Initial attestation regression test verifies the IAT generated by initial
+attestation service with the exported public key.</p>
+</section>
+<section id="iat-verifier">
+<h3>iat-verifier<a class="headerlink" href="#iat-verifier" title="Permalink to this heading"></a></h3>
+<p>There is another possibility to verify the attestation token. This addresses
+the off-device testing when the token is already retrieved from the device and
+verification is done on the requester side. There is a Python script for this
+purpose in the <a class="reference external" href="https://git.trustedfirmware.org/TF-M/tf-m-tools.git">tf-m-tools</a> repo called <a class="reference external" href="https://git.trustedfirmware.org/TF-M/tf-m-tools.git/tree/iat-verifier">iat-verifier</a>. It does the same
+checking as the attestation test suite. The following steps describe how to
+simulate an off-device token verification on a host computer. It is described
+how to retrieve an initial attestation token when TF-M code is executed on FVP
+and how to use the iat-verifier script to check the token. This example assumes
+that user has license for DS-5 and FVP models:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Build TF-M with any of the <code class="docutils literal notranslate"><span class="pre">ConfigRegression*.cmake</span></code> build configurations
+for MPS2 AN521 platform. More info in
+<a class="reference internal" href="../../building/tfm_build_instruction.html"><span class="doc">tfm_build_instruction</span></a>.</p></li>
+<li><p>Lunch FVP model in DS-5. More info in
+<a class="reference internal" href="../../building/run_tfm_examples_on_arm_platforms.html"><span class="doc">Run TF-M examples on Arm platforms</span></a>.</p></li>
+<li><p>Set a breakpoint in <code class="docutils literal notranslate"><span class="pre">test/secure_fw/suites/attestation/attest_token_test.c</span></code>
+in <code class="docutils literal notranslate"><span class="pre">decode_test_internal(..)</span></code> after the <code class="docutils literal notranslate"><span class="pre">token_main_alt(..)</span></code> returned,
+i.e. on line 859. Execute the code in the model until the breakpoint hits
+second time. At this point the console prints the test case name:</p>
+<ul>
+<li><p>For asymmetric initial attestation, the console prints
+<code class="docutils literal notranslate"><span class="pre">ECDSA</span> <span class="pre">signature</span> <span class="pre">test</span> <span class="pre">of</span> <span class="pre">attest</span> <span class="pre">token</span></code>.</p></li>
+<li><p>For symmetric initial attestation, the console prints
+<code class="docutils literal notranslate"><span class="pre">Symmetric</span> <span class="pre">key</span> <span class="pre">algorithm</span> <span class="pre">based</span> <span class="pre">Initial</span> <span class="pre">Attestation</span> <span class="pre">test</span></code>.</p></li>
+</ul>
+</li>
+<li><p>At this point the token resides in the model memory and can be dumped to host
+computer.</p></li>
+<li><p>The ADDRESS and SIZE attributes of the initial attestation token is stored in
+the <code class="docutils literal notranslate"><span class="pre">completed_token</span></code> local variable. Their value can be extracted in the
+<code class="docutils literal notranslate"><span class="pre">(x)=Variables</span></code> debug window.</p></li>
+<li><p>Apply commands below in the <code class="docutils literal notranslate"><span class="pre">Commands</span></code> debug window to dump the token in
+binary format to the host computer:</p>
+<ul>
+<li><p>For asymmetric initial attestation
+<code class="docutils literal notranslate"><span class="pre">dump</span> <span class="pre">memory</span> <span class="pre">&lt;PATH&gt;/iat_01.cbor</span> <span class="pre">&lt;ADDRESS&gt;</span> <span class="pre">+&lt;SIZE&gt;</span></code></p></li>
+<li><p>For symmetric initial attestation
+<code class="docutils literal notranslate"><span class="pre">dump</span> <span class="pre">memory</span> <span class="pre">&lt;PATH&gt;/iat_hmac_02.cbor</span> <span class="pre">&lt;ADDRESS&gt;</span> <span class="pre">+&lt;SIZE&gt;</span></code></p></li>
+</ul>
+</li>
+<li><p>Execute commands below on the host computer to verify the token:</p>
+<ul>
+<li><p>For asymmetric initial attestation
+<code class="docutils literal notranslate"><span class="pre">check_iat</span> <span class="pre">-p</span> <span class="pre">-K</span> <span class="pre">-k</span> <span class="pre">platform/ext/common/template/tfm_initial_attestation_key.pem</span> <span class="pre">&lt;PATH&gt;/iat_01.cbor</span></code></p></li>
+<li><p>For symmetric initial attestation
+<code class="docutils literal notranslate"><span class="pre">check_iat</span> <span class="pre">-m</span> <span class="pre">mac</span> <span class="pre">-p</span> <span class="pre">-K</span> <span class="pre">-k</span> <span class="pre">platform/ext/common/template/tfm_symmetric_iak.key</span> <span class="pre">&lt;PATH&gt;/iat_hmac_02.cbor</span></code></p></li>
+</ul>
+</li>
+<li><p>Documentation of the iat-verifier can be found in the
+<a class="reference external" href="https://git.trustedfirmware.org/TF-M/tf-m-tools.git/tree/iat-verifier/README.rst">tf-m-tools-iat-verifer-readme</a> .</p></li>
+</ul>
+</div></blockquote>
+<hr class="docutils" />
+<p><em>Copyright (c) 2018-2022, Arm Limited. All rights reserved.</em></p>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p></p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

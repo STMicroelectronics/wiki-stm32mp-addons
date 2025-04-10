@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BL1 Immutable bootloader &mdash; Trusted Firmware-M v1.7.0-stm32mp25-alpha-r1-rc3-doc documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/tfm_custom.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/tabs.css" type="text/css" />
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Code sharing between independently linked XIP binaries" href="code_sharing.html" />
+    <link rel="prev" title="Memory Access Check of Trusted Firmware-M in Multi-Core Topology" href="dual-cpu/tfm_multi_core_access_check.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> Trusted Firmware-M
+            <img src="../../_static/tf_logo_white.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                v1.7.0-stm32mp25-alpha-r1-rc3-doc
+
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../introduction/index.html">Introduction</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started/index.html">Getting Started</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../security/index.html">Security</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../security/security_advisories/index.html">Security Advisories</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/stack_seal_vulnerability.html">Advisory TFMV-1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/svc_caller_sp_fetching_vulnerability.html">Advisory TFMV-2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/crypto_multi_part_ops_abort_fail.html">Advisory TFMV-3</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/profile_small_key_id_encoding_vulnerability.html">Advisory TFMV-4</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/fwu_write_vulnerability.html">Advisory TFMV-5</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../security/threat_models/index.html">Threat Models</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../security/threat_models/generic_threat_model.html">Trusted Firmware-M Generic Threat Model</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../security/security.html">Security Handling</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../releases/index.html">Releases</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/1.7.0.html">v1.7.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/1.6.1.html">v1.6.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/1.6.0.html">v1.6.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/1.5.0.html">v1.5.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/release_process.html">Release Cadence and Process</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../glossary.html">Glossary</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../platform/index.html">Platform Selection</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/arm/index.html">Arm platforms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/corstone1000/readme.html">Corstone-1000</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/mps3/an547/README.html">Corstone-300 FPGA (AN547)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/mps3/an552/README.html">Corstone-300 FPGA and FVP (AN552)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/mps3/corstone310/README.html">Corstone-310 FVP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/musca_b1/readme.html">Musca-B1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/musca_s1/readme.html">Musca-S1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/rss/readme.html">Runtime Security Subsystem</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/nxp/lpcxpresso55s69/README.html">LPCXpresso55S69</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/cypress/psoc64/index.html">Cypress PSoC64</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/cypress/psoc64/cypress_psoc64_spec.html">Cypress PSoC64 Specifics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/cypress/psoc64/libs/core-lib/README.html">Core Library</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/cypress/psoc64/libs/core-lib/RELEASE.html">Core Library Release Notes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/stm/index.html">STMICROELECTRONICS</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32l5xx/readme.html">STM32L5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32mp2/readme.html">STM32MP2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32u5xx/readme.html">STM32U5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/nucleo_l552ze_q/readme.html">NUCLEO-L552ZE-Q</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32l562e_dk/readme.html">STM32L562E-DK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/b_u585i_iot02a/readme.html">B-U585I-IOT02A</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/nordic_nrf/nrf5340dk_nrf5340_cpuapp/README.html">Nordic nRF5340</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/nordic_nrf/nrf9160dk_nrf9160/README.html">Nordic nRF9160</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/lairdconnectivity/bl5340_dvk_cpuapp/README.html">Laird Connectivity BL5340</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/nuvoton/m2351/README.html">NuMaker-PFM-M2351</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/nuvoton/m2354/README.html">NuMaker-PFM-M2354</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../building/tfm_build_instruction.html">Build instructions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../building/run_tfm_examples_on_arm_platforms.html">Run TF-M examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../building/documentation_generation.html">Building the documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../building/tfm_build_instruction_iar.html">IAR toolchain</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../configuration/index.html">Configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../configuration/build_configuration.html">Build configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../configuration/header_file_system.html">Component configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../configuration/kconfig_system.html">Kconfig</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../configuration/profiles/index.html">Profiles</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../configuration/profiles/tfm_profile_small.html"> Small</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../configuration/profiles/tfm_profile_medium_arot-less.html"> ARoT-less</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../configuration/profiles/tfm_profile_medium.html"> Medium</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../configuration/profiles/tfm_profile_large.html"> Large</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../configuration/test_configuration.html">Tests configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../integration_guide/index.html">Integration Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../integration_guide/spm_backends.html">SPM Backends</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../integration_guide/non-secure_client_extension_integration_guide.html">NS client integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../integration_guide/os_migration_guide_armv8m.html">OS migration to Armv8-M</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../integration_guide/tfm_fpu_support.html">Floating-Point Support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../integration_guide/tfm_secure_irq_integration_guide.html">Secure Interrupt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../integration_guide/platform/index.html">Adding a new platform</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/platform/platform_folder.html">Details for the platform folder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/platform/platform_ext_folder.html">Details for the platform/ext folder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/platform/porting_TFM_to_a_new_hardware.html">Porting TF-M to a New Hardware</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/platform/platform_provisioning.html">Platform Provisioning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/platform/platform_deprecation.html">Platform deprecation and removal</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../integration_guide/services/index.html">Services</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/services/tfm_attestation_integration_guide.html">Initial Attestation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/services/tfm_crypto_integration_guide.html">Crypto</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/services/tfm_its_integration_guide.html">Internal Storage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/services/tfm_platform_integration_guide.html">Platform</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/services/tfm_ps_integration_guide.html">Protected Storage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/services/tfm_secure_partition_addition.html">Adding a New Service</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/services/tfm_manifest_tool_user_guide.html">The manifest tool</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Design Documents</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="dual-cpu/index.html">Dual-CPU</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="dual-cpu/booting_a_dual_core_system.html">Booting a Dual-Core System</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dual-cpu/communication_prototype_between_nspe_and_spe_in_dual_core_systems.html">Communication Prototype Between NSPE And SPE In Dual Core System</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dual-cpu/mailbox_design_on_dual_core_system.html">Mailbox Design in TF-M on Dual-core System</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dual-cpu/tfm_multi_core_access_check.html">Memory Access Check of Trusted Firmware-M in Multi-Core Topology</a></li>
+</ul>
+</li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">BL1 Immutable bootloader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="code_sharing.html">Code sharing between independently linked XIP binaries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="enum_implicit_casting.html">Fixing implicit casting for C enumeration values</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ff_isolation.html">FF-M Isolation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hardware_abstraction_layer.html">Hardware Abstraction Layer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mailbox_ns_agent_update.html">Mailbox NS Agent Design Update</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ps_key_management.html">Protected Storage service key management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="secure_boot_hw_key_integration.html">HW crypto key integration in TF-M secure boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="secure_boot_rollback_protection.html">Rollback protection in TF-M secure boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="secure_partition_manager.html">Secure Partition Manager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="source_structure.html">Trusted Firmware-M Source Structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="stateless_rot_service.html">Stateless Root of Trust Services Reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="symmetric_initial_attest.html">Symmetric key algorithm based Initial Attestation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tfm_builtin_keys.html">TF-M builtin keys</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tfm_code_generation_with_jinja2.html">Code Generation With Jinja2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tfm_cooperative_scheduling_rules.html">Cooperative Scheduling Rules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tfm_crypto_design.html">Crypto Service design</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tfm_fwu_service.html">Firmware Update Service</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tfm_its_512_flash.html">Add support for block-aligned flash in Internal Trusted Storage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tfm_its_service.html">Internal Trusted Storage (ITS) Service</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tfm_log_system_design_document.html">Log system design document</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tfm_physical_attack_mitigation.html">Physical attack mitigation in Trusted Firmware-M</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tfm_psa_inter_process_communication.html">TF-M Inter-Process Communication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tfm_secure_boot.html">Secure boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tfm_secure_partition_runtime_library.html">Secure Partition Runtime Library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tfm_uniform_secure_service_signature.html">Uniform Secure Service Signature</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../tools/index.html">Tools</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contribution</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing/index.html">Guidelines</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/contributing_process.html">The process</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/code_review_guide.html">Code review</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/maintainers.html">Maintainers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/maintainers.html#code-owners">Code owners</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/coding_guide.html">Yet another coding standard :)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/doc_guidelines.html">Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/tfm_design_proposal_guideline.html">Design proposal</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing/lic.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing/dco.html">DCO</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Links</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://ci.trustedfirmware.org/view/TF-M/job/tf-m-build-docs-nightly/lastSuccessfulBuild/artifact/trusted-firmware-m/build/docs/reference_manual/html/index.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://developer.trustedfirmware.org/w/collaboration/security_center">Security Center</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://www.arm.com/architecture/security-features/platform-security">PSA</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">STMICROELECTRONICS</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../stm/releases/index.html">Releases</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/releases/getting_started.html">Getting started</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32l562e_dk/readme.html">STM32L562E-DK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/nucleo_l552ze_q/readme.html">NUCLEO-L552ZE-Q</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/b_u585i_iot02a/readme.html">B-U585I-IOT02A</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/releases/platforms.html">Platforms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32l5xx/readme.html">STM32L5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32mp2/readme.html">STM32MP2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32u5xx/readme.html">STM32U5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/nucleo_l552ze_q/readme.html">NUCLEO-L552ZE-Q</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32l562e_dk/readme.html">STM32L562E-DK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/releases/changelog.html">Change Log &amp; Notes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/releases/v1.7.0-stm32mp25-alpha-r1-rc3/changelog.html">v1.7.0-stm32mp25-alpha-r1-rc3</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../stm/technical/index.html">Technical references</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/technical/a35_td_flavor/index.html">A35-TD flavor</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/technical/a35_td_flavor/memory_layout.html">Memory layout</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/technical/a35_td_flavor/storage.html">Storage</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/technical/m33_td_flavor/index.html">M33-TD flavor</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/technical/m33_td_flavor/memory_layout.html">Memory layout</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/technical/m33_td_flavor/storage.html">Storage</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/technical/devicetree/index.html">Devicetree</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/technical/devicetree/devicetree_tfm.html">Scope and purpose</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/technical/devicetree/devicetree_tfm.html#concept">Concept</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/technical/devicetree/devicetree_tfm.html#how-to-add-device">How to add device</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/technical/initlevel.html">Initlevel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/technical/initial_attestation.html">Initial Attestation Service</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/technical/nv_counter.html">Nv counter</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../stm/ide/index.html">Ide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/ide/cubeide/stm32cubeide.html">STM32CubeIDE</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Trusted Firmware-M</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="index.html">Design Documents</a> &raquo;</li>
+      <li>BL1 Immutable bootloader</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="bl1-immutable-bootloader">
+<h1>BL1 Immutable bootloader<a class="headerlink" href="#bl1-immutable-bootloader" title="Permalink to this heading"></a></h1>
+<dl class="field-list simple">
+<dt class="field-odd">Author</dt>
+<dd class="field-odd"><p>Raef Coles</p>
+</dd>
+<dt class="field-even">Organization</dt>
+<dd class="field-even"><p>Arm Limited</p>
+</dd>
+<dt class="field-odd">Contact</dt>
+<dd class="field-odd"><p><a class="reference external" href="mailto:raef&#46;coles&#37;&#52;&#48;arm&#46;com">raef<span>&#46;</span>coles<span>&#64;</span>arm<span>&#46;</span>com</a></p>
+</dd>
+</dl>
+<section id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading"></a></h2>
+<p>Some devices that use TF-M will require initial boot code that is stored in ROM.
+There are a variety of reasons that this might happen:</p>
+<ul class="simple">
+<li><p>The device cannot access flash memory without a driver, so needs some setup
+to be done before main images on flash can be booted.</p></li>
+<li><p>The device has no on-chip secure flash, and therefore cannot otherwise
+maintain a tamper-resistant root of trust.</p></li>
+<li><p>The device has a security model that requires an immutable root of trust</p></li>
+</ul>
+<p>Henceforth any bootloader stored in ROM will be referred to as BL1, as it would
+necessarily be the first stage in the boot chain.</p>
+<p>TF-M provides a reference second-stage flash bootloader BL2, in order to allow
+easier integration. This bootloader implements all secure boot functionality
+needed to provide a secure chain of trust.</p>
+<p>A reference ROM bootloader BL1 has now being added with the same motivation -
+allowing easier integration of TF-M for platforms that do not have their own
+BL1 and require one.</p>
+</section>
+<section id="bl1-features-and-motivations">
+<h2>BL1 Features and Motivations<a class="headerlink" href="#bl1-features-and-motivations" title="Permalink to this heading"></a></h2>
+<p>The reference ROM bootloader provides the following features:</p>
+<ul class="simple">
+<li><p>A split between code being stored in ROM and in other non-volatile memory.</p>
+<ul>
+<li><p>This can allow significant cost reduction in fixing bugs compared to
+ROM-only bootloaders.</p></li>
+</ul>
+</li>
+<li><p>A secure boot mechanism that allows upgrading the next boot stage (which
+would usually be BL2).</p>
+<ul>
+<li><p>This allows for the fixing of any bugs in the BL2 image.</p></li>
+<li><p>Alternately, this could allow the removal of BL2 in some devices that are
+constrained in flash space but have ROM.</p></li>
+</ul>
+</li>
+<li><p>A post-quantum resistant asymmetric signature scheme for verifying the next
+boot stage image.</p>
+<ul>
+<li><p>This can allow devices to be securely updated even if attacks
+involving quantum computers become viable. This could extend the lifespans
+of devices that might be deployed in the field for many years.</p></li>
+</ul>
+</li>
+<li><p>A mechanism for passing boot measurements to the TF-M runtime so that they
+can be attested.</p></li>
+<li><p>Tooling to create and sign images.</p></li>
+<li><p>Fault Injection (FI) and Differential Power Analysis (DPA) mitigations.</p></li>
+</ul>
+</section>
+<section id="bl1-1-and-bl1-2-split-bootloaders">
+<h2>BL1_1 and BL1_2 split bootloaders<a class="headerlink" href="#bl1-1-and-bl1-2-split-bootloaders" title="Permalink to this heading"></a></h2>
+<p>BL1 is split into two distinct boot stages, BL1_1 which is stored in ROM and
+BL1_2 which is stored in other non-volatile storage. This would usually be
+either trusted or untrusted flash, but on platforms without flash memory can be
+OTP. As BL1_2 is verified against a hash stored in OTP, it is immutable after
+provisioning even if stored in mutable storage.</p>
+<p>Bugs in ROM bootloaders usually cannot be fixed once a device is provisioned /
+in the field, as ROM code is immutable the only option is fixing the bug in
+newly manufactured devices.</p>
+<p>However, it can be very expensive to change the ROM code of devices once
+manufacturing has begun, as it requires changes to the photolithography masks
+that are used to create the device. This cost varies depending on the complexity
+of the device and of the process node that it is being fabricated on, but can be
+large, both in engineering time and material/process costs.</p>
+<p>By placing the majority of the immutable bootloader in other storage, we can
+mitigate the costs associated with changing ROM code, as a new BL1_2 image can
+be used at provisioning time with minimal changeover cost. BL1_1 contains a
+minimal codebase responsible mainly for the verification of the BL1_2 image.</p>
+<p>The bootflow is as follows. For simplicity this assumes that the boot stage
+after BL1 is BL2, though this is not necessarily the case:</p>
+<ol class="arabic simple">
+<li><p>BL1_1 begins executing in place from ROM</p></li>
+<li><p>BL1_1 copies BL1_2 into RAM</p></li>
+<li><p>BL1_1 verifies BL1_2 against the hash stored in OTP</p></li>
+<li><p>BL1_1 jumps to BL1_2, if the hash verification has succeeded</p></li>
+<li><p>BL1_2 copies the primary BL2 image from flash into RAM</p></li>
+<li><p>BL1_2 verifies the BL2 image using asymmetric cryptography</p></li>
+<li><p>If verification fails, BL1_2 repeats 5 and 6 with the secondary BL2 image</p></li>
+<li><p>BL1_2 jumps to BL2, if either image has successfully verified</p></li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The BL1_2 image is not encrypted, so if it is placed in untrusted flash it
+will be possible to read the data in the image.</p>
+</div>
+<p>Some optimizations have been made specifically for the case where BL1_2 has been
+stored in OTP:</p>
+<p>OTP can be very expensive in terms of chip area, though new technologies like
+antifuse OTP decrease this cost. Because of this, the code size of BL1_2 has
+been minimized. Code-sharing has been configured so that BL1_2 can call
+functions stored in ROM. Care should be taken that OTP is sized such that it is
+possible to include versions of the functions used via code-sharing, in case the
+ROM functions contain bugs, though less space is needed than if all code is
+duplicated as it is assumed that most functions will not contain bugs.</p>
+<p>As OTP memory frequently has low performance, BL1_2 is copied into RAM before it
+it is executed. It also copies the next image stage into RAM before
+authenticating it, which allows the next stage to be stored in untrusted flash.
+This requires that the device have sufficient RAM to contain both the BL1_2
+image and the next stage image at the same time. Note that this is done even if
+BL1_2 is located in XIP-capable flash, as it both allows the use of untrusted
+flash and simplifies the image upgrade logic.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>BL1_2 enables TF-M to be used on devices that contain no secure flash, though
+the ITS service will not be available. Other services that depend on ITS will
+not be available without modification.</p>
+</div>
+</section>
+<section id="secure-boot-image-upgrade-mechanism">
+<h2>Secure boot / Image upgrade mechanism<a class="headerlink" href="#secure-boot-image-upgrade-mechanism" title="Permalink to this heading"></a></h2>
+<p>BL1_2 verifies the authenticity of the next stage image via asymmetric
+cryptography, using a public key that is provisioned into OTP.</p>
+<p>BL1_2 implements a rollback protection counter in OTP, which is used to prevent
+the next stage image being downgraded to a less secure version.</p>
+<p>BL1_2 has two image slots, which allows image upgrades to be performed. The
+primary slot is always booted first, and then if verification of this fails
+(either due to an invalid signature or due to a version lower than the rollback
+protection counter) the secondary slot is then booted (subject to the same
+checks).</p>
+<p>BL1_2 contains no image upgrade logic, in order for OTA of the next stage image
+to be implemented, a later stage in the system must handle downloading new
+images and placing them in the required slot.</p>
+</section>
+<section id="post-quantum-signature-verification-in-bl1-2">
+<h2>Post-Quantum signature verification in BL1_2<a class="headerlink" href="#post-quantum-signature-verification-in-bl1-2" title="Permalink to this heading"></a></h2>
+<p>BL1_2 uses a post-quantum asymmetric signature scheme to verify the next stage.
+The scheme used is Leighton-Michaeli Signatures (henceforth LMS). LMS is
+standardised in <a class="reference external" href="https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-208.pdf">NIST SP800-208</a>
+and <a class="reference external" href="https://datatracker.ietf.org/doc/html/rfc8554">IETF RFC8554.</a></p>
+<p>LMS is a stateful-hash signature scheme, meaning that:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>It is constructed from a cryptographic hash function, in this case SHA256.</p>
+<ul class="simple">
+<li><p>This function can be accelerated by existing hardware accelerators, which
+can make LMS verification relatively fast compared to other post-quantum
+signature schemes that cannot be accelerated in hardware yet.</p></li>
+</ul>
+</li>
+<li><p>Each private key can only be used to sign a certain number of images.</p>
+<ul class="simple">
+<li><p>BL1_2 uses the SHA256_H10 parameter set, meaning each key can sign 1024
+images.</p></li>
+</ul>
+</li>
+</ol>
+</div></blockquote>
+<p>The main downside, the limited amount of possible signatures, can be mitigated
+by limiting the amount of image upgrades that are done. As BL2 is often
+currently not upgradable, it is not anticipated that this limit will be
+problematic. If BL1 is being used to directly boot a TF-M/NS combined image, the
+limit is more likely to be problematic, and care should be taken to examine the
+likely update amount.</p>
+<p>LMS public keys are 32 bytes in size, and LMS signatures are 1912 bytes in size.
+The signature size is larger than some asymmetric schemes, though most devices
+should have enough space in flash to accommodate this.</p>
+<p>The main upside of LMS, aside from the security against attacks involving
+quantum computers, is that it is relatively simple to implement. The software
+implementation that is used by BL1 is ~3KiB in size, which is considerably
+smaller than the corresponding RSA implementation which is at least 6.5K. This
+simplicity of implementation is useful to avoid bugs.</p>
+<p>BL1 will use MbedTLS as the source for its implementation of LMS.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>As of the time of writing, the LMS code is still in the process of being
+merged into MbedTLS, so BL1 currently does not support asymmetric
+verification of the next boot stage. Currently, the next boot stage is
+hash-locked, so cannot be upgraded.</p>
+<p>The Github pull request for LMS can be found <a class="reference external" href="https://github.com/ARMmbed/mbedtls/pull/4826">here</a></p>
+</div>
+</section>
+<section id="bl1-boot-measurements">
+<h2>BL1 boot measurements<a class="headerlink" href="#bl1-boot-measurements" title="Permalink to this heading"></a></h2>
+<p>BL1 outputs boot measurements in the same format as BL2, utilising the same
+shared memory area. These measurements can then be included in the attestation
+token, allowing the attestation of the version of the boot stage after BL1.</p>
+</section>
+<section id="bl1-tooling">
+<h2>BL1 tooling<a class="headerlink" href="#bl1-tooling" title="Permalink to this heading"></a></h2>
+<p>Image signing scripts are provided for BL1_1 and BL1_2. While the script is
+named <code class="docutils literal notranslate"><span class="pre">create_bl2_img.py</span></code>, it can be used for any next stage image.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">bl1/bl1_1/scripts/create_bl1_2_img.py</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">bl1/bl1_2/scripts/create_bl2_img.py</span></code></p></li>
+</ul>
+<p>These sign (and encrypt in the case of <code class="docutils literal notranslate"><span class="pre">create_bl2_img.py</span></code>) a given image file
+and append the required headers.</p>
+</section>
+<section id="bl1-fi-and-dpa-mitigations">
+<h2>BL1 FI and DPA mitigations<a class="headerlink" href="#bl1-fi-and-dpa-mitigations" title="Permalink to this heading"></a></h2>
+<p>BL1 reuses the FI countermeasures used in the TF-M runtime, which are found in
+<code class="docutils literal notranslate"><span class="pre">lib/fih/</span></code>.</p>
+<p>BL1 implements countermeasures against DPA, which are primarily targeted
+towards being able to handle cryptographic material without leaking its
+contents. The functions with these countermeasures are found in
+<code class="docutils literal notranslate"><span class="pre">bl1/bl1_1/shared_lib/util.c</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">bl_secure_memeql</span></code> tests if memory regions have the same value</p>
+<ul class="simple">
+<li><p>It does not perform early exits to prevent timing attacks.</p></li>
+<li><p>It compares chunks in random orders to prevent DPA trace correlation analysis</p></li>
+<li><p>It inserts random delays to prevent DPA trace correlation analysis</p></li>
+<li><p>It performs loop integrity checks</p></li>
+<li><p>It uses FIH constructs</p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">bl_secure_memcpy</span></code> copies memory regions</p>
+<ul class="simple">
+<li><p>It copies chunks in random orders to prevent DPA trace correlation analysis</p></li>
+<li><p>It inserts random delays to prevent DPA trace correlation analysis</p></li>
+<li><p>It performs loop integrity checks</p></li>
+<li><p>It uses FIH constructs</p></li>
+</ul>
+</section>
+<section id="using-bl1-on-new-platforms">
+<h2>Using BL1 on new platforms<a class="headerlink" href="#using-bl1-on-new-platforms" title="Permalink to this heading"></a></h2>
+<p>New platforms must define the following macros in their <code class="docutils literal notranslate"><span class="pre">region_defs.h</span></code>:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">BL1_1_HEAP_SIZE</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">BL1_1_STACK_SIZE</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">BL1_2_HEAP_SIZE</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">BL1_2_STACK_SIZE</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">BL1_1_CODE_START</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">BL1_1_CODE_LIMIT</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">BL1_1_CODE_SIZE</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">BL1_2_CODE_START</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">BL1_2_CODE_LIMIT</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">BL1_2_CODE_SIZE</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">PROVISIONING_DATA_START</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">PROVISIONING_DATA_LIMIT</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">PROVISIONING_DATA_SIZE</span></code></p></li>
+</ul>
+<p>The <code class="docutils literal notranslate"><span class="pre">PROVISIONING_DATA_*</span></code> defines are used to locate where the data to be
+provisioned into OTP can be found. These are required as the provisioning bundle
+needs to contain the entire BL1_2 image, usually &gt;= 8KiB in size, which is too
+large to be placed in the static data area as is done for all other dummy
+provisioning data. On development platforms with reprogrammable ROM, this is
+often placed in unused ROM. On production platforms, this should be located in
+RAM and then filled with provisioning data. The format of the provisioning data
+that should be located in the <code class="docutils literal notranslate"><span class="pre">PROVISIONING_DATA_*</span></code> region can be found in
+<code class="docutils literal notranslate"><span class="pre">bl1/bl1_1/lib/provisioning.c</span></code> in the struct
+<code class="docutils literal notranslate"><span class="pre">bl1_assembly_and_test_provisioning_data_t</span></code></p>
+<p>If the platform is storing BL1_2 in flash, it must set
+<code class="docutils literal notranslate"><span class="pre">BL1_2_IMAGE_FLASH_OFFSET</span></code> to the flash offset of the start of BL1_2.</p>
+<p>The platform must also implement the HAL functions defined in the following
+headers:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">bl1/bl1_1/shared_lib/interface/trng.h</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">bl1/bl1_1/shared_lib/interface/crypto.h</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">bl1/bl1_1/shared_lib/interface/otp.h</span></code></p></li>
+</ul>
+<p>If the platform integrates a CryptoCell-312, then it can reuse the existing
+implementation.</p>
+</section>
+<section id="bl1-testing">
+<h2>BL1 Testing<a class="headerlink" href="#bl1-testing" title="Permalink to this heading"></a></h2>
+<p>New tests have been written to test both the HAL implementation, and the
+integration of those functions for verifying images. These tests are stored in
+the <code class="docutils literal notranslate"><span class="pre">tf-m-tests</span></code> repository, under the <code class="docutils literal notranslate"><span class="pre">test/bl1/</span></code> directory, and further
+subdivided into BL1_1 and BL1_2 tests.</p>
+<hr class="docutils" />
+<p><em>Copyright (c) 2022, Arm Limited. All rights reserved.</em></p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p></p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
