@@ -2,6 +2,7 @@
 Memory layout
 #############
 
+***************
 Firmware layout
 ***************
 
@@ -27,6 +28,7 @@ This firmware can be generated with sign_rproc_fw.py provided by **Optee**
        * Before being signed, the elf files must be striped (.elf.strip).
        * SBOOTADDR defines vector table of first stage (tfm_s).
 
+**********
 Ram layout
 **********
 

@@ -1,6 +1,6 @@
-==================
+##################
 Change Log & Notes
-==================
+##################
 
 This document contains a summary of the new features, changes, fixes and known
 issues in each release of Trusted Firmware-M of STMicroelectronics.
@@ -15,7 +15,7 @@ The tag naming is defined by:
     :maxdepth: 1
     :glob:
 
-    */changelog
+    v*/index
 
 --------------
 

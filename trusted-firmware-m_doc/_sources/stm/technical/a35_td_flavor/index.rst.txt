@@ -1,7 +1,8 @@
+#############
 A35-TD flavor
-=============
+#############
 
- With A35-TD flavor, the  Arm® Cortex®-A is the owner of Trusted Domain (TDCID), is in charge of:
+With A35-TD flavor, the  Arm® Cortex®-A is the owner of Trusted Domain (TDCID), is in charge of:
 
 * firmware: authentification, loading, remote control (start/stop)
 * clock tree setting, except clock gating of hardware blocks

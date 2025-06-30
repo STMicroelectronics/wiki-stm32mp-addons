@@ -1,0 +1,1806 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mailbox Design in TF-M on Dual-core System &mdash; Trusted Firmware-M v2.1.0-stm32mp-r1 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/tfm_custom.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/tabs.css" type="text/css" />
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Mailbox NS Agent Design Update" href="mailbox_ns_agent_update.html" />
+    <link rel="prev" title="Communication Prototype Between NSPE And SPE In Dual Core System" href="communication_prototype_between_nspe_and_spe_in_dual_core_systems.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            Trusted Firmware-M
+              <img src="../../_static/tf_logo_white.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                v2.1.0-stm32mp-r1
+
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../introduction/index.html">Introduction</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started/index.html">Getting Started</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../security/index.html">Security</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../security/threat_models/generic_threat_model.html">Threat model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../security/security_advisories/index.html">Security Advisories</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/stack_seal_vulnerability.html">Advisory TFMV-1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/svc_caller_sp_fetching_vulnerability.html">Advisory TFMV-2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/crypto_multi_part_ops_abort_fail.html">Advisory TFMV-3</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/profile_small_key_id_encoding_vulnerability.html">Advisory TFMV-4</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/fwu_write_vulnerability.html">Advisory TFMV-5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/cc3xx_partial_tag_compare_on_chacha20_poly1305.html">Advisory TFMV-6</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/debug_log_vulnerability.html">Advisory TFMV-7</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../releases/index.html">Releases</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/2.1.0.html">v2.1.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/2.0.0.html">v2.0.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/1.8.1.html">v1.8.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/1.8.0.html">v1.8.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/release_process.html">Release Cadence and Process</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../roadmap.html">Roadmap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../glossary.html">Glossary</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../platform/index.html">Platforms</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/arm/index.html">Arm</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/corstone1000/readme.html">Corstone-1000</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/mps3/corstone300/README.html">Corstone-300 FPGA (AN547 and AN552) and FVP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/mps3/corstone310/README.html">Corstone-310 FPGA (AN555) and FVP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/mps4/corstone315/README.html">Corstone-315 FVP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/musca_b1/readme.html">Musca-B1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/musca_s1/readme.html">Musca-S1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/rse/index.html">Runtime Security Engine</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/armchina/index.html">ArmChina</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/armchina/mps3/alcor/README.html">Alcor FPGA (AN557)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/cypress/index.html">Cypress</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/cypress/psoc64/index.html">PSoC64</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/lairdconnectivity/index.html">Laird Connectivity</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/lairdconnectivity/bl5340_dvk_cpuapp/README.html">BL5340</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/nordic_nrf/index.html">Nordic</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/nordic_nrf/nrf5340dk_nrf5340_cpuapp/README.html">nRF5340</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/nordic_nrf/nrf9160dk_nrf9160/README.html">nRF9160</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/nordic_nrf/nrf9161dk_nrf9161/README.html">nRF9161</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/nuvoton/index.html">Nuvoton</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/nuvoton/m2351/README.html">NuMaker-PFM-M2351</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/nuvoton/m2354/README.html">NuMaker-PFM-M2354</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/nxp/index.html">NXP</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/nxp/lpcxpresso55s69/README.html">LPCXpresso55S69</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/stm/index.html">STMICROELECTRONICS</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32h5xx/readme.html">STM32H5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32l5xx/readme.html">STM32L5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32mp2xx/readme.html">STM32MP2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32u5xx/readme.html">STM32U5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/nucleo_l552ze_q/readme.html">NUCLEO_L552ZE_Q</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32h573i_dk/readme.html">STM32H573I_DK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32l562e_dk/readme.html">STM32L562E_DK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp215f_dk/readme.html">stm32mp215f_dk</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/b_u585i_iot02a/readme.html">B_U585I_IOT02A</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../building/tfm_build_instruction.html">Build instructions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../building/tests_build_instruction.html">Build Tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../building/run_tfm_examples_on_arm_platforms.html">Run TF-M tests and applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../building/documentation_generation.html">Building the documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../building/tfm_build_instruction_iar.html">IAR toolchain</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../configuration/index.html">Configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../configuration/build_configuration.html">Build configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../configuration/header_file_system.html">Component configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../configuration/kconfig_system.html">Kconfig</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../configuration/profiles/index.html">Profiles</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../configuration/profiles/tfm_profile_small.html"> Small</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../configuration/profiles/tfm_profile_medium_arot-less.html"> ARoT-less</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../configuration/profiles/tfm_profile_medium.html"> Medium</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../configuration/profiles/tfm_profile_large.html"> Large</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../configuration/test_configuration.html">Tests configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../integration_guide/index.html">Integration Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../integration_guide/source_structure/source_structure.html">Source Structure</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/source_structure/platform_folder.html">Details for the /platform folder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/source_structure/platform_ext_folder.html">Details for the /platform/ext folder</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../integration_guide/spm_backends.html">SPM Backends</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../integration_guide/non-secure_client_extension_integration_guide.html">NS client integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../integration_guide/os_migration_guide_armv8m.html">OS migration to Armv8-M</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../integration_guide/tfm_fpu_support.html">Floating-Point Support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../integration_guide/tfm_secure_irq_integration_guide.html">Secure Interrupt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../integration_guide/platform_provisioning.html">Platform Provisioning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../integration_guide/platform/index.html">Adding a new platform</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/platform/porting_tfm_to_a_new_hardware.html">Porting TF-M to a New Hardware</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/platform/documenting_platform.html">Platform Documentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/platform/platform_deprecation.html">Platform deprecation and removal</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../integration_guide/services/index.html">Services</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/services/tfm_attestation_integration_guide.html">Initial Attestation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/services/tfm_crypto_integration_guide.html">Crypto</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/services/tfm_its_integration_guide.html">Internal Trusted Storage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/services/tfm_platform_integration_guide.html">Platform</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/services/tfm_ps_integration_guide.html">Protected Storage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/services/tfm_secure_partition_addition.html">Adding a New Secure Partition</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/services/tfm_manifest_tool_user_guide.html">Manifest Tool</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/services/tfm_adac_integration_guide.html">ADAC</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Design Documents</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../booting/tfm_secure_boot.html">Secure Boot</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../booting/bl1.html">BL1 Immutable bootloader</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../booting/secure_boot_rollback_protection.html">Rollback Protection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../booting/secure_boot_hw_key_integration.html">HW Key integration</a></li>
+</ul>
+</li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Dual CPU</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="booting_a_dual_core_system.html">Booting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="communication_prototype_between_nspe_and_spe_in_dual_core_systems.html">SPE - NSPE communication</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Mailbox</a></li>
+<li class="toctree-l3"><a class="reference internal" href="mailbox_ns_agent_update.html">Mailbox update</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tfm_multi_core_access_check.html">Memory Access Check</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../services/index.html">Secure Services</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../services/secure_partition_manager.html">Secure Partition Manager</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../services/secure_partition_runtime_library.html">Secure Partition RTL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../services/tfm_psa_inter_process_communication.html">Inter-Process Communication</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../services/stateless_rot_service.html">Stateless Services</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../services/tfm_uniform_secure_service_signature.html">Service Signing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../services/tfm_crypto_design.html">Crypto</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../services/symmetric_initial_attest.html">Initial Attestation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../services/tfm_its_service.html">Internal Trusted Storage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../services/tfm_fwu_service.html">Firmware Update</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../services/ps_key_management.html">PS Key Management</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../software/index.html">Software Design</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../software/code_sharing.html">Code Sharing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../software/hardware_abstraction_layer.html">Hardware Abstraction Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../software/tfm_cooperative_scheduling_rules.html">Cooperative Scheduling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../software/tfm_code_generation_with_jinja2.html">Code Templates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../software/enum_implicit_casting.html">Implicit Typecasting</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../ff_isolation.html">Isolation Rules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tfm_builtin_keys.html">Builtin Keys</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tfm_log_system_design_document.html">Logging system</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tfm_physical_attack_mitigation.html">Physical Attack Mitigation</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contribution</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing/index.html">Guidelines</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/contributing_process.html">The process</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/code_review_guide.html">Code review</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/maintainers.html">Maintainers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/maintainers.html#code-owners">Code owners</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/coding_guide.html">Yet another coding standard :)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/doc_guidelines.html">Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/tfm_design_proposal_guideline.html">Design proposal</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing/lic.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing/dco.html">DCO</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Links</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://trustedfirmware-m.readthedocs.io/projects/tf-m-tests/en/latest/">TF-M Tests</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://trustedfirmware-m.readthedocs.io/projects/tf-m-tools/en/latest/">TF-M Tools</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://trustedfirmware-m.readthedocs.io/projects/tf-m-extras/en/latest/">TF-M Extras</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://ci.trustedfirmware.org/job/tf-m-build-docs-nightly/lastSuccessfulBuild/artifact/trusted-firmware-m/build/docs/reference_manual/html/index.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://developer.trustedfirmware.org/w/collaboration/security_center">Security Center</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://www.arm.com/architecture/security-features/platform-security">PSA</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">STMICROELECTRONICS</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../stm/releases/index.html">Releases</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/releases/getting_started.html">Getting started</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32h573i_dk/readme.html">STM32H573I_DK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32l562e_dk/readme.html">STM32L562E_DK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp215f_dk/readme.html">stm32mp215f_dk</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/nucleo_l552ze_q/readme.html">NUCLEO_L552ZE_Q</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/b_u585i_iot02a/readme.html">B_U585I_IOT02A</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/releases/platforms.html">Platforms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32h5xx/readme.html">STM32H5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32l5xx/readme.html">STM32L5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32mp2xx/readme.html">STM32MP2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32u5xx/readme.html">STM32U5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/nucleo_l552ze_q/readme.html">NUCLEO_L552ZE_Q</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32h573i_dk/readme.html">STM32H573I_DK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32l562e_dk/readme.html">STM32L562E_DK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp215f_dk/readme.html">stm32mp215f_dk</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/releases/changelog.html">Change Log &amp; Notes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/releases/v1.7.0/index.html">v1.7.0</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/releases/v2.1.0/index.html">v2.1.0</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../stm/releases/index.html#branch-plans">Branch plans</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../stm/technical/index.html">Technical references</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/technical/a35_td_flavor/index.html">A35-TD flavor</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/technical/a35_td_flavor/memory_layout.html">Memory layout</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/technical/a35_td_flavor/storage.html">Storage</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/technical/m33_td_flavor/index.html">M33-TD flavor</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/technical/m33_td_flavor/memory_layout.html">Memory layout</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/technical/m33_td_flavor/storage.html">Storage</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/technical/devicetree/index.html">Devicetree</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/technical/devicetree/devicetree_tfm.html">Scope and purpose</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/technical/devicetree/devicetree_tfm.html#concept">Concept</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/technical/devicetree/devicetree_tfm.html#how-to-add-device">How to add device</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/technical/initlevel.html">Initlevel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/technical/initial_attestation.html">Initial Attestation Service</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/technical/nv_counter.html">Nv counter</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../stm/ide/index.html">Ide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/ide/cube/stm32cubeide.html">STM32CubeIDE</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Trusted Firmware-M</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Design Documents</a></li>
+          <li class="breadcrumb-item"><a href="index.html">Dual-CPU</a></li>
+      <li class="breadcrumb-item active">Mailbox Design in TF-M on Dual-core System</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="section" id="mailbox-design-in-tf-m-on-dual-core-system">
+<h1>Mailbox Design in TF-M on Dual-core System<a class="headerlink" href="#mailbox-design-in-tf-m-on-dual-core-system" title="Permalink to this heading"></a></h1>
+<dl class="field-list simple">
+<dt class="field-odd">Author</dt>
+<dd class="field-odd"><p>David Hu</p>
+</dd>
+<dt class="field-even">Organization</dt>
+<dd class="field-even"><p>Arm Limited</p>
+</dd>
+<dt class="field-odd">Contact</dt>
+<dd class="field-odd"><p><a class="reference external" href="mailto:david&#46;hu&#37;&#52;&#48;arm&#46;com">david<span>&#46;</span>hu<span>&#64;</span>arm<span>&#46;</span>com</a></p>
+</dd>
+</dl>
+<div class="section" id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading"></a></h2>
+<p>This document proposes a generic design of the mailbox communication for Trusted
+Firmware-M (TF-M) on a dual-core system. The mailbox functionalities transfer
+PSA Client requests and results between Non-secure Processing Environment (NSPE)
+and Secure Processing Environment (SPE).</p>
+<p>The dual-core system should satisfy the following requirements</p>
+<ul class="simple">
+<li><p>NSPE and SPE are properly isolated and protected following PSA specifications.</p></li>
+<li><p>An Arm M-profile core locates in SPE and acts as the Secure core.</p></li>
+<li><p>TF-M runs on the Secure core with platform specific drivers support.</p></li>
+<li><p>Inter-Processor Communication hardware module in system for communication
+between Secure core and Non-secure core. Mailbox communication calls the
+Inter-Processor Communication to transfer notifications.</p></li>
+<li><p>Non-secure memory shared by NSPE and SPE.</p></li>
+</ul>
+<div class="section" id="scope">
+<h3>Scope<a class="headerlink" href="#scope" title="Permalink to this heading"></a></h3>
+<p>This design document focuses on the mailbox functionalities in NSPE and SPE on a
+dual-core system. The mailbox functionalities include the initialization of
+mailbox in NSPE and SPE, and the transfer of PSA Client requests and replies
+between NSPE and SPE.</p>
+<p>Data types and mailbox APIs are defined in this document.</p>
+<p>Some details of interactions between mailbox and other modules are specified in
+other documents.
+Communication prototype design <a class="footnote-reference brackets" href="#id6" id="id1">1</a> defines a general communication prototype
+between NSPE and SPE on a dual-core system. It describes how TF-M interacts with
+mailbox functionalities and the general requirements on mailbox.
+Dual-core booting sequence <a class="footnote-reference brackets" href="#id7" id="id2">2</a> describes a synchronization step of mailbox
+between NSPE and SPE during system booting.</p>
+</div>
+<div class="section" id="organization-of-the-document">
+<h3>Organization of the document<a class="headerlink" href="#organization-of-the-document" title="Permalink to this heading"></a></h3>
+<ul class="simple">
+<li><p><a class="reference internal" href="#mailbox-architecture">Mailbox architecture</a> provides an overview on the mailbox architecture.</p></li>
+<li><p><a class="reference internal" href="#mailbox-communication-for-psa-client-calls">Mailbox communication for PSA Client calls</a> discusses about the mailbox
+communication for PSA Client calls.</p></li>
+<li><p><a class="reference internal" href="#mailbox-initialization">Mailbox initialization</a> introduces the initialization of mailbox.</p></li>
+<li><p><a class="reference internal" href="#mailbox-apis-and-data-structures">Mailbox APIs and data structures</a> lists mailbox data types and APIs.</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="mailbox-architecture">
+<h2>Mailbox architecture<a class="headerlink" href="#mailbox-architecture" title="Permalink to this heading"></a></h2>
+<p>The mailbox consists of two parts sitting in NSPE and SPE respectively.
+NSPE mailbox provides mailbox functionalities in NSPE and SPE mailbox provides
+mailbox functionalities in TF-M in SPE.</p>
+<p>PSA Client APIs called in NSPE are implemented by NSPE mailbox functions on
+dual-core systems, to send PSA Client request and receive the result. The
+implementation can vary in diverse NSPE OSs or use cases.</p>
+<p>TF-M provides a reference implementation of NSPE mailbox. The NSPE mailbox
+delivers the PSA Client requests to SPE mailbox. After the PSA Client result is
+replied from SPE, NSPE mailbox fetches the result and returns it to PSA Client
+APIs.</p>
+<p>NSPE mailbox objects are managed by NSPE mailbox in non-secure memory to hold
+PSA Client call parameters, return result and other mailbox data.
+NSPE mailbox relies on platform specific Inter-Process Communication to process
+notifications between NSPE and SPE.</p>
+<p>The SPE mailbox in TF-M receives PSA Client requests from NSPE mailbox. It
+parses the requests and invokes TF-M Remote Procedure Call (RPC) layer.
+RPC layer delivers the requests to TF-M core/Secure Partition Manager (SPM).
+After the PSA Client call is completed, TF-M core/SPM invokes RPC layer to
+return results to NSPE, via SPE mailbox.
+SPE mailbox objects are managed by SPE mailbox in secure memory.
+SPE mailbox relies on platform specific Inter-Process Communication to process
+notifications between SPE and NSPE.</p>
+<p>The architecture is showed in following figure.</p>
+<div class="figure align-default">
+<img alt="../../_images/dual_core_mailbox_arch.png" src="../../_images/dual_core_mailbox_arch.png" />
+</div>
+</div>
+<div class="section" id="mailbox-communication-for-psa-client-calls">
+<h2>Mailbox communication for PSA Client calls<a class="headerlink" href="#mailbox-communication-for-psa-client-calls" title="Permalink to this heading"></a></h2>
+<p>This section describes the transfer of PSA Client request and reply between NSPE
+and SPE via mailbox.</p>
+<div class="section" id="mailbox-objects">
+<h3>Mailbox objects<a class="headerlink" href="#mailbox-objects" title="Permalink to this heading"></a></h3>
+<p>This section lists the mailbox objects required in NSPE and SPE.</p>
+<p>NSPE mailbox objects are managed by NSPE mailbox in non-secure memory. But NSPE
+mailbox objects can be accessed by both NSPE mailbox and SPE mailbox.</p>
+<p>SPE mailbox objects are managed by SPE mailbox in secure memory. SPE mailbox
+objects should be protected from NSPE accesses by system specific isolation.</p>
+<div class="section" id="nspe-mailbox-queue">
+<h4>NSPE Mailbox queue<a class="headerlink" href="#nspe-mailbox-queue" title="Permalink to this heading"></a></h4>
+<p>NSPE mailbox maintains a mailbox queue in non-secure memory. Please refer to the
+structure definition in <a class="reference internal" href="#nspe-mailbox-queue-structure">NSPE mailbox queue structure</a>.</p>
+<p>NSPE mailbox queue contains one or more slots. The number of slots should be
+aligned with that in SPE mailbox queue.</p>
+<p>Each slot in NSPE mailbox queue consists of a pair of a mailbox message
+structure and a mailbox reply structure. Each slot might contain additional
+fields, such as identification of non-secure task which initiates the PSA Client
+request. Each slot serves a PSA Client call from non-secure task.</p>
+<p>The parameters of PSA Client request are hosted in the mailbox message inside
+the slot. <a class="reference internal" href="#mailbox-messages">Mailbox messages</a> describes the details of mailbox message.</p>
+<p>The mailbox reply structure is used to receive the PSA Client result from SPE.
+<a class="reference internal" href="#mailbox-replies">Mailbox replies</a> describes the details of mailbox reply.</p>
+</div>
+<div class="section" id="mailbox-messages">
+<h4>Mailbox messages<a class="headerlink" href="#mailbox-messages" title="Permalink to this heading"></a></h4>
+<p>A mailbox message contains the parameters of a PSA Client request from a
+non-secure task. Please refer to the structure definition in
+<a class="reference internal" href="#mailbox-message-structure">Mailbox message structure</a>.</p>
+<p>Inside PSA Client API implementation, NSPE mailbox selects an empty mailbox
+queue slot for the PSA Client request. The parameters of that PSA Client request
+are organized into the mailbox message belonging to the selected slot.
+SPE mailbox will parse those parameters from the mailbox message.</p>
+<p>More fields can be defined in mailbox message to transfer additional information
+from NSPE to SPE for processing in TF-M.</p>
+</div>
+<div class="section" id="mailbox-replies">
+<h4>Mailbox replies<a class="headerlink" href="#mailbox-replies" title="Permalink to this heading"></a></h4>
+<p>A mailbox reply structure in non-secure memory receives the PSA Client result
+replied from SPE mailbox. Please refer to the structure definition in
+<a class="reference internal" href="#mailbox-reply-structure">Mailbox reply structure</a>.</p>
+</div>
+<div class="section" id="spe-mailbox-queue">
+<h4>SPE Mailbox queue<a class="headerlink" href="#spe-mailbox-queue" title="Permalink to this heading"></a></h4>
+<p>SPE mailbox maintains a mailbox queue to store SPE mailbox objects.
+Please refer to the structure definition in <a class="reference internal" href="#spe-mailbox-queue-structure">SPE mailbox queue structure</a>.</p>
+<p>SPE mailbox queue contains one or more slots. The number of slots should be
+aligned with that in NSPE mailbox queue. After SPE is notified that a PSA Client
+request is pending, SPE mailbox can assign an empty slot, copy the corresponding
+PSA Client call parameters from non-secure memory to that slot and parse the
+parameters.</p>
+<p>Each slot in SPE mailbox queue can contain the following fields</p>
+<ul class="simple">
+<li><p>An optional field to hold mailbox message content copied from non-secure
+memory.</p></li>
+<li><p>Index of NSPE mailbox queue slot containing the mailbox message.</p></li>
+<li><p>A handle to the mailbox message. Optional. Identify the owner slot of PSA
+Client result when multiple mailbox messages are under processing.</p></li>
+</ul>
+<p>More fields can be defined in the slot structure to support mailbox processing
+in SPE.</p>
+</div>
+</div>
+<div class="section" id="overall-workflow">
+<h3>Overall workflow<a class="headerlink" href="#overall-workflow" title="Permalink to this heading"></a></h3>
+<p>The overall workflow of transferring PSA Client requests and results between
+NSPE and SPE via mailbox is shown below.</p>
+<ol class="arabic">
+<li><p>Non-secure task initiates a service request by calling PSA Developer APIs,
+which eventually invoke PSA Client APIs.
+PSA Client APIs call NSPE mailbox functions to transmit PSA Client call to
+SPE.</p></li>
+<li><p>NSPE mailbox assigns an empty slot from NSPE mailbox queue for that PSA
+client call.</p></li>
+<li><p>NSPE mailbox prepares the parameters of PSA Client call in the dedicated
+mailbox message inside the assigned slot.</p></li>
+<li><p>After the mailbox message is ready, NSPE mailbox invokes platform specific
+Inter-Processor Communication driver to notify SPE.
+The notification mechanism of Inter-Processor Communication is platform
+specific.</p></li>
+<li><p>After the notification is completed, non-secure task waits for the reply from
+SPE.</p></li>
+<li><p>Platform specific Inter-Processor Communication interrupt for mailbox is
+asserted in SPE. The interrupt handler activates SPE mailbox to process the
+request(s).</p></li>
+<li><p>During mailbox processing in TF-M, the handling routine can include the
+following steps:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>SPE mailbox checks and validates NSPE mailbox queue status.</p></li>
+<li><p>SPE mailbox fetches PSA Client call parameters from NSPE mailbox queue.</p></li>
+<li><p>SPE mailbox parses the parameters.</p></li>
+<li><p>SPE mailbox invokes the TF-M RPC APIs to deliver the PSA Client
+request to TF-M SPM.</p></li>
+<li><p>The PSA Client call is handled in TF-M SPM and target Secure Partition if
+necessary.</p></li>
+</ol>
+</div></blockquote>
+<p>If multiple ongoing mailbox messages are pending in the SPE, SPE mailbox can
+process mailbox messages one by one.</p>
+</li>
+<li><p>After the PSA Client call is completed, TF-M RPC layer notifies SPE mailbox
+to reply PSA Client result to NSPE.</p></li>
+<li><p>SPE mailbox writes the PSA Client result to the dedicated mailbox reply
+structure in non-secure memory. The related SPE mailbox objects should be
+invalidated or cleaned.</p></li>
+<li><p>SPE mailbox notifies NSPE by invoking Inter-Processor Communication driver to
+send a notification to NSPE.
+The notification mechanism of Inter-Processor Communication is platform
+specific.</p></li>
+<li><p>NSPE mailbox is activated to handle the PSA Client result in the mailbox
+reply structure. Related mailbox objects should be invalidated or cleaned by
+NSPE mailbox after the return results is extracted out.</p></li>
+<li><p>NSPE mailbox returns the result to PSA Client API implementation.
+The result is eventually returned to the non-secure task.</p></li>
+</ol>
+<p>The following sections discuss more details of key steps in above sequence.</p>
+</div>
+<div class="section" id="mailbox-notifications-between-nspe-and-spe">
+<h3>Mailbox notifications between NSPE and SPE<a class="headerlink" href="#mailbox-notifications-between-nspe-and-spe" title="Permalink to this heading"></a></h3>
+<p>As shown in <a class="reference internal" href="#overall-workflow">Overall workflow</a>, NSPE mailbox asserts mailbox notification to
+trigger SPE to handle PSA Client request. SPE mailbox asserts mailbox
+notification to notify NSPE that PSA Client result is written. The notification
+implementation is based on platform specific Inter-Processor Communication.</p>
+<p>It is recommended to assign one independent set of Inter-Processor Communication
+channel to each notification routine respectively, to implement a <em>full-duplex</em>
+notification mechanism between NSPE and SPE.
+If both notification routines share the same Inter-Processor Communication
+channel, proper synchronization should be implemented to prevent conflicts
+between two notification routines.</p>
+<p>In SPE, the Inter-Processor Communication interrupt handler should deal with the
+incoming notification from NSPE and activate the subsequent mailbox handling in
+SPE. Communication prototype design <a class="footnote-reference brackets" href="#id6" id="id3">1</a> defines the behavior of Inter-Processor
+Communication interrupt handler.</p>
+<p>NSPE can implement an interrupt handler or a polling of notification status to
+handle Inter-Processor Communication notification from SPE.</p>
+</div>
+<div class="section" id="implement-psa-client-api-with-nspe-mailbox">
+<h3>Implement PSA Client API with NSPE Mailbox<a class="headerlink" href="#implement-psa-client-api-with-nspe-mailbox" title="Permalink to this heading"></a></h3>
+<p>PSA Client APIs are implemented with NSPE mailbox API
+<code class="docutils literal notranslate"><span class="pre">tfm_ns_mailbox_client_call()</span></code>.</p>
+<p>The pseudo code below shows a reference implementation of
+<code class="docutils literal notranslate"><span class="pre">psa_framework_version()</span></code>.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">uint32_t</span><span class="w"> </span><span class="nf">psa_framework_version</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="p">...</span>
+<span class="w">    </span><span class="kt">int32_t</span><span class="w"> </span><span class="n">ret</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">ret</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tfm_ns_mailbox_client_call</span><span class="p">(...);</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ret</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">MAILBOX_SUCCESS</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">version</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">PSA_VERSION_NONE</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="p">...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">tfm_ns_mailbox_client_call()</span></code> implementation can vary according to usage
+scenario. TF-M reference implementation provides implementations for NS OS and
+NS bare metal environment respectively. Refer to
+<a class="reference internal" href="#tf-m-reference-implementation-of-nspe-mailbox">TF-M reference implementation of NSPE mailbox</a> for details.</p>
+<p>As PSA Firmware Framework-M (FF-M) requests, a PSA Client API function should be
+blocked until the result is returned. To comply with FF-M, NSPE mailbox requires
+proper mechanism(s) to keep current caller waiting for PSA Client result or an
+empty mailbox queue slot.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><code class="docutils literal notranslate"><span class="pre">tfm_ns_mailbox_client_call()</span></code> may trap the current exception in sleep and
+therefore it must not be called in interrupt service routine.</p>
+</div>
+<p>Refer to <a class="reference internal" href="#mailbox-apis-and-data-structures">Mailbox APIs and data structures</a> for details of
+<code class="docutils literal notranslate"><span class="pre">tfm_ns_mailbox_client_call()</span></code>.</p>
+</div>
+<div class="section" id="tf-m-reference-implementation-of-nspe-mailbox">
+<h3>TF-M reference implementation of NSPE mailbox<a class="headerlink" href="#tf-m-reference-implementation-of-nspe-mailbox" title="Permalink to this heading"></a></h3>
+<p>TF-M NS interface provides a reference implementation of NS mailbox.</p>
+<p>This reference implementation defines several NS mailbox HAL APIs. Please refer
+to <a class="reference internal" href="#nspe-mailbox-hal-apis">NSPE mailbox HAL APIs</a> for details.</p>
+<div class="section" id="integration-with-nspe">
+<h4>Integration with NSPE<a class="headerlink" href="#integration-with-nspe" title="Permalink to this heading"></a></h4>
+<p>TF-M reference implementation provides several mailbox build flags to control
+the integration with NS software.</p>
+<blockquote>
+<div><ul id="mailbox-os-flag">
+<li><p><code class="docutils literal notranslate"><span class="pre">TFM_MULTI_CORE_NS_OS</span></code></p>
+<p>When integrating NS mailbox with NS OS, such as NS RTOS, that flag can be
+selected to enable NS OS support in NS mailbox, such as thread management
+to fulfill thread wait and wake-up.
+Please refer to <a class="reference internal" href="#nspe-mailbox-rtos-abstraction-apis">NSPE mailbox RTOS abstraction APIs</a> for NS OS support
+details.</p>
+<p>With NS OS support, multiple outstanding PSA Client calls can be supported
+in NS mailbox when number of mailbox queue slots configured in
+<code class="docutils literal notranslate"><span class="pre">NUM_MAILBOX_QUEUE_SLOT</span></code> is greater than 1.</p>
+</li>
+</ul>
+<blockquote>
+<div><p>If <code class="docutils literal notranslate"><span class="pre">TFM_MULTI_CORE_NS_OS</span></code> is enabled, when a NS client starts a PSA Client
+call:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">tfm_ns_mailbox_client_call()</span></code> selects an empty NSPE mailbox queue slot
+to organize received PSA client call parameters into a mailbox message.</p></li>
+<li><p>Then it sends those parameters to SPE mailbox and waits for results from
+SPE. During waiting for the result, the NS client thread may be switched
+out by NS OS scheduler.</p></li>
+<li><p>When the result arrives, the NS client thread will be woken up inside
+NS mailbox interrupt handler.</p></li>
+<li><p>The result is then written back to NS client finally.</p></li>
+</ul>
+<p>When that flag is disabled, NS mailbox runs as being integrated with NS bare
+metal environment. NS mailbox simply loops mailbox message status while
+waiting for results.</p>
+</div></blockquote>
+</div></blockquote>
+<ul id="mailbox-os-thread-flag">
+<li><p><code class="docutils literal notranslate"><span class="pre">TFM_MULTI_CORE_NS_OS_MAILBOX_THREAD</span></code></p>
+<p>When <code class="docutils literal notranslate"><span class="pre">TFM_MULTI_CORE_NS_OS</span></code> is enabled, this flag can be selected to
+enable another NS mailbox thread model which relies on a NS mailbox
+dedicated thread.</p>
+<ul class="simple">
+<li><p>It requires NS OS to create a dedicated thread to perform NS mailbox
+functionalities. This dedicated thread invokes
+<code class="docutils literal notranslate"><span class="pre">tfm_ns_mailbox_thread_runner()</span></code> to handle PSA Client calls.
+<code class="docutils literal notranslate"><span class="pre">tfm_ns_mailbox_thread_runner()</span></code> constructs mailbox messages and sends
+them to SPE mailbox.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">tfm_ns_mailbox_client_call()</span></code> sends PSA Client calls to the dedicated
+mailbox thread. It doesn’t directly deal with mailbox messages.</p></li>
+<li><p>It also relies on NS OS to provide thread management and inter-thread
+communication. Please refer to <a class="reference internal" href="#nspe-mailbox-rtos-abstraction-apis">NSPE mailbox RTOS abstraction APIs</a> for
+details.</p></li>
+<li><p>It also requires dual-cpu platform to implement NS Inter-Processor
+Communication interrupts. The interrupt handler invokes
+<code class="docutils literal notranslate"><span class="pre">tfm_ns_mailbox_wake_reply_owner_isr()</span></code> to deal with PSA Client call
+replies and notify the waiting threads.</p></li>
+</ul>
+</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="multiple-outstanding-psa-client-call-feature">
+<h4>Multiple outstanding PSA Client call feature<a class="headerlink" href="#multiple-outstanding-psa-client-call-feature" title="Permalink to this heading"></a></h4>
+<p>Multiple outstanding PSA Client call feature can enable dual-cpu platform to
+issue multiple PSA Client calls in NS OS and those PSA Client calls can be
+served simultaneously.</p>
+<p>Without this feature, only a single PSA Client call can be issued and served.
+A new PSA Client call cannot be started until the previous one is completed.</p>
+<p>When multiple outstanding PSA Client call feature is enabled, while a NS
+application is waiting for its PSA Client result, another NS application can be
+switched in by NS OS to prepare another PSA Client call or deal with its PSA
+client result. It can decrease the CPU idle time of waiting for PSA Client call
+completion.</p>
+<p>If multiple NS applications request secure services in NS OS, it is recommended
+to enable this feature.</p>
+<p>To implement this feature in NS OS:</p>
+<blockquote>
+<div><ul>
+<li><p>Platform should set the number of mailbox queue slots in
+<code class="docutils literal notranslate"><span class="pre">NUM_MAILBOX_QUEUE_SLOT</span></code> in platform’s <code class="docutils literal notranslate"><span class="pre">config.cmake</span></code>.
+It will use more data area with multiple mailbox queue slots.</p>
+<p>NSPE and SPE share the same <code class="docutils literal notranslate"><span class="pre">NUM_MAILBOX_QUEUE_SLOT</span></code> value.</p>
+</li>
+<li><p>Enable <code class="docutils literal notranslate"><span class="pre">TFM_MULTI_CORE_NS_OS</span></code></p>
+<p>For more details, refer to
+<a class="reference internal" href="#mailbox-os-flag"><span class="std std-ref">TFM_MULTI_CORE_NS_OS</span></a>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">TFM_MULTI_CORE_NS_OS_MAILBOX_THREAD</span></code> can be enabled to select another NS
+mailbox working model.
+See <a class="reference internal" href="#mailbox-os-thread-flag"><span class="std std-ref">TFM_MULTI_CORE_NS_OS_MAILBOX_THREAD</span></a> for
+details.</p>
+</li>
+</ul>
+</div></blockquote>
+</div>
+</div>
+<div class="section" id="critical-section-protection-between-cores">
+<h3>Critical section protection between cores<a class="headerlink" href="#critical-section-protection-between-cores" title="Permalink to this heading"></a></h3>
+<p>Proper protection should be implemented to protect the critical accesses to
+shared mailbox resources. The critical sections can include atomic reading and
+modifying NSPE mailbox queue status, slot status and other critical operations.</p>
+<p>The implementation should protect a critical access to those shared mailbox
+resource from corruptions caused by accesses from the peer core. SPE mailbox
+also accesses NSPE mailbox queue. Therefore, it is essential to implement
+synchronization or protection on NSPE mailbox queue between Secure core and
+Non-secure core. NSPE mailbox and SPE mailbox define corresponding critical
+section protection APIs respectively. The implementation of those APIs can be
+platform specific. Please see more details in <a class="reference internal" href="#nspe-mailbox-apis">NSPE mailbox APIs</a> and
+<a class="reference internal" href="#spe-mailbox-apis">SPE mailbox APIs</a>.</p>
+<p>It is recommended to rely on both hardware and software to implement the
+synchronization and protection.</p>
+<p>Protection of local mailbox objects can be implemented as static functions
+inside NSPE mailbox and SPE mailbox.</p>
+</div>
+<div class="section" id="mailbox-handling-in-tf-m">
+<h3>Mailbox handling in TF-M<a class="headerlink" href="#mailbox-handling-in-tf-m" title="Permalink to this heading"></a></h3>
+<p>According to communication prototype design <a class="footnote-reference brackets" href="#id6" id="id4">1</a>, mailbox implementation should
+invoke <code class="docutils literal notranslate"><span class="pre">tfm_rpc_register_ops()</span></code> to hook its operations to TF-M RPC module
+callbacks during initialization. Mailbox message handling should call TF-M RPC
+PSA Client call handlers to deliver PSA Client request to TF-M SPM.</p>
+<p>If multiple outstanding NS PSA Client calls should be supported, TF-M SPM can
+store the mailbox message handle in a specific field in PSA message structure to
+identify the mailbox message, while creating a PSA message. While replying the
+PSA Client result, TF-M SPM can extract the mailbox message handle from PSA
+message and pass it back to mailbox reply function. SPE mailbox can identify
+which mailbox message is completed according to the handle and write the result
+to corresponding NSPE mailbox queue slot.</p>
+<p>Platform specific Inter-Processor Communication interrupt handler in SPE should
+call <code class="docutils literal notranslate"><span class="pre">spm_handle_interrupt()</span></code> to notify SPM of the interrupt. SPM will then
+send the <code class="docutils literal notranslate"><span class="pre">MAILBOX_INTERRUPT_SIGNAL</span></code> signal to the <code class="docutils literal notranslate"><span class="pre">ns_agent_mailbox</span></code> partition, which
+will call <code class="docutils literal notranslate"><span class="pre">tfm_rpc_client_call_handler()</span></code>.</p>
+</div>
+</div>
+<div class="section" id="mailbox-initialization">
+<h2>Mailbox initialization<a class="headerlink" href="#mailbox-initialization" title="Permalink to this heading"></a></h2>
+<p>It should be guaranteed that NSPE mailbox should not initiate PSA Client request
+until SPE mailbox initialization completes.
+Refer to dual-core booting sequence <a class="footnote-reference brackets" href="#id7" id="id5">2</a> for more details on the synchronization
+between NSPE and SPE during booting.</p>
+<p>In current design, the base address of NSPE mailbox queue should be pre-defined
+and shared between NSPE mailbox and SPE mailbox.</p>
+<div class="section" id="spe-mailbox-initialization">
+<h3>SPE mailbox initialization<a class="headerlink" href="#spe-mailbox-initialization" title="Permalink to this heading"></a></h3>
+<p>The SPE mailbox queue memory should be allocated before calling
+<code class="docutils literal notranslate"><span class="pre">tfm_mailbox_init()</span></code>. <code class="docutils literal notranslate"><span class="pre">tfm_mailbox_init()</span></code> initializes the memory and
+variables.
+<code class="docutils literal notranslate"><span class="pre">tfm_mailbox_init()</span></code> calls <code class="docutils literal notranslate"><span class="pre">tfm_mailbox_hal_init()</span></code> to perform platform
+specific initialization. The base address of NSPE mailbox queue can be
+received via <code class="docutils literal notranslate"><span class="pre">tfm_mailbox_hal_init()</span></code>.</p>
+<p>SPE mailbox dedicated Inter-Processor Communication initialization can also be
+enabled during SPE mailbox initialization.</p>
+<p>After SPE mailbox initialization completes, SPE notifies NSPE that SPE mailbox
+functionalities are ready.</p>
+</div>
+<div class="section" id="nspe-mailbox-initialization">
+<h3>NSPE mailbox initialization<a class="headerlink" href="#nspe-mailbox-initialization" title="Permalink to this heading"></a></h3>
+<p>The NSPE mailbox queue memory should be allocated before calling
+<code class="docutils literal notranslate"><span class="pre">tfm_ns_mailbox_init()</span></code>. <code class="docutils literal notranslate"><span class="pre">tfm_ns_mailbox_init()</span></code> initializes the memory and
+variables.
+<code class="docutils literal notranslate"><span class="pre">tfm_ns_mailbox_init()</span></code> calls <code class="docutils literal notranslate"><span class="pre">tfm_ns_mailbox_hal_init()</span></code> to perform
+platform specific initialization. The base address of NSPE mailbox queue can be
+passed to SPE mailbox via <code class="docutils literal notranslate"><span class="pre">tfm_ns_mailbox_hal_init()</span></code>.</p>
+<p>NSPE mailbox dedicated Inter-Processor Communication initialization can also be
+enabled during NSPE mailbox initialization.</p>
+</div>
+</div>
+<div class="section" id="mailbox-apis-and-data-structures">
+<h2>Mailbox APIs and data structures<a class="headerlink" href="#mailbox-apis-and-data-structures" title="Permalink to this heading"></a></h2>
+<div class="section" id="data-types">
+<h3>Data types<a class="headerlink" href="#data-types" title="Permalink to this heading"></a></h3>
+<div class="section" id="constants">
+<h4>Constants<a class="headerlink" href="#constants" title="Permalink to this heading"></a></h4>
+<div class="section" id="mailbox-success">
+<h5><code class="docutils literal notranslate"><span class="pre">MAILBOX_SUCCESS</span></code><a class="headerlink" href="#mailbox-success" title="Permalink to this heading"></a></h5>
+<p><code class="docutils literal notranslate"><span class="pre">MAILBOX_SUCCESS</span></code> is a generic return value to indicate success of mailbox
+operation.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#define MAILBOX_SUCCESS        (0)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="mailbox-queue-full">
+<h5><code class="docutils literal notranslate"><span class="pre">MAILBOX_QUEUE_FULL</span></code><a class="headerlink" href="#mailbox-queue-full" title="Permalink to this heading"></a></h5>
+<p><code class="docutils literal notranslate"><span class="pre">MAILBOX_QUEUE_FULL</span></code> is a return value from mailbox function if mailbox queue
+is full.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#define MAILBOX_QUEUE_FULL     (INT32_MIN + 1)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="mailbox-inval-params">
+<h5><code class="docutils literal notranslate"><span class="pre">MAILBOX_INVAL_PARAMS</span></code><a class="headerlink" href="#mailbox-inval-params" title="Permalink to this heading"></a></h5>
+<p><code class="docutils literal notranslate"><span class="pre">MAILBOX_INVAL_PARAMS</span></code> is a return value from mailbox function if any
+parameter is invalid.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#define MAILBOX_INVAL_PARAMS   (INT32_MIN + 2)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="mailbox-no-perms">
+<h5><code class="docutils literal notranslate"><span class="pre">MAILBOX_NO_PERMS</span></code><a class="headerlink" href="#mailbox-no-perms" title="Permalink to this heading"></a></h5>
+<p><code class="docutils literal notranslate"><span class="pre">MAILBOX_NO_PERMS</span></code> is a return value from mailbox function if the caller
+doesn’t own a proper permission to execute the operation.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#define MAILBOX_NO_PERMS       (INT32_MIN + 3)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="mailbox-no-pend-event">
+<h5><code class="docutils literal notranslate"><span class="pre">MAILBOX_NO_PEND_EVENT</span></code><a class="headerlink" href="#mailbox-no-pend-event" title="Permalink to this heading"></a></h5>
+<p><code class="docutils literal notranslate"><span class="pre">MAILBOX_NO_PEND_EVENT</span></code> is a return value from mailbox function if the
+expected event doesn’t occur yet.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#define MAILBOX_NO_PEND_EVENT  (INT32_MIN + 4)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="mailbox-chan-busy">
+<h5><code class="docutils literal notranslate"><span class="pre">MAILBOX_CHAN_BUSY</span></code><a class="headerlink" href="#mailbox-chan-busy" title="Permalink to this heading"></a></h5>
+<p><code class="docutils literal notranslate"><span class="pre">MAILBOX_CHAN_BUSY</span></code> is a return value from mailbox function if the underlying
+Inter-Processor Communication resource is busy.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#define MAILBOX_CHAN_BUSY      (INT32_MIN + 5)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="mailbox-callback-reg-error">
+<h5><code class="docutils literal notranslate"><span class="pre">MAILBOX_CALLBACK_REG_ERROR</span></code><a class="headerlink" href="#mailbox-callback-reg-error" title="Permalink to this heading"></a></h5>
+<p><code class="docutils literal notranslate"><span class="pre">MAILBOX_CALLBACK_REG_ERROR</span></code> is a return value from mailbox function if the
+registration of mailbox callback functions failed.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#define MAILBOX_CALLBACK_REG_ERROR     (INT32_MIN + 6)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="mailbox-init-error">
+<h5><code class="docutils literal notranslate"><span class="pre">MAILBOX_INIT_ERROR</span></code><a class="headerlink" href="#mailbox-init-error" title="Permalink to this heading"></a></h5>
+<p><code class="docutils literal notranslate"><span class="pre">MAILBOX_INIT_ERROR</span></code> is a return value from mailbox function if the mailbox
+initialization failed.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#define MAILBOX_INIT_ERROR     (INT32_MIN + 7)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="mailbox-generic-error">
+<h5><code class="docutils literal notranslate"><span class="pre">MAILBOX_GENERIC_ERROR</span></code><a class="headerlink" href="#mailbox-generic-error" title="Permalink to this heading"></a></h5>
+<p><code class="docutils literal notranslate"><span class="pre">MAILBOX_GENERIC_ERROR</span></code> indicates mailbox generic errors which cannot be
+indicated by the codes above.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#define MAILBOX_GENERIC_ERROR    (INT32_MIN + 8)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="psa-client-api-types">
+<h5>PSA Client API types<a class="headerlink" href="#psa-client-api-types" title="Permalink to this heading"></a></h5>
+<p>The following constants define the PSA Client API type values shared between
+NSPE and SPE</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#define MAILBOX_PSA_FRAMEWORK_VERSION       (0x1)</span>
+<span class="cp">#define MAILBOX_PSA_VERSION                 (0x2)</span>
+<span class="cp">#define MAILBOX_PSA_CONNECT                 (0x3)</span>
+<span class="cp">#define MAILBOX_PSA_CALL                    (0x4)</span>
+<span class="cp">#define MAILBOX_PSA_CLOSE                   (0x5)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="mailbox-message-structure">
+<h4>Mailbox message structure<a class="headerlink" href="#mailbox-message-structure" title="Permalink to this heading"></a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">psa_client_params_t</span></code> lists the parameters passed from NSPE to SPE required by
+a PSA Client call.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">psa_client_params_t</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">union</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="kt">uint32_t</span><span class="w">        </span><span class="n">sid</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="n">psa_version_params</span><span class="p">;</span>
+
+<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="kt">uint32_t</span><span class="w">        </span><span class="n">sid</span><span class="p">;</span>
+<span class="w">            </span><span class="kt">uint32_t</span><span class="w">        </span><span class="n">minor_version</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="n">psa_connect_params</span><span class="p">;</span>
+
+<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">psa_handle_t</span><span class="w">    </span><span class="n">handle</span><span class="p">;</span>
+<span class="w">            </span><span class="kt">int32_t</span><span class="w">         </span><span class="n">type</span><span class="p">;</span>
+<span class="w">            </span><span class="k">const</span><span class="w"> </span><span class="n">psa_invec</span><span class="w"> </span><span class="o">*</span><span class="n">in_vec</span><span class="p">;</span>
+<span class="w">            </span><span class="kt">size_t</span><span class="w">          </span><span class="n">in_len</span><span class="p">;</span>
+<span class="w">            </span><span class="n">psa_outvec</span><span class="w">      </span><span class="o">*</span><span class="n">out_vec</span><span class="p">;</span>
+<span class="w">            </span><span class="kt">size_t</span><span class="w">          </span><span class="n">out_len</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="n">psa_call_params</span><span class="p">;</span>
+
+<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">psa_handle_t</span><span class="w">    </span><span class="n">handle</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="n">psa_close_params</span><span class="p">;</span>
+<span class="w">    </span><span class="p">};</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>The following structure describe a mailbox message and its members.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">call_type</span></code> indicates the PSA Client API type.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">params</span></code> stores the PSA Client call parameters.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">client_id</span></code> records the client ID of the non-secure client. Optional.
+It is used to identify the non-secure tasks in TF-M when NSPE OS enforces
+non-secure task isolation.</p></li>
+</ul>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">mailbox_msg_t</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">uint32_t</span><span class="w">                     </span><span class="n">call_type</span><span class="p">;</span>
+<span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">psa_client_params_t</span><span class="w">   </span><span class="n">params</span><span class="p">;</span>
+
+<span class="w">    </span><span class="kt">int32_t</span><span class="w">                      </span><span class="n">client_id</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="mailbox-reply-structure">
+<h4>Mailbox reply structure<a class="headerlink" href="#mailbox-reply-structure" title="Permalink to this heading"></a></h4>
+<p>This structure describes a mailbox reply structure, which is managed by NSPE
+mailbox in non-secure memory.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">mailbox_reply_t</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">int32_t</span><span class="w">    </span><span class="n">return_val</span><span class="p">;</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">owner</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int32_t</span><span class="w">    </span><span class="o">*</span><span class="n">reply</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">uint8_t</span><span class="w">    </span><span class="o">*</span><span class="n">woken_flag</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="mailbox-queue-status-bitmask">
+<h4>Mailbox queue status bitmask<a class="headerlink" href="#mailbox-queue-status-bitmask" title="Permalink to this heading"></a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">mailbox_queue_status_t</span></code> defines a bitmask to indicate a status of slots in
+mailbox queues.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w">   </span><span class="n">mailbox_queue_status_t</span><span class="p">;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="nspe-mailbox-queue-structure">
+<h4>NSPE mailbox queue structure<a class="headerlink" href="#nspe-mailbox-queue-structure" title="Permalink to this heading"></a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">ns_mailbox_slot_t</span></code> defines a non-secure mailbox queue slot.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cm">/* A single slot structure in NSPE mailbox queue */</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">ns_mailbox_slot_t</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">mailbox_msg_t</span><span class="w">   </span><span class="n">msg</span><span class="p">;</span>
+<span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">mailbox_reply_t</span><span class="w"> </span><span class="n">reply</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">ns_mailbox_queue_t</span></code> describes the NSPE mailbox queue and its members in
+non-secure memory.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">empty_slots</span></code> is the bitmask of empty slots.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pend_slots</span></code> is the bitmask of slots whose PSA Client call is not replied
+yet.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">replied_slots</span></code> is the bitmask of slots whose PSA Client result is returned
+but not extracted yet.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">queue</span></code> is the NSPE mailbox queue of slots.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">is_full</span></code> indicates whether NS mailbox queue is full.</p></li>
+</ul>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">ns_mailbox_queue_t</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">mailbox_queue_status_t</span><span class="w">   </span><span class="n">empty_slots</span><span class="p">;</span>
+<span class="w">    </span><span class="n">mailbox_queue_status_t</span><span class="w">   </span><span class="n">pend_slots</span><span class="p">;</span>
+<span class="w">    </span><span class="n">mailbox_queue_status_t</span><span class="w">   </span><span class="n">replied_slots</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">ns_mailbox_slot_t</span><span class="w"> </span><span class="n">queue</span><span class="p">[</span><span class="n">NUM_MAILBOX_QUEUE_SLOT</span><span class="p">];</span>
+
+<span class="w">    </span><span class="kt">bool</span><span class="w">                     </span><span class="n">is_full</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="spe-mailbox-queue-structure">
+<h4>SPE mailbox queue structure<a class="headerlink" href="#spe-mailbox-queue-structure" title="Permalink to this heading"></a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">secure_mailbox_slot_t</span></code> defines a single slot structure in SPE mailbox queue.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">ns_slot_idx</span></code> records the index of NSPE mailbox slot containing the mailbox
+message under processing. SPE mailbox determines the reply structure address
+according to this index.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">msg_handle</span></code> contains the handle to the mailbox message under processing.
+The handle can be delivered to TF-M SPM while creating PSA message to identify
+the mailbox message.</p></li>
+</ul>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cm">/* A handle to a mailbox message in use */</span>
+<span class="k">typedef</span><span class="w"> </span><span class="kt">int32_t</span><span class="w">    </span><span class="n">mailbox_msg_handle_t</span><span class="p">;</span>
+
+<span class="k">struct</span><span class="w"> </span><span class="nc">secure_mailbox_slot_t</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">uint8_t</span><span class="w">              </span><span class="n">ns_slot_idx</span><span class="p">;</span>
+<span class="w">    </span><span class="n">mailbox_msg_handle_t</span><span class="w"> </span><span class="n">msg_handle</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">secure_mailbox_queue_t</span></code> describes the SPE mailbox queue in secure memory.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">empty_slots</span></code> is the bitmask of empty slots.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">queue</span></code> is the SPE mailbox queue of slots.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ns_queue</span></code> stores the address of NSPE mailbox queue structure.</p></li>
+</ul>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">secure_mailbox_queue_t</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">mailbox_queue_status_t</span><span class="w">       </span><span class="n">empty_slots</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">secure_mailbox_slot_t</span><span class="w"> </span><span class="n">queue</span><span class="p">[</span><span class="n">NUM_MAILBOX_QUEUE_SLOT</span><span class="p">];</span>
+<span class="w">    </span><span class="cm">/* Base address of NSPE mailbox queue in non-secure memory */</span>
+<span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">ns_mailbox_queue_t</span><span class="w">    </span><span class="o">*</span><span class="n">ns_queue</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="nspe-mailbox-apis">
+<h3>NSPE mailbox APIs<a class="headerlink" href="#nspe-mailbox-apis" title="Permalink to this heading"></a></h3>
+<div class="section" id="nspe-mailbox-interface-apis">
+<h4>NSPE mailbox interface APIs<a class="headerlink" href="#nspe-mailbox-interface-apis" title="Permalink to this heading"></a></h4>
+<p>APIs defined in this section are called by NS software and PSA Client APIs
+implementations.</p>
+<div class="section" id="tfm-ns-mailbox-init">
+<h5><code class="docutils literal notranslate"><span class="pre">tfm_ns_mailbox_init()</span></code><a class="headerlink" href="#tfm-ns-mailbox-init" title="Permalink to this heading"></a></h5>
+<p>This function initializes NSPE mailbox.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int32_t</span><span class="w"> </span><span class="nf">tfm_ns_mailbox_init</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">ns_mailbox_queue_t</span><span class="w"> </span><span class="o">*</span><span class="n">queue</span><span class="p">);</span>
+</pre></div>
+</div>
+<p><strong>Parameters</strong></p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 21%" />
+<col style="width: 79%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">queue</span></code></p></td>
+<td><p>The base address of NSPE mailbox queue.</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Return</strong></p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 67%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">MAILBOX_SUCCESS</span></code></p></td>
+<td><p>Initialization succeeds.</p></td>
+</tr>
+<tr class="row-even"><td><p>Other return codes</p></td>
+<td><p>Initialization fails with an error code.</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Usage</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">tfm_ns_mailbox_init()</span></code> invokes <code class="docutils literal notranslate"><span class="pre">tfm_ns_mailbox_hal_init()</span></code> to complete
+platform specific mailbox and Inter-Processor Communication initialization.
+The non-secure memory area for NSPE mailbox queue structure should be statically
+or dynamically pre-allocated before calling <code class="docutils literal notranslate"><span class="pre">tfm_ns_mailbox_init()</span></code>.</p>
+</div>
+<div class="section" id="tfm-ns-mailbox-client-call">
+<h5><code class="docutils literal notranslate"><span class="pre">tfm_ns_mailbox_client_call()</span></code><a class="headerlink" href="#tfm-ns-mailbox-client-call" title="Permalink to this heading"></a></h5>
+<p>This function sends the PSA Client request to SPE, waits and fetches PSA Client
+result.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int32_t</span><span class="w"> </span><span class="nf">tfm_ns_mailbox_client_call</span><span class="p">(</span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">call_type</span><span class="p">,</span>
+<span class="w">                                   </span><span class="k">const</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">psa_client_params_t</span><span class="w"> </span><span class="o">*</span><span class="n">params</span><span class="p">,</span>
+<span class="w">                                   </span><span class="kt">int32_t</span><span class="w"> </span><span class="n">client_id</span><span class="p">,</span>
+<span class="w">                                   </span><span class="kt">int32_t</span><span class="w"> </span><span class="o">*</span><span class="n">reply</span><span class="p">);</span>
+</pre></div>
+</div>
+<p><strong>Parameters</strong></p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 23%" />
+<col style="width: 77%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">call_type</span></code></p></td>
+<td><p>Type of PSA Client call</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">params</span></code></p></td>
+<td><p>Address of PSA Client call parameters structure.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">client_id</span></code></p></td>
+<td><p>ID of non-secure task.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">reply</span></code></p></td>
+<td><p>The NS client task private buffer written with
+PSA Client result</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Return</strong></p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 32%" />
+<col style="width: 68%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">MAILBOX_SUCCESS</span></code></p></td>
+<td><p>PSA Client call is completed successfully.</p></td>
+</tr>
+<tr class="row-even"><td><p>Other return code</p></td>
+<td><p>Operation failed with an error code.</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Usage</strong></p>
+<p>If <code class="docutils literal notranslate"><span class="pre">TFM_MULTI_CORE_NS_OS_MAILBOX_THREAD</span></code> is enabled,
+<code class="docutils literal notranslate"><span class="pre">tfm_ns_mailbox_client_call()</span></code> will forward PSA Client calls to the dedicated
+mailbox thread via NS OS message queue.
+Otherwise, <code class="docutils literal notranslate"><span class="pre">tfm_ns_mailbox_client_call()</span></code> directly deals with PSA Client calls
+and perform NS mailbox functionalities.</p>
+</div>
+<div class="section" id="tfm-ns-mailbox-thread-runner">
+<h5><code class="docutils literal notranslate"><span class="pre">tfm_ns_mailbox_thread_runner()</span></code><a class="headerlink" href="#tfm-ns-mailbox-thread-runner" title="Permalink to this heading"></a></h5>
+<p>This function handles PSA Client call inside a dedicated NS mailbox thread.
+It constructs mailbox messages and transmits them to SPE mailbox.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">tfm_ns_mailbox_thread_runner</span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">args</span><span class="p">);</span>
+</pre></div>
+</div>
+<p><strong>Parameters</strong></p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 14%" />
+<col style="width: 86%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">args</span></code></p></td>
+<td><p>The pointer to the structure of PSA Client call parameters.</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Usage</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">tfm_ns_mailbox_thread_runner()</span></code> should be executed inside the dedicated
+mailbox thread.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><code class="docutils literal notranslate"><span class="pre">tfm_ns_mailbox_thread_runner()</span></code> is implemented as an empty function when
+<code class="docutils literal notranslate"><span class="pre">TFM_MULTI_CORE_NS_OS_MAILBOX_THREAD</span></code> is disabled.</p>
+</div>
+</div>
+<div class="section" id="tfm-ns-mailbox-wake-reply-owner-isr">
+<h5><code class="docutils literal notranslate"><span class="pre">tfm_ns_mailbox_wake_reply_owner_isr()</span></code><a class="headerlink" href="#tfm-ns-mailbox-wake-reply-owner-isr" title="Permalink to this heading"></a></h5>
+<p>This function wakes up the owner task(s) of the returned PSA Client result(s).</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int32_t</span><span class="w"> </span><span class="nf">tfm_ns_mailbox_wake_reply_owner_isr</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
+</pre></div>
+</div>
+<p><strong>Return</strong></p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 38%" />
+<col style="width: 62%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">MAILBOX_SUCCESS</span></code></p></td>
+<td><p>The tasks of replied mailbox messages were
+found and wake-up signals were sent.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">MAILBOX_NO_PEND_EVENT</span></code></p></td>
+<td><p>No replied mailbox message is found.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Other return codes</p></td>
+<td><p>Operation failed with an error code</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Usage</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">tfm_ns_mailbox_wake_reply_owner_isr()</span></code> should be called from platform
+specific Inter-Processor Communication interrupt handler.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><code class="docutils literal notranslate"><span class="pre">tfm_ns_mailbox_wake_reply_owner_isr()</span></code> is implemented as a dummy function
+when <code class="docutils literal notranslate"><span class="pre">TFM_MULTI_CORE_NS_OS</span></code> is disabled.</p>
+</div>
+</div>
+</div>
+<div class="section" id="nspe-mailbox-hal-apis">
+<h4>NSPE mailbox HAL APIs<a class="headerlink" href="#nspe-mailbox-hal-apis" title="Permalink to this heading"></a></h4>
+<p>The HAL APIs defined in this section should be implemented by platform-specific
+implementation.</p>
+<p>This section describes a <em>reference design</em> of NSPE mailbox HAL APIs. Developers
+can define and implement different APIs.</p>
+<div class="section" id="tfm-ns-mailbox-hal-init">
+<h5><code class="docutils literal notranslate"><span class="pre">tfm_ns_mailbox_hal_init()</span></code><a class="headerlink" href="#tfm-ns-mailbox-hal-init" title="Permalink to this heading"></a></h5>
+<p>This function executes platform-specific NSPE mailbox initialization.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int32_t</span><span class="w"> </span><span class="nf">tfm_ns_mailbox_hal_init</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">ns_mailbox_queue_t</span><span class="w"> </span><span class="o">*</span><span class="n">queue</span><span class="p">);</span>
+</pre></div>
+</div>
+<p><strong>Parameters</strong></p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 21%" />
+<col style="width: 79%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">queue</span></code></p></td>
+<td><p>The base address of NSPE mailbox queue.</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Return</strong></p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 67%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">MAILBOX_SUCCESS</span></code></p></td>
+<td><p>Initialization succeeds.</p></td>
+</tr>
+<tr class="row-even"><td><p>Other return codes</p></td>
+<td><p>Initialization fails with an error code.</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Usage</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">tfm_ns_mailbox_hal_init()</span></code> performs platform specific mailbox and
+Inter-Processor Communication initialization. <code class="docutils literal notranslate"><span class="pre">tfm_ns_mailbox_hal_init()</span></code> can
+also share the address of NSPE mailbox queue with SPE mailbox via platform
+specific implementation.</p>
+</div>
+<div class="section" id="tfm-ns-mailbox-hal-notify-peer">
+<h5><code class="docutils literal notranslate"><span class="pre">tfm_ns_mailbox_hal_notify_peer()</span></code><a class="headerlink" href="#tfm-ns-mailbox-hal-notify-peer" title="Permalink to this heading"></a></h5>
+<p>This function invokes platform specific Inter-Processor Communication drivers to
+send notification to SPE.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int32_t</span><span class="w"> </span><span class="nf">tfm_ns_mailbox_hal_notify_peer</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
+</pre></div>
+</div>
+<p><strong>Return</strong></p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 35%" />
+<col style="width: 65%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">MAILBOX_SUCCESS</span></code></p></td>
+<td><p>The operation completes successfully.</p></td>
+</tr>
+<tr class="row-even"><td><p>Other return codes</p></td>
+<td><p>Operation fails with an error code.</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Usage</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">tfm_ns_mailbox_hal_notify_peer()</span></code> should be implemented by platform specific
+Inter-Processor Communication drivers.</p>
+<p><code class="docutils literal notranslate"><span class="pre">tfm_ns_mailbox_hal_notify_peer()</span></code> should not be exported outside NSPE
+mailbox.</p>
+</div>
+<div class="section" id="tfm-ns-mailbox-hal-enter-critical">
+<h5><code class="docutils literal notranslate"><span class="pre">tfm_ns_mailbox_hal_enter_critical()</span></code><a class="headerlink" href="#tfm-ns-mailbox-hal-enter-critical" title="Permalink to this heading"></a></h5>
+<p>This function enters the critical section of NSPE mailbox queue access.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">tfm_ns_mailbox_hal_enter_critical</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
+</pre></div>
+</div>
+<p><strong>Usage</strong></p>
+<p>NSPE mailbox invokes <code class="docutils literal notranslate"><span class="pre">tfm_ns_mailbox_hal_enter_critical()</span></code> before entering
+critical section of NSPE mailbox queue.
+<code class="docutils literal notranslate"><span class="pre">tfm_ns_mailbox_hal_enter_critical()</span></code> implementation is platform specific.</p>
+<p><code class="docutils literal notranslate"><span class="pre">tfm_ns_mailbox_hal_enter_critical()</span></code> should not be called in any interrupt
+service routine.</p>
+</div>
+<div class="section" id="tfm-ns-mailbox-hal-exit-critical">
+<h5><code class="docutils literal notranslate"><span class="pre">tfm_ns_mailbox_hal_exit_critical()</span></code><a class="headerlink" href="#tfm-ns-mailbox-hal-exit-critical" title="Permalink to this heading"></a></h5>
+<p>This function exits the critical section of NSPE mailbox queue access.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">tfm_ns_mailbox_hal_exit_critical</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
+</pre></div>
+</div>
+<p><strong>Usage</strong></p>
+<p>NSPE mailbox invokes <code class="docutils literal notranslate"><span class="pre">tfm_ns_mailbox_hal_exit_critical()</span></code> after exiting
+critical section of NSPE mailbox queue.
+<code class="docutils literal notranslate"><span class="pre">tfm_ns_mailbox_hal_exit_critical()</span></code> implementation is platform specific.</p>
+<p><code class="docutils literal notranslate"><span class="pre">tfm_ns_mailbox_hal_exit_critical()</span></code> should not be called in any interrupt
+service routine.</p>
+</div>
+<div class="section" id="tfm-ns-mailbox-hal-enter-critical-isr">
+<h5><code class="docutils literal notranslate"><span class="pre">tfm_ns_mailbox_hal_enter_critical_isr()</span></code><a class="headerlink" href="#tfm-ns-mailbox-hal-enter-critical-isr" title="Permalink to this heading"></a></h5>
+<p>This function enters the critical section of NSPE mailbox queue access in an
+IRQ handler.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">tfm_ns_mailbox_hal_enter_critical</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
+</pre></div>
+</div>
+<p><strong>Usage</strong></p>
+<p>NSPE mailbox invokes <code class="docutils literal notranslate"><span class="pre">tfm_ns_mailbox_hal_enter_critical_isr()</span></code> before entering
+critical section of NSPE mailbox queue in an IRQ handler.
+<code class="docutils literal notranslate"><span class="pre">tfm_ns_mailbox_hal_enter_critical_isr()</span></code> implementation is platform specific.</p>
+</div>
+<div class="section" id="tfm-ns-mailbox-hal-exit-critical-isr">
+<h5><code class="docutils literal notranslate"><span class="pre">tfm_ns_mailbox_hal_exit_critical_isr()</span></code><a class="headerlink" href="#tfm-ns-mailbox-hal-exit-critical-isr" title="Permalink to this heading"></a></h5>
+<p>This function exits the critical section of NSPE mailbox queue access in an IRQ
+handler</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">tfm_ns_mailbox_hal_exit_critical_isr</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
+</pre></div>
+</div>
+<p><strong>Usage</strong></p>
+<p>NSPE mailbox invokes <code class="docutils literal notranslate"><span class="pre">tfm_ns_mailbox_hal_exit_critical_isr()</span></code> after exiting
+critical section of NSPE mailbox queue in an IRQ handler.
+<code class="docutils literal notranslate"><span class="pre">tfm_ns_mailbox_hal_exit_critical_isr()</span></code> implementation is platform specific.</p>
+</div>
+</div>
+<div class="section" id="nspe-mailbox-rtos-abstraction-apis">
+<h4>NSPE mailbox RTOS abstraction APIs<a class="headerlink" href="#nspe-mailbox-rtos-abstraction-apis" title="Permalink to this heading"></a></h4>
+<p>The APIs defined in this section should be implemented by RTOS-specific
+implementation when <code class="docutils literal notranslate"><span class="pre">TFM_MULTI_CORE_NS_OS</span></code> is enabled.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If <code class="docutils literal notranslate"><span class="pre">TFM_MULTI_CORE_NS_OS</span></code> is set to <code class="docutils literal notranslate"><span class="pre">OFF</span></code>, the following APIs are defined
+as dummy functions or empty functions.</p>
+</div>
+<div class="section" id="tfm-ns-mailbox-os-lock-init">
+<h5><code class="docutils literal notranslate"><span class="pre">tfm_ns_mailbox_os_lock_init()</span></code><a class="headerlink" href="#tfm-ns-mailbox-os-lock-init" title="Permalink to this heading"></a></h5>
+<p>This function initializes the multi-core lock for synchronizing PSA client
+call(s). The actual implementation depends on the non-secure use scenario.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int32_t</span><span class="w"> </span><span class="nf">tfm_ns_mailbox_os_lock_init</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
+</pre></div>
+</div>
+<p><strong>Return</strong></p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">MAILBOX_SUCCESS</span></code></p></td>
+<td><p>Initialization succeeded.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">MAILBOX_GENERIC_ERROR</span></code></p></td>
+<td><p>Initialization failed.</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Usage</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">tfm_ns_mailbox_init()</span></code> invokes this function to initialize the lock.
+If <code class="docutils literal notranslate"><span class="pre">TFM_MULTI_CORE_NS_OS_MAILBOX_THREAD</span></code> is enabled,
+<code class="docutils literal notranslate"><span class="pre">tfm_ns_mailbox_os_lock_init()</span></code> is defined as a dummy one.</p>
+</div>
+<div class="section" id="tfm-ns-mailbox-os-lock-acquire">
+<h5><code class="docutils literal notranslate"><span class="pre">tfm_ns_mailbox_os_lock_acquire()</span></code><a class="headerlink" href="#tfm-ns-mailbox-os-lock-acquire" title="Permalink to this heading"></a></h5>
+<p>This function acquires the multi-core lock for synchronizing PSA client call(s).
+The actual implementation depends on the non-secure use scenario.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int32_t</span><span class="w"> </span><span class="nf">tfm_ns_mailbox_os_lock_acquire</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
+</pre></div>
+</div>
+<p><strong>Return</strong></p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 46%" />
+<col style="width: 54%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">MAILBOX_SUCCESS</span></code></p></td>
+<td><p>Succeeded to acquire the lock.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">MAILBOX_GENERIC_ERROR</span></code></p></td>
+<td><p>Failed to acquire the lock.</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Usage</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">tfm_ns_mailbox_client_call()</span></code> invokes this function to acquire the lock when
+<code class="docutils literal notranslate"><span class="pre">TFM_MULTI_CORE_NS_OS_MAILBOX_THREAD</span></code> is disabled
+If <code class="docutils literal notranslate"><span class="pre">TFM_MULTI_CORE_NS_OS_MAILBOX_THREAD</span></code> is enabled,
+<code class="docutils literal notranslate"><span class="pre">tfm_ns_mailbox_os_lock_acquire()</span></code> is defined as a dummy one.</p>
+</div>
+<div class="section" id="tfm-ns-mailbox-os-lock-release">
+<h5><code class="docutils literal notranslate"><span class="pre">tfm_ns_mailbox_os_lock_release()</span></code><a class="headerlink" href="#tfm-ns-mailbox-os-lock-release" title="Permalink to this heading"></a></h5>
+<p>This function releases the multi-core lock for synchronizing PSA client call(s).
+The actual implementation depends on the non-secure use scenario.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int32_t</span><span class="w"> </span><span class="nf">tfm_ns_mailbox_os_lock_release</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
+</pre></div>
+</div>
+<p><strong>Return</strong></p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 46%" />
+<col style="width: 54%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">MAILBOX_SUCCESS</span></code></p></td>
+<td><p>Succeeded to release the lock.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">MAILBOX_GENERIC_ERROR</span></code></p></td>
+<td><p>Failed to release the lock.</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Usage</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">tfm_ns_mailbox_client_call()</span></code> invokes this function to release the lock when
+<code class="docutils literal notranslate"><span class="pre">TFM_MULTI_CORE_NS_OS_MAILBOX_THREAD</span></code> is disabled
+If <code class="docutils literal notranslate"><span class="pre">TFM_MULTI_CORE_NS_OS_MAILBOX_THREAD</span></code> is enabled,
+<code class="docutils literal notranslate"><span class="pre">tfm_ns_mailbox_os_lock_release()</span></code> is defined as a dummy one.</p>
+</div>
+<div class="section" id="tfm-ns-mailbox-os-get-task-handle">
+<h5><code class="docutils literal notranslate"><span class="pre">tfm_ns_mailbox_os_get_task_handle()</span></code><a class="headerlink" href="#tfm-ns-mailbox-os-get-task-handle" title="Permalink to this heading"></a></h5>
+<p>This function gets the handle of the current non-secure task executing mailbox
+functionalities.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="nf">tfm_ns_mailbox_os_get_task_handle</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
+</pre></div>
+</div>
+<p><strong>Return</strong></p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 18%" />
+<col style="width: 82%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>Task handle</p></td>
+<td><p>The non-secure task handle waiting for PSA Client result.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="tfm-ns-mailbox-os-wait-reply">
+<h5><code class="docutils literal notranslate"><span class="pre">tfm_ns_mailbox_os_wait_reply()</span></code><a class="headerlink" href="#tfm-ns-mailbox-os-wait-reply" title="Permalink to this heading"></a></h5>
+<p>This function performs use scenario and NS OS specific waiting mechanism to wait
+for the reply of the specified mailbox message to be returned from SPE.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">tfm_ns_mailbox_os_wait_reply</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
+</pre></div>
+</div>
+<p><strong>Usage</strong></p>
+<p>The PSA Client API implementations call <code class="docutils literal notranslate"><span class="pre">tfm_ns_mailbox_os_wait_reply()</span></code> to
+fall into sleep to wait for PSA Client result.</p>
+</div>
+<div class="section" id="tfm-ns-mailbox-os-wake-task-isr">
+<h5><code class="docutils literal notranslate"><span class="pre">tfm_ns_mailbox_os_wake_task_isr()</span></code><a class="headerlink" href="#tfm-ns-mailbox-os-wake-task-isr" title="Permalink to this heading"></a></h5>
+<p>This function wakes up the dedicated task which is waiting for PSA Client
+result, via RTOS-specific wake-up mechanism.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">tfm_ns_mailbox_hal_wait_reply</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">task_handle</span><span class="p">);</span>
+</pre></div>
+</div>
+<p><strong>Parameters</strong></p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 30%" />
+<col style="width: 70%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">task_handle</span></code></p></td>
+<td><p>The handle to the task to be woken up.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="tfm-ns-mailbox-os-mq-create">
+<h5><code class="docutils literal notranslate"><span class="pre">tfm_ns_mailbox_os_mq_create()</span></code><a class="headerlink" href="#tfm-ns-mailbox-os-mq-create" title="Permalink to this heading"></a></h5>
+<p>This function creates and initializes a NS OS message queue.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="nf">tfm_ns_mailbox_os_mq_create</span><span class="p">(</span><span class="n">ize_t</span><span class="w"> </span><span class="n">msg_size</span><span class="p">,</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">msg_count</span><span class="p">);</span>
+</pre></div>
+</div>
+<p><strong>Parameters</strong></p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 26%" />
+<col style="width: 74%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">msg_size</span></code></p></td>
+<td><p>The maximum message size in bytes.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">msg_count</span></code></p></td>
+<td><p>The maximum number of messages in queue.</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Return</strong></p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 29%" />
+<col style="width: 71%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>message queue handle</p></td>
+<td><p>The handle of the message queue created, or NULL in
+case of error.</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Usage</strong></p>
+<p>If <code class="docutils literal notranslate"><span class="pre">TFM_MULTI_CORE_NS_OS_MAILBOX_THREAD</span></code> is disabled,
+<code class="docutils literal notranslate"><span class="pre">tfm_ns_mailbox_os_mq_create()</span></code> is defined as a dummy one.</p>
+</div>
+<div class="section" id="tfm-ns-mailbox-os-mq-send">
+<h5><code class="docutils literal notranslate"><span class="pre">tfm_ns_mailbox_os_mq_send()</span></code><a class="headerlink" href="#tfm-ns-mailbox-os-mq-send" title="Permalink to this heading"></a></h5>
+<p>This function sends PSA Client call request via NS OS message queue.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int32_t</span><span class="w"> </span><span class="nf">tfm_ns_mailbox_os_mq_send</span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">mq_handle</span><span class="p">,</span>
+<span class="w">                                  </span><span class="k">const</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">msg_ptr</span><span class="p">);</span>
+</pre></div>
+</div>
+<p><strong>Parameters</strong></p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 27%" />
+<col style="width: 73%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">mq_handle</span></code></p></td>
+<td><p>The handle of message queue.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">msg_ptr</span></code></p></td>
+<td><p>The pointer to the message to be sent.</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Return</strong></p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 36%" />
+<col style="width: 64%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">MAILBOX_SUCCESS</span></code></p></td>
+<td><p>The message is successfully sent.</p></td>
+</tr>
+<tr class="row-even"><td><p>Other return code</p></td>
+<td><p>Operation fails with an error code.</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Usage</strong></p>
+<p>If <code class="docutils literal notranslate"><span class="pre">TFM_MULTI_CORE_NS_OS_MAILBOX_THREAD</span></code> is disabled,
+<code class="docutils literal notranslate"><span class="pre">tfm_ns_mailbox_os_mq_send()</span></code> is defined as a dummy one.</p>
+</div>
+<div class="section" id="tfm-ns-mailbox-os-mq-receive">
+<h5><code class="docutils literal notranslate"><span class="pre">tfm_ns_mailbox_os_mq_receive()</span></code><a class="headerlink" href="#tfm-ns-mailbox-os-mq-receive" title="Permalink to this heading"></a></h5>
+<p>This function receives PSA Client call requests via NS OS message queue.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int32_t</span><span class="w"> </span><span class="nf">tfm_ns_mailbox_os_mq_receive</span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">mq_handle</span><span class="p">,</span>
+<span class="w">                                     </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">msg_ptr</span><span class="p">);</span>
+</pre></div>
+</div>
+<p><strong>Parameters</strong></p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 23%" />
+<col style="width: 77%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">mq_handle</span></code></p></td>
+<td><p>The handle of message queue.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">msg_ptr</span></code></p></td>
+<td><p>The pointer to buffer for message to be received.</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Return</strong></p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 36%" />
+<col style="width: 64%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">MAILBOX_SUCCESS</span></code></p></td>
+<td><p>A message is successfully received.</p></td>
+</tr>
+<tr class="row-even"><td><p>Other return code</p></td>
+<td><p>Operation fails with an error code.</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Usage</strong></p>
+<p>The buffer size must be large enough to contain the request whose size is set
+in <code class="docutils literal notranslate"><span class="pre">msg_size</span> <span class="pre">``</span> <span class="pre">in</span> <span class="pre">``tfm_ns_mailbox_os_mq_create()</span></code>.</p>
+<p>If <code class="docutils literal notranslate"><span class="pre">TFM_MULTI_CORE_NS_OS_MAILBOX_THREAD</span></code> is disabled,
+<code class="docutils literal notranslate"><span class="pre">tfm_ns_mailbox_os_mq_receive()</span></code> is defined as a dummy one.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The function caller should be blocked until a PSA Client call request is
+received from message queue, unless a fatal error occurs.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="spe-mailbox-apis">
+<h3>SPE mailbox APIs<a class="headerlink" href="#spe-mailbox-apis" title="Permalink to this heading"></a></h3>
+<div class="section" id="spe-mailbox-interface-apis">
+<h4>SPE mailbox interface APIs<a class="headerlink" href="#spe-mailbox-interface-apis" title="Permalink to this heading"></a></h4>
+<p>The APIs defined in this section are called in TF-M routines and platform
+specific secure interrupt handler.</p>
+<div class="section" id="tfm-mailbox-handle-msg">
+<h5><code class="docutils literal notranslate"><span class="pre">tfm_mailbox_handle_msg()</span></code><a class="headerlink" href="#tfm-mailbox-handle-msg" title="Permalink to this heading"></a></h5>
+<p>This function completes the handling of mailbox messages from NSPE.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int32_t</span><span class="w"> </span><span class="nf">tfm_mailbox_handle_msg</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
+</pre></div>
+</div>
+<p><strong>Return</strong></p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 35%" />
+<col style="width: 65%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">MAILBOX_SUCCESS</span></code></p></td>
+<td><p>The operation completes successfully.</p></td>
+</tr>
+<tr class="row-even"><td><p>Other return codes</p></td>
+<td><p>Operation fails with an error code.</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Usage</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">tfm_mailbox_handle_msg()</span></code> is registered to RPC callback function
+<code class="docutils literal notranslate"><span class="pre">handle_req</span></code>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">tfm_mailbox_handle_msg()</span></code> executes the following tasks:</p>
+<ul class="simple">
+<li><p>Check NSPE mailbox queue status.</p></li>
+<li><p>Copy mailbox message(s) from NSPE. Optional.</p></li>
+<li><p>Checks and validations if necessary</p></li>
+<li><p>Parse mailbox message</p></li>
+<li><p>Call TF-M RPC APIs to pass PSA Client request to TF-M SPM.</p></li>
+</ul>
+</div>
+<div class="section" id="tfm-mailbox-reply-msg">
+<h5><code class="docutils literal notranslate"><span class="pre">tfm_mailbox_reply_msg()</span></code><a class="headerlink" href="#tfm-mailbox-reply-msg" title="Permalink to this heading"></a></h5>
+<p>This function replies the PSA Client result to NSPE.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int32_t</span><span class="w"> </span><span class="nf">tfm_mailbox_reply_msg</span><span class="p">(</span><span class="n">mailbox_msg_handle_t</span><span class="w"> </span><span class="n">handle</span><span class="p">,</span><span class="w"> </span><span class="kt">int32_t</span><span class="w"> </span><span class="n">reply</span><span class="p">);</span>
+</pre></div>
+</div>
+<p><strong>Parameters</strong></p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 16%" />
+<col style="width: 84%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">handle</span></code></p></td>
+<td><p>The handle to mailbox message related to the PSA Client result.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">reply</span></code></p></td>
+<td><p>The PSA Client result value to be replied.</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Return</strong></p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 35%" />
+<col style="width: 65%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">MAILBOX_SUCCESS</span></code></p></td>
+<td><p>The operation completes successfully.</p></td>
+</tr>
+<tr class="row-even"><td><p>Other return codes</p></td>
+<td><p>Operation fails with an error code.</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Usage</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">tfm_mailbox_reply_msg()</span></code> is registered to RPC callback <code class="docutils literal notranslate"><span class="pre">reply</span></code>.
+It is invoked inside handler of <code class="docutils literal notranslate"><span class="pre">psa_reply()</span></code> to return the PSA Client result
+to NSPE.</p>
+<p><code class="docutils literal notranslate"><span class="pre">handle</span></code> determines which mailbox message in SPE mailbox queue contains the
+PSA Client call. If <code class="docutils literal notranslate"><span class="pre">handle</span></code> is set as <code class="docutils literal notranslate"><span class="pre">MAILBOX_MSG_NULL_HANDLE</span></code>, the return
+result is replied to the mailbox message in the first SPE mailbox queue slot.</p>
+</div>
+<div class="section" id="tfm-mailbox-init">
+<h5><code class="docutils literal notranslate"><span class="pre">tfm_mailbox_init()</span></code><a class="headerlink" href="#tfm-mailbox-init" title="Permalink to this heading"></a></h5>
+<p>This function initializes SPE mailbox.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int32_t</span><span class="w"> </span><span class="nf">tfm_mailbox_init</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
+</pre></div>
+</div>
+<p><strong>Return</strong></p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 67%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">MAILBOX_SUCCESS</span></code></p></td>
+<td><p>Initialization succeeds.</p></td>
+</tr>
+<tr class="row-even"><td><p>Other return codes</p></td>
+<td><p>Initialization failed with an error code.</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Usage</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">tfm_mailbox_init()</span></code> invokes <code class="docutils literal notranslate"><span class="pre">tfm_mailbox_hal_init()</span></code> to execute platform
+specific initialization.</p>
+</div>
+</div>
+<div class="section" id="spe-mailbox-hal-apis">
+<h4>SPE mailbox HAL APIs<a class="headerlink" href="#spe-mailbox-hal-apis" title="Permalink to this heading"></a></h4>
+<div class="section" id="tfm-mailbox-hal-notify-peer">
+<h5><code class="docutils literal notranslate"><span class="pre">tfm_mailbox_hal_notify_peer()</span></code><a class="headerlink" href="#tfm-mailbox-hal-notify-peer" title="Permalink to this heading"></a></h5>
+<p>This function invokes platform specific Inter-Processor Communication drivers to
+send notification to NSPE.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int32_t</span><span class="w"> </span><span class="nf">tfm_mailbox_hal_notify_peer</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
+</pre></div>
+</div>
+<p><strong>Return</strong></p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 35%" />
+<col style="width: 65%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">MAILBOX_SUCCESS</span></code></p></td>
+<td><p>The operation completes successfully.</p></td>
+</tr>
+<tr class="row-even"><td><p>Other return codes</p></td>
+<td><p>Operation fails with an error code.</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Usage</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">tfm_mailbox_hal_notify_peer()</span></code> should be implemented by platform specific
+Inter-Processor Communication drivers.</p>
+<p><code class="docutils literal notranslate"><span class="pre">tfm_mailbox_hal_notify_peer()</span></code> should not be exported outside SPE mailbox.</p>
+</div>
+<div class="section" id="tfm-mailbox-hal-init">
+<h5><code class="docutils literal notranslate"><span class="pre">tfm_mailbox_hal_init()</span></code><a class="headerlink" href="#tfm-mailbox-hal-init" title="Permalink to this heading"></a></h5>
+<p>This function is implemented by platform support in TF-M. It completes platform
+specific mailbox initialization, including receiving the the address of NSPE
+mailbox queue and Inter-Processor Communication initialization.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int32_t</span><span class="w"> </span><span class="nf">tfm_mailbox_hal_init</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">secure_mailbox_queue_t</span><span class="w"> </span><span class="o">*</span><span class="n">s_queue</span><span class="p">);</span>
+</pre></div>
+</div>
+<p><strong>Parameters</strong></p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 75%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">s_queue</span></code></p></td>
+<td><p>The base address of SPE mailbox queue.</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Return</strong></p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 67%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">MAILBOX_SUCCESS</span></code></p></td>
+<td><p>Initialization succeeds.</p></td>
+</tr>
+<tr class="row-even"><td><p>Other return codes</p></td>
+<td><p>Initialization failed with an error code.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="tfm-mailbox-hal-enter-critical">
+<h5><code class="docutils literal notranslate"><span class="pre">tfm_mailbox_hal_enter_critical()</span></code><a class="headerlink" href="#tfm-mailbox-hal-enter-critical" title="Permalink to this heading"></a></h5>
+<p>This function enters the critical section of NSPE mailbox queue access in SPE.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">tfm_mailbox_hal_enter_critical</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
+</pre></div>
+</div>
+<p><strong>Usage</strong></p>
+<p>SPE mailbox invokes <code class="docutils literal notranslate"><span class="pre">tfm_mailbox_hal_enter_critical()</span></code> before entering
+critical section of NSPE mailbox queue.
+<code class="docutils literal notranslate"><span class="pre">tfm_mailbox_hal_enter_critical()</span></code> implementation is platform specific.</p>
+<p><code class="docutils literal notranslate"><span class="pre">tfm_mailbox_hal_enter_critical()</span></code> can be called in an interrupt service
+routine.</p>
+</div>
+<div class="section" id="tfm-mailbox-hal-exit-critical">
+<h5><code class="docutils literal notranslate"><span class="pre">tfm_mailbox_hal_exit_critical()</span></code><a class="headerlink" href="#tfm-mailbox-hal-exit-critical" title="Permalink to this heading"></a></h5>
+<p>This function exits from the critical section of NSPE mailbox queue access in
+SPE.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">tfm_mailbox_hal_exit_critical</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
+</pre></div>
+</div>
+<p><strong>Usage</strong></p>
+<p>SPE mailbox invokes <code class="docutils literal notranslate"><span class="pre">tfm_mailbox_hal_exit_critical()</span></code> when exiting from
+critical section of NSPE mailbox queue.
+<code class="docutils literal notranslate"><span class="pre">tfm_mailbox_hal_exit_critical()</span></code> implementation is platform specific.</p>
+<p><code class="docutils literal notranslate"><span class="pre">tfm_mailbox_hal_exit_critical()</span></code> can be called in an interrupt service
+routine.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="reference">
+<h2>Reference<a class="headerlink" href="#reference" title="Permalink to this heading"></a></h2>
+<dl class="footnote brackets">
+<dt class="label" id="id6"><span class="brackets">1</span><span class="fn-backref">(<a href="#id1">1</a>,<a href="#id3">2</a>,<a href="#id4">3</a>)</span></dt>
+<dd><p><a class="reference internal" href="communication_prototype_between_nspe_and_spe_in_dual_core_systems.html"><span class="doc">Communication prototype between NSPE and SPE in Dual-core systems</span></a></p>
+</dd>
+<dt class="label" id="id7"><span class="brackets">2</span><span class="fn-backref">(<a href="#id2">1</a>,<a href="#id5">2</a>)</span></dt>
+<dd><p><a class="reference internal" href="booting_a_dual_core_system.html"><span class="doc">Booting a Dual-core system</span></a></p>
+</dd>
+</dl>
+<hr class="docutils" />
+<p><em>Copyright (c) 2019-2024 Arm Limited. All Rights Reserved.</em>
+<em>Copyright (c) 2022 Cypress Semiconductor Corporation. All rights reserved.</em></p>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p></p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

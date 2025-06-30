@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
-
+  <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Crypto Service Integration Guide &mdash; Trusted Firmware-M v1.7.0-stm32mp25-alpha-r1-rc3-doc documentation</title>
+  <title>Crypto Service Integration Guide &mdash; Trusted Firmware-M v2.1.0-stm32mp-r1 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/tfm_custom.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/tabs.css" type="text/css" />
     <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
         <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
         <script src="../../_static/jquery.js"></script>
@@ -28,16 +30,20 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../../index.html" class="icon icon-home"> Trusted Firmware-M
-            <img src="../../_static/tf_logo_white.png" class="logo" alt="Logo"/>
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            Trusted Firmware-M
+              <img src="../../_static/tf_logo_white.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                v1.7.0-stm32mp25-alpha-r1-rc3-doc
+                v2.1.0-stm32mp-r1
 
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -52,70 +58,88 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../security/index.html">Security</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../security/threat_models/generic_threat_model.html">Threat model</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../security/security_advisories/index.html">Security Advisories</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/stack_seal_vulnerability.html">Advisory TFMV-1</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/svc_caller_sp_fetching_vulnerability.html">Advisory TFMV-2</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/crypto_multi_part_ops_abort_fail.html">Advisory TFMV-3</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/profile_small_key_id_encoding_vulnerability.html">Advisory TFMV-4</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/fwu_write_vulnerability.html">Advisory TFMV-5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/cc3xx_partial_tag_compare_on_chacha20_poly1305.html">Advisory TFMV-6</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/debug_log_vulnerability.html">Advisory TFMV-7</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../security/threat_models/index.html">Threat Models</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../security/threat_models/generic_threat_model.html">Trusted Firmware-M Generic Threat Model</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../../security/security.html">Security Handling</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../releases/index.html">Releases</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../releases/1.7.0.html">v1.7.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../releases/1.6.1.html">v1.6.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../releases/1.6.0.html">v1.6.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../releases/1.5.0.html">v1.5.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/2.1.0.html">v2.1.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/2.0.0.html">v2.0.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/1.8.1.html">v1.8.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/1.8.0.html">v1.8.0</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../releases/release_process.html">Release Cadence and Process</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../../roadmap.html">Roadmap</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../glossary.html">Glossary</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../../platform/index.html">Platform Selection</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../platform/arm/index.html">Arm platforms</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../platform/index.html">Platforms</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/arm/index.html">Arm</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/arm/corstone1000/readme.html">Corstone-1000</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/mps3/an547/README.html">Corstone-300 FPGA (AN547)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/mps3/an552/README.html">Corstone-300 FPGA and FVP (AN552)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/mps3/corstone310/README.html">Corstone-310 FVP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/mps3/corstone300/README.html">Corstone-300 FPGA (AN547 and AN552) and FVP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/mps3/corstone310/README.html">Corstone-310 FPGA (AN555) and FVP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/mps4/corstone315/README.html">Corstone-315 FVP</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/arm/musca_b1/readme.html">Musca-B1</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/arm/musca_s1/readme.html">Musca-S1</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/rss/readme.html">Runtime Security Subsystem</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/rse/index.html">Runtime Security Engine</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../platform/nxp/lpcxpresso55s69/README.html">LPCXpresso55S69</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../platform/cypress/psoc64/index.html">Cypress PSoC64</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../platform/cypress/psoc64/cypress_psoc64_spec.html">Cypress PSoC64 Specifics</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../platform/cypress/psoc64/libs/core-lib/README.html">Core Library</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../platform/cypress/psoc64/libs/core-lib/RELEASE.html">Core Library Release Notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/armchina/index.html">ArmChina</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/armchina/mps3/alcor/README.html">Alcor FPGA (AN557)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/cypress/index.html">Cypress</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/cypress/psoc64/index.html">PSoC64</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/lairdconnectivity/index.html">Laird Connectivity</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/lairdconnectivity/bl5340_dvk_cpuapp/README.html">BL5340</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/nordic_nrf/index.html">Nordic</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/nordic_nrf/nrf5340dk_nrf5340_cpuapp/README.html">nRF5340</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/nordic_nrf/nrf9160dk_nrf9160/README.html">nRF9160</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/nordic_nrf/nrf9161dk_nrf9161/README.html">nRF9161</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/nuvoton/index.html">Nuvoton</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/nuvoton/m2351/README.html">NuMaker-PFM-M2351</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/nuvoton/m2354/README.html">NuMaker-PFM-M2354</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/nxp/index.html">NXP</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/nxp/lpcxpresso55s69/README.html">LPCXpresso55S69</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../platform/stm/index.html">STMICROELECTRONICS</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32h5xx/readme.html">STM32H5</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32l5xx/readme.html">STM32L5</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32mp2/readme.html">STM32MP2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32mp2xx/readme.html">STM32MP2</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32u5xx/readme.html">STM32U5</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/nucleo_l552ze_q/readme.html">NUCLEO-L552ZE-Q</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32l562e_dk/readme.html">STM32L562E-DK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/nucleo_l552ze_q/readme.html">NUCLEO_L552ZE_Q</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32h573i_dk/readme.html">STM32H573I_DK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32l562e_dk/readme.html">STM32L562E_DK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp215f_dk/readme.html">stm32mp215f_dk</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/b_u585i_iot02a/readme.html">B-U585I-IOT02A</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/b_u585i_iot02a/readme.html">B_U585I_IOT02A</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../platform/nordic_nrf/nrf5340dk_nrf5340_cpuapp/README.html">Nordic nRF5340</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../platform/nordic_nrf/nrf9160dk_nrf9160/README.html">Nordic nRF9160</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../platform/lairdconnectivity/bl5340_dvk_cpuapp/README.html">Laird Connectivity BL5340</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../platform/nuvoton/m2351/README.html">NuMaker-PFM-M2351</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../platform/nuvoton/m2354/README.html">NuMaker-PFM-M2354</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../building/tfm_build_instruction.html">Build instructions</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../building/run_tfm_examples_on_arm_platforms.html">Run TF-M examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../building/tests_build_instruction.html">Build Tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../building/run_tfm_examples_on_arm_platforms.html">Run TF-M tests and applications</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../building/documentation_generation.html">Building the documentation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../building/tfm_build_instruction_iar.html">IAR toolchain</a></li>
 </ul>
@@ -135,68 +159,78 @@
 </ul>
 </li>
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">Integration Guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../source_structure/source_structure.html">Source Structure</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../source_structure/platform_folder.html">Details for the /platform folder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../source_structure/platform_ext_folder.html">Details for the /platform/ext folder</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../spm_backends.html">SPM Backends</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../non-secure_client_extension_integration_guide.html">NS client integration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../os_migration_guide_armv8m.html">OS migration to Armv8-M</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../tfm_fpu_support.html">Floating-Point Support</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../tfm_secure_irq_integration_guide.html">Secure Interrupt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../platform_provisioning.html">Platform Provisioning</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../platform/index.html">Adding a new platform</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../platform/platform_folder.html">Details for the platform folder</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../platform/platform_ext_folder.html">Details for the platform/ext folder</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../platform/porting_TFM_to_a_new_hardware.html">Porting TF-M to a New Hardware</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../platform/platform_provisioning.html">Platform Provisioning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/porting_tfm_to_a_new_hardware.html">Porting TF-M to a New Hardware</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/documenting_platform.html">Platform Documentation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/platform_deprecation.html">Platform deprecation and removal</a></li>
 </ul>
 </li>
 <li class="toctree-l2 current"><a class="reference internal" href="index.html">Services</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="tfm_attestation_integration_guide.html">Initial Attestation</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">Crypto</a></li>
-<li class="toctree-l3"><a class="reference internal" href="tfm_its_integration_guide.html">Internal Storage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tfm_its_integration_guide.html">Internal Trusted Storage</a></li>
 <li class="toctree-l3"><a class="reference internal" href="tfm_platform_integration_guide.html">Platform</a></li>
 <li class="toctree-l3"><a class="reference internal" href="tfm_ps_integration_guide.html">Protected Storage</a></li>
-<li class="toctree-l3"><a class="reference internal" href="tfm_secure_partition_addition.html">Adding a New Service</a></li>
-<li class="toctree-l3"><a class="reference internal" href="tfm_manifest_tool_user_guide.html">The manifest tool</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tfm_secure_partition_addition.html">Adding a New Secure Partition</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tfm_manifest_tool_user_guide.html">Manifest Tool</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tfm_adac_integration_guide.html">ADAC</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../../technical_references/design_docs/index.html">Design Documents</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/dual-cpu/index.html">Dual-CPU</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../technical_references/design_docs/dual-cpu/booting_a_dual_core_system.html">Booting a Dual-Core System</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../technical_references/design_docs/dual-cpu/communication_prototype_between_nspe_and_spe_in_dual_core_systems.html">Communication Prototype Between NSPE And SPE In Dual Core System</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../technical_references/design_docs/dual-cpu/mailbox_design_on_dual_core_system.html">Mailbox Design in TF-M on Dual-core System</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../technical_references/design_docs/dual-cpu/tfm_multi_core_access_check.html">Memory Access Check of Trusted Firmware-M in Multi-Core Topology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../design_docs/index.html">Design Documents</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../design_docs/booting/tfm_secure_boot.html">Secure Boot</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../design_docs/booting/bl1.html">BL1 Immutable bootloader</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../design_docs/booting/secure_boot_rollback_protection.html">Rollback Protection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../design_docs/booting/secure_boot_hw_key_integration.html">HW Key integration</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/bl1.html">BL1 Immutable bootloader</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/code_sharing.html">Code sharing between independently linked XIP binaries</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/enum_implicit_casting.html">Fixing implicit casting for C enumeration values</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/ff_isolation.html">FF-M Isolation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/hardware_abstraction_layer.html">Hardware Abstraction Layer</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/mailbox_ns_agent_update.html">Mailbox NS Agent Design Update</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/ps_key_management.html">Protected Storage service key management</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/secure_boot_hw_key_integration.html">HW crypto key integration in TF-M secure boot</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/secure_boot_rollback_protection.html">Rollback protection in TF-M secure boot</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/secure_partition_manager.html">Secure Partition Manager</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/source_structure.html">Trusted Firmware-M Source Structure</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/stateless_rot_service.html">Stateless Root of Trust Services Reference</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/symmetric_initial_attest.html">Symmetric key algorithm based Initial Attestation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/tfm_builtin_keys.html">TF-M builtin keys</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/tfm_code_generation_with_jinja2.html">Code Generation With Jinja2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/tfm_cooperative_scheduling_rules.html">Cooperative Scheduling Rules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/tfm_crypto_design.html">Crypto Service design</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/tfm_fwu_service.html">Firmware Update Service</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/tfm_its_512_flash.html">Add support for block-aligned flash in Internal Trusted Storage</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/tfm_its_service.html">Internal Trusted Storage (ITS) Service</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/tfm_log_system_design_document.html">Log system design document</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/tfm_physical_attack_mitigation.html">Physical attack mitigation in Trusted Firmware-M</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/tfm_psa_inter_process_communication.html">TF-M Inter-Process Communication</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/tfm_secure_boot.html">Secure boot</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/tfm_secure_partition_runtime_library.html">Secure Partition Runtime Library</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/tfm_uniform_secure_service_signature.html">Uniform Secure Service Signature</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../design_docs/dual-cpu/index.html">Dual CPU</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../design_docs/dual-cpu/booting_a_dual_core_system.html">Booting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../design_docs/dual-cpu/communication_prototype_between_nspe_and_spe_in_dual_core_systems.html">SPE - NSPE communication</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../design_docs/dual-cpu/mailbox_design_on_dual_core_system.html">Mailbox</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../design_docs/dual-cpu/mailbox_ns_agent_update.html">Mailbox update</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../design_docs/dual-cpu/tfm_multi_core_access_check.html">Memory Access Check</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../../tools/index.html">Tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../design_docs/services/index.html">Secure Services</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../design_docs/services/secure_partition_manager.html">Secure Partition Manager</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../design_docs/services/secure_partition_runtime_library.html">Secure Partition RTL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../design_docs/services/tfm_psa_inter_process_communication.html">Inter-Process Communication</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../design_docs/services/stateless_rot_service.html">Stateless Services</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../design_docs/services/tfm_uniform_secure_service_signature.html">Service Signing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../design_docs/services/tfm_crypto_design.html">Crypto</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../design_docs/services/symmetric_initial_attest.html">Initial Attestation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../design_docs/services/tfm_its_service.html">Internal Trusted Storage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../design_docs/services/tfm_fwu_service.html">Firmware Update</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../design_docs/services/ps_key_management.html">PS Key Management</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../design_docs/software/index.html">Software Design</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../design_docs/software/code_sharing.html">Code Sharing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../design_docs/software/hardware_abstraction_layer.html">Hardware Abstraction Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../design_docs/software/tfm_cooperative_scheduling_rules.html">Cooperative Scheduling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../design_docs/software/tfm_code_generation_with_jinja2.html">Code Templates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../design_docs/software/enum_implicit_casting.html">Implicit Typecasting</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../design_docs/ff_isolation.html">Isolation Rules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../design_docs/tfm_builtin_keys.html">Builtin Keys</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../design_docs/tfm_log_system_design_document.html">Logging system</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../design_docs/tfm_physical_attack_mitigation.html">Physical Attack Mitigation</a></li>
+</ul>
+</li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Contribution</span></p>
 <ul>
@@ -215,7 +249,10 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Links</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference external" href="https://ci.trustedfirmware.org/view/TF-M/job/tf-m-build-docs-nightly/lastSuccessfulBuild/artifact/trusted-firmware-m/build/docs/reference_manual/html/index.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://trustedfirmware-m.readthedocs.io/projects/tf-m-tests/en/latest/">TF-M Tests</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://trustedfirmware-m.readthedocs.io/projects/tf-m-tools/en/latest/">TF-M Tools</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://trustedfirmware-m.readthedocs.io/projects/tf-m-extras/en/latest/">TF-M Extras</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://ci.trustedfirmware.org/job/tf-m-build-docs-nightly/lastSuccessfulBuild/artifact/trusted-firmware-m/build/docs/reference_manual/html/index.html">API Reference</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://developer.trustedfirmware.org/w/collaboration/security_center">Security Center</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://www.arm.com/architecture/security-features/platform-security">PSA</a></li>
 </ul>
@@ -223,27 +260,34 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../stm/releases/index.html">Releases</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../stm/releases/getting_started.html">Getting started</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32l562e_dk/readme.html">STM32L562E-DK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32h573i_dk/readme.html">STM32H573I_DK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32l562e_dk/readme.html">STM32L562E_DK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp215f_dk/readme.html">stm32mp215f_dk</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/nucleo_l552ze_q/readme.html">NUCLEO-L552ZE-Q</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/b_u585i_iot02a/readme.html">B-U585I-IOT02A</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/nucleo_l552ze_q/readme.html">NUCLEO_L552ZE_Q</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/b_u585i_iot02a/readme.html">B_U585I_IOT02A</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../stm/releases/platforms.html">Platforms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32h5xx/readme.html">STM32H5</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32l5xx/readme.html">STM32L5</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32mp2/readme.html">STM32MP2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32mp2xx/readme.html">STM32MP2</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32u5xx/readme.html">STM32U5</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/nucleo_l552ze_q/readme.html">NUCLEO-L552ZE-Q</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32l562e_dk/readme.html">STM32L562E-DK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/nucleo_l552ze_q/readme.html">NUCLEO_L552ZE_Q</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32h573i_dk/readme.html">STM32H573I_DK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32l562e_dk/readme.html">STM32L562E_DK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp215f_dk/readme.html">stm32mp215f_dk</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../stm/releases/changelog.html">Change Log &amp; Notes</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../stm/releases/v1.7.0-stm32mp25-alpha-r1-rc3/changelog.html">v1.7.0-stm32mp25-alpha-r1-rc3</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/releases/v1.7.0/index.html">v1.7.0</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/releases/v2.1.0/index.html">v2.1.0</a></li>
 </ul>
 </li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../../stm/releases/index.html#branch-plans">Branch plans</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../stm/technical/index.html">Technical references</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../stm/technical/a35_td_flavor/index.html">A35-TD flavor</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../stm/technical/a35_td_flavor/memory_layout.html">Memory layout</a></li>
@@ -267,7 +311,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../stm/ide/index.html">Ide</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../stm/ide/cubeide/stm32cubeide.html">STM32CubeIDE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/ide/cube/stm32cubeide.html">STM32CubeIDE</a></li>
 </ul>
 </li>
 </ul>
@@ -285,10 +329,10 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="../index.html">Integration Guide</a> &raquo;</li>
-          <li><a href="index.html">Services</a> &raquo;</li>
-      <li>Crypto Service Integration Guide</li>
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Integration Guide</a></li>
+          <li class="breadcrumb-item"><a href="index.html">Services</a></li>
+      <li class="breadcrumb-item active">Crypto Service Integration Guide</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -297,79 +341,133 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="crypto-service-integration-guide">
-<h1>Crypto Service Integration Guide<a class="headerlink" href="#crypto-service-integration-guide" title="Permalink to this heading"></a></h1>
-<section id="introduction">
+  <div class="section" id="crypto-service-integration-guide">
+<span id="tfm-crypto-integration-guide-label"></span><h1>Crypto Service Integration Guide<a class="headerlink" href="#crypto-service-integration-guide" title="Permalink to this heading"></a></h1>
+<div class="section" id="introduction">
 <h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading"></a></h2>
-<p>TF-M Crypto service allows application to use cryptography primitives such as
-symmetric and asymmetric ciphers, hash, message authentication codes (MACs) and
-authenticated encryption with associated data (AEAD).</p>
-</section>
-<section id="code-structure">
+<p>The TF-M Crypto service allows Non Secure world applications and Secure
+services to use cryptographic functionalities such as symmetric ciphering,
+message signing and verification, asymmetric encryption and decryption,
+cryptographic hashes, message authentication codes (MACs), key derivation and
+agreement, authenticated encryption with associated data (AEAD). It exposes the
+PSA Crypto APIs <a class="footnote-reference brackets" href="#id6" id="id1">1</a>.</p>
+<p id="components-label">The secure service resides in the Crypto partition as a single entry point and
+is made of different components:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>An interface layer that exposes the PSA Crypto API to either NS or S entities
+and is implemented in <code class="docutils literal notranslate"><span class="pre">interface/src/tfm_crypto_api.c</span></code>. The interface is
+based on the Uniform Secure Service Signature and communicates with the
+Secure Partition Manager available in TF-M</p></li>
+<li><p>An init module <code class="docutils literal notranslate"><span class="pre">secure_fw/partitions/crypto/crypto_init.c</span></code> that implements
+functionalities requested by TF-M during the initialisation phase, and an API
+dispatcher that at runtime receives the requests from the interface and
+dispatches them to the component that processes that particular API request</p></li>
+<li><p>A set of components that process cryptographic API requests, each component
+dispatching to a subset of functionalities, i.e. AEAD, Asymmetric, Ciphering,
+Hashing, Key derivation, Key management, MACs, and Random Number Generation</p></li>
+<li><p>An alloc module <code class="docutils literal notranslate"><span class="pre">secure_fw/partitions/crypto/crypto_alloc.c</span></code> that manages
+the partition secure memory, storing multipart application contexts, input /
+outputs of the APIs being requested, inaccessible from NS or other secure
+partitions</p></li>
+<li><p>A library abstraction module <code class="docutils literal notranslate"><span class="pre">secure_fw/partitions/crypto/crypto_library.c</span></code>
+which is used to abstract the details of the cryptographic library used by
+the service <em>backend</em> to provide the actual implementation of the crypto
+functionalities. The backend library must expose the PSA Crypto APIs, and
+must provide support to encode <em>key ownership</em> into key identifiers. This is
+not standardized by the PSA Crypto APIs so it must be provided as an
+extension to the APIs. The backend library also needs to provide the
+subsystem for key storage and retrieval, and, in case, the interface to the
+cryptographic accelerator of the underlying platform, using the PSA
+cryptoprocessor driver interface specification <a class="footnote-reference brackets" href="#id7" id="id2">2</a>. For this reason, it must
+provide a mechanism to access platform <em>builtin</em> keys, and permanent key
+slots using the
+<a class="reference internal" href="tfm_its_integration_guide.html#its-introduction-label"><span class="std std-ref">TF-M Internal Trusted Storage (ITS) service</span></a>,
+if available.</p></li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="code-structure">
 <h2>Code structure<a class="headerlink" href="#code-structure" title="Permalink to this heading"></a></h2>
 <p>The PSA interfaces for the Crypto service are located in <code class="docutils literal notranslate"><span class="pre">interface/include</span></code>.
 The only header to be included by applications that want to use functions from
-the PSA API is <code class="docutils literal notranslate"><span class="pre">psa/crypto.h</span></code>.
-The TF-M Crypto service source files are located in
-<code class="docutils literal notranslate"><span class="pre">secure_fw/partitions/crypto</span></code>.</p>
-<section id="psa-interfaces">
+the PSA API is <code class="docutils literal notranslate"><span class="pre">psa/crypto.h</span></code>. The TF-M Crypto service source files are
+located in <code class="docutils literal notranslate"><span class="pre">secure_fw/partitions/crypto</span></code>.</p>
+<div class="section" id="psa-interfaces">
 <h3>PSA interfaces<a class="headerlink" href="#psa-interfaces" title="Permalink to this heading"></a></h3>
 <p>The TF-M Crypto service exposes the PSA interfaces detailed in the header
 <code class="docutils literal notranslate"><span class="pre">psa/crypto.h</span></code>. This header, in turn, includes several other headers which
 are not meant to be included directly by user applications. For a detailed
 description of the PSA API interface, please refer to the comments in the
 <code class="docutils literal notranslate"><span class="pre">psa/crypto.h</span></code> header itself.</p>
-</section>
-<section id="service-source-files">
+</div>
+<div class="section" id="service-source-files">
 <h3>Service source files<a class="headerlink" href="#service-source-files" title="Permalink to this heading"></a></h3>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">crypto_cipher.c</span></code> : This module handles requests for symmetric cipher
+<p>A brief description of what is implemented by each source file is as below:</p>
+<blockquote>
+<div><ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">crypto_cipher.c</span></code> : Dispatcher for symmetric crypto operations</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">crypto_hash.c</span></code> : Dispatcher for hash operations</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">crypto_mac.c</span></code> : Dispatcher for MAC operations</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">crypto_aead.c</span></code> : dispatcher for AEAD operations</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">crypto_key_derivation.c</span></code> : Dispatcher for key derivation and key agreement
 operations</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">crypto_hash.c</span></code> : This module handles requests for hashing operations</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">crypto_mac.c</span></code> : This module handles requests for MAC operations</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">crypto_aead.c</span></code> : This module handles requests for AEAD operations</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">crypto_key_derivation.c</span></code> : This module handles requests for key derivation
-related operations</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">crypto_key_management.c</span></code> : This module handles requests for key management
-related operations</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">crypto_key.c</span></code> : This module handles requests for key backend operations,
-including key attributes switch between caller and service.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">crypto_asymmetric.c</span></code> : This module handles requests for asymmetric
-cryptographic operations</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">crypto_init.c</span></code> : This module provides basic functions to initialise the
-secure service during TF-M boot. When the service is built for IPC model
-compatibility, this layer handles as well the connection requests and the
-proper dispatching of requests to the corresponding functions, and it holds
-the internal buffer used to allocate temporarily the IOVECs needed. The size
-of this buffer is controlled by the <code class="docutils literal notranslate"><span class="pre">CRYPTO_IOVEC_BUFFER_SIZE</span></code> define.
-This module also provides a static buffer which is used by the Mbed Crypto
-library for its own allocations. The size of this buffer is controlled by
-the <code class="docutils literal notranslate"><span class="pre">CRYPTO_ENGINE_BUF_SIZE</span></code> define</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">crypto_alloc.c</span></code> : This module is required for the allocation and release of
-crypto operation contexts in the SPE. The <code class="docutils literal notranslate"><span class="pre">CRYPTO_CONC_OPER_NUM</span></code>,
-defined in this file, determines how many concurrent contexts are supported
-for multipart operations (8 for the current implementation). For multipart
-cipher/hash/MAC/generator operations, a context is associated to the handle
-provided during the setup phase, and is explicitly cleared only following a
-termination or an abort</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">tfm_crypto_api.c</span></code> : This module implements the PSA Crypto API
-client interface exposed to users.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">crypto_key_management.c</span></code> : Dispatcher for key management operations
+towards the key slot management system provided by the backend library</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">crypto_rng.c</span></code> : Dispatcher for the random number generation requests</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">crypto_asymmetric.c</span></code> : Dispatcher for message signature/verification and
+encryption/decryption using asymmetric crypto</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">crypto_init.c</span></code> : Init module for the service. The modules stores also the
+internal buffer used to allocate temporarily the IOVECs needed, which is not
+required in case of SFN model. The size of this buffer is controlled by the
+<code class="docutils literal notranslate"><span class="pre">CRYPTO_IOVEC_BUFFER_SIZE</span></code> config define</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">crypto_library.c</span></code> : Library abstractions to interface the dispatchers
+towards the underlying library providing <em>backend</em> crypto functions.
+Currently this only supports the Mbed TLS library. In particular, the mbed
+TLS library requires to provide a static buffer to be used as heap for its
+internal allocation. The size of this buffer is controlled by the
+<code class="docutils literal notranslate"><span class="pre">CRYPTO_ENGINE_BUF_SIZE</span></code> config define</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">crypto_alloc.c</span></code> : Takes care of storing multipart operation contexts in a
+secure memory not visible outside of the crypto service. The
+<code class="docutils literal notranslate"><span class="pre">CRYPTO_CONC_OPER_NUM</span></code> config define determines how many concurrent
+contexts are supported at once. In a multipart operation, the client view of
+the contexts is much simpler (i.e. just an handle), and the Alloc module
+keeps track of the association between handles and contexts</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">tfm_crypto_api.c</span></code> :  This module is contained in <code class="docutils literal notranslate"><span class="pre">interface/src</span></code> and
-implements the PSA Crypto API client interface exposed to the  Non-Secure
-Processing Environment.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">tfm_mbedcrypto_alt.c</span></code> : This module contains alternative implementations of
-Mbed Crypto functions. Decryption code is skipped in AES CCM mode in Profile
-Small by default.</p></li>
+implements the PSA Crypto API client interface exposed to both S/NS clients.
+This module allows a configuration option <code class="docutils literal notranslate"><span class="pre">CONFIG_TFM_CRYPTO_API_RENAME</span></code>
+to be set to 1 in case the NS environment or integrators want to rename the
+API symbols exported by the TF-M Crypto service. The renaming adds a default
+prefix, <code class="docutils literal notranslate"><span class="pre">tfm_crypto__</span></code> to all functions. The prefix can be changed editing
+the interface file. This config option is for the NS environment or
+integration setup only, hence it is not accessible through the TF-M config</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">tfm_mbedcrypto_alt.c</span></code> : This module is specific to the Mbed TLS <a class="footnote-reference brackets" href="#id8" id="id3">3</a>
+library integration and provides some alternative implementation of Mbed TLS
+APIs that can be used when a optimised profile is chosen. Through the
+<code class="docutils literal notranslate"><span class="pre">_ALT</span></code> mechanism it is possible to replace at link time default
+implementations available in Mbed TLS with the ones available in this file</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">_ALT</span></code> mechanism will be deprecated in future releases of the Mbed
+TLS library</p>
+</div>
+</li>
 </ul>
-</section>
-</section>
-<section id="crypto-backend-configuration">
-<h2>Crypto Backend configuration<a class="headerlink" href="#crypto-backend-configuration" title="Permalink to this heading"></a></h2>
-<p>The Crypto service can use either a hardware crypto accelerator backend like
-CC-312 or a software crypto library which by default is MbedTLS.</p>
-<p>If using MbedTLS as backend, then the library configuration is supplied using
-the <code class="docutils literal notranslate"><span class="pre">TFM_MBEDCRYPTO_CONFIG_PATH</span></code> and <code class="docutils literal notranslate"><span class="pre">TFM_MBEDCRYPTO_PSA_CRYPTO_CONFIG_PATH</span></code>
-cmake option.</p>
+</div></blockquote>
+</div>
+</div>
+<div class="section" id="considerations-on-service-configuration">
+<h2>Considerations on service configuration<a class="headerlink" href="#considerations-on-service-configuration" title="Permalink to this heading"></a></h2>
+<div class="section" id="crypto-backend-library-configuration">
+<h3>Crypto <em>backend</em> library configuration<a class="headerlink" href="#crypto-backend-library-configuration" title="Permalink to this heading"></a></h3>
+<p>The TF-M Crypto service relies on a cryptographic library to provide the
+functionalities specific by the PSA Crypto API spec and the PSA cryptoprocessor
+driver interface spec. At the moment, the only supported library is mbed
+TLS <a class="footnote-reference brackets" href="#id8" id="id4">3</a>.</p>
+<p>The configuration of the backend library is supplied using the
+<code class="docutils literal notranslate"><span class="pre">TFM_MBEDCRYPTO_CONFIG_PATH</span></code> and <code class="docutils literal notranslate"><span class="pre">TFM_MBEDCRYPTO_PSA_CRYPTO_CONFIG_PATH</span></code>
+config option that point to configuration headers following the legacy Mbed TLS
+configuration scheme or the new PSA based configuration scheme.</p>
 <p>Platforms can specify an extra config file by setting the
 <code class="docutils literal notranslate"><span class="pre">TFM_MBEDCRYPTO_PLATFORM_EXTRA_CONFIG_PATH</span></code> variable (which is a wrapper
 around the <code class="docutils literal notranslate"><span class="pre">MBEDTLS_USER_CONFIG_FILE</span></code> option).  This is preferred for platform
@@ -378,46 +476,66 @@ configuration over <code class="docutils literal notranslate"><span class="pre">
 config changes due to TFM Profile.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The default entropy source configured for MbedTLS is
-MBEDTLS_ENTROPY_NV_SEED with unique seed. For production devices,
-it can also select a hardware entropy source via
-MBEDTLS_ENTROPY_HARDWARE_ALT</p>
+<p>The default entropy source configured for Mbed TLS is
+<code class="docutils literal notranslate"><span class="pre">MBEDTLS_ENTROPY_NV_SEED</span></code> with a unique seed. For production devices, an
+alternative hardware entropy source can be specified using the config option
+<code class="docutils literal notranslate"><span class="pre">MBEDTLS_ENTROPY_HARDWARE_ALT</span></code></p>
 </div>
-</section>
-<section id="other-crypto-service-build-definitions">
-<h2>Other Crypto Service Build Definitions<a class="headerlink" href="#other-crypto-service-build-definitions" title="Permalink to this heading"></a></h2>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">CRYPTO_STACK_SIZE</span></code>- Defines the stack size of the Crypto Secure Partition. This
-value mainly depends on other crypto service configurations, the build type(debug,
-release and minisizerel) and compiler.</p></li>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Starting from Mbed TLS 3.3.0, the Python package <code class="docutils literal notranslate"><span class="pre">jsonschema</span></code> must be
+available when building as it is required by the autogen framework for the
+driver integrations into the PSA Crypto core and driver wrapper modules</p>
+</div>
+</div>
+<div class="section" id="crypto-service-build-time-options">
+<h3>Crypto service build time options<a class="headerlink" href="#crypto-service-build-time-options" title="Permalink to this heading"></a></h3>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">CRYPTO_STACK_SIZE</span></code> : Defines the stack size of the Crypto Secure
+Partition. This value might depend on several parameters such as the build
+type, the compiler being used, the cryptographic functionalities that are
+enabled at build time</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">CRYPTO_&lt;COMPONENT&gt;_MODULE_ENABLED</span></code> : A series of defines, one per each
+<code class="docutils literal notranslate"><span class="pre">&lt;COMPONENT&gt;</span></code> that processes cryptographic operations, that are used to
+disable modules at build time. Each define corresponds to a component as
+described in <a class="reference internal" href="#components-label"><span class="std std-ref">the components list</span></a>.</p></li>
 </ul>
-</section>
-<section id="crypto-service-integration">
-<h2>Crypto service integration<a class="headerlink" href="#crypto-service-integration" title="Permalink to this heading"></a></h2>
-<p>In this section, a brief description of the required flow of operation for the
-functionalities exported by the PSA Crypto interface is given, with particular
-focus on the TF-M Crypto service specific operations. For the details of the
-generic PSA Crypto interface operations, please refer directly to the header
-<code class="docutils literal notranslate"><span class="pre">psa/crypto.h</span></code>.</p>
-<p>Most of the PSA Crypto multipart APIs require an operation context to be
-allocated by the application and then to be passed as a pointer during the
-following API calls. These operation contexts are of four main types described
-below:</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">psa_key_derivation_operation_t</span></code> - Operation context for key derivation</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">psa_hash_operation_t</span></code> - Operation context for multipart hash operations</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">psa_mac_operation_t</span></code> - Operation context for multipart MAC operations</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">psa_cipher_operation_t</span></code> - Operation context for multipart cipher operations</p></li>
-</ul>
-<p>The user applications are not allowed to make any assumption about the original
-types behind these typedefs, which are defined inside <code class="docutils literal notranslate"><span class="pre">psa/crypto.h</span></code>.
-In the scope of the TF-M Crypto service, these types are regarded as handles to
-the corresponding implementation defined structures which are stored in the
-Secure world.</p>
+</div></blockquote>
+</div>
+<div class="section" id="crypto-service-builtin-keys-integration">
+<h3>Crypto service <em>builtin</em> keys integration<a class="headerlink" href="#crypto-service-builtin-keys-integration" title="Permalink to this heading"></a></h3>
+<p>A detailed description of how the service interacts with <em>builtin</em> keys is
+available in the <code class="docutils literal notranslate"><span class="pre">tfm_builtin_key_loader</span></code>
+<a class="reference internal" href="../../design_docs/tfm_builtin_keys.html#tfm-builtin-keys-label"><span class="std std-ref">design document</span></a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The crypto service integration with builtin keys relies on implementation
+details of Mbed TLS that are not standardized in the spec and might change
+between releases due to ongoing work <a class="footnote-reference brackets" href="#id9" id="id5">4</a></p>
+</div>
+<div class="section" id="references">
+<h4>References<a class="headerlink" href="#references" title="Permalink to this heading"></a></h4>
+<dl class="footnote brackets">
+<dt class="label" id="id6"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p>PSA Crypto APIs: <a class="reference external" href="https://armmbed.github.io/mbed-crypto/html/">https://armmbed.github.io/mbed-crypto/html/</a></p>
+</dd>
+<dt class="label" id="id7"><span class="brackets"><a class="fn-backref" href="#id2">2</a></span></dt>
+<dd><p>PSA cryptoprocessor driver interface: <a class="reference external" href="https://github.com/Mbed-TLS/mbedtls/blob/development/docs/proposed/psa-driver-interface.md">https://github.com/Mbed-TLS/mbedtls/blob/development/docs/proposed/psa-driver-interface.md</a></p>
+</dd>
+<dt class="label" id="id8"><span class="brackets">3</span><span class="fn-backref">(<a href="#id3">1</a>,<a href="#id4">2</a>)</span></dt>
+<dd><p>Mbed TLS library: <a class="reference external" href="https://www.trustedfirmware.org/projects/mbed-tls/">https://www.trustedfirmware.org/projects/mbed-tls/</a></p>
+</dd>
+<dt class="label" id="id9"><span class="brackets"><a class="fn-backref" href="#id5">4</a></span></dt>
+<dd><p>Interface for platform keys: <a class="reference external" href="https://github.com/ARM-software/psa-crypto-api/issues/550">https://github.com/ARM-software/psa-crypto-api/issues/550</a></p>
+</dd>
+</dl>
 <hr class="docutils" />
-<p><em>Copyright (c) 2018-2022, Arm Limited. All rights reserved.</em></p>
-</section>
-</section>
+<p><em>Copyright (c) 2018-2023, Arm Limited. All rights reserved.</em></p>
+</div>
+</div>
+</div>
+</div>
 
 
            </div>

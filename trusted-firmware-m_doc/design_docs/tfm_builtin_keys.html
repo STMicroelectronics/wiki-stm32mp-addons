@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TF-M builtin keys &mdash; Trusted Firmware-M v2.1.0-stm32mp-r1 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/tfm_custom.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/tabs.css" type="text/css" />
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Log system design document" href="tfm_log_system_design_document.html" />
+    <link rel="prev" title="FF-M Isolation" href="ff_isolation.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Trusted Firmware-M
+              <img src="../_static/tf_logo_white.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                v2.1.0-stm32mp-r1
+
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../introduction/index.html">Introduction</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/index.html">Getting Started</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../security/index.html">Security</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../security/threat_models/generic_threat_model.html">Threat model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../security/security_advisories/index.html">Security Advisories</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../security/security_advisories/stack_seal_vulnerability.html">Advisory TFMV-1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../security/security_advisories/svc_caller_sp_fetching_vulnerability.html">Advisory TFMV-2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../security/security_advisories/crypto_multi_part_ops_abort_fail.html">Advisory TFMV-3</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../security/security_advisories/profile_small_key_id_encoding_vulnerability.html">Advisory TFMV-4</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../security/security_advisories/fwu_write_vulnerability.html">Advisory TFMV-5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../security/security_advisories/cc3xx_partial_tag_compare_on_chacha20_poly1305.html">Advisory TFMV-6</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../security/security_advisories/debug_log_vulnerability.html">Advisory TFMV-7</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../releases/index.html">Releases</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../releases/2.1.0.html">v2.1.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../releases/2.0.0.html">v2.0.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../releases/1.8.1.html">v1.8.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../releases/1.8.0.html">v1.8.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../releases/release_process.html">Release Cadence and Process</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../roadmap.html">Roadmap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../glossary.html">Glossary</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../platform/index.html">Platforms</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../platform/arm/index.html">Arm</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../platform/arm/corstone1000/readme.html">Corstone-1000</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/arm/mps3/corstone300/README.html">Corstone-300 FPGA (AN547 and AN552) and FVP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/arm/mps3/corstone310/README.html">Corstone-310 FPGA (AN555) and FVP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/arm/mps4/corstone315/README.html">Corstone-315 FVP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/arm/musca_b1/readme.html">Musca-B1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/arm/musca_s1/readme.html">Musca-S1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/arm/rse/index.html">Runtime Security Engine</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../platform/armchina/index.html">ArmChina</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../platform/armchina/mps3/alcor/README.html">Alcor FPGA (AN557)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../platform/cypress/index.html">Cypress</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../platform/cypress/psoc64/index.html">PSoC64</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../platform/lairdconnectivity/index.html">Laird Connectivity</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../platform/lairdconnectivity/bl5340_dvk_cpuapp/README.html">BL5340</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../platform/nordic_nrf/index.html">Nordic</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../platform/nordic_nrf/nrf5340dk_nrf5340_cpuapp/README.html">nRF5340</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/nordic_nrf/nrf9160dk_nrf9160/README.html">nRF9160</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/nordic_nrf/nrf9161dk_nrf9161/README.html">nRF9161</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../platform/nuvoton/index.html">Nuvoton</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../platform/nuvoton/m2351/README.html">NuMaker-PFM-M2351</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/nuvoton/m2354/README.html">NuMaker-PFM-M2354</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../platform/nxp/index.html">NXP</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../platform/nxp/lpcxpresso55s69/README.html">LPCXpresso55S69</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../platform/stm/index.html">STMICROELECTRONICS</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../platform/stm/common/stm32h5xx/readme.html">STM32H5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/stm/common/stm32l5xx/readme.html">STM32L5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/stm/common/stm32mp2xx/readme.html">STM32MP2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/stm/common/stm32u5xx/readme.html">STM32U5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/stm/nucleo_l552ze_q/readme.html">NUCLEO_L552ZE_Q</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32h573i_dk/readme.html">STM32H573I_DK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32l562e_dk/readme.html">STM32L562E_DK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32mp215f_dk/readme.html">stm32mp215f_dk</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/stm/b_u585i_iot02a/readme.html">B_U585I_IOT02A</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../building/tfm_build_instruction.html">Build instructions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../building/tests_build_instruction.html">Build Tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../building/run_tfm_examples_on_arm_platforms.html">Run TF-M tests and applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../building/documentation_generation.html">Building the documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../building/tfm_build_instruction_iar.html">IAR toolchain</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration/index.html">Configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../configuration/build_configuration.html">Build configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../configuration/header_file_system.html">Component configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../configuration/kconfig_system.html">Kconfig</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../configuration/profiles/index.html">Profiles</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../configuration/profiles/tfm_profile_small.html"> Small</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../configuration/profiles/tfm_profile_medium_arot-less.html"> ARoT-less</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../configuration/profiles/tfm_profile_medium.html"> Medium</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../configuration/profiles/tfm_profile_large.html"> Large</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../configuration/test_configuration.html">Tests configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../integration_guide/index.html">Integration Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../integration_guide/source_structure/source_structure.html">Source Structure</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guide/source_structure/platform_folder.html">Details for the /platform folder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guide/source_structure/platform_ext_folder.html">Details for the /platform/ext folder</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../integration_guide/spm_backends.html">SPM Backends</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../integration_guide/non-secure_client_extension_integration_guide.html">NS client integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../integration_guide/os_migration_guide_armv8m.html">OS migration to Armv8-M</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../integration_guide/tfm_fpu_support.html">Floating-Point Support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../integration_guide/tfm_secure_irq_integration_guide.html">Secure Interrupt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../integration_guide/platform_provisioning.html">Platform Provisioning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../integration_guide/platform/index.html">Adding a new platform</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guide/platform/porting_tfm_to_a_new_hardware.html">Porting TF-M to a New Hardware</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guide/platform/documenting_platform.html">Platform Documentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guide/platform/platform_deprecation.html">Platform deprecation and removal</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../integration_guide/services/index.html">Services</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guide/services/tfm_attestation_integration_guide.html">Initial Attestation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guide/services/tfm_crypto_integration_guide.html">Crypto</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guide/services/tfm_its_integration_guide.html">Internal Trusted Storage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guide/services/tfm_platform_integration_guide.html">Platform</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guide/services/tfm_ps_integration_guide.html">Protected Storage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guide/services/tfm_secure_partition_addition.html">Adding a New Secure Partition</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guide/services/tfm_manifest_tool_user_guide.html">Manifest Tool</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guide/services/tfm_adac_integration_guide.html">ADAC</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Design Documents</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="booting/tfm_secure_boot.html">Secure Boot</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="booting/bl1.html">BL1 Immutable bootloader</a></li>
+<li class="toctree-l3"><a class="reference internal" href="booting/secure_boot_rollback_protection.html">Rollback Protection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="booting/secure_boot_hw_key_integration.html">HW Key integration</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="dual-cpu/index.html">Dual CPU</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="dual-cpu/booting_a_dual_core_system.html">Booting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dual-cpu/communication_prototype_between_nspe_and_spe_in_dual_core_systems.html">SPE - NSPE communication</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dual-cpu/mailbox_design_on_dual_core_system.html">Mailbox</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dual-cpu/mailbox_ns_agent_update.html">Mailbox update</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dual-cpu/tfm_multi_core_access_check.html">Memory Access Check</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="services/index.html">Secure Services</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="services/secure_partition_manager.html">Secure Partition Manager</a></li>
+<li class="toctree-l3"><a class="reference internal" href="services/secure_partition_runtime_library.html">Secure Partition RTL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="services/tfm_psa_inter_process_communication.html">Inter-Process Communication</a></li>
+<li class="toctree-l3"><a class="reference internal" href="services/stateless_rot_service.html">Stateless Services</a></li>
+<li class="toctree-l3"><a class="reference internal" href="services/tfm_uniform_secure_service_signature.html">Service Signing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="services/tfm_crypto_design.html">Crypto</a></li>
+<li class="toctree-l3"><a class="reference internal" href="services/symmetric_initial_attest.html">Initial Attestation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="services/tfm_its_service.html">Internal Trusted Storage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="services/tfm_fwu_service.html">Firmware Update</a></li>
+<li class="toctree-l3"><a class="reference internal" href="services/ps_key_management.html">PS Key Management</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="software/index.html">Software Design</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="software/code_sharing.html">Code Sharing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="software/hardware_abstraction_layer.html">Hardware Abstraction Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="software/tfm_cooperative_scheduling_rules.html">Cooperative Scheduling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="software/tfm_code_generation_with_jinja2.html">Code Templates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="software/enum_implicit_casting.html">Implicit Typecasting</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ff_isolation.html">Isolation Rules</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Builtin Keys</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tfm_log_system_design_document.html">Logging system</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tfm_physical_attack_mitigation.html">Physical Attack Mitigation</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contribution</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/index.html">Guidelines</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../contributing/contributing_process.html">The process</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../contributing/code_review_guide.html">Code review</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../contributing/maintainers.html">Maintainers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../contributing/maintainers.html#code-owners">Code owners</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../contributing/coding_guide.html">Yet another coding standard :)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../contributing/doc_guidelines.html">Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../contributing/tfm_design_proposal_guideline.html">Design proposal</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/lic.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/dco.html">DCO</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Links</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://trustedfirmware-m.readthedocs.io/projects/tf-m-tests/en/latest/">TF-M Tests</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://trustedfirmware-m.readthedocs.io/projects/tf-m-tools/en/latest/">TF-M Tools</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://trustedfirmware-m.readthedocs.io/projects/tf-m-extras/en/latest/">TF-M Extras</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://ci.trustedfirmware.org/job/tf-m-build-docs-nightly/lastSuccessfulBuild/artifact/trusted-firmware-m/build/docs/reference_manual/html/index.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://developer.trustedfirmware.org/w/collaboration/security_center">Security Center</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://www.arm.com/architecture/security-features/platform-security">PSA</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">STMICROELECTRONICS</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../stm/releases/index.html">Releases</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../stm/releases/getting_started.html">Getting started</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32h573i_dk/readme.html">STM32H573I_DK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32l562e_dk/readme.html">STM32L562E_DK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32mp215f_dk/readme.html">stm32mp215f_dk</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/stm/nucleo_l552ze_q/readme.html">NUCLEO_L552ZE_Q</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/stm/b_u585i_iot02a/readme.html">B_U585I_IOT02A</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../stm/releases/platforms.html">Platforms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../platform/stm/common/stm32h5xx/readme.html">STM32H5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/stm/common/stm32l5xx/readme.html">STM32L5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/stm/common/stm32mp2xx/readme.html">STM32MP2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/stm/common/stm32u5xx/readme.html">STM32U5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/stm/nucleo_l552ze_q/readme.html">NUCLEO_L552ZE_Q</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32h573i_dk/readme.html">STM32H573I_DK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32l562e_dk/readme.html">STM32L562E_DK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32mp215f_dk/readme.html">stm32mp215f_dk</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../stm/releases/changelog.html">Change Log &amp; Notes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../stm/releases/v1.7.0/index.html">v1.7.0</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../stm/releases/v2.1.0/index.html">v2.1.0</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../stm/releases/index.html#branch-plans">Branch plans</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stm/technical/index.html">Technical references</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../stm/technical/a35_td_flavor/index.html">A35-TD flavor</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../stm/technical/a35_td_flavor/memory_layout.html">Memory layout</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../stm/technical/a35_td_flavor/storage.html">Storage</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../stm/technical/m33_td_flavor/index.html">M33-TD flavor</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../stm/technical/m33_td_flavor/memory_layout.html">Memory layout</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../stm/technical/m33_td_flavor/storage.html">Storage</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../stm/technical/devicetree/index.html">Devicetree</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../stm/technical/devicetree/devicetree_tfm.html">Scope and purpose</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../stm/technical/devicetree/devicetree_tfm.html#concept">Concept</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../stm/technical/devicetree/devicetree_tfm.html#how-to-add-device">How to add device</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../stm/technical/initlevel.html">Initlevel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../stm/technical/initial_attestation.html">Initial Attestation Service</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../stm/technical/nv_counter.html">Nv counter</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../stm/ide/index.html">Ide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../stm/ide/cube/stm32cubeide.html">STM32CubeIDE</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Trusted Firmware-M</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Design Documents</a></li>
+      <li class="breadcrumb-item active">TF-M builtin keys</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="section" id="tf-m-builtin-keys">
+<span id="tfm-builtin-keys-label"></span><h1>TF-M builtin keys<a class="headerlink" href="#tf-m-builtin-keys" title="Permalink to this heading"></a></h1>
+<dl class="field-list simple">
+<dt class="field-odd">Author</dt>
+<dd class="field-odd"><p>Raef Coles</p>
+</dd>
+<dt class="field-even">Organization</dt>
+<dd class="field-even"><p>Arm Limited</p>
+</dd>
+<dt class="field-odd">Contact</dt>
+<dd class="field-odd"><p><a class="reference external" href="mailto:raef&#46;coles&#37;&#52;&#48;arm&#46;com">raef<span>&#46;</span>coles<span>&#64;</span>arm<span>&#46;</span>com</a></p>
+</dd>
+</dl>
+<div class="section" id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading"></a></h2>
+<p>When TF-M is integrated on a platform, the platform itself can provide several
+keys for usage which are bound to the device instead of being owned by a
+specific secure partition. When those keys are readable by the secure
+processing environment, the platform must provide a function to load these keys
+in the HAL layer, either loading them from OTP or another platform specific
+location or subsystem. These keys are henceforth referred to as “builtin keys”,
+and might include (but are not limited to) the following:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>The Hardware Unique Key (HUK)</p></li>
+<li><p>The Initial Attestation Key (IAK)</p></li>
+</ol>
+</div></blockquote>
+<p>The <code class="docutils literal notranslate"><span class="pre">tfm_builtin_key_loader</span></code> component implements a mechanism to discover
+those keys and make them available to the PSA Crypto APIs for usage. Note that
+if a key is stored in a subsystem which can’t be read by the secure
+processing environment, a full opaque driver <a class="footnote-reference brackets" href="#id5" id="id1">1</a> must be used to be able to use
+those keys through the PSA Crypto APIs. This document focuses only on the case
+where the keys can be read by the SPE (i.e. running TF-M), so the driver applies
+only on those cases, which can be considered as “_transparent_ builin keys”.</p>
+<p>In TF-M’s legacy solution, the IAK is loaded by the attestation service as a
+volatile key, which requires some key-loading logic to be implemented by that
+partition. The HUK is not loaded in the crypto service, and is instead used by
+an implementation of a TF-M specific KDF algorithm which then loads the key and
+invokes Mbed TLS directly. Both solutions are far from ideal as they require an
+effort to load (and duplicate) the keys per each user, or require a dedicated
+code in TF-M that directly interacts with the HAL layer and invokes functions
+from the crypto library bypassing the PSA Crypto interface. The aim of the
+<code class="docutils literal notranslate"><span class="pre">tfm_builtin_key_loader</span></code> driver is to provide a uniform interface to use the
+builtin keys available in a platform.</p>
+<p>Implementing a driver to deal with builtin keys allows to expand the legacy
+solution for dealing with this type of keys in several ways. For example, it
+avoids the need for partitions to implement dedicated mechanisms for probing the
+HAL layer for builtin keys and load them as volatile. It removes the need to
+have implementation specific call flows for deriving keys from the HUK (as that
+requirement now is fulfilled by the driver itself transparently). It allows
+uniform access to the keys also from the NS world (in any case, subject to the
+policy dictated by the platform). Correctly abstracts away details of the key
+handling mechanism from TF-M partitions into the PSA Crypto core key management
+subsystem.</p>
+</div>
+<div class="section" id="psa-builtin-keys">
+<h2>PSA builtin keys<a class="headerlink" href="#psa-builtin-keys" title="Permalink to this heading"></a></h2>
+<p>The PSA Cryptographic API provides a mechanism for accessing keys that are
+stored in platform-specific locations (often hardware accelerators or OTP). A
+builtin key is assigned a specific key_id, i.e. a handle, which is hardcoded at
+build time and must be selected in the range [MBEDTLS_PSA_KEY_ID_BUILTIN_MIN,
+MBEDLTS_PSA_KEY_ID_BUILTIN_MAX]. A user of the PSA Crypto API can reference
+those keys directly by using these handles. It is up to the platform to specify
+policy restrictions for specific users of the keys, e.g. an NS entity, or a
+secure partition. The PSA Crypto core will then check those policies to grant
+or deny access to the builtin key for that user.</p>
+</div>
+<div class="section" id="psa-cryptoprocessor-driver-api">
+<h2>PSA cryptoprocessor driver API<a class="headerlink" href="#psa-cryptoprocessor-driver-api" title="Permalink to this heading"></a></h2>
+<p>The PSA specification allows the PSA Crypto APIs to defer their operation to an
+accelerator driver, through a mechanism described in the PSA cryptoprocessor
+driver interface specification <a class="footnote-reference brackets" href="#id5" id="id2">1</a>. This specification defines the concept of
+PSA Crypto core, i.e. “An implementation of the PSA Cryptography API is
+composed of a core and zero or more drivers”. The PSA specification also has
+the concept of storage locations for keys, through the type
+<code class="docutils literal notranslate"><span class="pre">psa_key_location_t</span></code>, which is used to access keys that don’t have local
+storage <a class="footnote-reference brackets" href="#id6" id="id3">2</a>. This is leveraged mainly by opaque drivers mainly that use keys
+for which the key material is not readable by the PSA crypto core layer.</p>
+<p>TF-M defines a software driver called <code class="docutils literal notranslate"><span class="pre">tfm_builtin_key_loader</span></code> that provides
+no acceleration but just defines a dedicated key location defined through the
+<code class="docutils literal notranslate"><span class="pre">TFM_BUILTIN_KEY_LOADER_KEY_LOCATION</span></code> define. By resorting to the entry points
+provided by this driver, the PSA Crypto core slot management subsystem can
+access keys stored in the underlying platform, validate key usage policies and
+allow PSA Crypto APIs to uniformly access builtin keys using the same call flows
+used with traditional local-storage keys.</p>
+<p>This is implemented by hooking the entry points defined by the driver into the
+<code class="docutils literal notranslate"><span class="pre">library/psa_crypto_driver_wrappers.c</span></code> file provided by the PSA Crypto core.
+This is currently done manually but eventually could be just autogenerated by
+parsing a description of the driver entry points in the JSON format. These entry
+points are:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">tfm_builtin_key_loader_init</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">tfm_builtin_key_loader_get_key_buffer_size</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">tfm_builtin_key_loader_get_builtin_key</span></code></p></li>
+</ol>
+</div></blockquote>
+<p>The call flow for the entry points from the driver wrapper layer is as follows:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>During the driver initialisation phase started by the PSA Crypto Core init,
+the <code class="docutils literal notranslate"><span class="pre">tfm_builtin_key_loader_init</span></code> function is called to probe the
+platform HAL and retrieve the builtin keys. Those keys are described by
+the types defined in the HAL layer interface header
+<code class="docutils literal notranslate"><span class="pre">tfm_plat_crypto_keys.h</span></code>. In particular global tables describing key
+properties and user policies must be implemented by each platform and are
+retrieved by the two accessor functions
+<code class="docutils literal notranslate"><span class="pre">tfm_plat_builtin_key_get_desc_table_ptr()</span></code> and
+<code class="docutils literal notranslate"><span class="pre">tfm_plat_builtin_key_get_policy_table_ptr()</span></code>. The keys are loaded from
+the platform in secure RAM in the TF-M Crypto partition with associated
+metadata. It’s worth to note that the keys are loaded through callback
+functions which the platform lists in the key descriptor table.</p></li>
+<li><p>Once the TF-M Crypto service is initialised, at runtime it might receive a
+request through an API call to use one of the builtin key IDs. Those IDs
+are described in the <code class="docutils literal notranslate"><span class="pre">tfm_builtin_key_ids.h</span></code> header. Platforms can
+override the default values providing their own header.</p></li>
+<li><p>When the PSA Crypto core in the <code class="docutils literal notranslate"><span class="pre">psa_get_and_lock_key_slot()</span></code> function
+checks that the <code class="docutils literal notranslate"><span class="pre">key_id</span></code> being requested is in the builtin range region,
+it probes the platform through the function
+<code class="docutils literal notranslate"><span class="pre">mbedtls_psa_platform_get_builtin_key</span></code> which must be implemented by the
+TF-M Crypto service library abstraction layer. This function just checks
+the key descriptor table from the HAL to understand if such <code class="docutils literal notranslate"><span class="pre">key_id</span></code> is
+available in the platform and what are the corresponding <code class="docutils literal notranslate"><span class="pre">slot</span></code> and
+<code class="docutils literal notranslate"><span class="pre">lifetime</span></code> values associated to it. The lifetime contains the location of
+the key, which determines which driver is responsible for dealing with it
+(for the <code class="docutils literal notranslate"><span class="pre">tfm_builtin_key_loader</span></code> driver, that is
+<code class="docutils literal notranslate"><span class="pre">TFM_BUILTIN_KEY_LOADER_KEY_LOCATION</span></code>), while the <code class="docutils literal notranslate"><span class="pre">slot</span></code> value maps the
+key to the slot in the driver internal storage.</p></li>
+<li><p>At this point, the PSA Crypto core knows that the key exists and is bound
+to the location associated to the driver. By calling into the driver
+wrappers layer is then able to retrieve the key attributes stored in the
+platform for that key ID, and the size required to allocate in its
+internal slot management system in order to load the key material in the
+core. This is done by calling <code class="docutils literal notranslate"><span class="pre">tfm_builtin_key_loader_get_builtin_key</span></code>
+just with a valid key attributes pointer (and nothing else), to retrieve
+the attributes. Once the attributes are available, the required size is
+retrieved through the driver wrapper by calling
+<code class="docutils literal notranslate"><span class="pre">tfm_builtin_key_loader_get_key_buffer_size</span></code>.</p></li>
+<li><p>At this stage, the slot management subsystem calls again into the driver
+wrapper layer through <code class="docutils literal notranslate"><span class="pre">tfm_builtin_key_loader_get_builtin_key</span></code> with a
+valid buffer to hold the key material returned by the
+<code class="docutils literal notranslate"><span class="pre">tfm_builtin_key_loader</span></code> driver. When loading the key, the user
+requiring that key_id is validated by the driver code against the policies
+defined by the platform. If the policies match, the builtin key material
+and metadata is loaded and is used like a transparent key available to the
+PSA Crypto core slot management subsystem.</p></li>
+</ol>
+</div></blockquote>
+</div>
+<div class="section" id="technical-details">
+<h2>Technical details<a class="headerlink" href="#technical-details" title="Permalink to this heading"></a></h2>
+<div class="section" id="builtin-key-ids-and-overriding">
+<h3>Builtin key IDs and overriding<a class="headerlink" href="#builtin-key-ids-and-overriding" title="Permalink to this heading"></a></h3>
+<p>TF-M builtin key IDs are defined in
+<code class="docutils literal notranslate"><span class="pre">interface/include/crypto_keys/tfm_builtin_key_ids.h</span></code> through the enum
+<code class="docutils literal notranslate"><span class="pre">tfm_key_id_builtin_t</span></code>. They are allocated inside the range that PSA
+specifies for the builtin keys, i.e. between <code class="docutils literal notranslate"><span class="pre">MBEDTLS_PSA_KEY_ID_BUILTIN_MIN</span></code>
+and <code class="docutils literal notranslate"><span class="pre">MBEDLTS_PSA_KEY_ID_BUILTIN_MAX</span></code>. A platform can specify extra builtin key
+IDs by setting the <code class="docutils literal notranslate"><span class="pre">PLATFORM_DEFAULT_CRYPTO_KEYS</span></code> variable to <code class="docutils literal notranslate"><span class="pre">OFF</span></code>,
+creating the header <code class="docutils literal notranslate"><span class="pre">tfm_builtin_key_ids.h</span></code>, and specifying new keys and IDs.</p>
+</div>
+<div class="section" id="builtin-key-access-control">
+<h3>Builtin key access control<a class="headerlink" href="#builtin-key-access-control" title="Permalink to this heading"></a></h3>
+<p>A builtin key is accessible by all callers since the <code class="docutils literal notranslate"><span class="pre">key_id</span></code> associated to it
+is public information. Access to the keys must be mediated, which is done by
+matching the user requesting the <code class="docutils literal notranslate"><span class="pre">key_id</span></code> against the policies available for
+that user on that particular key in the policy table. If no policies are
+specified for a specific combination of user and <code class="docutils literal notranslate"><span class="pre">key_id</span></code>, the usage flags in
+the key attributes will be all set to zeros, meaning the key will be unusable
+for any operation for that particular user.</p>
+</div>
+<div class="section" id="multi-partition-key-derivation">
+<h3>Multi-partition key derivation<a class="headerlink" href="#multi-partition-key-derivation" title="Permalink to this heading"></a></h3>
+<p>The HUK is used for key derivation by any secure partition or NS caller that
+requires keys that are bound to a particular context. For example, Protected
+Storage derives keys uniquely for each user of the service which are used to
+encrypt user files. In order to provide HUK derivation to every secure
+partition / NS caller, it must be ensured that no service that utilises HUK
+derivation can derive the same key as another service (simply by using the same
+inputs for the KDF APIs, i.e. accessing the same base key for derivation).</p>
+<p>This is accomplished by deriving a further “platform key” for each builtin key
+that has <code class="docutils literal notranslate"><span class="pre">PSA_KEY_USAGE_DERIVE</span></code> set in its attributes. These platform keys
+are derived from the builtin key, using the partition ID as a KDF input, and
+can then be used for safely for further derivations by the user, without risks
+to derive the same keys as other users. This is enforced directly by the
+<code class="docutils literal notranslate"><span class="pre">tfm_builtin_key_loader</span></code> driver.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If the NS client ID feature is disabled, all NS callers share a partition ID
+of <code class="docutils literal notranslate"><span class="pre">-1</span></code>, and therefore will share a platform key and be therefore be able
+to derive the same keys as other NS callers.</p>
+</div>
+<p>For keys that are not exposed outside the device, this is transparent to the
+service that is using the key derivation, as they have no access to the builtin
+key material and cannot distinguish between keys derived directly from it and
+keys derived from the platform key. For some builtin keys, deriving platform
+keys is not acceptable, as the key is used outside the device (i.e. the IAK
+public key is used to verify attestation tokens) so the actual builtin key is
+used.</p>
+<p>The decision has been taken to derive platform keys for any key that can be used
+for key derivation (<code class="docutils literal notranslate"><span class="pre">PSA_KEY_USAGE_DERIVE</span></code>), and not derive platform keys
+otherwise. For builtin keys that do not derive platform keys but are directly
+used, care must be taken with access control where multiple partitions have
+access to the same raw key material.</p>
+</div>
+<div class="section" id="mbed-tls-transparent-builtin-keys">
+<h3>Mbed TLS transparent builtin keys<a class="headerlink" href="#mbed-tls-transparent-builtin-keys" title="Permalink to this heading"></a></h3>
+<p>Mbed TLS does not natively support transparent builtin keys (transparent keys
+are keys where the key material is directly accessible by the PSA Crypto core),
+so some modifications had to be made. Opaque keyslots have the same basic
+structure as standard transparent key slots, and can be passed to the functions
+usually reserved for transparent keys, though this is a private implementation
+detail of the Mbed TLS library and is not specified in the driver interface.
+Therefore, the only modification required currently is to allow keys that have
+the location <code class="docutils literal notranslate"><span class="pre">TFM_BUILTIN_KEY_LOADER_KEY_LOCATION</span></code> to be passed to the
+functions that usually accept transparent keys only, i.e. with the location
+<code class="docutils literal notranslate"><span class="pre">PSA_KEY_LOCATION_LOCAL_STORAGE</span></code>. This is due to the fact that the standard
+assumption of the PSA Crypto core is that, if a driver that provides an
+additional location, will also provide dedicated cryptographic mechanisms to act
+on those keys, but this is not the case of the <code class="docutils literal notranslate"><span class="pre">tfm_builtin_key_loader</span></code>, as it
+just provides a mechanism to load keys (which act as a transparent key with
+local storage, once loaded), but Mbed TLS does not support such “transparent
+builtin key” concept. Note that the modifications on Mbed TLS are relying on non
+standard implementation details hence this particular integration can change
+between releases <a class="footnote-reference brackets" href="#id7" id="id4">3</a>.</p>
+</div>
+</div>
+<div class="section" id="using-opaque-psa-crypto-accelerators-with-tf-m">
+<h2>Using Opaque PSA crypto accelerators with TF-M<a class="headerlink" href="#using-opaque-psa-crypto-accelerators-with-tf-m" title="Permalink to this heading"></a></h2>
+<p>For platforms which have a cryptographic accelerator which has a corresponding
+Opaque PSA crypto accelerator driver, the TF-M builtin key loader driver can be
+disabled using the <code class="docutils literal notranslate"><span class="pre">-DCRYPTO_TFM_BUILTIN_KEYS_DRIVER=OFF</span></code> cmake option. The
+platform can then redefine the HAL function
+<code class="docutils literal notranslate"><span class="pre">tfm_plat_builtin_key_get_desc_table_ptr</span></code> to point to a table where the
+location and slot number of the keys corresponds instead to the opaque driver.
+The PSA driver wrapper will then route the calls into the opaque driver, with no
+other changes needed. If the description table is altered but the builtin key
+loader driver is not disabled, it is possible to mix software builtin keys with
+keys stored in opaque accelerators on a per-key level. Note that because the key
+policy enforcement via <code class="docutils literal notranslate"><span class="pre">tfm_plat_builtin_key_get_desc_table_ptr</span></code> is currently
+applied by the builtin key loader driver, other opaque drivers must apply either
+this policy or their own policy (Though this may be changed in future).</p>
+</div>
+<div class="section" id="references">
+<h2>References<a class="headerlink" href="#references" title="Permalink to this heading"></a></h2>
+<dl class="footnote brackets">
+<dt class="label" id="id5"><span class="brackets">1</span><span class="fn-backref">(<a href="#id1">1</a>,<a href="#id2">2</a>)</span></dt>
+<dd><p>PSA cryptoprocessor driver interface: <a class="reference external" href="https://github.com/Mbed-TLS/mbedtls/blob/development/docs/proposed/psa-driver-interface.md">https://github.com/Mbed-TLS/mbedtls/blob/development/docs/proposed/psa-driver-interface.md</a></p>
+</dd>
+<dt class="label" id="id6"><span class="brackets"><a class="fn-backref" href="#id3">2</a></span></dt>
+<dd><p>Definition of psa_key_location_t type in the PSA spec: <a class="reference external" href="https://arm-software.github.io/psa-api/crypto/1.1/api/keys/lifetimes.html#c.psa_key_location_t">https://arm-software.github.io/psa-api/crypto/1.1/api/keys/lifetimes.html#c.psa_key_location_t</a></p>
+</dd>
+<dt class="label" id="id7"><span class="brackets"><a class="fn-backref" href="#id4">3</a></span></dt>
+<dd><p>Interface for platform keys: <a class="reference external" href="https://github.com/ARM-software/psa-crypto-api/issues/550">https://github.com/ARM-software/psa-crypto-api/issues/550</a></p>
+</dd>
+</dl>
+<hr class="docutils" />
+<p><em>Copyright (c) 2022-2023, Arm Limited. All rights reserved.</em></p>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p></p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

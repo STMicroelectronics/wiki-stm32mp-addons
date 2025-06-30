@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Booting a Dual-Core System &mdash; Trusted Firmware-M v2.1.0-stm32mp-r1 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/tfm_custom.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/tabs.css" type="text/css" />
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Communication Prototype Between NSPE And SPE In Dual Core System" href="communication_prototype_between_nspe_and_spe_in_dual_core_systems.html" />
+    <link rel="prev" title="Dual-CPU" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            Trusted Firmware-M
+              <img src="../../_static/tf_logo_white.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                v2.1.0-stm32mp-r1
+
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../introduction/index.html">Introduction</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started/index.html">Getting Started</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../security/index.html">Security</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../security/threat_models/generic_threat_model.html">Threat model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../security/security_advisories/index.html">Security Advisories</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/stack_seal_vulnerability.html">Advisory TFMV-1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/svc_caller_sp_fetching_vulnerability.html">Advisory TFMV-2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/crypto_multi_part_ops_abort_fail.html">Advisory TFMV-3</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/profile_small_key_id_encoding_vulnerability.html">Advisory TFMV-4</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/fwu_write_vulnerability.html">Advisory TFMV-5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/cc3xx_partial_tag_compare_on_chacha20_poly1305.html">Advisory TFMV-6</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/debug_log_vulnerability.html">Advisory TFMV-7</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../releases/index.html">Releases</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/2.1.0.html">v2.1.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/2.0.0.html">v2.0.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/1.8.1.html">v1.8.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/1.8.0.html">v1.8.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/release_process.html">Release Cadence and Process</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../roadmap.html">Roadmap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../glossary.html">Glossary</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../platform/index.html">Platforms</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/arm/index.html">Arm</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/corstone1000/readme.html">Corstone-1000</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/mps3/corstone300/README.html">Corstone-300 FPGA (AN547 and AN552) and FVP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/mps3/corstone310/README.html">Corstone-310 FPGA (AN555) and FVP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/mps4/corstone315/README.html">Corstone-315 FVP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/musca_b1/readme.html">Musca-B1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/musca_s1/readme.html">Musca-S1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/rse/index.html">Runtime Security Engine</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/armchina/index.html">ArmChina</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/armchina/mps3/alcor/README.html">Alcor FPGA (AN557)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/cypress/index.html">Cypress</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/cypress/psoc64/index.html">PSoC64</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/lairdconnectivity/index.html">Laird Connectivity</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/lairdconnectivity/bl5340_dvk_cpuapp/README.html">BL5340</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/nordic_nrf/index.html">Nordic</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/nordic_nrf/nrf5340dk_nrf5340_cpuapp/README.html">nRF5340</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/nordic_nrf/nrf9160dk_nrf9160/README.html">nRF9160</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/nordic_nrf/nrf9161dk_nrf9161/README.html">nRF9161</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/nuvoton/index.html">Nuvoton</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/nuvoton/m2351/README.html">NuMaker-PFM-M2351</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/nuvoton/m2354/README.html">NuMaker-PFM-M2354</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/nxp/index.html">NXP</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/nxp/lpcxpresso55s69/README.html">LPCXpresso55S69</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/stm/index.html">STMICROELECTRONICS</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32h5xx/readme.html">STM32H5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32l5xx/readme.html">STM32L5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32mp2xx/readme.html">STM32MP2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32u5xx/readme.html">STM32U5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/nucleo_l552ze_q/readme.html">NUCLEO_L552ZE_Q</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32h573i_dk/readme.html">STM32H573I_DK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32l562e_dk/readme.html">STM32L562E_DK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp215f_dk/readme.html">stm32mp215f_dk</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/b_u585i_iot02a/readme.html">B_U585I_IOT02A</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../building/tfm_build_instruction.html">Build instructions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../building/tests_build_instruction.html">Build Tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../building/run_tfm_examples_on_arm_platforms.html">Run TF-M tests and applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../building/documentation_generation.html">Building the documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../building/tfm_build_instruction_iar.html">IAR toolchain</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../configuration/index.html">Configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../configuration/build_configuration.html">Build configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../configuration/header_file_system.html">Component configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../configuration/kconfig_system.html">Kconfig</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../configuration/profiles/index.html">Profiles</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../configuration/profiles/tfm_profile_small.html"> Small</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../configuration/profiles/tfm_profile_medium_arot-less.html"> ARoT-less</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../configuration/profiles/tfm_profile_medium.html"> Medium</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../configuration/profiles/tfm_profile_large.html"> Large</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../configuration/test_configuration.html">Tests configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../integration_guide/index.html">Integration Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../integration_guide/source_structure/source_structure.html">Source Structure</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/source_structure/platform_folder.html">Details for the /platform folder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/source_structure/platform_ext_folder.html">Details for the /platform/ext folder</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../integration_guide/spm_backends.html">SPM Backends</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../integration_guide/non-secure_client_extension_integration_guide.html">NS client integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../integration_guide/os_migration_guide_armv8m.html">OS migration to Armv8-M</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../integration_guide/tfm_fpu_support.html">Floating-Point Support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../integration_guide/tfm_secure_irq_integration_guide.html">Secure Interrupt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../integration_guide/platform_provisioning.html">Platform Provisioning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../integration_guide/platform/index.html">Adding a new platform</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/platform/porting_tfm_to_a_new_hardware.html">Porting TF-M to a New Hardware</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/platform/documenting_platform.html">Platform Documentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/platform/platform_deprecation.html">Platform deprecation and removal</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../integration_guide/services/index.html">Services</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/services/tfm_attestation_integration_guide.html">Initial Attestation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/services/tfm_crypto_integration_guide.html">Crypto</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/services/tfm_its_integration_guide.html">Internal Trusted Storage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/services/tfm_platform_integration_guide.html">Platform</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/services/tfm_ps_integration_guide.html">Protected Storage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/services/tfm_secure_partition_addition.html">Adding a New Secure Partition</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/services/tfm_manifest_tool_user_guide.html">Manifest Tool</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/services/tfm_adac_integration_guide.html">ADAC</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Design Documents</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../booting/tfm_secure_boot.html">Secure Boot</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../booting/bl1.html">BL1 Immutable bootloader</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../booting/secure_boot_rollback_protection.html">Rollback Protection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../booting/secure_boot_hw_key_integration.html">HW Key integration</a></li>
+</ul>
+</li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Dual CPU</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Booting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="communication_prototype_between_nspe_and_spe_in_dual_core_systems.html">SPE - NSPE communication</a></li>
+<li class="toctree-l3"><a class="reference internal" href="mailbox_design_on_dual_core_system.html">Mailbox</a></li>
+<li class="toctree-l3"><a class="reference internal" href="mailbox_ns_agent_update.html">Mailbox update</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tfm_multi_core_access_check.html">Memory Access Check</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../services/index.html">Secure Services</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../services/secure_partition_manager.html">Secure Partition Manager</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../services/secure_partition_runtime_library.html">Secure Partition RTL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../services/tfm_psa_inter_process_communication.html">Inter-Process Communication</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../services/stateless_rot_service.html">Stateless Services</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../services/tfm_uniform_secure_service_signature.html">Service Signing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../services/tfm_crypto_design.html">Crypto</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../services/symmetric_initial_attest.html">Initial Attestation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../services/tfm_its_service.html">Internal Trusted Storage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../services/tfm_fwu_service.html">Firmware Update</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../services/ps_key_management.html">PS Key Management</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../software/index.html">Software Design</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../software/code_sharing.html">Code Sharing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../software/hardware_abstraction_layer.html">Hardware Abstraction Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../software/tfm_cooperative_scheduling_rules.html">Cooperative Scheduling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../software/tfm_code_generation_with_jinja2.html">Code Templates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../software/enum_implicit_casting.html">Implicit Typecasting</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../ff_isolation.html">Isolation Rules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tfm_builtin_keys.html">Builtin Keys</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tfm_log_system_design_document.html">Logging system</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tfm_physical_attack_mitigation.html">Physical Attack Mitigation</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contribution</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing/index.html">Guidelines</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/contributing_process.html">The process</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/code_review_guide.html">Code review</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/maintainers.html">Maintainers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/maintainers.html#code-owners">Code owners</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/coding_guide.html">Yet another coding standard :)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/doc_guidelines.html">Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/tfm_design_proposal_guideline.html">Design proposal</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing/lic.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing/dco.html">DCO</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Links</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://trustedfirmware-m.readthedocs.io/projects/tf-m-tests/en/latest/">TF-M Tests</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://trustedfirmware-m.readthedocs.io/projects/tf-m-tools/en/latest/">TF-M Tools</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://trustedfirmware-m.readthedocs.io/projects/tf-m-extras/en/latest/">TF-M Extras</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://ci.trustedfirmware.org/job/tf-m-build-docs-nightly/lastSuccessfulBuild/artifact/trusted-firmware-m/build/docs/reference_manual/html/index.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://developer.trustedfirmware.org/w/collaboration/security_center">Security Center</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://www.arm.com/architecture/security-features/platform-security">PSA</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">STMICROELECTRONICS</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../stm/releases/index.html">Releases</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/releases/getting_started.html">Getting started</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32h573i_dk/readme.html">STM32H573I_DK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32l562e_dk/readme.html">STM32L562E_DK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp215f_dk/readme.html">stm32mp215f_dk</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/nucleo_l552ze_q/readme.html">NUCLEO_L552ZE_Q</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/b_u585i_iot02a/readme.html">B_U585I_IOT02A</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/releases/platforms.html">Platforms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32h5xx/readme.html">STM32H5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32l5xx/readme.html">STM32L5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32mp2xx/readme.html">STM32MP2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32u5xx/readme.html">STM32U5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/nucleo_l552ze_q/readme.html">NUCLEO_L552ZE_Q</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32h573i_dk/readme.html">STM32H573I_DK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32l562e_dk/readme.html">STM32L562E_DK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp215f_dk/readme.html">stm32mp215f_dk</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/releases/changelog.html">Change Log &amp; Notes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/releases/v1.7.0/index.html">v1.7.0</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/releases/v2.1.0/index.html">v2.1.0</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../stm/releases/index.html#branch-plans">Branch plans</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../stm/technical/index.html">Technical references</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/technical/a35_td_flavor/index.html">A35-TD flavor</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/technical/a35_td_flavor/memory_layout.html">Memory layout</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/technical/a35_td_flavor/storage.html">Storage</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/technical/m33_td_flavor/index.html">M33-TD flavor</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/technical/m33_td_flavor/memory_layout.html">Memory layout</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/technical/m33_td_flavor/storage.html">Storage</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/technical/devicetree/index.html">Devicetree</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/technical/devicetree/devicetree_tfm.html">Scope and purpose</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/technical/devicetree/devicetree_tfm.html#concept">Concept</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/technical/devicetree/devicetree_tfm.html#how-to-add-device">How to add device</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/technical/initlevel.html">Initlevel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/technical/initial_attestation.html">Initial Attestation Service</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/technical/nv_counter.html">Nv counter</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../stm/ide/index.html">Ide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/ide/cube/stm32cubeide.html">STM32CubeIDE</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Trusted Firmware-M</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Design Documents</a></li>
+          <li class="breadcrumb-item"><a href="index.html">Dual-CPU</a></li>
+      <li class="breadcrumb-item active">Booting a Dual-Core System</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="section" id="booting-a-dual-core-system">
+<h1>Booting a Dual-Core System<a class="headerlink" href="#booting-a-dual-core-system" title="Permalink to this heading"></a></h1>
+<dl class="field-list simple">
+<dt class="field-odd">Author</dt>
+<dd class="field-odd"><p>Chris Brand</p>
+</dd>
+<dt class="field-even">Organization</dt>
+<dd class="field-even"><p>Cypress Semiconductor Corporation</p>
+</dd>
+<dt class="field-odd">Contact</dt>
+<dd class="field-odd"><p><a class="reference external" href="mailto:chris&#46;brand&#37;&#52;&#48;cypress&#46;com">chris<span>&#46;</span>brand<span>&#64;</span>cypress<span>&#46;</span>com</a></p>
+</dd>
+</dl>
+<div class="section" id="system-architecture">
+<h2>System Architecture<a class="headerlink" href="#system-architecture" title="Permalink to this heading"></a></h2>
+<p>There are many possibly ways to design a dual core system. Some important
+considerations from a boot perspective are:</p>
+<ul>
+<li><p>Which core has access to which areas of Flash?</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>It is possible that the secure core has no access to the Flash from which
+the non-secure core will boot, in which case the non-secure core will
+presumably have a separate root of trust and perform its own integrity
+checks on boot.</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>How does the non-secure core behave on power-up? Is it held in reset,
+does it jump to a set address, …?</p></li>
+<li><p>What are the performance characteristics of the two core?</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>There could be a great disparity in performance</p></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</div>
+<div class="section" id="tf-m-twin-core-booting">
+<h2>TF-M Twin Core Booting<a class="headerlink" href="#tf-m-twin-core-booting" title="Permalink to this heading"></a></h2>
+<p>In an effort to make the problem manageable, as well as to provide a system
+with good performance, that is flexible enough to work for a variety of dual
+core systems, the following design decisions have been made:</p>
+<ul>
+<li><p>TF-M will (for now) only support systems where the secure core has full
+access to the Flash that the non-secure core will boot from</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>This keeps the boot flow as close as possible to the single core design,
+with the secure core responsible for maintaining the chain of trust for
+the entire system, and for upgrade of the entire system</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>The secure code will make a platform-specific call immediately after setting
+up hardware protection to (potentially) start the non-secure core running</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>This is the earliest point at which it is safe to allow the non-secure
+code to start running, so starting it here ensures system integrity while
+also giving the non-secure code the maximum amount of time to perform its
+initialization</p></li>
+<li><p>Note that this is after the bootloader has validated the non-secure image,
+which is the other key part to maintain security</p></li>
+<li><p>This also means that only tfm_s and tfm_ns have to change, and not mcuboot</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>Both the secure and non-secure code will make platform-specific calls to
+establish a synchronization point. This will be after both sides have done
+any initialization that is required, including setting up inter-core
+communications. On a single core system, this would be the point at which the
+secure code jumps to the non-secure code, and at the very start of the
+non-secure code.</p></li>
+<li><p>After completing initialization on the secure core (at the point where on a
+single core system, it would jump to the non-secure code), the main thread on
+the secure core will be allowed to die</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>The scheduler has been started at this point, and an idle thread exists.
+Any additional work that is only required in the dual core case will be
+interrupt-driven.</p></li>
+<li><p>All work related to the non-secure core will take place from a
+<code class="docutils literal notranslate"><span class="pre">ns_agent_mailbox</span></code> partition, which will establish communication with
+the non-secure core and then act on its behalf</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>Because both cores may be booting in parallel, executing different
+initialization code, at different speeds, the design must be resilient if
+either core attempts to communicate with the other before the latter is ready.
+For example, the client (non-secure) side of the IPC mechanism must be able
+to handle the situation where it has to wait for the server (secure) side to
+finish setting up the IPC mechanism.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>This relates to the synchronization calls mentioned above. It means that
+those calls cannot utilise the IPC mechanism, but must instead use some
+platform-specific mechanism to establish this synchronization. This could
+be as simple as setting aside a small area of shared memory and having
+both sides set a “ready” flag, but may well also involve the use of
+interrupts.</p></li>
+<li><p>This also means that the synchronization call must take place after the
+IPC mechanism has been set up but before any attempt (by either side) to
+use it.</p></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</div>
+<div class="section" id="api-additions">
+<h2>API Additions<a class="headerlink" href="#api-additions" title="Permalink to this heading"></a></h2>
+<p>Three new HAL functions are required:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">tfm_hal_boot_ns_cpu</span><span class="p">(</span><span class="kt">uintptr_t</span><span class="w"> </span><span class="n">start_addr</span><span class="p">);</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Called on the secure core from <code class="docutils literal notranslate"><span class="pre">ns_agent_mailbox</span></code> partition when it first
+runs (after protections have been configured).</p></li>
+<li><p>Performs the necessary actions to start the non-secure core running the code
+at the specified address.</p></li>
+</ul>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">tfm_hal_wait_for_ns_cpu_ready</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Called on the secure core from <code class="docutils literal notranslate"><span class="pre">ns_agent_mailbox</span></code> partition after making the
+above call.</p></li>
+<li><p>Flags that the secure core has completed its initialization, including setting
+up the IPC mechanism.</p></li>
+<li><p>Waits, if necessary, for the non-secure core to flag that it has completed its
+initialisation</p></li>
+</ul>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">tfm_ns_wait_for_s_cpu_ready</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Called on the non-secure core from <code class="docutils literal notranslate"><span class="pre">main()</span></code> after the dual-core-specific
+initialization (on a single core system, this would be the start of the
+non-secure code), before the first use of the IPC mechanism.</p></li>
+<li><p>Flags that the non-secure side has completed its initialization.</p></li>
+<li><p>Waits, if necessary, for the secure core to flag that it has completed its
+initialization.</p></li>
+</ul>
+<p>For all three, an empty implementation will be provided with a weak symbol so
+that platforms only have to provide the new functions if they are required.</p>
+<hr class="docutils" />
+<p>Copyright (c) 2019-2022 Cypress Semiconductor Corporation. All rights reserved.
+Copyright (c) 2021, Arm Limited. All rights reserved.</p>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p></p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

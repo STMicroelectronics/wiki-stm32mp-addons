@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Code sharing between independently linked XIP binaries &mdash; Trusted Firmware-M v2.1.0-stm32mp-r1 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/tfm_custom.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/tabs.css" type="text/css" />
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Hardware Abstraction Layer" href="hardware_abstraction_layer.html" />
+    <link rel="prev" title="Software Design Notes" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            Trusted Firmware-M
+              <img src="../../_static/tf_logo_white.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                v2.1.0-stm32mp-r1
+
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../introduction/index.html">Introduction</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started/index.html">Getting Started</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../security/index.html">Security</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../security/threat_models/generic_threat_model.html">Threat model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../security/security_advisories/index.html">Security Advisories</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/stack_seal_vulnerability.html">Advisory TFMV-1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/svc_caller_sp_fetching_vulnerability.html">Advisory TFMV-2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/crypto_multi_part_ops_abort_fail.html">Advisory TFMV-3</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/profile_small_key_id_encoding_vulnerability.html">Advisory TFMV-4</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/fwu_write_vulnerability.html">Advisory TFMV-5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/cc3xx_partial_tag_compare_on_chacha20_poly1305.html">Advisory TFMV-6</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/debug_log_vulnerability.html">Advisory TFMV-7</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../releases/index.html">Releases</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/2.1.0.html">v2.1.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/2.0.0.html">v2.0.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/1.8.1.html">v1.8.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/1.8.0.html">v1.8.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/release_process.html">Release Cadence and Process</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../roadmap.html">Roadmap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../glossary.html">Glossary</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../platform/index.html">Platforms</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/arm/index.html">Arm</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/corstone1000/readme.html">Corstone-1000</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/mps3/corstone300/README.html">Corstone-300 FPGA (AN547 and AN552) and FVP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/mps3/corstone310/README.html">Corstone-310 FPGA (AN555) and FVP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/mps4/corstone315/README.html">Corstone-315 FVP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/musca_b1/readme.html">Musca-B1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/musca_s1/readme.html">Musca-S1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/rse/index.html">Runtime Security Engine</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/armchina/index.html">ArmChina</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/armchina/mps3/alcor/README.html">Alcor FPGA (AN557)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/cypress/index.html">Cypress</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/cypress/psoc64/index.html">PSoC64</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/lairdconnectivity/index.html">Laird Connectivity</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/lairdconnectivity/bl5340_dvk_cpuapp/README.html">BL5340</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/nordic_nrf/index.html">Nordic</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/nordic_nrf/nrf5340dk_nrf5340_cpuapp/README.html">nRF5340</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/nordic_nrf/nrf9160dk_nrf9160/README.html">nRF9160</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/nordic_nrf/nrf9161dk_nrf9161/README.html">nRF9161</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/nuvoton/index.html">Nuvoton</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/nuvoton/m2351/README.html">NuMaker-PFM-M2351</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/nuvoton/m2354/README.html">NuMaker-PFM-M2354</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/nxp/index.html">NXP</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/nxp/lpcxpresso55s69/README.html">LPCXpresso55S69</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/stm/index.html">STMICROELECTRONICS</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32h5xx/readme.html">STM32H5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32l5xx/readme.html">STM32L5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32mp2xx/readme.html">STM32MP2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32u5xx/readme.html">STM32U5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/nucleo_l552ze_q/readme.html">NUCLEO_L552ZE_Q</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32h573i_dk/readme.html">STM32H573I_DK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32l562e_dk/readme.html">STM32L562E_DK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp215f_dk/readme.html">stm32mp215f_dk</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/b_u585i_iot02a/readme.html">B_U585I_IOT02A</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../building/tfm_build_instruction.html">Build instructions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../building/tests_build_instruction.html">Build Tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../building/run_tfm_examples_on_arm_platforms.html">Run TF-M tests and applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../building/documentation_generation.html">Building the documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../building/tfm_build_instruction_iar.html">IAR toolchain</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../configuration/index.html">Configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../configuration/build_configuration.html">Build configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../configuration/header_file_system.html">Component configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../configuration/kconfig_system.html">Kconfig</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../configuration/profiles/index.html">Profiles</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../configuration/profiles/tfm_profile_small.html"> Small</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../configuration/profiles/tfm_profile_medium_arot-less.html"> ARoT-less</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../configuration/profiles/tfm_profile_medium.html"> Medium</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../configuration/profiles/tfm_profile_large.html"> Large</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../configuration/test_configuration.html">Tests configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../integration_guide/index.html">Integration Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../integration_guide/source_structure/source_structure.html">Source Structure</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/source_structure/platform_folder.html">Details for the /platform folder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/source_structure/platform_ext_folder.html">Details for the /platform/ext folder</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../integration_guide/spm_backends.html">SPM Backends</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../integration_guide/non-secure_client_extension_integration_guide.html">NS client integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../integration_guide/os_migration_guide_armv8m.html">OS migration to Armv8-M</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../integration_guide/tfm_fpu_support.html">Floating-Point Support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../integration_guide/tfm_secure_irq_integration_guide.html">Secure Interrupt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../integration_guide/platform_provisioning.html">Platform Provisioning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../integration_guide/platform/index.html">Adding a new platform</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/platform/porting_tfm_to_a_new_hardware.html">Porting TF-M to a New Hardware</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/platform/documenting_platform.html">Platform Documentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/platform/platform_deprecation.html">Platform deprecation and removal</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../integration_guide/services/index.html">Services</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/services/tfm_attestation_integration_guide.html">Initial Attestation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/services/tfm_crypto_integration_guide.html">Crypto</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/services/tfm_its_integration_guide.html">Internal Trusted Storage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/services/tfm_platform_integration_guide.html">Platform</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/services/tfm_ps_integration_guide.html">Protected Storage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/services/tfm_secure_partition_addition.html">Adding a New Secure Partition</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/services/tfm_manifest_tool_user_guide.html">Manifest Tool</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/services/tfm_adac_integration_guide.html">ADAC</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Design Documents</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../booting/tfm_secure_boot.html">Secure Boot</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../booting/bl1.html">BL1 Immutable bootloader</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../booting/secure_boot_rollback_protection.html">Rollback Protection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../booting/secure_boot_hw_key_integration.html">HW Key integration</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../dual-cpu/index.html">Dual CPU</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../dual-cpu/booting_a_dual_core_system.html">Booting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../dual-cpu/communication_prototype_between_nspe_and_spe_in_dual_core_systems.html">SPE - NSPE communication</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../dual-cpu/mailbox_design_on_dual_core_system.html">Mailbox</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../dual-cpu/mailbox_ns_agent_update.html">Mailbox update</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../dual-cpu/tfm_multi_core_access_check.html">Memory Access Check</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../services/index.html">Secure Services</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../services/secure_partition_manager.html">Secure Partition Manager</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../services/secure_partition_runtime_library.html">Secure Partition RTL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../services/tfm_psa_inter_process_communication.html">Inter-Process Communication</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../services/stateless_rot_service.html">Stateless Services</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../services/tfm_uniform_secure_service_signature.html">Service Signing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../services/tfm_crypto_design.html">Crypto</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../services/symmetric_initial_attest.html">Initial Attestation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../services/tfm_its_service.html">Internal Trusted Storage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../services/tfm_fwu_service.html">Firmware Update</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../services/ps_key_management.html">PS Key Management</a></li>
+</ul>
+</li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Software Design</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Code Sharing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hardware_abstraction_layer.html">Hardware Abstraction Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tfm_cooperative_scheduling_rules.html">Cooperative Scheduling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tfm_code_generation_with_jinja2.html">Code Templates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="enum_implicit_casting.html">Implicit Typecasting</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../ff_isolation.html">Isolation Rules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tfm_builtin_keys.html">Builtin Keys</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tfm_log_system_design_document.html">Logging system</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tfm_physical_attack_mitigation.html">Physical Attack Mitigation</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contribution</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing/index.html">Guidelines</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/contributing_process.html">The process</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/code_review_guide.html">Code review</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/maintainers.html">Maintainers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/maintainers.html#code-owners">Code owners</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/coding_guide.html">Yet another coding standard :)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/doc_guidelines.html">Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/tfm_design_proposal_guideline.html">Design proposal</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing/lic.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing/dco.html">DCO</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Links</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://trustedfirmware-m.readthedocs.io/projects/tf-m-tests/en/latest/">TF-M Tests</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://trustedfirmware-m.readthedocs.io/projects/tf-m-tools/en/latest/">TF-M Tools</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://trustedfirmware-m.readthedocs.io/projects/tf-m-extras/en/latest/">TF-M Extras</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://ci.trustedfirmware.org/job/tf-m-build-docs-nightly/lastSuccessfulBuild/artifact/trusted-firmware-m/build/docs/reference_manual/html/index.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://developer.trustedfirmware.org/w/collaboration/security_center">Security Center</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://www.arm.com/architecture/security-features/platform-security">PSA</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">STMICROELECTRONICS</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../stm/releases/index.html">Releases</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/releases/getting_started.html">Getting started</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32h573i_dk/readme.html">STM32H573I_DK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32l562e_dk/readme.html">STM32L562E_DK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp215f_dk/readme.html">stm32mp215f_dk</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/nucleo_l552ze_q/readme.html">NUCLEO_L552ZE_Q</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/b_u585i_iot02a/readme.html">B_U585I_IOT02A</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/releases/platforms.html">Platforms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32h5xx/readme.html">STM32H5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32l5xx/readme.html">STM32L5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32mp2xx/readme.html">STM32MP2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32u5xx/readme.html">STM32U5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/nucleo_l552ze_q/readme.html">NUCLEO_L552ZE_Q</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32h573i_dk/readme.html">STM32H573I_DK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32l562e_dk/readme.html">STM32L562E_DK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp215f_dk/readme.html">stm32mp215f_dk</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/releases/changelog.html">Change Log &amp; Notes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/releases/v1.7.0/index.html">v1.7.0</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/releases/v2.1.0/index.html">v2.1.0</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../stm/releases/index.html#branch-plans">Branch plans</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../stm/technical/index.html">Technical references</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/technical/a35_td_flavor/index.html">A35-TD flavor</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/technical/a35_td_flavor/memory_layout.html">Memory layout</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/technical/a35_td_flavor/storage.html">Storage</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/technical/m33_td_flavor/index.html">M33-TD flavor</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/technical/m33_td_flavor/memory_layout.html">Memory layout</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/technical/m33_td_flavor/storage.html">Storage</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/technical/devicetree/index.html">Devicetree</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/technical/devicetree/devicetree_tfm.html">Scope and purpose</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/technical/devicetree/devicetree_tfm.html#concept">Concept</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/technical/devicetree/devicetree_tfm.html#how-to-add-device">How to add device</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/technical/initlevel.html">Initlevel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/technical/initial_attestation.html">Initial Attestation Service</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/technical/nv_counter.html">Nv counter</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../stm/ide/index.html">Ide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/ide/cube/stm32cubeide.html">STM32CubeIDE</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Trusted Firmware-M</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Design Documents</a></li>
+          <li class="breadcrumb-item"><a href="index.html">Software Design Notes</a></li>
+      <li class="breadcrumb-item active">Code sharing between independently linked XIP binaries</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="section" id="code-sharing-between-independently-linked-xip-binaries">
+<h1>Code sharing between independently linked XIP binaries<a class="headerlink" href="#code-sharing-between-independently-linked-xip-binaries" title="Permalink to this heading"></a></h1>
+<dl class="field-list simple">
+<dt class="field-odd">Author</dt>
+<dd class="field-odd"><p>Tamas Ban</p>
+</dd>
+<dt class="field-even">Organization</dt>
+<dd class="field-even"><p>Arm Limited</p>
+</dd>
+<dt class="field-odd">Contact</dt>
+<dd class="field-odd"><p><a class="reference external" href="mailto:tamas&#46;ban&#37;&#52;&#48;arm&#46;com">tamas<span>&#46;</span>ban<span>&#64;</span>arm<span>&#46;</span>com</a></p>
+</dd>
+</dl>
+<div class="section" id="motivation">
+<h2>Motivation<a class="headerlink" href="#motivation" title="Permalink to this heading"></a></h2>
+<p>Cortex-M devices are usually constrained in terms of flash and RAM. Therefore,
+it is often challenging to fit bigger projects in the available memory. The PSA
+specifications require a device to both have a secure boot process in place at
+device boot-up time, and to have a partition in the SPE which provides
+cryptographic services at runtime. These two entities have some overlapping
+functionality. Some cryptographic primitives (e.g. hash calculation and digital
+signature verification) are required both in the bootloader and the runtime
+environment. In the current TF-M code base, both firmware components use the
+mbed-crypto library to implement these requirements. During the build process,
+the mbed-crpyto library is built twice, with different configurations (the
+bootloader requires less functionality) and then linked to the corresponding
+firmware component. As a result of this workflow, the same code is placed in the
+flash twice. For example, the code for the SHA-256 algorithm is included in
+MCUboot, but the exact same code is duplicated in the SPE cryptography
+partition. In most cases, there is no memory isolation between the bootloader
+and the SPE, because both are part of the PRoT code and run in the secure
+domain. So, in theory, the code of the common cryptographic algorithms could be
+reused among these firmware components. This could result in a big reduction in
+code footprint, because the cryptographic algorithms are usually flash hungry.
+Code size reduction can be a good opportunity for very constrained devices,
+which might need to use TF-M Profile Small anyway.</p>
+</div>
+<div class="section" id="technical-challenge">
+<h2>Technical challenge<a class="headerlink" href="#technical-challenge" title="Permalink to this heading"></a></h2>
+<p>Code sharing in a regular OS environment is easily achievable with dynamically
+linked libraries. However, this is not the case in Cortex-M systems where
+applications might run bare-metal, or on top of an RTOS, which usually lacks
+dynamic loading functionality. One major challenge to be solved in the Cortex-M
+space is how to share code between independently linked XIP applications that
+are tied to a certain memory address range to be executable and have absolute
+function and global data memory addresses. In this case, the code is not
+relocatable, and in most cases, there is no loader functionality in the system
+that can perform code relocation. Also, the lack of an MMU makes the address
+space flat, constant and not reconfigurable at runtime by privileged code.</p>
+<p>One other difficulty is that the bootloader and the runtime use the same RAM
+area during execution. The runtime firmware is executed strictly after the
+bootloader, so normally, it can reuse the whole secure RAM area, as it would be
+the exclusive user. No attention needs to be paid as to where global data is
+placed by the linker. The bootloader does not need to retain its state. The low
+level startup of the runtime firmware can freely overwrite the RAM with its data
+without corrupting bootloader functionality. However, with code sharing between
+bootloader and runtime firmware, these statements are no longer true. Global
+variables used by the shared code must either retain their value or must be
+reinitialised during low level startup of the runtime firmware. The startup code
+is not allowed to overwrite the shared global variables with arbitrary data. The
+following design proposal provides a solution to these challenges.</p>
+</div>
+<div class="section" id="design-concept">
+<h2>Design concept<a class="headerlink" href="#design-concept" title="Permalink to this heading"></a></h2>
+<p>The bootloader is sometimes implemented as ROM code (BL1) or stored in a region
+of the flash which is lockable, to prevent tampering. In a secure system, the
+bootloader is immutable code and thus implements a part of the Root of Trust
+anchor in the device, which is trusted implicitly. The shared code is primarily
+part of the bootloader, and is reused by the runtime SPE firmware at a later
+stage. Not all of the bootloader code is reused by the runtime SPE, only some
+cryptographic functions.</p>
+<p>Simplified steps of building with code sharing enabled:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Complete the bootloader build process to have a final image that contains
+the absolute addresses of the shared functions, and the global variables
+used by these functions.</p></li>
+<li><p>Extract the addresses of the functions and related global variables that are
+intended to be shared from the bootloader executable.</p></li>
+<li><p>When building runtime firmware, provide the absolute addresses of the shared
+symbols to the linker, so that it can pick them up, instead of instantiating
+them again.</p></li>
+</ul>
+</div></blockquote>
+<p>The execution flow looks like this:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>SPE<span class="w">        </span>MCUboot<span class="w"> </span>func1<span class="o">()</span><span class="w">    </span>MCUboot<span class="w"> </span>func2<span class="o">()</span><span class="w">     </span>MCUboot<span class="w"> </span>func3<span class="o">()</span>
+<span class="w"> </span><span class="p">|</span>
+<span class="w"> </span><span class="p">|</span><span class="w">     </span>Hash<span class="o">()</span>
+<span class="w"> </span><span class="p">|</span>-------------&gt;<span class="p">|</span>
+<span class="w">                </span><span class="p">|</span>-----------------&gt;<span class="p">|</span>
+<span class="w">                                   </span><span class="p">|</span>
+<span class="w">                      </span>Return<span class="w">       </span><span class="p">|</span>
+<span class="w">      </span>Return<span class="w">    </span><span class="p">|</span>&lt;-----------------<span class="p">|</span>
+<span class="w"> </span><span class="p">|</span>&lt;-------------<span class="p">|</span>
+<span class="w"> </span><span class="p">|</span>
+<span class="w"> </span><span class="p">|</span>
+<span class="w"> </span><span class="p">|</span>-----------------------------------------------------&gt;<span class="p">|</span>
+<span class="w">                                                        </span><span class="p">|</span>
+<span class="w">         </span>Function<span class="w"> </span>pointer<span class="w"> </span><span class="k">in</span><span class="w"> </span>shared<span class="w"> </span>global<span class="w"> </span>data<span class="o">()</span><span class="w">       </span><span class="p">|</span>
+<span class="w"> </span><span class="p">|</span>&lt;-----------------------------------------------------<span class="p">|</span>
+<span class="w"> </span><span class="p">|</span>
+<span class="w"> </span><span class="p">|</span><span class="w">                       </span>Return
+<span class="w"> </span><span class="p">|</span>-----------------------------------------------------&gt;<span class="p">|</span>
+<span class="w">                                                        </span><span class="p">|</span>
+<span class="w">                         </span>Return<span class="w">                         </span><span class="p">|</span>
+<span class="w"> </span><span class="p">|</span>&lt;-----------------------------------------------------<span class="p">|</span>
+<span class="w"> </span><span class="p">|</span>
+<span class="w"> </span><span class="p">|</span>
+</pre></div>
+</div>
+<p>The execution flow usually returns from a shared function back to the SPE with
+an ordinary function return. So usually, once a shared function is called in the
+call path, all further functions in the call chain will be shared as well.
+However, this is not always the case, as it is possible for a shared function to
+call a non-shared function in SPE code through a global function pointer.</p>
+<p>For shared global variables, a dedicated data section must be allocated in the
+linker configuration file. This area must have the same memory address in both
+MCUboot’s and the SPE’s linker files, to ensure the integrity of the variables.
+For simplicity’s sake, this section is placed at the very beginning of the RAM
+area. Also, the RAM wiping functionality at the end of the secure boot flow
+(that is intended to remove any possible secrets from the RAM) must not clear
+this area. Furthermore, it must be ensured that the linker places shared globals
+into this data section. There are two way to achieve this:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Put a filter pattern in the section body that matches the shared global
+variables.</p></li>
+<li><p>Mark the global variables in the source code with special attribute
+<cite>__attribute__((section(&lt;NAME_OF_SHARED_SYMBOL_SECTION&gt;)))</cite></p></li>
+</ul>
+</div></blockquote>
+<p>RAM memory layout in MCUboot with code sharing enabled:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>+------------------+
+<span class="p">|</span><span class="w">  </span>Shared<span class="w"> </span>symbols<span class="w">  </span><span class="p">|</span>
++------------------+
+<span class="p">|</span><span class="w"> </span>Shared<span class="w"> </span>boot<span class="w"> </span>data<span class="w"> </span><span class="p">|</span>
++------------------+
+<span class="p">|</span><span class="w">      </span>Data<span class="w">        </span><span class="p">|</span>
++------------------+
+<span class="p">|</span><span class="w">    </span>Stack<span class="w"> </span><span class="o">(</span>MSP<span class="o">)</span><span class="w">   </span><span class="p">|</span>
++------------------+
+<span class="p">|</span><span class="w">      </span>Heap<span class="w">        </span><span class="p">|</span>
++------------------+
+</pre></div>
+</div>
+<p>RAM memory layout in SPE with code sharing enabled:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>+-------------------+
+<span class="p">|</span><span class="w">  </span>Shared<span class="w"> </span>symbols<span class="w">   </span><span class="p">|</span>
++-------------------+
+<span class="p">|</span><span class="w"> </span>Shared<span class="w"> </span>boot<span class="w"> </span>data<span class="w">  </span><span class="p">|</span>
++-------------------+
+<span class="p">|</span><span class="w">    </span>Stack<span class="w"> </span><span class="o">(</span>MSP<span class="o">)</span><span class="w">    </span><span class="p">|</span>
++-------------------+
+<span class="p">|</span><span class="w">    </span>Stack<span class="w"> </span><span class="o">(</span>PSP<span class="o">)</span><span class="w">    </span><span class="p">|</span>
++-------------------+
+<span class="p">|</span><span class="w"> </span>Partition<span class="w"> </span>X<span class="w"> </span>Data<span class="w">  </span><span class="p">|</span>
++-------------------+
+<span class="p">|</span><span class="w"> </span>Partition<span class="w"> </span>X<span class="w"> </span>Stack<span class="w"> </span><span class="p">|</span>
++-------------------+
+<span class="w">          </span>.
+<span class="w">          </span>.
+<span class="w">          </span>.
++-------------------+
+<span class="p">|</span><span class="w"> </span>Partition<span class="w"> </span>Z<span class="w"> </span>Data<span class="w">  </span><span class="p">|</span>
++-------------------+
+<span class="p">|</span><span class="w"> </span>Partition<span class="w"> </span>Z<span class="w"> </span>Stack<span class="w"> </span><span class="p">|</span>
++-------------------+
+<span class="p">|</span><span class="w">     </span>PRoT<span class="w"> </span>Data<span class="w">     </span><span class="p">|</span>
++-------------------+
+<span class="p">|</span><span class="w">       </span>Heap<span class="w">        </span><span class="p">|</span>
++-------------------+
+</pre></div>
+</div>
+<div class="section" id="patching-mbed-tls">
+<h3>Patching Mbed TLS<a class="headerlink" href="#patching-mbed-tls" title="Permalink to this heading"></a></h3>
+<p>In order to share some global function pointers from mbed-crypto that are
+related to dynamic memory allocation, their scope must be extended from private
+to global. This is needed because some compiler toolchain only extract the
+addresses of public functions and global variables, and extraction of addresses
+is a requirement to share them among binaries. Therefore, a short patch was
+created for the mbed-crypto library, which “globalises” these function pointers:</p>
+<p><cite>lib/ext/mbedcrypto/0002-Enable-crypto-code-sharing-between-independent-binar.patch</cite></p>
+<p>The patch needs to be manually applied in the Mbed TLS repo, if code sharing is
+enabled. The patch has no effect on the functional behaviour of the
+cryptographic library, it only extends the scope of some variables.</p>
+</div>
+</div>
+<div class="section" id="tools-support">
+<h2>Tools support<a class="headerlink" href="#tools-support" title="Permalink to this heading"></a></h2>
+<p>All the currently supported compilers provide a way to achieve the above
+objectives. However, there is no standard way, which means that the code sharing
+functionality must be implemented on a per compiler basis. The following steps
+are needed:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Extraction of the addresses of all global symbols.</p></li>
+<li><p>The filtering out of the addresses of symbols that aren’t shared. The goal is
+to not need to list all the shared symbols by name. Only a simple pattern
+has to be provided, which matches the beginning of the symbol’s name.
+Matching symbols will be shared. Examples are in :
+<cite>bl2/shared_symbol_template.txt</cite></p></li>
+<li><p>Provision of the addresses of shared symbols to the linker during the SPE
+build process.</p></li>
+<li><p>The resolution of symbol collisions during SPE linking. Because mbed-crypto
+is linked to both firmware components as a static library, the external
+shared symbols will conflict with the same symbols found within it. In order
+to prioritize the external symbol, the symbol with the same name in
+mbed-crypto must be marked as weak in the symbol table.</p></li>
+</ul>
+</div></blockquote>
+<p>The above functionalities are implemented in the toolchain specific CMake files:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><cite>toolchain_ARMCLANG.cmake</cite></p></li>
+<li><p><cite>toolchain_GNUARM.cmake</cite></p></li>
+</ul>
+</div></blockquote>
+<p>By the following two functions:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><cite>target_share_symbols()</cite>: Extract and filter shared symbol addresses
+from MCUboot.</p></li>
+<li><p><cite>target_link_shared_code()</cite>: Link shared code to the SPE and resolve symbol
+conflict issues.</p></li>
+</ul>
+</div></blockquote>
+<div class="section" id="armclang">
+<h3>ARMCLANG<a class="headerlink" href="#armclang" title="Permalink to this heading"></a></h3>
+<p>The toolchain specific steps are:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Extract all symbols from MCUboot: add <cite>-symdefs</cite> to the compiler command line</p></li>
+<li><p>Filter shared symbols: call CMake script <cite>FilterSharedSymbols.cmake</cite></p></li>
+<li><p>Weaken duplicated (shared) symbols in the mbed-crypto static library that are
+linked to the SPE: <cite>arm-none-eabi-objcopy</cite></p></li>
+<li><p>Link shared code to SPE: Add the filtered output of <cite>-symdefs</cite> to the SPE
+source file list.</p></li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="gnuarm">
+<h3>GNUARM<a class="headerlink" href="#gnuarm" title="Permalink to this heading"></a></h3>
+<p>The toolchain specific steps are:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Extract all symbols from MCUboot: <cite>arm-none-eabi-nm</cite></p></li>
+<li><p>Filter shared symbols: call CMake script: <cite>FilterSharedSymbols.cmake</cite></p></li>
+<li><p>Strip unshared code from MCUboot:  <cite>arm-none-eabi-strip</cite></p></li>
+<li><p>Weaken duplicated (shared) symbols in the mbed-crypto static library that are
+linked to the SPE: <cite>arm-none-eabi-objcopy</cite></p></li>
+<li><p>Link shared code to SPE: Add <cite>-Wl -R &lt;SHARED_STRIPPED_CODE.axf&gt;</cite> to the
+compiler command line</p></li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="iar">
+<h3>IAR<a class="headerlink" href="#iar" title="Permalink to this heading"></a></h3>
+<p>Functionality currently not implemented, but the toolchain supports doing it.</p>
+</div>
+</div>
+<div class="section" id="memory-footprint-reduction">
+<h2>Memory footprint reduction<a class="headerlink" href="#memory-footprint-reduction" title="Permalink to this heading"></a></h2>
+<p>Build type: MinSizeRel
+Platform: mps2/an521
+Version: TF-Mv1.2.0 + code sharing patches
+MCUboot image encryption support is disabled.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 14%" />
+<col style="width: 11%" />
+<col style="width: 14%" />
+<col style="width: 11%" />
+<col style="width: 14%" />
+<col style="width: 11%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td></td>
+<td colspan="2"><p>ConfigDefault</p></td>
+<td colspan="2"><p>ConfigProfile-M</p></td>
+<td colspan="2"><p>ConfigProfile-S</p></td>
+</tr>
+<tr class="row-even"><td></td>
+<td><p>ARMCLANG</p></td>
+<td><p>GNUARM</p></td>
+<td><p>ARMCLANG</p></td>
+<td><p>GNUARM</p></td>
+<td><p>ARMCLANG</p></td>
+<td><p>GNUARM</p></td>
+</tr>
+<tr class="row-odd"><td><p>CODE_SHARING=OFF</p></td>
+<td><p>122268</p></td>
+<td><p>124572</p></td>
+<td><p>75936</p></td>
+<td><p>75996</p></td>
+<td><p>50336</p></td>
+<td><p>50224</p></td>
+</tr>
+<tr class="row-even"><td><p>CODE_SHARING=ON</p></td>
+<td><p>113264</p></td>
+<td><p>115500</p></td>
+<td><p>70400</p></td>
+<td><p>70336</p></td>
+<td><p>48840</p></td>
+<td><p>48988</p></td>
+</tr>
+<tr class="row-odd"><td><p>Difference</p></td>
+<td><p>9004</p></td>
+<td><p>9072</p></td>
+<td><p>5536</p></td>
+<td><p>5660</p></td>
+<td><p>1496</p></td>
+<td><p>1236</p></td>
+</tr>
+</tbody>
+</table>
+<p>If MCUboot image encryption support is enabled then saving could be up to
+~13-15KB.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Code sharing on Musca-B1 was tested only with SW only crypto, so crypto
+hardware acceleration must be turned off: -DCRYPTO_HW_ACCELERATOR=OFF</p>
+</div>
+</div>
+<div class="section" id="useability-considerations">
+<h2>Useability considerations<a class="headerlink" href="#useability-considerations" title="Permalink to this heading"></a></h2>
+<p>Functions that only use local variables can be shared easily. However, functions
+that rely on global variables are a bit tricky. They can still be shared, but
+all global variables must be placed in the shared symbol section, to prevent
+overwriting and to enable the retention of their values.</p>
+<p>Some global variables might need to be reinitialised to their original values by
+runtime firmware, if they have been used by the bootloader, but need to have
+their original value when runtime firmware starts to use them. If so, the
+reinitialising functionality must be implemented explicitly, because the low
+level startup code in the SPE does not initialise the shared variables, which
+means they retain their value after MCUboot stops running.</p>
+<p>If a bug is discovered in the shared code, it cannot be fixed with a firmware
+upgrade, if the bootloader code is immutable. If this is the case, disabling
+code sharing might be a solution, as the new runtime firmware could contain the
+fixed code instead of relying on the unfixed shared code. However, this would
+increase code footprint.</p>
+<p>API backward compatibility also can be an issue. If the API has changed in newer
+version of the shared code. Then new code cannot rely on the shared version.
+The changed code and all the other shared code where it is referenced from must
+be ignored and the updated version of the functions must be compiled in the
+SPE binary. The Mbed TLS library is API compatible with its current version
+(<code class="docutils literal notranslate"><span class="pre">v2.24.0</span></code>) since the <code class="docutils literal notranslate"><span class="pre">mbedtls-2.7.0</span> <span class="pre">release</span></code> (2018-02-03).</p>
+<p>To minimise the risk of incompatibility, use the same compiler flags to build
+both firmware components.</p>
+<p>The artifacts of the shared code extraction steps must be preserved so as to
+remain available if new SPE firmware (that relies on shared code) is built and
+released. Those files are necessary to know the address of shared symbols when
+linking the SPE.</p>
+</div>
+<div class="section" id="how-to-use-code-sharing">
+<h2>How to use code sharing?<a class="headerlink" href="#how-to-use-code-sharing" title="Permalink to this heading"></a></h2>
+<p>Considering the above, code sharing is an optional feature, which is disabled
+by default. It can be enabled from the command line with a compile time switch:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><cite>TFM_CODE_SHARING</cite>: Set to <cite>ON</cite> to enable code sharing.</p></li>
+</ul>
+</div></blockquote>
+<p>With the default settings, only the common part of the mbed-crypto library is
+shared, between MCUboot and the SPE. However, there might be other device
+specific code (e.g. device drivers) that could be shared. The shared
+cryptography code consists mainly of the SHA-256 algorithm, the <cite>bignum</cite> library
+and some RSA related functions. If image encryption support is enabled in
+MCUboot, then AES algorithms can be shared as well.</p>
+<p>Sharing code between the SPE and an external project is possible, even if
+MCUboot isn’t used as the bootloader. For example, a custom bootloader can also
+be built in such a way as to create the necessary artifacts to share some of its
+code with the SPE. The same artifacts must be created like the case of MCUboot:</p>
+<blockquote>
+<div><ul class="simple">
+<li><dl class="simple">
+<dt><cite>shared_symbols_name.txt</cite>: Contains the name of the shared symbols. Used by</dt><dd><p>the script that prevents symbol collision.</p>
+</dd>
+</dl>
+</li>
+<li><p><cite>shared_symbols_address.txt</cite>: Contains the type, address and name of shared
+symbols. Used by the linker when linking runtime SPE.</p></li>
+<li><p><cite>shared_code.axf</cite>: GNUARM specific. The stripped version of the firmware
+component, only contains the shared code. It is used by the linker when
+linking the SPE.</p></li>
+</ul>
+</div></blockquote>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The artifacts of the shared code extraction steps must be preserved to be
+able to link them to any future SPE version.</p>
+</div>
+<p>When an external project is sharing code with the SPE, the <cite>SHARED_CODE_PATH</cite>
+compile time switch must be set to the path of the artifacts mentioned above.</p>
+</div>
+<div class="section" id="further-improvements">
+<h2>Further improvements<a class="headerlink" href="#further-improvements" title="Permalink to this heading"></a></h2>
+<p>This design focuses only on sharing the cryptography code. However, other code
+could be shared as well. Some possibilities:</p>
+<ul class="simple">
+<li><p>Flash driver</p></li>
+<li><p>Serial driver</p></li>
+<li><p>Image metadata parsing code</p></li>
+<li><p>etc.</p></li>
+</ul>
+<hr class="docutils" />
+<p><em>Copyright (c) 2020-2024, Arm Limited. All rights reserved.</em></p>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p></p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

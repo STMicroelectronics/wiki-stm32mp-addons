@@ -168,18 +168,18 @@ Other implementations are the same as those in Profile Medium.
 Platform support
 ****************
 
-To enable Profile Medium on a platform, the platform specific CMake file should
-be added into the platform support list in top-level Profile Medium CMake config
+To enable Profile Medium-ARoT-less on a platform, the platform specific CMake file should
+be added into the platform support list in top-level Profile Medium-ARoT-less CMake config
 file.
 
-Building Profile Medium
-=======================
+Building Profile Medium-ARoT-less
+=================================
 
-To build Profile Medium, argument ``TFM_PROFILE`` in build command line should be
+To build Profile Medium-ARoT-less, argument ``TFM_PROFILE`` in build command line should be
 set to ``profile_medium_arotless``.
 
 Take Musca-B1 as an example.
-The following commands build Profile Medium without test cases on **Musca-B1** with
+The following commands build Profile Medium-ARoT-less without test cases on **Musca-B1** with
 build type **MinSizeRel**, built by **Armclang**.
 
 .. code-block:: bash
@@ -229,11 +229,11 @@ Reference
 
 .. [4] `Arm Firmware Framework for M 1.1 Extensions <https://developer.arm.com/documentation/aes0039/latest>`_
 
-.. [5] `Arm Platform Security Architecture Firmware Framework 1.0 <https://developer.arm.com/-/media/Files/pdf/PlatformSecurityArchitecture/Architect/DEN0063-PSA_Firmware_Framework-1.0.0-2.pdf?revision=2d1429fa-4b5b-461a-a60e-4ef3d8f7f4b4>`_
+.. [5] `Arm Platform Security Architecture Firmware Framework 1.0 <https://developer.arm.com/documentation/den0063/latest/>`_
 
-.. [6] `Transport Layer Security (TLS) / Datagram Transport Layer Security (DTLS) Profiles for the Internet of Things <https://tools.ietf.org/html/4>`_
+.. [6] `Transport Layer Security (TLS) / Datagram Transport Layer Security (DTLS) Profiles for the Internet of Things <https://tools.ietf.org/html/rfc7925>`_
 
-.. [7] `The Constrained Application Protocol (CoAP) <https://tools.ietf.org/html/5>`_
+.. [7] `The Constrained Application Protocol (CoAP) <https://tools.ietf.org/html/rfc7252>`_
 
 .. [8] `Secure OTA Updates for Cortex-M Devices with FreeRTOS <https://www.freertos.org/2021/07/secure-ota-updates-for-cortex-m-devices-with-freertos.html>`_
 
@@ -241,4 +241,4 @@ Reference
 
 --------------
 
-*Copyright (c) 2020-2022, Arm Limited. All rights reserved.*
+*Copyright (c) 2020-2023, Arm Limited. All rights reserved.*

@@ -1,5 +1,6 @@
 .. _devicetree_tfm:
 
+#################
 Scope and purpose
 #################
 
@@ -19,6 +20,7 @@ However, this way has 2 disadvantages for small system:
 In 2016, Zephyr offers an alternative for small system, which uses the advantage of
 DT description whitout parse a blob. TF-M is based on this alternative.
 
+#######
 Concept
 #######
 
@@ -73,12 +75,14 @@ Example:
         // return node's register block address
         #define DT_REG_ADDR(node_id)
 
+#################
 How to add device
 #################
 
 In this section we would to add and enable device using a new driver that requires some ressources
 (reg, int value).
 
+************************************
 Devicetree (dts) and bindings (yaml)
 ************************************
 
@@ -120,6 +124,7 @@ to type.
 Bindings can include other files, which can be used to share common property definitions between bindings.
 Use the ``include:`` key for this. Its value is either a string or a list.
 
+*******
 Drivers
 *******
 

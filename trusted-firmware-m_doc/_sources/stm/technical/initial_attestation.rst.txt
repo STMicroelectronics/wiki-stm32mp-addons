@@ -2,6 +2,7 @@
 Initial Attestation Service
 ###########################
 
+************
 Introduction
 ************
 
@@ -31,24 +32,26 @@ Shadow layout
 |       | Magic      |
 +-------+------------+
 
-The OTP mapping is defined in reference Manual.   
+The OTP mapping is defined in reference Manual.
 
+********
 Services
 ********
 
 * Security lifecycle (LCS): return secured (``PLAT_OTP_LCS_SECURED``), if the device is closed_locked and
   provisioning_done and disable_scan (depend of otp 18 and 124).
-  
+
 * Implementation ID: otp[5..7].
 
 * Entropy seed: otp[332..347].
 
-* IAK: key => otp[348..355]. len, type and id are fixed. 
-  
-.. note:: 
-   
-   The optional services are not implemented. 
+* IAK: key => otp[348..355]. len, type and id are fixed.
 
+.. note::
+
+   The optional services are not implemented.
+
+*********
 Exception
 *********
 

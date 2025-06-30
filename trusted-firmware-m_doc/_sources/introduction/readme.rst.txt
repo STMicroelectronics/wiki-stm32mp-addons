@@ -49,6 +49,27 @@ Terms ``TFM`` and ``TF-M`` are commonly used in documents and code and both
 refer to ``Trusted Firmware M.`` :doc:`Glossary </glossary>` has the list
 of terms and abbreviations.
 
+************
+Repositories
+************
+
+TF-M is comprised of multiple repositories that supplement each other in making the project both customisable and maintainable.
+
+.. list-table:: TF-M Repositories
+    :widths: auto
+    :header-rows: 1
+
+    * - **Repository**
+      - **Description**
+    * - `trusted-firmware-m <https://git.trustedfirmware.org/TF-M/trusted-firmware-m.git/tree/>`_
+      - Software implementation of TF-M with documentation and essential tools
+    * - `tf-m-tests <https://git.trustedfirmware.org/TF-M/tf-m-tests.git/tree/>`_
+      - Tests that focus on the functionalities of TF-M components
+    * - `tf-m-tools <https://git.trustedfirmware.org/TF-M/tf-m-tools.git/tree/>`_
+      - Non essential tools used for testing and verification of TF-M
+    * - `tf-m-extras <https://git.trustedfirmware.org/TF-M/tf-m-extras.git/tree/>`_
+      - Extension of the main repository to host examples, demonstrations, third-party modules etc
+
 #######
 License
 #######
@@ -62,7 +83,21 @@ folders. The original license text is included in those source files.
 
 - The ``bl2`` folder contains files imported from MCUBoot project and the files
   have Apache 2.0 license.
-- The ``lib`` folder may contain 3rd party files with diverse licenses.
+- The ``lib/ext`` folder may contain 3rd party projects and files with
+  diverse licenses. Here are some that are different from the BSD-3-Clause and
+  may be a part of the runtime image. The source code for these projects is
+  fetched from upstream at build time only.
+
+   - ``CMSIS_5``    - Apache 2.0 license
+   - ``mbedcrypto`` - `Apache 2.0 license MbedTLS
+     <https://github.com/Mbed-TLS/mbedtls/blob/development/LICENSE>`_
+   - ``mcuboot``    - `Apache 2.0 license MCUBoot
+     <https://github.com/mcu-tools/mcuboot/blob/main/LICENSE>`_
+   - ``qcbor``      - `Modified BSD-3-Clause license
+     <https://github.com/laurencelundblade/QCBOR#copyright-and-license>`_
+   - ``tf-m-extras`` - Set of additional components. Please check individually in
+     `tf-m-extras repository <https://git.trustedfirmware.org/TF-M/tf-m-extras.git/tree/>`_
+
 - The ``platform`` folder currently contains platforms support imported from
   the external project and the files may have different licenses.
 

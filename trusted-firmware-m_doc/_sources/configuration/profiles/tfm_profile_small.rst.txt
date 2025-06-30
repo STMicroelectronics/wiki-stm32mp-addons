@@ -587,7 +587,7 @@ Reference
 
 .. [2] `Arm Firmware Framework for M 1.1 Extensions <https://developer.arm.com/documentation/aes0039/latest>`_
 
-.. [3] `Arm Platform Security Architecture Firmware Framework 1.0 <https://developer.arm.com/-/media/Files/pdf/PlatformSecurityArchitecture/Architect/DEN0063-PSA_Firmware_Framework-1.0.0-2.pdf?revision=2d1429fa-4b5b-461a-a60e-4ef3d8f7f4b4&hash=3BFD6F3E687F324672F18E5BE9F08EDC48087C93>`_
+.. [3] `Arm Platform Security Architecture Firmware Framework 1.0 <https://developer.arm.com/documentation/den0063/latest/>`_
 
 .. [4] `Platform Security Model 1.1 <https://developer.arm.com/documentation/den0128/latest>`_
 
@@ -601,9 +601,9 @@ Reference
 
 .. [9] `PSA Attestation API 1.0 (ARM IHI 0085) <https://developer.arm.com/-/media/Files/pdf/PlatformSecurityArchitecture/Implement/IHI0085-PSA_Attestation_API-1.0.2.pdf?revision=eef78753-c77e-4b24-bcf0-65596213b4c1&la=en&hash=E5E0353D612077AFDCE3F2F3708A50C77A74B2A3>`_
 
-.. [10] :doc:`Secure boot </technical_references/design_docs/tfm_secure_boot>`
+.. [10] :doc:`Secure boot </design_docs/booting/tfm_secure_boot>`
 
-.. [11] :doc:`Crypto design </technical_references/design_docs/tfm_crypto_design>`
+.. [11] :doc:`Crypto design </design_docs/services/tfm_crypto_design>`
 
 .. [12] :doc:`TF-M build instruction </building/tfm_build_instruction>`
 

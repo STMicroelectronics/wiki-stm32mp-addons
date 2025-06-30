@@ -2,7 +2,7 @@
 Documentation Contribution Guidelines
 #####################################
 
-The Trusted Firmware-M project uses `Sphinx`_ to generated the Official
+The Trusted Firmware-M project uses `Sphinx`_ to generate the Official
 Documentation from `Restructed Text`_ `.rst` source files,
 
 The aim is to align as much as possible with the official
@@ -54,30 +54,19 @@ The following rules should be considered:
 #. New introduced terms and abbreviations should be added to Glossary and
    directly linked by the `:term:` notation across all documents using it.
 
-
 **********************
 Platform Documentation
 **********************
 
 The Documentation Build system provides an interface with the platform directory
-allowing maintainers to bundle platform specific documentation. **This behaviour
-needs to be explicitly enabled for each platform's space** by
-modifying the `platform/index.rst` (responsible for generating the
+allowing maintainers to bundle platform specific documentation. Platforms are
+grouped by vendor. **This behaviour needs to be explicitly enabled for each
+vendor's space** by providing the `<vendor>/index.rst` (responsible for generating the
 :doc:`Platform Index File </platform/index>`) and adding a table of
-contents entry for the corresponding platform space.
-
+contents entry for the corresponding vendor's space.
 The format and structure of this entry is not strictly defined, and allows
-flexible control of the platform's documentation space. In most cases it can be
-set to recursively match all documents under that directory.
-
-.. code-block:: restructuredtext
-
-    .. toctree::
-        :maxdepth: 4
-        :caption: PLATFORM_X_CAPTION
-        :glob:
-
-        PLATFORM_X/**
+flexible control of vendor's and platform's documentation space.
+Follow the :ref:`platform_documentation` document for more details.
 
 ****************
 Common Use Cases
@@ -89,7 +78,6 @@ for most common documentation elements.
 Headers
 =======
 
-
 .. code-block:: restructuredtext
 
     ###################
@@ -97,7 +85,7 @@ Headers
     ###################
 
     ******************
-    Chapter Ttitle(H2)
+    Chapter Title (H2)
     ******************
 
     Chapter Section (H3)
@@ -111,7 +99,6 @@ Headers
 
 Code Blocks
 ===========
-
 
 The recommendation for code content, is to use the explicit code-block directive,
 ideally with a defined lexer for the language the block contains.
@@ -228,7 +215,6 @@ labels, internal linking is the recommended approach.
 
     *Copyright (c) XYZ *
 
-
 Document Links
 ==============
 
@@ -239,6 +225,27 @@ A document included in the documentation can be referenced by the `doc:` notatio
     :doc:`integration guide </integration_guide/tfm_integration_guide>`
 
 The path is relative to the root of the Trusted Firmware-M code.
+
+Trusted Firmware-M project is spread among multiple repositories: Trusted Firmware-M, TF-M Tests,
+TF-M Tools and TF-M Extras. Every repository has its own documentation, and since
+:doc:`v2.0.0<../releases/2.0.0>`, they can be found under `Links`.
+
+Using `Intersphinx`_, it is now possible to use cross-reference roles from Sphinx to reference
+documentation from different projects (repositories), like TF-M Tests. Referencing documentation
+using the `doc:` notation is preferred and helps to avoid broken cross-references if the link of
+the document changes.
+
+For example, to get this: :doc:`Adding TF-M Regression Test Suite
+<TF-M-Tests:tfm_test_suites_addition>`; the Restructed Text would look like this:
+
+.. code-block:: restructuredtext
+
+    :doc:`Adding TF-M Regression Test Suite <TF-M-Tests:tfm_test_suites_addition>`
+
+As can be seen, it is quite similar to cross-referencing in Sphinx, except the path to the document
+is preceded with the external project name. For TF-M Tests, it is ``TF-M-Tests``. The names of
+other projects configured to be referenced using `Intersphinx`_ can be seen in the `conf.py`_ file
+under ``intersphinx_mapping``.
 
 Reference specific section of a document
 ========================================
@@ -255,14 +262,12 @@ document. This technique can be used to add complex table in the bottom of a
 document and create clickable quick access references to it for improved user
 experience.
 
-
 Glossary term
 =============
 
 For technical terms and abbreviations, the recommended guidance is to add an
 entry to the :doc:`/glossary` and refer to it, using the `term:`
 directive
-
 
 .. code-block:: restructuredtext
 
@@ -289,12 +294,15 @@ References
 #. `Restructed Text`_
 #. `Python Documentation Guidelines`_
 #. `Pygments Lexers`_
+#. `Intersphinx`_
 
 .. _Sphinx: https://www.sphinx-doc.org/en/master/
 .. _Restructed Text: https://docutils.sourceforge.io/rst.html
-.. _Python Documentation Guidelines: https://devguide.python.org/documenting/#style-guide
-.. _Pygments Lexers: https://pygments.org/lexers/
+.. _Python Documentation Guidelines: https://devguide.python.org/documentation/style-guide/
+.. _Pygments Lexers: https://pygments.org/docs/api/#lexers
+.. _Intersphinx: https://www.sphinx-doc.org/en/master/usage/extensions/intersphinx.html
+.. _conf.py: https://git.trustedfirmware.org/TF-M/trusted-firmware-m.git/tree/docs/conf.py
 
 --------------
 
-*Copyright (c) 2020-2021, Arm Limited. All rights reserved.*
+*Copyright (c) 2020-2023, Arm Limited. All rights reserved.*

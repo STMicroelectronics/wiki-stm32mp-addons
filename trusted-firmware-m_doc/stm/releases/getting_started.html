@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
-
+  <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Getting started &mdash; Trusted Firmware-M v1.7.0-stm32mp25-alpha-r1-rc3-doc documentation</title>
+  <title>Getting started &mdash; Trusted Firmware-M v2.1.0-stm32mp-r1 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/tfm_custom.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/tabs.css" type="text/css" />
     <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
         <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
         <script src="../../_static/jquery.js"></script>
@@ -29,16 +31,20 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../../index.html" class="icon icon-home"> Trusted Firmware-M
-            <img src="../../_static/tf_logo_white.png" class="logo" alt="Logo"/>
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            Trusted Firmware-M
+              <img src="../../_static/tf_logo_white.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                v1.7.0-stm32mp25-alpha-r1-rc3-doc
+                v2.1.0-stm32mp-r1
 
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -53,70 +59,88 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../security/index.html">Security</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../security/threat_models/generic_threat_model.html">Threat model</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../security/security_advisories/index.html">Security Advisories</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/stack_seal_vulnerability.html">Advisory TFMV-1</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/svc_caller_sp_fetching_vulnerability.html">Advisory TFMV-2</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/crypto_multi_part_ops_abort_fail.html">Advisory TFMV-3</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/profile_small_key_id_encoding_vulnerability.html">Advisory TFMV-4</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/fwu_write_vulnerability.html">Advisory TFMV-5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/cc3xx_partial_tag_compare_on_chacha20_poly1305.html">Advisory TFMV-6</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/debug_log_vulnerability.html">Advisory TFMV-7</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../security/threat_models/index.html">Threat Models</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../security/threat_models/generic_threat_model.html">Trusted Firmware-M Generic Threat Model</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../../security/security.html">Security Handling</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../releases/index.html">Releases</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../releases/1.7.0.html">v1.7.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../releases/1.6.1.html">v1.6.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../releases/1.6.0.html">v1.6.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../releases/1.5.0.html">v1.5.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/2.1.0.html">v2.1.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/2.0.0.html">v2.0.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/1.8.1.html">v1.8.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/1.8.0.html">v1.8.0</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../releases/release_process.html">Release Cadence and Process</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../../roadmap.html">Roadmap</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../glossary.html">Glossary</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../platform/index.html">Platform Selection</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../platform/arm/index.html">Arm platforms</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../platform/index.html">Platforms</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/arm/index.html">Arm</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/arm/corstone1000/readme.html">Corstone-1000</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/mps3/an547/README.html">Corstone-300 FPGA (AN547)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/mps3/an552/README.html">Corstone-300 FPGA and FVP (AN552)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/mps3/corstone310/README.html">Corstone-310 FVP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/mps3/corstone300/README.html">Corstone-300 FPGA (AN547 and AN552) and FVP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/mps3/corstone310/README.html">Corstone-310 FPGA (AN555) and FVP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/mps4/corstone315/README.html">Corstone-315 FVP</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/arm/musca_b1/readme.html">Musca-B1</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/arm/musca_s1/readme.html">Musca-S1</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/rss/readme.html">Runtime Security Subsystem</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/rse/index.html">Runtime Security Engine</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../platform/nxp/lpcxpresso55s69/README.html">LPCXpresso55S69</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../platform/cypress/psoc64/index.html">Cypress PSoC64</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../platform/cypress/psoc64/cypress_psoc64_spec.html">Cypress PSoC64 Specifics</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../platform/cypress/psoc64/libs/core-lib/README.html">Core Library</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../platform/cypress/psoc64/libs/core-lib/RELEASE.html">Core Library Release Notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/armchina/index.html">ArmChina</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/armchina/mps3/alcor/README.html">Alcor FPGA (AN557)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/cypress/index.html">Cypress</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/cypress/psoc64/index.html">PSoC64</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/lairdconnectivity/index.html">Laird Connectivity</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/lairdconnectivity/bl5340_dvk_cpuapp/README.html">BL5340</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/nordic_nrf/index.html">Nordic</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/nordic_nrf/nrf5340dk_nrf5340_cpuapp/README.html">nRF5340</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/nordic_nrf/nrf9160dk_nrf9160/README.html">nRF9160</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/nordic_nrf/nrf9161dk_nrf9161/README.html">nRF9161</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/nuvoton/index.html">Nuvoton</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/nuvoton/m2351/README.html">NuMaker-PFM-M2351</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/nuvoton/m2354/README.html">NuMaker-PFM-M2354</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/nxp/index.html">NXP</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/nxp/lpcxpresso55s69/README.html">LPCXpresso55S69</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../platform/stm/index.html">STMICROELECTRONICS</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32h5xx/readme.html">STM32H5</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32l5xx/readme.html">STM32L5</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32mp2/readme.html">STM32MP2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32mp2xx/readme.html">STM32MP2</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32u5xx/readme.html">STM32U5</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/nucleo_l552ze_q/readme.html">NUCLEO-L552ZE-Q</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32l562e_dk/readme.html">STM32L562E-DK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/nucleo_l552ze_q/readme.html">NUCLEO_L552ZE_Q</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32h573i_dk/readme.html">STM32H573I_DK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32l562e_dk/readme.html">STM32L562E_DK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp215f_dk/readme.html">stm32mp215f_dk</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/b_u585i_iot02a/readme.html">B-U585I-IOT02A</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/b_u585i_iot02a/readme.html">B_U585I_IOT02A</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../platform/nordic_nrf/nrf5340dk_nrf5340_cpuapp/README.html">Nordic nRF5340</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../platform/nordic_nrf/nrf9160dk_nrf9160/README.html">Nordic nRF9160</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../platform/lairdconnectivity/bl5340_dvk_cpuapp/README.html">Laird Connectivity BL5340</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../platform/nuvoton/m2351/README.html">NuMaker-PFM-M2351</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../platform/nuvoton/m2354/README.html">NuMaker-PFM-M2354</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../building/tfm_build_instruction.html">Build instructions</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../building/run_tfm_examples_on_arm_platforms.html">Run TF-M examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../building/tests_build_instruction.html">Build Tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../building/run_tfm_examples_on_arm_platforms.html">Run TF-M tests and applications</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../building/documentation_generation.html">Building the documentation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../building/tfm_build_instruction_iar.html">IAR toolchain</a></li>
 </ul>
@@ -136,68 +160,78 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../integration_guide/index.html">Integration Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../integration_guide/source_structure/source_structure.html">Source Structure</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/source_structure/platform_folder.html">Details for the /platform folder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/source_structure/platform_ext_folder.html">Details for the /platform/ext folder</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../../integration_guide/spm_backends.html">SPM Backends</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../integration_guide/non-secure_client_extension_integration_guide.html">NS client integration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../integration_guide/os_migration_guide_armv8m.html">OS migration to Armv8-M</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../integration_guide/tfm_fpu_support.html">Floating-Point Support</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../integration_guide/tfm_secure_irq_integration_guide.html">Secure Interrupt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../integration_guide/platform_provisioning.html">Platform Provisioning</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../integration_guide/platform/index.html">Adding a new platform</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/platform/platform_folder.html">Details for the platform folder</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/platform/platform_ext_folder.html">Details for the platform/ext folder</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/platform/porting_TFM_to_a_new_hardware.html">Porting TF-M to a New Hardware</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/platform/platform_provisioning.html">Platform Provisioning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/platform/porting_tfm_to_a_new_hardware.html">Porting TF-M to a New Hardware</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/platform/documenting_platform.html">Platform Documentation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../integration_guide/platform/platform_deprecation.html">Platform deprecation and removal</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../integration_guide/services/index.html">Services</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../integration_guide/services/tfm_attestation_integration_guide.html">Initial Attestation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../integration_guide/services/tfm_crypto_integration_guide.html">Crypto</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/services/tfm_its_integration_guide.html">Internal Storage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/services/tfm_its_integration_guide.html">Internal Trusted Storage</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../integration_guide/services/tfm_platform_integration_guide.html">Platform</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../integration_guide/services/tfm_ps_integration_guide.html">Protected Storage</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/services/tfm_secure_partition_addition.html">Adding a New Service</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/services/tfm_manifest_tool_user_guide.html">The manifest tool</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/services/tfm_secure_partition_addition.html">Adding a New Secure Partition</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/services/tfm_manifest_tool_user_guide.html">Manifest Tool</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/services/tfm_adac_integration_guide.html">ADAC</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../../technical_references/design_docs/index.html">Design Documents</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/dual-cpu/index.html">Dual-CPU</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../technical_references/design_docs/dual-cpu/booting_a_dual_core_system.html">Booting a Dual-Core System</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../technical_references/design_docs/dual-cpu/communication_prototype_between_nspe_and_spe_in_dual_core_systems.html">Communication Prototype Between NSPE And SPE In Dual Core System</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../technical_references/design_docs/dual-cpu/mailbox_design_on_dual_core_system.html">Mailbox Design in TF-M on Dual-core System</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../technical_references/design_docs/dual-cpu/tfm_multi_core_access_check.html">Memory Access Check of Trusted Firmware-M in Multi-Core Topology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../design_docs/index.html">Design Documents</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../design_docs/booting/tfm_secure_boot.html">Secure Boot</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../design_docs/booting/bl1.html">BL1 Immutable bootloader</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../design_docs/booting/secure_boot_rollback_protection.html">Rollback Protection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../design_docs/booting/secure_boot_hw_key_integration.html">HW Key integration</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/bl1.html">BL1 Immutable bootloader</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/code_sharing.html">Code sharing between independently linked XIP binaries</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/enum_implicit_casting.html">Fixing implicit casting for C enumeration values</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/ff_isolation.html">FF-M Isolation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/hardware_abstraction_layer.html">Hardware Abstraction Layer</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/mailbox_ns_agent_update.html">Mailbox NS Agent Design Update</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/ps_key_management.html">Protected Storage service key management</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/secure_boot_hw_key_integration.html">HW crypto key integration in TF-M secure boot</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/secure_boot_rollback_protection.html">Rollback protection in TF-M secure boot</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/secure_partition_manager.html">Secure Partition Manager</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/source_structure.html">Trusted Firmware-M Source Structure</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/stateless_rot_service.html">Stateless Root of Trust Services Reference</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/symmetric_initial_attest.html">Symmetric key algorithm based Initial Attestation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/tfm_builtin_keys.html">TF-M builtin keys</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/tfm_code_generation_with_jinja2.html">Code Generation With Jinja2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/tfm_cooperative_scheduling_rules.html">Cooperative Scheduling Rules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/tfm_crypto_design.html">Crypto Service design</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/tfm_fwu_service.html">Firmware Update Service</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/tfm_its_512_flash.html">Add support for block-aligned flash in Internal Trusted Storage</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/tfm_its_service.html">Internal Trusted Storage (ITS) Service</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/tfm_log_system_design_document.html">Log system design document</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/tfm_physical_attack_mitigation.html">Physical attack mitigation in Trusted Firmware-M</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/tfm_psa_inter_process_communication.html">TF-M Inter-Process Communication</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/tfm_secure_boot.html">Secure boot</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/tfm_secure_partition_runtime_library.html">Secure Partition Runtime Library</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../technical_references/design_docs/tfm_uniform_secure_service_signature.html">Uniform Secure Service Signature</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../design_docs/dual-cpu/index.html">Dual CPU</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../design_docs/dual-cpu/booting_a_dual_core_system.html">Booting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../design_docs/dual-cpu/communication_prototype_between_nspe_and_spe_in_dual_core_systems.html">SPE - NSPE communication</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../design_docs/dual-cpu/mailbox_design_on_dual_core_system.html">Mailbox</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../design_docs/dual-cpu/mailbox_ns_agent_update.html">Mailbox update</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../design_docs/dual-cpu/tfm_multi_core_access_check.html">Memory Access Check</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../../tools/index.html">Tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../design_docs/services/index.html">Secure Services</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../design_docs/services/secure_partition_manager.html">Secure Partition Manager</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../design_docs/services/secure_partition_runtime_library.html">Secure Partition RTL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../design_docs/services/tfm_psa_inter_process_communication.html">Inter-Process Communication</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../design_docs/services/stateless_rot_service.html">Stateless Services</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../design_docs/services/tfm_uniform_secure_service_signature.html">Service Signing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../design_docs/services/tfm_crypto_design.html">Crypto</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../design_docs/services/symmetric_initial_attest.html">Initial Attestation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../design_docs/services/tfm_its_service.html">Internal Trusted Storage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../design_docs/services/tfm_fwu_service.html">Firmware Update</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../design_docs/services/ps_key_management.html">PS Key Management</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../design_docs/software/index.html">Software Design</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../design_docs/software/code_sharing.html">Code Sharing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../design_docs/software/hardware_abstraction_layer.html">Hardware Abstraction Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../design_docs/software/tfm_cooperative_scheduling_rules.html">Cooperative Scheduling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../design_docs/software/tfm_code_generation_with_jinja2.html">Code Templates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../design_docs/software/enum_implicit_casting.html">Implicit Typecasting</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../design_docs/ff_isolation.html">Isolation Rules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../design_docs/tfm_builtin_keys.html">Builtin Keys</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../design_docs/tfm_log_system_design_document.html">Logging system</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../design_docs/tfm_physical_attack_mitigation.html">Physical Attack Mitigation</a></li>
+</ul>
+</li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Contribution</span></p>
 <ul>
@@ -216,7 +250,10 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Links</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference external" href="https://ci.trustedfirmware.org/view/TF-M/job/tf-m-build-docs-nightly/lastSuccessfulBuild/artifact/trusted-firmware-m/build/docs/reference_manual/html/index.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://trustedfirmware-m.readthedocs.io/projects/tf-m-tests/en/latest/">TF-M Tests</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://trustedfirmware-m.readthedocs.io/projects/tf-m-tools/en/latest/">TF-M Tools</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://trustedfirmware-m.readthedocs.io/projects/tf-m-extras/en/latest/">TF-M Extras</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://ci.trustedfirmware.org/job/tf-m-build-docs-nightly/lastSuccessfulBuild/artifact/trusted-firmware-m/build/docs/reference_manual/html/index.html">API Reference</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://developer.trustedfirmware.org/w/collaboration/security_center">Security Center</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://www.arm.com/architecture/security-features/platform-security">PSA</a></li>
 </ul>
@@ -224,27 +261,34 @@
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Releases</a><ul class="current">
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Getting started</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32l562e_dk/readme.html">STM32L562E-DK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32h573i_dk/readme.html">STM32H573I_DK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32l562e_dk/readme.html">STM32L562E_DK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp215f_dk/readme.html">stm32mp215f_dk</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/nucleo_l552ze_q/readme.html">NUCLEO-L552ZE-Q</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/b_u585i_iot02a/readme.html">B-U585I-IOT02A</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/nucleo_l552ze_q/readme.html">NUCLEO_L552ZE_Q</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/b_u585i_iot02a/readme.html">B_U585I_IOT02A</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="platforms.html">Platforms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32h5xx/readme.html">STM32H5</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32l5xx/readme.html">STM32L5</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32mp2/readme.html">STM32MP2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32mp2xx/readme.html">STM32MP2</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32u5xx/readme.html">STM32U5</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/nucleo_l552ze_q/readme.html">NUCLEO-L552ZE-Q</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32l562e_dk/readme.html">STM32L562E-DK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/nucleo_l552ze_q/readme.html">NUCLEO_L552ZE_Q</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32h573i_dk/readme.html">STM32H573I_DK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32l562e_dk/readme.html">STM32L562E_DK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp215f_dk/readme.html">stm32mp215f_dk</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="changelog.html">Change Log &amp; Notes</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="v1.7.0-stm32mp25-alpha-r1-rc3/changelog.html">v1.7.0-stm32mp25-alpha-r1-rc3</a></li>
+<li class="toctree-l3"><a class="reference internal" href="v1.7.0/index.html">v1.7.0</a></li>
+<li class="toctree-l3"><a class="reference internal" href="v2.1.0/index.html">v2.1.0</a></li>
 </ul>
 </li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#branch-plans">Branch plans</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../technical/index.html">Technical references</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../technical/a35_td_flavor/index.html">A35-TD flavor</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../technical/a35_td_flavor/memory_layout.html">Memory layout</a></li>
@@ -268,7 +312,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../ide/index.html">Ide</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../ide/cubeide/stm32cubeide.html">STM32CubeIDE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ide/cube/stm32cubeide.html">STM32CubeIDE</a></li>
 </ul>
 </li>
 </ul>
@@ -286,9 +330,9 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="index.html">Releases</a> &raquo;</li>
-      <li>Getting started</li>
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Releases</a></li>
+      <li class="breadcrumb-item active">Getting started</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -297,43 +341,41 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="getting-started">
+  <div class="section" id="getting-started">
 <h1>Getting started<a class="headerlink" href="#getting-started" title="Permalink to this heading"></a></h1>
-<section id="prerequisites">
+<div class="section" id="prerequisites">
 <h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this heading"></a></h2>
 <ul class="simple">
 <li><p>Follow the <a class="reference internal" href="../../getting_started/tfm_getting_started.html"><span class="doc">Software requirements guide</span></a> to set up your environment.</p></li>
 </ul>
-</section>
-<section id="software">
+</div>
+<div class="section" id="software">
 <h2>Software<a class="headerlink" href="#software" title="Permalink to this heading"></a></h2>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-0-VHJ1c3RlZCBGaXJtd2FyZSBN" aria-selected="true" class="sphinx-tabs-tab group-tab" id="tab-0-VHJ1c3RlZCBGaXJtd2FyZSBN" name="VHJ1c3RlZCBGaXJtd2FyZSBN" role="tab" tabindex="0">Trusted Firmware M</button><button aria-controls="panel-0-VEYgTSB0ZXN0cw==" aria-selected="false" class="sphinx-tabs-tab group-tab" id="tab-0-VEYgTSB0ZXN0cw==" name="VEYgTSB0ZXN0cw==" role="tab" tabindex="-1">TF M tests</button></div><div aria-labelledby="tab-0-VHJ1c3RlZCBGaXJtd2FyZSBN" class="sphinx-tabs-panel group-tab" id="panel-0-VHJ1c3RlZCBGaXJtd2FyZSBN" name="VHJ1c3RlZCBGaXJtd2FyZSBN" role="tabpanel" tabindex="0"><p>Trusted Firmware M for stm32 platforms is available on:</p>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-0-VHJ1c3RlZCBGaXJtd2FyZSBN" aria-selected="true" class="sphinx-tabs-tab group-tab" id="tab-0-VHJ1c3RlZCBGaXJtd2FyZSBN" name="VHJ1c3RlZCBGaXJtd2FyZSBN" role="tab" tabindex="0">Trusted Firmware M</button></div><div aria-labelledby="tab-0-VHJ1c3RlZCBGaXJtd2FyZSBN" class="sphinx-tabs-panel group-tab" id="panel-0-VHJ1c3RlZCBGaXJtd2FyZSBN" name="VHJ1c3RlZCBGaXJtd2FyZSBN" role="tabpanel" tabindex="0"><p>Trusted Firmware M for internal stm32 platforms is available on:</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://github.com/STMicroelectronics/trusted-firmware-m">TF-M github</a></p></li>
 </ul>
-</div><div aria-labelledby="tab-0-VEYgTSB0ZXN0cw==" class="sphinx-tabs-panel group-tab" hidden="true" id="panel-0-VEYgTSB0ZXN0cw==" name="VEYgTSB0ZXN0cw==" role="tabpanel" tabindex="0"><p>Trusted Firmware M tests for stm32 platforms is available on:</p>
-<ul class="simple">
-<li><p><a class="reference external" href="https://github.com/STMicroelectronics/tf-m-tests">TF-M-tests github</a></p></li>
-</ul>
 </div></div>
-</section>
-<section id="build">
+</div>
+<div class="section" id="build">
 <h2>Build<a class="headerlink" href="#build" title="Permalink to this heading"></a></h2>
 <p>Instructions for your board:</p>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../platform/stm/stm32l562e_dk/readme.html">STM32L562E-DK</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../platform/stm/stm32h573i_dk/readme.html">STM32H573I_DK</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../platform/stm/stm32l562e_dk/readme.html">STM32L562E_DK</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../platform/stm/stm32mp215f_dk/readme.html">stm32mp215f_dk</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../platform/stm/nucleo_l552ze_q/readme.html">NUCLEO-L552ZE-Q</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../platform/stm/b_u585i_iot02a/readme.html">B-U585I-IOT02A</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../platform/stm/nucleo_l552ze_q/readme.html">NUCLEO_L552ZE_Q</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../platform/stm/b_u585i_iot02a/readme.html">B_U585I_IOT02A</a></li>
 </ul>
 </div>
 <hr class="docutils" />
 <p><em>Copyright (c) 2025 STMicroelectronics. All rights reserved.</em>
 <em>SPDX-License-Identifier: BSD-3-Clause</em></p>
-</section>
-</section>
+</div>
+</div>
 
 
            </div>

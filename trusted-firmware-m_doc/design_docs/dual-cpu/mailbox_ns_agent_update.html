@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mailbox NS Agent Design Update &mdash; Trusted Firmware-M v2.1.0-stm32mp-r1 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/tfm_custom.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/tabs.css" type="text/css" />
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Memory Access Check of Trusted Firmware-M in Multi-Core Topology" href="tfm_multi_core_access_check.html" />
+    <link rel="prev" title="Mailbox Design in TF-M on Dual-core System" href="mailbox_design_on_dual_core_system.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            Trusted Firmware-M
+              <img src="../../_static/tf_logo_white.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                v2.1.0-stm32mp-r1
+
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../introduction/index.html">Introduction</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started/index.html">Getting Started</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../security/index.html">Security</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../security/threat_models/generic_threat_model.html">Threat model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../security/security_advisories/index.html">Security Advisories</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/stack_seal_vulnerability.html">Advisory TFMV-1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/svc_caller_sp_fetching_vulnerability.html">Advisory TFMV-2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/crypto_multi_part_ops_abort_fail.html">Advisory TFMV-3</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/profile_small_key_id_encoding_vulnerability.html">Advisory TFMV-4</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/fwu_write_vulnerability.html">Advisory TFMV-5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/cc3xx_partial_tag_compare_on_chacha20_poly1305.html">Advisory TFMV-6</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/debug_log_vulnerability.html">Advisory TFMV-7</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../releases/index.html">Releases</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/2.1.0.html">v2.1.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/2.0.0.html">v2.0.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/1.8.1.html">v1.8.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/1.8.0.html">v1.8.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/release_process.html">Release Cadence and Process</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../roadmap.html">Roadmap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../glossary.html">Glossary</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../platform/index.html">Platforms</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/arm/index.html">Arm</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/corstone1000/readme.html">Corstone-1000</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/mps3/corstone300/README.html">Corstone-300 FPGA (AN547 and AN552) and FVP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/mps3/corstone310/README.html">Corstone-310 FPGA (AN555) and FVP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/mps4/corstone315/README.html">Corstone-315 FVP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/musca_b1/readme.html">Musca-B1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/musca_s1/readme.html">Musca-S1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/arm/rse/index.html">Runtime Security Engine</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/armchina/index.html">ArmChina</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/armchina/mps3/alcor/README.html">Alcor FPGA (AN557)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/cypress/index.html">Cypress</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/cypress/psoc64/index.html">PSoC64</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/lairdconnectivity/index.html">Laird Connectivity</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/lairdconnectivity/bl5340_dvk_cpuapp/README.html">BL5340</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/nordic_nrf/index.html">Nordic</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/nordic_nrf/nrf5340dk_nrf5340_cpuapp/README.html">nRF5340</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/nordic_nrf/nrf9160dk_nrf9160/README.html">nRF9160</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/nordic_nrf/nrf9161dk_nrf9161/README.html">nRF9161</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/nuvoton/index.html">Nuvoton</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/nuvoton/m2351/README.html">NuMaker-PFM-M2351</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/nuvoton/m2354/README.html">NuMaker-PFM-M2354</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/nxp/index.html">NXP</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/nxp/lpcxpresso55s69/README.html">LPCXpresso55S69</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/stm/index.html">STMICROELECTRONICS</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32h5xx/readme.html">STM32H5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32l5xx/readme.html">STM32L5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32mp2xx/readme.html">STM32MP2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32u5xx/readme.html">STM32U5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/nucleo_l552ze_q/readme.html">NUCLEO_L552ZE_Q</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32h573i_dk/readme.html">STM32H573I_DK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32l562e_dk/readme.html">STM32L562E_DK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp215f_dk/readme.html">stm32mp215f_dk</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/b_u585i_iot02a/readme.html">B_U585I_IOT02A</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../building/tfm_build_instruction.html">Build instructions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../building/tests_build_instruction.html">Build Tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../building/run_tfm_examples_on_arm_platforms.html">Run TF-M tests and applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../building/documentation_generation.html">Building the documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../building/tfm_build_instruction_iar.html">IAR toolchain</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../configuration/index.html">Configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../configuration/build_configuration.html">Build configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../configuration/header_file_system.html">Component configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../configuration/kconfig_system.html">Kconfig</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../configuration/profiles/index.html">Profiles</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../configuration/profiles/tfm_profile_small.html"> Small</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../configuration/profiles/tfm_profile_medium_arot-less.html"> ARoT-less</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../configuration/profiles/tfm_profile_medium.html"> Medium</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../configuration/profiles/tfm_profile_large.html"> Large</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../configuration/test_configuration.html">Tests configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../integration_guide/index.html">Integration Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../integration_guide/source_structure/source_structure.html">Source Structure</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/source_structure/platform_folder.html">Details for the /platform folder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/source_structure/platform_ext_folder.html">Details for the /platform/ext folder</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../integration_guide/spm_backends.html">SPM Backends</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../integration_guide/non-secure_client_extension_integration_guide.html">NS client integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../integration_guide/os_migration_guide_armv8m.html">OS migration to Armv8-M</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../integration_guide/tfm_fpu_support.html">Floating-Point Support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../integration_guide/tfm_secure_irq_integration_guide.html">Secure Interrupt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../integration_guide/platform_provisioning.html">Platform Provisioning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../integration_guide/platform/index.html">Adding a new platform</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/platform/porting_tfm_to_a_new_hardware.html">Porting TF-M to a New Hardware</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/platform/documenting_platform.html">Platform Documentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/platform/platform_deprecation.html">Platform deprecation and removal</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../integration_guide/services/index.html">Services</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/services/tfm_attestation_integration_guide.html">Initial Attestation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/services/tfm_crypto_integration_guide.html">Crypto</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/services/tfm_its_integration_guide.html">Internal Trusted Storage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/services/tfm_platform_integration_guide.html">Platform</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/services/tfm_ps_integration_guide.html">Protected Storage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/services/tfm_secure_partition_addition.html">Adding a New Secure Partition</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/services/tfm_manifest_tool_user_guide.html">Manifest Tool</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guide/services/tfm_adac_integration_guide.html">ADAC</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Design Documents</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../booting/tfm_secure_boot.html">Secure Boot</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../booting/bl1.html">BL1 Immutable bootloader</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../booting/secure_boot_rollback_protection.html">Rollback Protection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../booting/secure_boot_hw_key_integration.html">HW Key integration</a></li>
+</ul>
+</li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Dual CPU</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="booting_a_dual_core_system.html">Booting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="communication_prototype_between_nspe_and_spe_in_dual_core_systems.html">SPE - NSPE communication</a></li>
+<li class="toctree-l3"><a class="reference internal" href="mailbox_design_on_dual_core_system.html">Mailbox</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Mailbox update</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tfm_multi_core_access_check.html">Memory Access Check</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../services/index.html">Secure Services</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../services/secure_partition_manager.html">Secure Partition Manager</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../services/secure_partition_runtime_library.html">Secure Partition RTL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../services/tfm_psa_inter_process_communication.html">Inter-Process Communication</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../services/stateless_rot_service.html">Stateless Services</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../services/tfm_uniform_secure_service_signature.html">Service Signing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../services/tfm_crypto_design.html">Crypto</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../services/symmetric_initial_attest.html">Initial Attestation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../services/tfm_its_service.html">Internal Trusted Storage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../services/tfm_fwu_service.html">Firmware Update</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../services/ps_key_management.html">PS Key Management</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../software/index.html">Software Design</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../software/code_sharing.html">Code Sharing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../software/hardware_abstraction_layer.html">Hardware Abstraction Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../software/tfm_cooperative_scheduling_rules.html">Cooperative Scheduling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../software/tfm_code_generation_with_jinja2.html">Code Templates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../software/enum_implicit_casting.html">Implicit Typecasting</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../ff_isolation.html">Isolation Rules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tfm_builtin_keys.html">Builtin Keys</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tfm_log_system_design_document.html">Logging system</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tfm_physical_attack_mitigation.html">Physical Attack Mitigation</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contribution</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing/index.html">Guidelines</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/contributing_process.html">The process</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/code_review_guide.html">Code review</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/maintainers.html">Maintainers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/maintainers.html#code-owners">Code owners</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/coding_guide.html">Yet another coding standard :)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/doc_guidelines.html">Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/tfm_design_proposal_guideline.html">Design proposal</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing/lic.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing/dco.html">DCO</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Links</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://trustedfirmware-m.readthedocs.io/projects/tf-m-tests/en/latest/">TF-M Tests</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://trustedfirmware-m.readthedocs.io/projects/tf-m-tools/en/latest/">TF-M Tools</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://trustedfirmware-m.readthedocs.io/projects/tf-m-extras/en/latest/">TF-M Extras</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://ci.trustedfirmware.org/job/tf-m-build-docs-nightly/lastSuccessfulBuild/artifact/trusted-firmware-m/build/docs/reference_manual/html/index.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://developer.trustedfirmware.org/w/collaboration/security_center">Security Center</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://www.arm.com/architecture/security-features/platform-security">PSA</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">STMICROELECTRONICS</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../stm/releases/index.html">Releases</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/releases/getting_started.html">Getting started</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32h573i_dk/readme.html">STM32H573I_DK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32l562e_dk/readme.html">STM32L562E_DK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp215f_dk/readme.html">stm32mp215f_dk</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/nucleo_l552ze_q/readme.html">NUCLEO_L552ZE_Q</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/b_u585i_iot02a/readme.html">B_U585I_IOT02A</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/releases/platforms.html">Platforms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32h5xx/readme.html">STM32H5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32l5xx/readme.html">STM32L5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32mp2xx/readme.html">STM32MP2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32u5xx/readme.html">STM32U5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/nucleo_l552ze_q/readme.html">NUCLEO_L552ZE_Q</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32h573i_dk/readme.html">STM32H573I_DK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32l562e_dk/readme.html">STM32L562E_DK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp215f_dk/readme.html">stm32mp215f_dk</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/releases/changelog.html">Change Log &amp; Notes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/releases/v1.7.0/index.html">v1.7.0</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/releases/v2.1.0/index.html">v2.1.0</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../stm/releases/index.html#branch-plans">Branch plans</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../stm/technical/index.html">Technical references</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/technical/a35_td_flavor/index.html">A35-TD flavor</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/technical/a35_td_flavor/memory_layout.html">Memory layout</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/technical/a35_td_flavor/storage.html">Storage</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/technical/m33_td_flavor/index.html">M33-TD flavor</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/technical/m33_td_flavor/memory_layout.html">Memory layout</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/technical/m33_td_flavor/storage.html">Storage</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/technical/devicetree/index.html">Devicetree</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/technical/devicetree/devicetree_tfm.html">Scope and purpose</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/technical/devicetree/devicetree_tfm.html#concept">Concept</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../stm/technical/devicetree/devicetree_tfm.html#how-to-add-device">How to add device</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/technical/initlevel.html">Initlevel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/technical/initial_attestation.html">Initial Attestation Service</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/technical/nv_counter.html">Nv counter</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../stm/ide/index.html">Ide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/ide/cube/stm32cubeide.html">STM32CubeIDE</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Trusted Firmware-M</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Design Documents</a></li>
+          <li class="breadcrumb-item"><a href="index.html">Dual-CPU</a></li>
+      <li class="breadcrumb-item active">Mailbox NS Agent Design Update</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="section" id="mailbox-ns-agent-design-update">
+<h1>Mailbox NS Agent Design Update<a class="headerlink" href="#mailbox-ns-agent-design-update" title="Permalink to this heading"></a></h1>
+<dl class="field-list simple">
+<dt class="field-odd">Organization</dt>
+<dd class="field-odd"><p>Arm Limited</p>
+</dd>
+<dt class="field-even">Contact</dt>
+<dd class="field-even"><p><a class="reference external" href="mailto:tf-m&#37;&#52;&#48;lists&#46;trustedfirmware&#46;org">tf-m<span>&#64;</span>lists<span>&#46;</span>trustedfirmware<span>&#46;</span>org</a></p>
+</dd>
+</dl>
+<div class="section" id="background">
+<h2>Background<a class="headerlink" href="#background" title="Permalink to this heading"></a></h2>
+<p>The SPE component that maintains the non-secure clients’ request is called
+‘NS Agent’ in TF-M. Besides the Trustzone-based isolation mechanism, there is
+one other isolation mechanism that implements individual PEs in physically
+isolated cores respectively. NSPE and SPE transfer non-secure client requests
+via inter-processor communication based on mailboxes. The component that
+handles inter-processor communication messages is called <code class="docutils literal notranslate"><span class="pre">Mailbox</span> <span class="pre">NS</span> <span class="pre">Agent</span></code>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>There may be hardware components and software solutions containing ‘mailbox’
+in their names. The concept <code class="docutils literal notranslate"><span class="pre">mailbox</span></code> in this document represent the
+mechanism described above, which is not referring to the external concepts.</p>
+</div>
+<p>When the first version <code class="docutils literal notranslate"><span class="pre">Mailbox</span> <span class="pre">NS</span> <span class="pre">Agent</span></code> was introduced, the generic FF-M
+interrupt handling was not ready. Hence a customized solution
+<code class="docutils literal notranslate"><span class="pre">Multiple</span> <span class="pre">Core</span></code> is implemented. This customized implementation:</p>
+<ul class="simple">
+<li><p>Perform customized operations on SPM internal data in a deferred interrupt
+handler.</p></li>
+<li><p>Process mailbox operations as special cases in SPM common logic.</p></li>
+</ul>
+<p>These behaviours couple SPM tightly with mailbox logic, which bring issues for
+maintenance. To address the issue, an updated design shall:</p>
+<ul class="simple">
+<li><p>Make SPM manage other components in a unified way (For example, it is
+simpler for SPM if all non-SPM components under the IPC model act as
+<code class="docutils literal notranslate"><span class="pre">processes</span></code>).</p></li>
+<li><p>Can use FF-M compliant interrupt mechanism and APIs.</p></li>
+</ul>
+<p>Following the above guidelines makes the <code class="docutils literal notranslate"><span class="pre">Mailbox</span> <span class="pre">NS</span> <span class="pre">Agent</span></code> work like a
+<code class="docutils literal notranslate"><span class="pre">partition</span></code>. The agent has an endless loop and waits for signals, calls FF-M
+API based on the parsing result on the communication messages. But there are
+still issues after looking closer to the requirements of the agent:</p>
+<ul class="simple">
+<li><p>SPM treats FF-M Client API caller’s ID as the client ID. While the mailbox NS
+agent may represent multiple non-secure clients. Hence it needs to tell
+SPM which non-secure client it is representing, and the default FF-M Client
+API does not have such capability.</p></li>
+<li><p>FF-M Client API blocks caller before the call is replied; while the
+mailbox NS Agent needs to respond to the non-secure interrupts in time.
+Blocking while waiting for a reply may cause the non-secure communication
+message not to be handled in time.</p></li>
+</ul>
+<p>Extra design items need to be added to address the issues.</p>
+</div>
+<div class="section" id="design-update">
+<h2>Design Update<a class="headerlink" href="#design-update" title="Permalink to this heading"></a></h2>
+<p>The below figure shows the overall design to cover various component types.
+NS Agents are the implementation-defined components that provide FF-M compliant
+Client API to the non-secure clients. Hence from the view of the non-secure
+clients, the FF-M client API behaviour follows the FF-M definition. And NS
+Agent needs customization in SPM since it has extra requirements compared to
+a generic secure partition.</p>
+<div class="figure align-center" id="fig-mailbox1">
+<a class="reference internal image-reference" href="../../_images/mailbox_ns_agent1.svg"><img alt="../../_images/mailbox_ns_agent1.svg" src="../../_images/mailbox_ns_agent1.svg" width="70%" /></a>
+<p class="caption"><span class="caption-number">Figure 4: </span><span class="caption-text">Component types and the callable API set</span><a class="headerlink" href="#fig-mailbox1" title="Permalink to this image"></a></p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>3 non-SPM component types here: FF-M-compliant Secure Partition
+(aka <code class="docutils literal notranslate"><span class="pre">partition</span></code>), Trustzone-based NS Agent (aka <code class="docutils literal notranslate"><span class="pre">Trustzone</span> <span class="pre">NS</span> <span class="pre">Agent</span></code>)
+and mailbox-based NS Agent (aka <code class="docutils literal notranslate"><span class="pre">Mailbox</span> <span class="pre">NS</span> <span class="pre">Agent</span></code>).
+<code class="docutils literal notranslate"><span class="pre">Trustzone</span> <span class="pre">NS</span> <span class="pre">Agent</span></code> is mentioned here for the comparison purpose. The
+implementation details for this NS agent type is not introduced here.</p>
+</div>
+<p>To make the programming model close to the FF-M compliance, the
+<code class="docutils literal notranslate"><span class="pre">Mailbox</span> <span class="pre">NS</span> <span class="pre">Agent</span></code> is designed as:</p>
+<ul class="simple">
+<li><p>Working like a standard Secure Partition under the IPC model, has one
+single thread, can call FF-M standard API.</p></li>
+<li><p>Having a manifest file to describe the attributes and resources and a
+positive value <code class="docutils literal notranslate"><span class="pre">Partition</span> <span class="pre">ID</span></code> in the manifest.</p></li>
+</ul>
+<p>Services rely on the <code class="docutils literal notranslate"><span class="pre">client_id</span></code> to apply policy-checking, hence SPM
+needs to know which <code class="docutils literal notranslate"><span class="pre">client_id</span></code> the mailbox NS Agent is representing when
+mailbox API is calling Client API. The standard API treats the caller as the
+client of the service, which means that a specific API is required to
+support identifying the represented non-secure client. SPM sets the non-secure
+<code class="docutils literal notranslate"><span class="pre">client_id</span></code> into the message right at the moment the message is
+going to be sent. Before this point, SPM performs the call based on the
+agent’s ID.</p>
+<p>This specifc <code class="docutils literal notranslate"><span class="pre">Agent</span> <span class="pre">API</span></code> is non-blocking, unlike the standard FF-M Client
+APIs. This can improve the communication efficiency between NS clients and
+mailbox NS agents. With this mechanism, extra signals and APIs for message
+acknowledges are also required.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>A standard Secure Partition gets errors when calling the <code class="docutils literal notranslate"><span class="pre">Agent</span> <span class="pre">API</span></code>.</p>
+</div>
+<div class="section" id="updated-programming-interfaces">
+<h3>Updated programming interfaces<a class="headerlink" href="#updated-programming-interfaces" title="Permalink to this heading"></a></h3>
+<p>These Client APIs are expanded from the standard Client APIs:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">agent_psa_connect()</span></code> is extended from <code class="docutils literal notranslate"><span class="pre">psa_connect()</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">agent_psa_close()</span></code> is extended from <code class="docutils literal notranslate"><span class="pre">psa_close()</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">agent_psa_call()</span></code> is extended from <code class="docutils literal notranslate"><span class="pre">psa_call()</span></code>.</p></li>
+</ul>
+<p>And to cooperate with the changed behaviour of these APIs, extra defined
+signals and types are also involved.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Namespace <code class="docutils literal notranslate"><span class="pre">agent</span></code> is involved for NS Agent callable API; namespace <code class="docutils literal notranslate"><span class="pre">tfm</span></code>
+is involved for TF-M specific concepts. Even though <code class="docutils literal notranslate"><span class="pre">agent</span></code> is TF-M
+specific at the current stage, it is proposed to be a common concept for
+general FF-M compliant implementations, hence assigning <code class="docutils literal notranslate"><span class="pre">agent</span></code> for
+proposed API and data structures.</p>
+</div>
+</div>
+<div class="section" id="input-and-output-vectors">
+<h3>Input and output vectors<a class="headerlink" href="#input-and-output-vectors" title="Permalink to this heading"></a></h3>
+<p>When non-secure clients call <code class="docutils literal notranslate"><span class="pre">psa_call()</span></code>, a mailbox message containing
+<code class="docutils literal notranslate"><span class="pre">psa_call()</span></code> parameters is delivered into <code class="docutils literal notranslate"><span class="pre">Mailbox</span> <span class="pre">NS</span> <span class="pre">Agent</span></code> and the agent
+needs to extract parameters from the message and then call <code class="docutils literal notranslate"><span class="pre">agent_psa_call()</span></code>.
+Revisit the <code class="docutils literal notranslate"><span class="pre">psa_call()</span></code> prototype to see the parameters:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">psa_status_t</span><span class="w"> </span><span class="nf">psa_call</span><span class="p">(</span><span class="n">psa_handle_t</span><span class="w"> </span><span class="n">handle</span><span class="p">,</span>
+<span class="w">                      </span><span class="kt">int32_t</span><span class="w"> </span><span class="n">type</span><span class="p">,</span>
+<span class="w">                      </span><span class="k">const</span><span class="w"> </span><span class="n">psa_invec</span><span class="w"> </span><span class="o">*</span><span class="n">in_vec</span><span class="p">,</span>
+<span class="w">                      </span><span class="kt">size_t</span><span class="w"> </span><span class="n">in_len</span><span class="p">,</span>
+<span class="w">                      </span><span class="n">psa_outvec</span><span class="w"> </span><span class="o">*</span><span class="n">out_vec</span><span class="p">,</span>
+<span class="w">                      </span><span class="kt">size_t</span><span class="w"> </span><span class="n">out_len</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Interface <code class="docutils literal notranslate"><span class="pre">agent_psa_call()</span></code> has 4 arguments only, to avoid ABI complexity
+when more than 4 arguments get involved. Then input and output vectors must
+be squashed into a new type to achieve this squashing. There are several
+scenarios to be considered:</p>
+<ul class="simple">
+<li><p>In the shared-memory-based mailbox scheme, the non-secure interface layer
+puts <code class="docutils literal notranslate"><span class="pre">psa_invec</span></code> and <code class="docutils literal notranslate"><span class="pre">psa_outvec</span></code> instances and their members in the
+shared memory. The pointers of these items are delivered to
+<code class="docutils literal notranslate"><span class="pre">Mailbox</span> <span class="pre">NS</span> <span class="pre">Agent</span></code> for the agent’s referencing. All vectors are
+non-secure in this case.</p></li>
+<li><p>Still, in the shared-memory-based mailbox scheme, but this time not all
+parameters are prepared by non-secure clients. Some of the items are
+allocated by the agent. Secure and non-secure vectors get mixed in this case.</p></li>
+<li><p>In the scheme that a memory address can not be delivered (A serial
+interface e.g.), <code class="docutils literal notranslate"><span class="pre">Mailbox</span> <span class="pre">NS</span> <span class="pre">Agent</span></code> allocates <code class="docutils literal notranslate"><span class="pre">psa_invec</span></code> and
+<code class="docutils literal notranslate"><span class="pre">psa_outvec</span></code> in local memory to collect pointers and sizes of received
+buffers. All the vectors are secure in this case.</p></li>
+</ul>
+<p>Based on these scenarios, and the case that an agent might access depending
+services with the agent itself’s identifier and secure vectors, a straight
+conclusion is that the memory source information - secure or non-secure - for
+input and output vectors and their pointing memories need to be indicated by
+the agent so that SPM can perform a memory check towards given vectors.</p>
+<p>Most of the SPE platforms have the capability to identify if a given memory
+pointer is secure or not, which makes this indication look duplicated. But the
+indication is necessary for these scenarios:</p>
+<ul class="simple">
+<li><p>The SPE platform identifies the memory source by the address mapped into
+SPE’s address space, but this mapping happens inside the agent instead of
+SPM. It is the agent who receives the mailbox data and maps it, so it knows
+which addresses need mapping and the others do not.</p></li>
+<li><p>The SPE platform just does not have such capability. The addresses from the
+mailbox can be treated as non-secure always but there are cases that the
+agent itself needs to access services with its own memory instead of
+representing the non-secure clients.</p></li>
+</ul>
+<p>To cover the above mentioned scenarios, guidelines are listed for input and
+output vector processing:</p>
+<ul class="simple">
+<li><p>The agent needs to tell SPM where vectors and descriptors come from, to
+assist SPM performs a proper memory checking. The source information is
+encoded in the parameter <code class="docutils literal notranslate"><span class="pre">control</span></code>.</p></li>
+<li><p>When SPE platforms have the capability to identify the memory sources,
+platforms can decide whether to skip the indication or not, in the HAL.</p></li>
+</ul>
+<p>A composition type is created for packing the vectors:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">client_params_t</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kt">int32_t</span><span class="w">         </span><span class="n">ns_client_id_stateless</span><span class="p">;</span>
+<span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="n">psa_invec</span><span class="w"> </span><span class="o">*</span><span class="n">p_invecs</span><span class="p">;</span>
+<span class="w">  </span><span class="n">psa_outvec</span><span class="w">      </span><span class="o">*</span><span class="n">p_outvecs</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">ns_client_id_stateless</span></code> indicates the non-secure client id when the client
+is accessing a stateless service. This member is ignored if the target service
+is a connection-based one.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The vectors and non-secure client ID are recorded in the internal handle.
+Hence it is safe to claim <code class="docutils literal notranslate"><span class="pre">client_params_t</span></code> instance as local variable.</p>
+</div>
+</div>
+<div class="section" id="agent-specific-client-api">
+<h3>Agent-specific Client API<a class="headerlink" href="#agent-specific-client-api" title="Permalink to this heading"></a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">agent_psa_connect()</span></code> and <code class="docutils literal notranslate"><span class="pre">agent_psa_close()</span></code> are the APIs added to support
+agent forwarding NS requests.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">psa_handle_t</span><span class="w"> </span><span class="nf">agent_psa_connect</span><span class="p">(</span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">sid</span><span class="p">,</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">version</span><span class="p">,</span>
+<span class="w">                               </span><span class="kt">int32_t</span><span class="w"> </span><span class="n">ns_client_id</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">client_data</span><span class="p">);</span>
+<span class="n">psa_status_t</span><span class="w"> </span><span class="nf">agent_psa_close</span><span class="p">(</span><span class="n">psa_handle_t</span><span class="w"> </span><span class="n">handle</span><span class="p">,</span><span class="w"> </span><span class="kt">int32_t</span><span class="w"> </span><span class="n">ns_client_id</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>One extra parameter <code class="docutils literal notranslate"><span class="pre">ns_client_id</span></code> added to tell SPM which NS client the
+agent is representing when API gets called. It is recorded in the handle
+association data in SPM and requires to be a negative value; ZERO or positive
+values are invalid non-secure client IDs, SPM does not use these invalid IDs
+in the message. Instead, it puts the agent’s ID into the messaging in this
+case. This mechanism can provide chances for the agents calling APIs for their
+own service accessing and API works asynchronously.</p>
+<p>As mentioned, the standard FF-M Client service accessing API are blocked until
+the IPC message gets replied to. While this API returns immediately without
+waiting for acknowledgement. Unless an error occurred, these agent-specific
+API returns PSA_SUCCESS always. The replies for these access requests are
+always fetched initiative by the agent with a <code class="docutils literal notranslate"><span class="pre">psa_get()</span></code>.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">psa_status_t</span><span class="w"> </span><span class="nf">agent_psa_call</span><span class="p">(</span><span class="n">psa_handle_t</span><span class="w"> </span><span class="n">handle</span><span class="p">,</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">control</span><span class="p">,</span>
+<span class="w">                            </span><span class="k">const</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">client_param_t</span><span class="w">   </span><span class="o">*</span><span class="n">params</span><span class="p">,</span>
+<span class="w">                            </span><span class="k">const</span><span class="w"> </span><span class="kt">void</span><span class="w">   </span><span class="o">*</span><span class="n">client_data_stateless</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Compared to the standard <code class="docutils literal notranslate"><span class="pre">psa_call()</span></code>, this API:</p>
+<ul class="simple">
+<li><p>Squashes the <code class="docutils literal notranslate"><span class="pre">psa_invec</span></code>, <code class="docutils literal notranslate"><span class="pre">psa_outvec</span></code>, and <code class="docutils literal notranslate"><span class="pre">ns_client_id_stateless</span></code>
+into parameter <code class="docutils literal notranslate"><span class="pre">params</span></code>.</p></li>
+<li><p>One extra parameter <code class="docutils literal notranslate"><span class="pre">client_data_stateless</span></code> for <code class="docutils literal notranslate"><span class="pre">agent_psa_call()</span></code> stands
+for the auxiliary data added. This member is ignored for connection-based
+services because <code class="docutils literal notranslate"><span class="pre">agent_psa_connect()</span></code> already assigned one in the
+connected handle.</p></li>
+<li><p>Has a composite argument <code class="docutils literal notranslate"><span class="pre">control</span></code>.</p></li>
+</ul>
+<p>The encoding scheme for <code class="docutils literal notranslate"><span class="pre">control</span></code>:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 8%" />
+<col style="width: 8%" />
+<col style="width: 84%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Bit(s)</p></th>
+<th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>27</p></td>
+<td><p>NSIV</p></td>
+<td><p><cite>1</cite>: Input vectors in non-secure memory. <cite>0</cite>: Secure memory.</p></td>
+</tr>
+<tr class="row-odd"><td><p>24-26</p></td>
+<td><p>IVNUM</p></td>
+<td><p>Number of input vectors.</p></td>
+</tr>
+<tr class="row-even"><td><p>19</p></td>
+<td><p>NSOV</p></td>
+<td><p><cite>1</cite>: Output vectors in non-secure memory. <cite>0</cite>: Secure memory.</p></td>
+</tr>
+<tr class="row-odd"><td><p>16-18</p></td>
+<td><p>OVNUM</p></td>
+<td><p>Number of output vectors.</p></td>
+</tr>
+<tr class="row-even"><td><p>0-15</p></td>
+<td><p>type</p></td>
+<td><p>signed 16-bit service <cite>type</cite>.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><code class="docutils literal notranslate"><span class="pre">control</span></code> is a 32-bit unsigned integer and bits not mentioned in the
+table are reserved for future usage.</p>
+</div>
+</div>
+<div class="section" id="agent-specific-signal">
+<h3>Agent-specific signal<a class="headerlink" href="#agent-specific-signal" title="Permalink to this heading"></a></h3>
+<p>To cooperate with the agent-specific API, one extra acknowledgement signal is
+defined:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#define ASYNC_MSG_REPLY            (0x00000004u)</span>
+</pre></div>
+</div>
+<p>This signal can be sent to agent type component only. An agent can call
+<code class="docutils literal notranslate"><span class="pre">psa_get()</span></code> with this signal to get one acknowledged message. This signal is
+cleared when all queued messages for the agent have been retrieved using
+<code class="docutils literal notranslate"><span class="pre">psa_get()</span></code>. SPM assembles the information into agent provided message object.
+For the stateless handle, the internal handle object is freed after this
+<code class="docutils literal notranslate"><span class="pre">psa_get()</span></code> call. The agent can know what kind of message is acknowledged by
+the <code class="docutils literal notranslate"><span class="pre">type</span></code> member in the <code class="docutils literal notranslate"><span class="pre">psa_msg_t</span></code>, and the <code class="docutils literal notranslate"><span class="pre">client_data</span></code> passed in is
+put in member <code class="docutils literal notranslate"><span class="pre">rhandle</span></code>. If no ‘ASYNC_MSG_REPLY’ signals pending, calling
+<code class="docutils literal notranslate"><span class="pre">psa_get()</span></code> gets <code class="docutils literal notranslate"><span class="pre">panic</span></code>.</p>
+</div>
+<div class="section" id="code-example">
+<h3>Code Example<a class="headerlink" href="#code-example" title="Permalink to this heading"></a></h3>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cm">/*</span>
+<span class="cm"> * The actual implementation can change this __customized_t freely, or</span>
+<span class="cm"> * discard this type and apply some in-house mechanism - the example</span>
+<span class="cm"> * here is to introduce how an agent works only.</span>
+<span class="cm"> */</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">__customized_t</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">int32_t</span><span class="w">      </span><span class="n">type</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int32_t</span><span class="w">      </span><span class="n">client_id</span><span class="p">;</span>
+<span class="w">    </span><span class="n">psa_handle_t</span><span class="w"> </span><span class="n">handle</span><span class="p">;</span>
+<span class="w">    </span><span class="n">psa_handle_t</span><span class="w"> </span><span class="n">status</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">mailbox_main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">psa_signal_t</span><span class="w">   </span><span class="n">signals</span><span class="p">;</span>
+<span class="w">    </span><span class="n">psa_status_t</span><span class="w">   </span><span class="n">status</span><span class="p">;</span>
+<span class="w">    </span><span class="n">psa_msg_t</span><span class="w">      </span><span class="n">msg</span><span class="p">;</span>
+<span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">client_param_t</span><span class="w"> </span><span class="n">client_param</span><span class="p">;</span>
+<span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">__customized_t</span><span class="w"> </span><span class="n">ns_msg</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">signals</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">psa_wait</span><span class="p">(</span><span class="n">ALL</span><span class="p">,</span><span class="w"> </span><span class="n">BLOCK</span><span class="p">);</span>
+
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">signals</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">MAILBOX_INTERRUPT_SIGNAL</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="cm">/* NS memory check needs to be performed. */</span>
+<span class="w">            </span><span class="n">__customized_platform_get_mail</span><span class="p">(</span><span class="o">&amp;</span><span class="n">ns_msg</span><span class="p">);</span>
+
+<span class="w">            </span><span class="cm">/*</span>
+<span class="cm">             * MACRO &#39;SID&#39;, &#39;VER&#39;, &#39;NSID&#39;, &#39;INVEC_LEN&#39;, &#39;OUTVEC_LEN&#39;, and</span>
+<span class="cm">             * &#39;VECTORS&#39; represent necessary information extraction from</span>
+<span class="cm">             * &#39;ns_msg&#39;, put MACRO names here and leave the details to the</span>
+<span class="cm">             * implementation.</span>
+<span class="cm">             */</span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ns_msg</span><span class="p">.</span><span class="n">type</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">PSA_IPC_CONNECT</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="n">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">agent_psa_connect</span><span class="p">(</span><span class="n">SID</span><span class="p">(</span><span class="n">ns_msg</span><span class="p">),</span><span class="w"> </span><span class="n">VER</span><span class="p">(</span><span class="n">ns_msg</span><span class="p">),</span>
+<span class="w">                                           </span><span class="n">NSID</span><span class="p">(</span><span class="n">ns_msg</span><span class="p">),</span><span class="w"> </span><span class="o">&amp;</span><span class="n">ns_msg</span><span class="p">);</span>
+<span class="w">            </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ns_msg</span><span class="p">.</span><span class="n">type</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">PSA_IPC_CLOSE</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="n">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">agent_psa_close</span><span class="p">(</span><span class="n">ns_msg</span><span class="p">.</span><span class="n">handle</span><span class="p">,</span><span class="w"> </span><span class="n">NSID</span><span class="p">(</span><span class="n">ns_msg</span><span class="p">));</span>
+<span class="w">            </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="cm">/* Other types as call type and let API check errors. */</span>
+<span class="w">                </span><span class="n">client_param</span><span class="p">.</span><span class="n">ns_client_id_stateless</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">NSID</span><span class="p">(</span><span class="n">ns_msg</span><span class="p">);</span>
+
+<span class="w">                </span><span class="cm">/*</span>
+<span class="cm">                 * Use MACRO to demonstrate two cases: local vector</span>
+<span class="cm">                 * descriptor and direct descriptor forwarding.</span>
+<span class="cm">                 */</span>
+
+<span class="w">                </span><span class="cm">/* Point to vector pointers in ns_msg. */</span>
+<span class="w">                </span><span class="n">PACK_VECTOR_POINTERS</span><span class="p">(</span><span class="n">client_param</span><span class="p">,</span><span class="w"> </span><span class="n">ns_msg</span><span class="p">);</span>
+<span class="w">                </span><span class="n">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">agent_psa_call</span><span class="p">(</span><span class="n">ns_msg</span><span class="p">.</span><span class="n">handle</span><span class="p">,</span>
+<span class="w">                                        </span><span class="n">PARAM_PACK</span><span class="p">(</span><span class="n">ns_msg</span><span class="p">.</span><span class="n">type</span><span class="p">,</span>
+<span class="w">                                                   </span><span class="n">INVEC_LEN</span><span class="p">(</span><span class="n">ns_msg</span><span class="p">),</span>
+<span class="w">                                                   </span><span class="n">OUTVEC_LEN</span><span class="p">(</span><span class="n">ns_msg</span><span class="p">))</span><span class="o">|</span>
+<span class="w">                                                   </span><span class="n">NSIV</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">NSOV</span><span class="p">,</span>
+<span class="w">                                        </span><span class="o">&amp;</span><span class="n">client_param</span><span class="p">,</span>
+<span class="w">                                        </span><span class="o">&amp;</span><span class="n">ns_msg</span><span class="p">);</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">            </span><span class="cm">/*</span>
+<span class="cm">             * The service access reply is always fetched by a later</span>
+<span class="cm">             * `psa_get` hence here only errors need to be dispatched.</span>
+<span class="cm">             */</span>
+<span class="w">            </span><span class="n">error_dispatch</span><span class="p">(</span><span class="n">status</span><span class="p">);</span>
+
+<span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">signals</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">ASYNC_MSG_REPLY</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="cm">/* The handle is freed for stateless service after &#39;psa_get&#39;. */</span>
+<span class="w">            </span><span class="n">status</span><span class="w">        </span><span class="o">=</span><span class="w"> </span><span class="n">psa_get</span><span class="p">(</span><span class="n">ASYNC_MSG_REPLY</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">msg</span><span class="p">);</span>
+<span class="w">            </span><span class="n">ms_msg</span><span class="w">        </span><span class="o">=</span><span class="w"> </span><span class="n">msg</span><span class="p">.</span><span class="n">rhandle</span><span class="p">;</span>
+<span class="w">            </span><span class="n">ns_msg</span><span class="p">.</span><span class="n">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">status</span><span class="p">;</span>
+<span class="w">            </span><span class="n">__customized_platform__send_mail</span><span class="p">(</span><span class="o">&amp;</span><span class="n">ns_msg</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><code class="docutils literal notranslate"><span class="pre">__customized*</span></code> API are implementation-specific APIs to be implemented by
+the mailbox Agent developer.</p>
+</div>
+</div>
+<div class="section" id="customized-manifest-attribute">
+<h3>Customized manifest attribute<a class="headerlink" href="#customized-manifest-attribute" title="Permalink to this heading"></a></h3>
+<p>Three extra customized manifest attributes are added:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 78%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ns_agent</p></td>
+<td><p>Indicate if manifest owner is an Agent.</p></td>
+</tr>
+<tr class="row-odd"><td><p>client_id_base</p></td>
+<td><p>The minimum client ID value (&lt;0)</p></td>
+</tr>
+<tr class="row-even"><td><p>client_id_limit</p></td>
+<td><p>The maximum client ID value (&lt;0)</p></td>
+</tr>
+</tbody>
+</table>
+<p><code class="docutils literal notranslate"><span class="pre">client_id_base</span></code> and <code class="docutils literal notranslate"><span class="pre">client_id_limit</span></code> are negative numbers. This means that
+<code class="docutils literal notranslate"><span class="pre">client_id_base</span> <span class="pre">&lt;=</span> <span class="pre">client_id_limit</span></code>, but
+<code class="docutils literal notranslate"><span class="pre">abs(client_id_base)</span> <span class="pre">&gt;=</span> <span class="pre">abs(client_id_limit)</span></code>. SPM can detect ID overlap when
+initialising secure partitions</p>
+<p>The Non-secure callers are expected to provide a negative (&lt;0) client ID when
+calling PSA API. A uniform mapping is implemented across all the NS agents,
+where the mapping is defined as the following:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 68%" />
+<col style="width: 32%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>NS client ID</p></th>
+<th class="head"><p>Transformed client ID</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>-1</p></td>
+<td><p>client_id_limit</p></td>
+</tr>
+<tr class="row-odd"><td><p>-2</p></td>
+<td><p>client_id_limit - 1</p></td>
+</tr>
+<tr class="row-even"><td colspan="2"><p>…</p></td>
+</tr>
+<tr class="row-odd"><td><p>-(abs(client_id_limit)-abs(client_id_base)+1)</p></td>
+<td><p>client_id_base</p></td>
+</tr>
+</tbody>
+</table>
+<p>Any other IDs provided by the NSPE will result in PSA_ERROR_INVALID_ARGUMENT.</p>
+</div>
+</div>
+<div class="section" id="manifest-tooling-update">
+<h2>Manifest tooling update<a class="headerlink" href="#manifest-tooling-update" title="Permalink to this heading"></a></h2>
+<p>The manifest for agents involves specific keys (‘ns_agent’ e.g.), these keys
+give hints about how to achieve out-of-FF-M partitions which might be abused
+easily by developers, for example, claim partitions as agents. Some
+restrictions need to be applied in the manifest tool to limit the general
+secure service development referencing these keys.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The limitations can mitigate the abuse but can’t prevent it, as developers
+own all the source code they are working with.</p>
+</div>
+<p>One mechanism: adding a confirmation in the partition list file.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Non-Secure Mailbox Agent&quot;</span><span class="p">,</span>
+<span class="s2">&quot;manifest&quot;</span><span class="p">:</span> <span class="s2">&quot;$</span><span class="si">{CMAKE_SOURCE_DIR}</span><span class="s2">/secure_fw/partitions/ns_agent_mailbox/ns_agent_mailbox.yaml&quot;</span><span class="p">,</span>
+<span class="s2">&quot;non_ffm_attributes&quot;</span><span class="p">:</span> <span class="s2">&quot;ns_agent&quot;</span><span class="p">,</span> <span class="s2">&quot;other_option&quot;</span><span class="p">,</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">non_ffm_attributes</span></code> tells the manifest tool that <code class="docutils literal notranslate"><span class="pre">ns_agent</span></code> is valid
+in ns_agent_mailbox.yaml. Otherwise, the manifest tool reports an error when a
+non-agent service abuses ns_agent in its manifest.</p>
+</div>
+<div class="section" id="runtime-programming-characteristics">
+<h2>Runtime programming characteristics<a class="headerlink" href="#runtime-programming-characteristics" title="Permalink to this heading"></a></h2>
+<p>Mailbox agent shall not be blocked by Agent-specific APIs. It can be blocked when:</p>
+<ul class="simple">
+<li><p>It is calling standard PSA Client APIs.</p></li>
+<li><p>It is calling <code class="docutils literal notranslate"><span class="pre">psa_wait()</span></code>.</p></li>
+</ul>
+<div class="section" id="idle-processing">
+<h3>IDLE processing<a class="headerlink" href="#idle-processing" title="Permalink to this heading"></a></h3>
+<p>Only ONE place is recommended to enter IDLE. The place is decided based on the
+system topologies:</p>
+<ul class="simple">
+<li><p>If there is one Trustzone-based NSPE, this NSPE is the recommended place no
+matter how many mailbox agents there are in the system.</p></li>
+<li><p>If there are only mailbox-based NSPEs, entering IDLE can happen in
+one of the mailbox agents.</p></li>
+</ul>
+<p>The solution is:</p>
+<ul class="simple">
+<li><p>An IDLE entering API is provided in SPRTL.</p></li>
+<li><p>A partition without specific flag can’t call this API.</p></li>
+<li><p>The manifest tooling counts the partitions with this specific flag, and
+assert errors when multiple instances are found.</p></li>
+</ul>
+<hr class="docutils" />
+<p><em>Copyright (c) 2022-2024, Arm Limited. All rights reserved.</em>
+<em>Copyright (c) 2023 Cypress Semiconductor Corporation (an Infineon company)
+or an affiliate of Cypress Semiconductor Corporation. All rights reserved.</em></p>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p></p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

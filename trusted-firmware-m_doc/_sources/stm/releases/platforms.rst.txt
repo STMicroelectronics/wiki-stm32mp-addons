@@ -1,6 +1,6 @@
-=========
+#########
 Platforms
-=========
+#########
 
 This document contains SOC and boards supported by stm32.
 

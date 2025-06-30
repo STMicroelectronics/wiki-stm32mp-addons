@@ -2,8 +2,9 @@
 Storage
 #######
 
-Internal Trusted Storage (ITS)
-******************************
+************************
+Internal Trusted Storage
+************************
 
 ITS is stored on backup SRAM. This memory can be shared and the ``RISAF1`` allows to define the access right (depend on Arm® Cortex®-A: Optee).
 
@@ -14,13 +15,14 @@ ITS is stored on backup SRAM. This memory can be shared and the ``RISAF1`` allow
 +-----------------+------------------------+
 
 .. note::
-   
+
    - TFM_HAL_ITS_FLASH_AREA used the last 4KB of ``BKPSRAM`` (size: 8KB).
    - To retain the content of the backup domain when VDD is turned off, the VBAT pin can be connected
-     to an optional standby voltage supplied from a battery or an another source.  
+     to an optional standby voltage supplied from a battery or an another source.
 
-Protected Storage (PS)
-**********************
+*****************
+Protected Storage
+*****************
 
 PS is stored on external SNOR and needs security setup (depend on Arm® Cortex®-A: Optee):
 

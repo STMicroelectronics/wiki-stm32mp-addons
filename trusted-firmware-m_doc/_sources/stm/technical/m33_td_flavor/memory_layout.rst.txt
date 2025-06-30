@@ -2,6 +2,7 @@
 Memory layout
 #############
 
+************
 Image layout
 ************
 
@@ -40,6 +41,7 @@ Then wrapper.py tool signed this blob and add header and trailer
 
 .. _m33tdcid_flash_layout:
 
+************
 Flash layout
 ************
 
@@ -68,13 +70,14 @@ The table below shows the flash layout loaded in persistent storage (external no
 - The bl2 selects the slot actif and copies secure and nonsecure partition to ``S_IMAGE_LOAD_ADDRESS`` (DDR), then identifies and executes the secure partition.
 - the protected storage is defined in external NOR device.
 
-RAM layout
+**********
+Ram layout
 **********
 
 The ``S_IMAGE_LOAD_ADDRESS`` is defined to ``DDR_RAM_OFFSET``.
 
 Bl2
-"""
+===
 
 +----------+----------------------+
 |          |                      |
@@ -99,7 +102,7 @@ Bl2
 +----------+----------------------+
 
 TFM
-"""
+===
 
 The vector table of ``S_CODE_START`` and ``NS_CODE_START`` meets alignment conditions by:
 
@@ -134,7 +137,7 @@ The vector table of ``S_CODE_START`` and ``NS_CODE_START`` meets alignment condi
 |                 |                       |
 +-----------------+-----------------------+
 
-
+************
 Access Right
 ************
 
@@ -153,10 +156,10 @@ STM32MP2 platforms used Arm® Cortex®-M33 MPU and RIF device to enforce and man
 	RISAF sub-region feature is not yet implemented
 
 Secure
-""""""
+======
 
 Code
-~~~~
+----
 
 +--------+-------------+----------+-------------+---------+
 | vector | veneer      | TFM_Code | TFM_APP_ROT | tfm_lib |
@@ -173,7 +176,7 @@ Code
 +---------------------------------------------------------+
 
 Data
-~~~~
+----
 
 +-----------------+------------------------+--------------------+----------+
 | TFM_secure_data | TFM_APP_RW_STACK       | TFM_PSA_RW_STACK   | tfm_data |
@@ -192,12 +195,12 @@ Data
             - All APP ROT must be aligned on RISAF4 constraints => linker script modification.
 
 Non-secure
-""""""""""
+==========
 
 Today, nonsecure example has no isolation. However a basic kernel uses commonly 2 isolation levels (kernel, user).
 
 Code
-~~~~
+----
 
 +--------+-------------+--------------+
 | vector | Kernel side | User side    |
@@ -212,19 +215,19 @@ Code
 +-------------------------------------+
 
 Data
-~~~~
+----
 
-+-------------+-----------------------+
-| Kernel side | User side             |
-+-------------+-----------------------+
-| Sub reg 5B: Not yet used            |
-+-------------+-----------------------+
-|             | Sub reg 5A            |
-|             | (RW, NS, NP)          |
-|             | [#risaf]_             |
-+-------------+-----------------------+
-| Base region 5 (RW, NS, P) [#risaf]_ |
-+-------------------------------------+
++-------------------------------------+--------------+
+| Kernel side                         | User side    |
++-------------------------------------+--------------+
+| Sub reg 5B: Not yet used            |              |
++-------------------------------------+--------------+
+|                                     | Sub reg 5A   |
+|                                     | (RW, NS, NP) |
+|                                     | [#risaf]_    |
++-------------------------------------+--------------+
+| Base region 5 (RW, NS, P) [#risaf]_ |              |
++-------------------------------------+--------------+
 
 --------------
 
