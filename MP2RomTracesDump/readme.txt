@@ -2,7 +2,7 @@
 ==                        MP2ROMtracesdump for STM32MP2                      ==
 ===============================================================================
 
-These binaries permits to display MP25/MP23 bootrom traces on UART @115200 bauds, 8bits, 1 stop bit, no parity, no CTS/RTS.
+These binaries permits to display STM32MP2x bootrom traces on UART @115200 bauds, 8bits, 1 stop bit, no parity, no CTS/RTS.
 According to used binary, the traces are output on the designated UART and GPIO pin.
 For STM32MP23 or STM32MP25:
 - MP2ROMtracesdump_USART2_PA4: traces output on USART2 using PA4 GPIO pin
