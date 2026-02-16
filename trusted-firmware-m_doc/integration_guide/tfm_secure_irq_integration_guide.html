@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Secure Interrupt Integration Guide &mdash; Trusted Firmware-M v2.1.0-stm32mp-r1 documentation</title>
+  <title>Secure Interrupt Integration Guide &mdash; Trusted Firmware-M v2.1.3-stm32mp-r2 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/tfm_custom.css" type="text/css" />
@@ -38,7 +38,7 @@
               <img src="../_static/tf_logo_white.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                v2.1.0-stm32mp-r1
+                v2.1.3-stm32mp-r2
 
               </div>
 <div role="search">
@@ -67,11 +67,16 @@
 <li class="toctree-l3"><a class="reference internal" href="../security/security_advisories/fwu_write_vulnerability.html">Advisory TFMV-5</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../security/security_advisories/cc3xx_partial_tag_compare_on_chacha20_poly1305.html">Advisory TFMV-6</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../security/security_advisories/debug_log_vulnerability.html">Advisory TFMV-7</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../security/security_advisories/user_pointers_mailbox_vectors_vulnerability.html">Advisory TFMV-8</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../security/security_advisories/fwu_tlv_payload_out_of_bounds_vulnerability.html">Advisory TFMV-9</a></li>
 </ul>
 </li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../releases/index.html">Releases</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../releases/2.1.3.html">v2.1.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../releases/2.1.2.html">v2.1.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../releases/2.1.1.html">v2.1.1</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../releases/2.1.0.html">v2.1.0</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../releases/2.0.0.html">v2.0.0</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../releases/1.8.1.html">v1.8.1</a></li>
@@ -85,6 +90,10 @@
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../platform/index.html">Platforms</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../platform/adi/index.html">Analog Devices, Inc.</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../platform/adi/max32657/README.html">MAX32657</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../platform/arm/index.html">Arm</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../platform/arm/corstone1000/readme.html">Corstone-1000</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/arm/mps3/corstone300/README.html">Corstone-300 FPGA (AN547 and AN552) and FVP</a></li>
@@ -122,6 +131,10 @@
 <li class="toctree-l3"><a class="reference internal" href="../platform/nxp/lpcxpresso55s69/README.html">LPCXpresso55S69</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../platform/rpi/index.html">Raspberry Pi</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../platform/rpi/rp2350/readme.html">RP2350</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../platform/stm/index.html">STMICROELECTRONICS</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/common/stm32h5xx/readme.html">STM32H5</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/common/stm32l5xx/readme.html">STM32L5</a></li>
@@ -131,6 +144,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32h573i_dk/readme.html">STM32H573I_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32l562e_dk/readme.html">STM32L562E_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32mp215f_dk/readme.html">stm32mp215f_dk</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32mp235f_dk/readme.html">stm32mp235f_dk</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/b_u585i_iot02a/readme.html">B_U585I_IOT02A</a></li>
 </ul>
@@ -168,7 +182,7 @@
 <li class="toctree-l2"><a class="reference internal" href="non-secure_client_extension_integration_guide.html">NS client integration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="os_migration_guide_armv8m.html">OS migration to Armv8-M</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tfm_fpu_support.html">Floating-Point Support</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Secure Interrupt</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="tfm_secure_irq_integration_guide.html#">Secure Interrupt</a></li>
 <li class="toctree-l2"><a class="reference internal" href="platform_provisioning.html">Platform Provisioning</a></li>
 <li class="toctree-l2"><a class="reference internal" href="platform/index.html">Adding a new platform</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="platform/porting_tfm_to_a_new_hardware.html">Porting TF-M to a New Hardware</a></li>
@@ -263,6 +277,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32h573i_dk/readme.html">STM32H573I_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32l562e_dk/readme.html">STM32L562E_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32mp215f_dk/readme.html">stm32mp215f_dk</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32mp235f_dk/readme.html">stm32mp235f_dk</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/nucleo_l552ze_q/readme.html">NUCLEO_L552ZE_Q</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/b_u585i_iot02a/readme.html">B_U585I_IOT02A</a></li>
@@ -277,6 +292,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32h573i_dk/readme.html">STM32H573I_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32l562e_dk/readme.html">STM32L562E_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32mp215f_dk/readme.html">stm32mp215f_dk</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32mp235f_dk/readme.html">stm32mp235f_dk</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
 </ul>
 </li>
@@ -307,6 +323,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../stm/technical/initlevel.html">Initlevel</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../stm/technical/initial_attestation.html">Initial Attestation Service</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../stm/technical/key_and_provisionning.html">About TF-M Authentication Keys and Secret Provisioning</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../stm/technical/nv_counter.html">Nv counter</a></li>
 </ul>
 </li>
@@ -341,17 +358,17 @@
            <div itemprop="articleBody">
              
   <div class="section" id="secure-interrupt-integration-guide">
-<h1>Secure Interrupt Integration Guide<a class="headerlink" href="#secure-interrupt-integration-guide" title="Permalink to this heading"></a></h1>
+<h1>Secure Interrupt Integration Guide<a class="headerlink" href="tfm_secure_irq_integration_guide.html#secure-interrupt-integration-guide" title="Permalink to this heading"></a></h1>
 <div class="section" id="introduction">
-<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading"></a></h2>
+<h2>Introduction<a class="headerlink" href="tfm_secure_irq_integration_guide.html#introduction" title="Permalink to this heading"></a></h2>
 <p>This document describes how to enable an interrupt in TF-M. The target audiences
 are mainly platform integrators and Secure Partition developers.</p>
 <p>This document assumes that you have read the PSA Firmware Framework (FF-M) v1.0
-<a class="footnote-reference brackets" href="#id7" id="id1">1</a> and the FF-M v1.1 extensions <a class="footnote-reference brackets" href="#id8" id="id2">2</a> thus have knowlege on the terminologies
+<a class="footnote-reference brackets" href="tfm_secure_irq_integration_guide.html#id7" id="id1">1</a> and the FF-M v1.1 extensions <a class="footnote-reference brackets" href="tfm_secure_irq_integration_guide.html#id8" id="id2">2</a> thus have knowlege on the terminologies
 such as Secure Partitions and manifests.</p>
 </div>
 <div class="section" id="interrupt-handling-model">
-<h2>Interrupt Handling Model<a class="headerlink" href="#interrupt-handling-model" title="Permalink to this heading"></a></h2>
+<h2>Interrupt Handling Model<a class="headerlink" href="tfm_secure_irq_integration_guide.html#interrupt-handling-model" title="Permalink to this heading"></a></h2>
 <p>TF-M supports the two interrupt handling models defined by FF-M:</p>
 <ul>
 <li><p>First-Level Interrupt Handling (FLIH)</p>
@@ -375,11 +392,11 @@ allowed as the SLIH handling is in the Secure Partition Thread.</p>
 Firmware Framework v1.1.</p>
 <p>While the SLIH is the only supported model for Secure Partitions which conform
 to Firmware Framework v1.0.</p>
-<p>Please refer to chapter 6.2 of FF-M v1.1 <a class="footnote-reference brackets" href="#id7" id="id3">1</a> for more details on the interrupt
+<p>Please refer to chapter 6.2 of FF-M v1.1 <a class="footnote-reference brackets" href="tfm_secure_irq_integration_guide.html#id7" id="id3">1</a> for more details on the interrupt
 handling models.</p>
 </div>
 <div class="section" id="enabling-an-interrupt">
-<h2>Enabling an Interrupt<a class="headerlink" href="#enabling-an-interrupt" title="Permalink to this heading"></a></h2>
+<h2>Enabling an Interrupt<a class="headerlink" href="tfm_secure_irq_integration_guide.html#enabling-an-interrupt" title="Permalink to this heading"></a></h2>
 <p>To enable an interrupt, you need to do the following:</p>
 <ul class="simple">
 <li><p>Binding the interrupt to a Secure Partition.</p></li>
@@ -388,17 +405,17 @@ interrupt.</p></li>
 <li><p>Initializing the interrupt.</p></li>
 <li><p>Integrating the interrupt handling function</p></li>
 </ul>
-<p>TF-M has two Test Partitions as good examples for both FLIH <a class="footnote-reference brackets" href="#id9" id="id4">3</a> and SLIH <a class="footnote-reference brackets" href="#id10" id="id5">4</a>.
-See also <a class="reference internal" href="#enabling-the-interrupt-tests">Enabling the Interrupt Tests</a> on how to integrate them to platforms.</p>
+<p>TF-M has two Test Partitions as good examples for both FLIH <a class="footnote-reference brackets" href="tfm_secure_irq_integration_guide.html#id9" id="id4">3</a> and SLIH <a class="footnote-reference brackets" href="tfm_secure_irq_integration_guide.html#id10" id="id5">4</a>.
+See also <a class="reference internal" href="tfm_secure_irq_integration_guide.html#enabling-the-interrupt-tests">Enabling the Interrupt Tests</a> on how to integrate them to platforms.</p>
 <div class="section" id="binding-an-interrupt-to-a-secure-partition">
-<h3>Binding an Interrupt to a Secure Partition<a class="headerlink" href="#binding-an-interrupt-to-a-secure-partition" title="Permalink to this heading"></a></h3>
+<h3>Binding an Interrupt to a Secure Partition<a class="headerlink" href="tfm_secure_irq_integration_guide.html#binding-an-interrupt-to-a-secure-partition" title="Permalink to this heading"></a></h3>
 <p>To bind an interrupt to a Secure Partition, you need to add an item to the
 <code class="docutils literal notranslate"><span class="pre">irqs</span></code> attribute of the Secure Partition manifest.
 <code class="docutils literal notranslate"><span class="pre">irqs</span></code> is a list of Interrupt Request (IRQ) assigned to the Secure Partition.</p>
 <p>Secure Partitions are not allowed to share IRQs with other Secure Partitions.</p>
 <p>Different Firmware Framework versions have different definitions of manifest.</p>
 <div class="section" id="ff-m-v1-0">
-<h4>FF-M v1.0<a class="headerlink" href="#ff-m-v1-0" title="Permalink to this heading"></a></h4>
+<h4>FF-M v1.0<a class="headerlink" href="tfm_secure_irq_integration_guide.html#ff-m-v1-0" title="Permalink to this heading"></a></h4>
 <p>Here is an example manifest of Secure Partitions conform to Firmware Framework
 version 1.0:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">{</span>
@@ -438,7 +455,7 @@ calling <code class="docutils literal notranslate"><span class="pre">psa_wait</s
 for FF-M v1.0.</p>
 </div>
 <div class="section" id="ff-m-v1-1">
-<h4>FF-M v1.1<a class="headerlink" href="#ff-m-v1-1" title="Permalink to this heading"></a></h4>
+<h4>FF-M v1.1<a class="headerlink" href="tfm_secure_irq_integration_guide.html#ff-m-v1-1" title="Permalink to this heading"></a></h4>
 <p>Here is an example manifest of Secure Partitions conform to Firmware Framework
 version 1.1:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">{</span>
@@ -486,12 +503,12 @@ have one of the following values:</p>
 </div>
 </div>
 <div class="section" id="granting-permissions-to-devices-for-secure-partitions">
-<h3>Granting Permissions to Devices for Secure Partitions<a class="headerlink" href="#granting-permissions-to-devices-for-secure-partitions" title="Permalink to this heading"></a></h3>
+<h3>Granting Permissions to Devices for Secure Partitions<a class="headerlink" href="tfm_secure_irq_integration_guide.html#granting-permissions-to-devices-for-secure-partitions" title="Permalink to this heading"></a></h3>
 <p>A secure partition shall be granted two parts of permissions to access a device.
 One is the Memory Maped I/O (MMIO) region of the device. The other is the driver
 codes to access the device.</p>
 <div class="section" id="the-mmio-regions">
-<h4>The MMIO Regions<a class="headerlink" href="#the-mmio-regions" title="Permalink to this heading"></a></h4>
+<h4>The MMIO Regions<a class="headerlink" href="tfm_secure_irq_integration_guide.html#the-mmio-regions" title="Permalink to this heading"></a></h4>
 <p>You need to declare the MMIO region in the <code class="docutils literal notranslate"><span class="pre">mmio_regions</span></code> attributes in the
 Secure Partition manifest, to enable the Secure Partition to access it.</p>
 <p>An MMIO region can be described as either <code class="docutils literal notranslate"><span class="pre">numbered_region</span></code> or
@@ -530,7 +547,7 @@ required to set up permissions to the MMIO region.</p>
 </ul>
 </div>
 <div class="section" id="the-device-drivers">
-<h4>The Device Drivers<a class="headerlink" href="#the-device-drivers" title="Permalink to this heading"></a></h4>
+<h4>The Device Drivers<a class="headerlink" href="tfm_secure_irq_integration_guide.html#the-device-drivers" title="Permalink to this heading"></a></h4>
 <p>To give permissions of devices drivers to Secure Partitions, it is recommended
 to put the driver codes to the Partition’s CMake library:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>target_sources<span class="o">(</span>some_partition_lib
@@ -542,7 +559,7 @@ to put the driver codes to the Partition’s CMake library:</p>
 </div>
 </div>
 <div class="section" id="initializing-the-interrupts">
-<h3>Initializing the Interrupts<a class="headerlink" href="#initializing-the-interrupts" title="Permalink to this heading"></a></h3>
+<h3>Initializing the Interrupts<a class="headerlink" href="tfm_secure_irq_integration_guide.html#initializing-the-interrupts" title="Permalink to this heading"></a></h3>
 <p>Platforms must define an interrupt initialization function for each Secure
 interrupt.</p>
 <p>The prototype of the function is:</p>
@@ -570,7 +587,7 @@ for example a <code class="docutils literal notranslate"><span class="pre">tfm_i
 <li><p>saving the interrupt information</p></li>
 </ul>
 <div class="section" id="setting-priority">
-<h4>Setting Priority<a class="headerlink" href="#setting-priority" title="Permalink to this heading"></a></h4>
+<h4>Setting Priority<a class="headerlink" href="tfm_secure_irq_integration_guide.html#setting-priority" title="Permalink to this heading"></a></h4>
 <p>The priority of external interrupts must be in the following range:
 <code class="docutils literal notranslate"><span class="pre">(0,</span> <span class="pre">N</span> <span class="pre">/</span> <span class="pre">2)</span></code>, where <code class="docutils literal notranslate"><span class="pre">N</span></code> is the number of configurable priorities.
 Smaller values have higher priorities.</p>
@@ -584,13 +601,13 @@ priorities, you can pass the values directly.</p>
 <p>Platforms have the flexibilities on the assignment of priorities.</p>
 </div>
 <div class="section" id="targeting-interrupts-to-secure">
-<h4>Targeting Interrupts to Secure<a class="headerlink" href="#targeting-interrupts-to-secure" title="Permalink to this heading"></a></h4>
+<h4>Targeting Interrupts to Secure<a class="headerlink" href="tfm_secure_irq_integration_guide.html#targeting-interrupts-to-secure" title="Permalink to this heading"></a></h4>
 <p>In single core systems, platform integrators must ensure that the Secure
 interrupts target to Secure State by setting the Interrupt Controller.</p>
 <p>In multi-core systems, this might be optional.</p>
 </div>
 <div class="section" id="saving-the-interrupt-information">
-<h4>Saving the Interrupt Information<a class="headerlink" href="#saving-the-interrupt-information" title="Permalink to this heading"></a></h4>
+<h4>Saving the Interrupt Information<a class="headerlink" href="tfm_secure_irq_integration_guide.html#saving-the-interrupt-information" title="Permalink to this heading"></a></h4>
 <p>The initialization function is called during Partition loading with the
 following information:</p>
 <ul class="simple">
@@ -598,7 +615,7 @@ following information:</p>
 <li><p><code class="docutils literal notranslate"><span class="pre">p_ildi</span></code> - pointer to <code class="docutils literal notranslate"><span class="pre">irq_load_info_t</span></code> struct of the interrupt</p></li>
 </ul>
 <p>Platforms must save the information for the future use.
-See <a class="reference internal" href="#integrating-the-interrupt-handling-function">Integrating the Interrupt Handling Function</a> for the usage.</p>
+See <a class="reference internal" href="tfm_secure_irq_integration_guide.html#integrating-the-interrupt-handling-function">Integrating the Interrupt Handling Function</a> for the usage.</p>
 <p>The easiest way is to save them in global variables for each interrupt.
 TF-M provides a struct for saving the information:</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">irq_t</span><span class="w"> </span><span class="p">{</span>
@@ -610,7 +627,7 @@ TF-M provides a struct for saving the information:</p>
 </div>
 </div>
 <div class="section" id="integrating-the-interrupt-handling-function">
-<h3>Integrating the Interrupt Handling Function<a class="headerlink" href="#integrating-the-interrupt-handling-function" title="Permalink to this heading"></a></h3>
+<h3>Integrating the Interrupt Handling Function<a class="headerlink" href="tfm_secure_irq_integration_guide.html#integrating-the-interrupt-handling-function" title="Permalink to this heading"></a></h3>
 <p>TF-M provides an interrupt handling entry for Secure interrupts:</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="n">spm_handle_interrupt</span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">p_pt</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">irq_load_info_t</span><span class="w"> </span><span class="o">*</span><span class="n">p_ildi</span><span class="p">)</span>
 </pre></div>
@@ -632,7 +649,7 @@ be put in the same source file that contains the initialization functions.</p>
 </div>
 </div>
 <div class="section" id="enabling-the-interrupt-tests">
-<h2>Enabling the Interrupt Tests<a class="headerlink" href="#enabling-the-interrupt-tests" title="Permalink to this heading"></a></h2>
+<h2>Enabling the Interrupt Tests<a class="headerlink" href="tfm_secure_irq_integration_guide.html#enabling-the-interrupt-tests" title="Permalink to this heading"></a></h2>
 <p>TF-M provides test suites for FLIH and SLIH interrupts respectively.
 They are disabled by default.</p>
 <div class="admonition note">
@@ -663,23 +680,23 @@ interrupt tests</p></li>
 <p>They can be enabled via build command line or via <code class="docutils literal notranslate"><span class="pre">TEST_NS</span></code>.</p>
 </div>
 <div class="section" id="migrating-to-firmware-framework-v1-1">
-<h2>Migrating to Firmware Framework v1.1<a class="headerlink" href="#migrating-to-firmware-framework-v1-1" title="Permalink to this heading"></a></h2>
-<p>Please refer to <code class="docutils literal notranslate"><span class="pre">Migrating</span> <span class="pre">Secure</span> <span class="pre">Partitions</span> <span class="pre">to</span> <span class="pre">version</span> <span class="pre">1.1</span></code> of FF-M v1.1 <a class="footnote-reference brackets" href="#id7" id="id6">1</a>
+<h2>Migrating to Firmware Framework v1.1<a class="headerlink" href="tfm_secure_irq_integration_guide.html#migrating-to-firmware-framework-v1-1" title="Permalink to this heading"></a></h2>
+<p>Please refer to <code class="docutils literal notranslate"><span class="pre">Migrating</span> <span class="pre">Secure</span> <span class="pre">Partitions</span> <span class="pre">to</span> <span class="pre">version</span> <span class="pre">1.1</span></code> of FF-M v1.1 <a class="footnote-reference brackets" href="tfm_secure_irq_integration_guide.html#id7" id="id6">1</a>
 .</p>
 </div>
 <div class="section" id="references">
-<h2>References<a class="headerlink" href="#references" title="Permalink to this heading"></a></h2>
+<h2>References<a class="headerlink" href="tfm_secure_irq_integration_guide.html#references" title="Permalink to this heading"></a></h2>
 <dl class="footnote brackets">
-<dt class="label" id="id7"><span class="brackets">1</span><span class="fn-backref">(<a href="#id1">1</a>,<a href="#id3">2</a>,<a href="#id6">3</a>)</span></dt>
+<dt class="label" id="id7"><span class="brackets">1</span><span class="fn-backref">(<a href="tfm_secure_irq_integration_guide.html#id1">1</a>,<a href="tfm_secure_irq_integration_guide.html#id3">2</a>,<a href="tfm_secure_irq_integration_guide.html#id6">3</a>)</span></dt>
 <dd><p><a class="reference external" href="https://developer.arm.com/documentation/den0063/latest/">FF-M v1.0 Specification</a></p>
 </dd>
-<dt class="label" id="id8"><span class="brackets"><a class="fn-backref" href="#id2">2</a></span></dt>
+<dt class="label" id="id8"><span class="brackets"><a class="fn-backref" href="tfm_secure_irq_integration_guide.html#id2">2</a></span></dt>
 <dd><p><a class="reference external" href="https://developer.arm.com/documentation/aes0039/latest/">FF-M v1.1 Extension</a></p>
 </dd>
-<dt class="label" id="id9"><span class="brackets"><a class="fn-backref" href="#id4">3</a></span></dt>
+<dt class="label" id="id9"><span class="brackets"><a class="fn-backref" href="tfm_secure_irq_integration_guide.html#id4">3</a></span></dt>
 <dd><p><a class="reference external" href="https://git.trustedfirmware.org/TF-M/tf-m-tests.git/tree/tests_reg/test/secure_fw/suites/spm/irq/service/tfm_flih_test_service">https://git.trustedfirmware.org/TF-M/tf-m-tests.git/tree/tests_reg/test/secure_fw/suites/spm/irq/service/tfm_flih_test_service</a></p>
 </dd>
-<dt class="label" id="id10"><span class="brackets"><a class="fn-backref" href="#id5">4</a></span></dt>
+<dt class="label" id="id10"><span class="brackets"><a class="fn-backref" href="tfm_secure_irq_integration_guide.html#id5">4</a></span></dt>
 <dd><p><a class="reference external" href="https://git.trustedfirmware.org/TF-M/tf-m-tests.git/tree/tests_reg/test/secure_fw/suites/spm/irq/service/tfm_slih_test_service">https://git.trustedfirmware.org/TF-M/tf-m-tests.git/tree/tests_reg/test/secure_fw/suites/spm/irq/service/tfm_slih_test_service</a></p>
 </dd>
 </dl>

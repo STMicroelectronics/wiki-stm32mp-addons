@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TF-M Internal Trusted Storage Service Integration Guide &mdash; Trusted Firmware-M v2.1.0-stm32mp-r1 documentation</title>
+  <title>TF-M Internal Trusted Storage Service Integration Guide &mdash; Trusted Firmware-M v2.1.3-stm32mp-r2 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/tfm_custom.css" type="text/css" />
@@ -38,7 +38,7 @@
               <img src="../../_static/tf_logo_white.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                v2.1.0-stm32mp-r1
+                v2.1.3-stm32mp-r2
 
               </div>
 <div role="search">
@@ -67,11 +67,16 @@
 <li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/fwu_write_vulnerability.html">Advisory TFMV-5</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/cc3xx_partial_tag_compare_on_chacha20_poly1305.html">Advisory TFMV-6</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/debug_log_vulnerability.html">Advisory TFMV-7</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/user_pointers_mailbox_vectors_vulnerability.html">Advisory TFMV-8</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/fwu_tlv_payload_out_of_bounds_vulnerability.html">Advisory TFMV-9</a></li>
 </ul>
 </li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../releases/index.html">Releases</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/2.1.3.html">v2.1.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/2.1.2.html">v2.1.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/2.1.1.html">v2.1.1</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../releases/2.1.0.html">v2.1.0</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../releases/2.0.0.html">v2.0.0</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../releases/1.8.1.html">v1.8.1</a></li>
@@ -85,6 +90,10 @@
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../platform/index.html">Platforms</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/adi/index.html">Analog Devices, Inc.</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/adi/max32657/README.html">MAX32657</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../../platform/arm/index.html">Arm</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/arm/corstone1000/readme.html">Corstone-1000</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/arm/mps3/corstone300/README.html">Corstone-300 FPGA (AN547 and AN552) and FVP</a></li>
@@ -122,6 +131,10 @@
 <li class="toctree-l3"><a class="reference internal" href="../../platform/nxp/lpcxpresso55s69/README.html">LPCXpresso55S69</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/rpi/index.html">Raspberry Pi</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/rpi/rp2350/readme.html">RP2350</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../../platform/stm/index.html">STMICROELECTRONICS</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32h5xx/readme.html">STM32H5</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32l5xx/readme.html">STM32L5</a></li>
@@ -131,6 +144,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32h573i_dk/readme.html">STM32H573I_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32l562e_dk/readme.html">STM32L562E_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp215f_dk/readme.html">stm32mp215f_dk</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp235f_dk/readme.html">stm32mp235f_dk</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/b_u585i_iot02a/readme.html">B_U585I_IOT02A</a></li>
 </ul>
@@ -179,7 +193,7 @@
 <li class="toctree-l2 current"><a class="reference internal" href="index.html">Services</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="tfm_attestation_integration_guide.html">Initial Attestation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="tfm_crypto_integration_guide.html">Crypto</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">Internal Trusted Storage</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="tfm_its_integration_guide.html#">Internal Trusted Storage</a></li>
 <li class="toctree-l3"><a class="reference internal" href="tfm_platform_integration_guide.html">Platform</a></li>
 <li class="toctree-l3"><a class="reference internal" href="tfm_ps_integration_guide.html">Protected Storage</a></li>
 <li class="toctree-l3"><a class="reference internal" href="tfm_secure_partition_addition.html">Adding a New Secure Partition</a></li>
@@ -263,6 +277,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32h573i_dk/readme.html">STM32H573I_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32l562e_dk/readme.html">STM32L562E_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp215f_dk/readme.html">stm32mp215f_dk</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp235f_dk/readme.html">stm32mp235f_dk</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/nucleo_l552ze_q/readme.html">NUCLEO_L552ZE_Q</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/b_u585i_iot02a/readme.html">B_U585I_IOT02A</a></li>
@@ -277,6 +292,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32h573i_dk/readme.html">STM32H573I_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32l562e_dk/readme.html">STM32L562E_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp215f_dk/readme.html">stm32mp215f_dk</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp235f_dk/readme.html">stm32mp235f_dk</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
 </ul>
 </li>
@@ -307,6 +323,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../stm/technical/initlevel.html">Initlevel</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../stm/technical/initial_attestation.html">Initial Attestation Service</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/technical/key_and_provisionning.html">About TF-M Authentication Keys and Secret Provisioning</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../stm/technical/nv_counter.html">Nv counter</a></li>
 </ul>
 </li>
@@ -342,9 +359,9 @@
            <div itemprop="articleBody">
              
   <div class="section" id="tf-m-internal-trusted-storage-service-integration-guide">
-<h1>TF-M Internal Trusted Storage Service Integration Guide<a class="headerlink" href="#tf-m-internal-trusted-storage-service-integration-guide" title="Permalink to this heading"></a></h1>
+<h1>TF-M Internal Trusted Storage Service Integration Guide<a class="headerlink" href="tfm_its_integration_guide.html#tf-m-internal-trusted-storage-service-integration-guide" title="Permalink to this heading"></a></h1>
 <div class="section" id="introduction">
-<span id="its-introduction-label"></span><h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading"></a></h2>
+<span id="its-introduction-label"></span><h2>Introduction<a class="headerlink" href="tfm_its_integration_guide.html#introduction" title="Permalink to this heading"></a></h2>
 <p>TF-M Internal Trusted Storage (ITS) service implements PSA Internal Trusted
 Storage APIs.</p>
 <p>The service is backed by hardware isolation of the flash access domain and
@@ -375,7 +392,7 @@ optimal.</p></li>
 </ul>
 </div>
 <div class="section" id="current-its-service-limitations">
-<h2>Current ITS Service Limitations<a class="headerlink" href="#current-its-service-limitations" title="Permalink to this heading"></a></h2>
+<h2>Current ITS Service Limitations<a class="headerlink" href="tfm_its_integration_guide.html#current-its-service-limitations" title="Permalink to this heading"></a></h2>
 <ul class="simple">
 <li><p><strong>Fragmentation</strong> - The current design does not support fragmentation, as an
 asset is stored in a contiguous space in a block. This means that the maximum
@@ -405,7 +422,7 @@ updates without the need to wipe out the user/device generated data.</p></li>
 </ul>
 </div>
 <div class="section" id="code-structure">
-<h2>Code Structure<a class="headerlink" href="#code-structure" title="Permalink to this heading"></a></h2>
+<h2>Code Structure<a class="headerlink" href="tfm_its_integration_guide.html#code-structure" title="Permalink to this heading"></a></h2>
 <p>TF-M Internal Trusted Storage service code is located in
 <code class="docutils literal notranslate"><span class="pre">secure_fw/partitions/internal_trusted_storage/</span></code> and is divided as follows:</p>
 <blockquote>
@@ -418,7 +435,7 @@ updates without the need to wipe out the user/device generated data.</p></li>
 <p>The PSA ITS interfaces for the TF-M ITS service are located in
 <code class="docutils literal notranslate"><span class="pre">interface/include/psa</span></code>.</p>
 <div class="section" id="psa-internal-trusted-storage-interfaces">
-<h3>PSA Internal Trusted Storage Interfaces<a class="headerlink" href="#psa-internal-trusted-storage-interfaces" title="Permalink to this heading"></a></h3>
+<h3>PSA Internal Trusted Storage Interfaces<a class="headerlink" href="tfm_its_integration_guide.html#psa-internal-trusted-storage-interfaces" title="Permalink to this heading"></a></h3>
 <p>The TF-M ITS service exposes the following mandatory PSA ITS interfaces
 version 1.0:</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">psa_status_t</span><span class="w"> </span><span class="nf">psa_its_set</span><span class="p">(</span><span class="n">psa_storage_uid_t</span><span class="w"> </span><span class="n">uid</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">data_length</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">p_data</span><span class="p">,</span><span class="w"> </span><span class="n">psa_storage_create_flags_t</span><span class="w"> </span><span class="n">create_flags</span><span class="p">);</span>
@@ -433,7 +450,7 @@ version 1.0:</p>
 <code class="docutils literal notranslate"><span class="pre">interface/include/tfm_its_defs.h</span></code></p>
 </div>
 <div class="section" id="core-files">
-<h3>Core Files<a class="headerlink" href="#core-files" title="Permalink to this heading"></a></h3>
+<h3>Core Files<a class="headerlink" href="tfm_its_integration_guide.html#core-files" title="Permalink to this heading"></a></h3>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">tfm_its_req_mngr.c</span></code> - Contains the ITS request manager implementation which
 handles all requests which arrive to the service. This layer extracts the
@@ -449,7 +466,7 @@ ITS service code.</p></li>
 </ul>
 </div>
 <div class="section" id="flash-filesystem-interface">
-<h3>Flash Filesystem Interface<a class="headerlink" href="#flash-filesystem-interface" title="Permalink to this heading"></a></h3>
+<h3>Flash Filesystem Interface<a class="headerlink" href="tfm_its_integration_guide.html#flash-filesystem-interface" title="Permalink to this heading"></a></h3>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">flash_fs/its_flash_fs.h</span></code> - Abstracts the flash filesystem operations used
 by the internal trusted storage service. The purpose of this abstraction is to
@@ -468,7 +485,7 @@ functions required to implement the <code class="docutils literal notranslate"><
 flash filesystem implementation or filesystem proxy (supplicant).</p>
 </div>
 <div class="section" id="flash-interface">
-<h3>Flash Interface<a class="headerlink" href="#flash-interface" title="Permalink to this heading"></a></h3>
+<h3>Flash Interface<a class="headerlink" href="tfm_its_integration_guide.html#flash-interface" title="Permalink to this heading"></a></h3>
 <p>The ITS filesystem flash interface is defined by <code class="docutils literal notranslate"><span class="pre">struct</span> <span class="pre">its_flash_fs_ops_t</span></code>
 in <code class="docutils literal notranslate"><span class="pre">flash_fs/its_flash_fs.h</span></code>.</p>
 <p>Implementations of the ITS filesystem flash interface for different types of
@@ -496,13 +513,13 @@ Please see the <cite>Internal Trusted Storage Service HAL</cite> section for det
 </div>
 </div>
 <div class="section" id="its-service-integration-guide">
-<h2>ITS Service Integration Guide<a class="headerlink" href="#its-service-integration-guide" title="Permalink to this heading"></a></h2>
+<h2>ITS Service Integration Guide<a class="headerlink" href="tfm_its_integration_guide.html#its-service-integration-guide" title="Permalink to this heading"></a></h2>
 <p>This section describes mandatory (i.e. <strong>must</strong> implement) or optional
 (i.e. <strong>may</strong> implement) interfaces which the system integrator has to take in
 to account in order to integrate the internal trusted storage service in a new
 platform.</p>
 <div class="section" id="id1">
-<h3>Flash Interface<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h3>
+<h3>Flash Interface<a class="headerlink" href="tfm_its_integration_guide.html#id1" title="Permalink to this heading"></a></h3>
 <p>For ITS service operations, a contiguous set of blocks must be earmarked for
 the internal trusted storage area. The design requires either 2 blocks, or any
 number of blocks greater than or equal to 4. Total number of blocks can not be
@@ -510,7 +527,7 @@ number of blocks greater than or equal to 4. Total number of blocks can not be
 update operations.</p>
 </div>
 <div class="section" id="maximum-asset-size">
-<h3>Maximum Asset Size<a class="headerlink" href="#maximum-asset-size" title="Permalink to this heading"></a></h3>
+<h3>Maximum Asset Size<a class="headerlink" href="tfm_its_integration_guide.html#maximum-asset-size" title="Permalink to this heading"></a></h3>
 <p>An asset is stored in a contiguous space in a logical filesystem block. The
 maximum size of an asset can be up-to the size of the data block. Typically,
 each logical block corresponds to one physical flash erase sector (the smallest
@@ -518,7 +535,7 @@ unit that can erased), but the <code class="docutils literal notranslate"><span 
 below allows a number of contiguous erase sectors to form one logical block.</p>
 </div>
 <div class="section" id="internal-trusted-storage-service-hal">
-<h3>Internal Trusted Storage Service HAL<a class="headerlink" href="#internal-trusted-storage-service-hal" title="Permalink to this heading"></a></h3>
+<h3>Internal Trusted Storage Service HAL<a class="headerlink" href="tfm_its_integration_guide.html#internal-trusted-storage-service-hal" title="Permalink to this heading"></a></h3>
 <p>The ITS service requires the platform to implement the ITS HAL, defined in
 <code class="docutils literal notranslate"><span class="pre">platform/include/tfm_hal_its.h</span></code>.</p>
 <p>The following C definitions in the HAL are mandatory, and must be defined by the
@@ -553,7 +570,7 @@ documented in <code class="docutils literal notranslate"><span class="pre">tfm_h
 contiguous.</p>
 </div>
 <div class="section" id="internal-trusted-storage-service-optional-platform-definitions">
-<h3>Internal Trusted Storage Service Optional Platform Definitions<a class="headerlink" href="#internal-trusted-storage-service-optional-platform-definitions" title="Permalink to this heading"></a></h3>
+<h3>Internal Trusted Storage Service Optional Platform Definitions<a class="headerlink" href="tfm_its_integration_guide.html#internal-trusted-storage-service-optional-platform-definitions" title="Permalink to this heading"></a></h3>
 <p>The following optional platform definitions may be defined in
 <code class="docutils literal notranslate"><span class="pre">flash_layout.h</span></code>:</p>
 <ul class="simple">
@@ -572,7 +589,7 @@ available in <a class="reference internal" href="../source_structure/platform_ex
 platform information.</p>
 </div>
 <div class="section" id="its-service-build-definitions">
-<h3>ITS Service Build Definitions<a class="headerlink" href="#its-service-build-definitions" title="Permalink to this heading"></a></h3>
+<h3>ITS Service Build Definitions<a class="headerlink" href="tfm_its_integration_guide.html#its-service-build-definitions" title="Permalink to this heading"></a></h3>
 <p>The ITS service uses a set of C definitions to compile in/out certain features,
 as well as to configure certain service parameters. When using the TF-M build
 system, these definitions are controlled by build flags of the same name. The

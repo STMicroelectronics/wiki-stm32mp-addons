@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ADAC (Authenticated Debug Access Control) &mdash; Trusted Firmware-M v2.1.0-stm32mp-r1 documentation</title>
+  <title>ADAC (Authenticated Debug Access Control) &mdash; Trusted Firmware-M v2.1.3-stm32mp-r2 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/tfm_custom.css" type="text/css" />
@@ -38,7 +38,7 @@
               <img src="../../_static/tf_logo_white.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                v2.1.0-stm32mp-r1
+                v2.1.3-stm32mp-r2
 
               </div>
 <div role="search">
@@ -67,11 +67,16 @@
 <li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/fwu_write_vulnerability.html">Advisory TFMV-5</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/cc3xx_partial_tag_compare_on_chacha20_poly1305.html">Advisory TFMV-6</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/debug_log_vulnerability.html">Advisory TFMV-7</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/user_pointers_mailbox_vectors_vulnerability.html">Advisory TFMV-8</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/fwu_tlv_payload_out_of_bounds_vulnerability.html">Advisory TFMV-9</a></li>
 </ul>
 </li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../releases/index.html">Releases</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/2.1.3.html">v2.1.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/2.1.2.html">v2.1.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/2.1.1.html">v2.1.1</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../releases/2.1.0.html">v2.1.0</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../releases/2.0.0.html">v2.0.0</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../releases/1.8.1.html">v1.8.1</a></li>
@@ -85,6 +90,10 @@
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../platform/index.html">Platforms</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/adi/index.html">Analog Devices, Inc.</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/adi/max32657/README.html">MAX32657</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../../platform/arm/index.html">Arm</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/arm/corstone1000/readme.html">Corstone-1000</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/arm/mps3/corstone300/README.html">Corstone-300 FPGA (AN547 and AN552) and FVP</a></li>
@@ -122,6 +131,10 @@
 <li class="toctree-l3"><a class="reference internal" href="../../platform/nxp/lpcxpresso55s69/README.html">LPCXpresso55S69</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/rpi/index.html">Raspberry Pi</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/rpi/rp2350/readme.html">RP2350</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../../platform/stm/index.html">STMICROELECTRONICS</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32h5xx/readme.html">STM32H5</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32l5xx/readme.html">STM32L5</a></li>
@@ -131,6 +144,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32h573i_dk/readme.html">STM32H573I_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32l562e_dk/readme.html">STM32L562E_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp215f_dk/readme.html">stm32mp215f_dk</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp235f_dk/readme.html">stm32mp235f_dk</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/b_u585i_iot02a/readme.html">B_U585I_IOT02A</a></li>
 </ul>
@@ -184,7 +198,7 @@
 <li class="toctree-l3"><a class="reference internal" href="tfm_ps_integration_guide.html">Protected Storage</a></li>
 <li class="toctree-l3"><a class="reference internal" href="tfm_secure_partition_addition.html">Adding a New Secure Partition</a></li>
 <li class="toctree-l3"><a class="reference internal" href="tfm_manifest_tool_user_guide.html">Manifest Tool</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">ADAC</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="tfm_adac_integration_guide.html#">ADAC</a></li>
 </ul>
 </li>
 </ul>
@@ -263,6 +277,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32h573i_dk/readme.html">STM32H573I_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32l562e_dk/readme.html">STM32L562E_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp215f_dk/readme.html">stm32mp215f_dk</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp235f_dk/readme.html">stm32mp235f_dk</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/nucleo_l552ze_q/readme.html">NUCLEO_L552ZE_Q</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/b_u585i_iot02a/readme.html">B_U585I_IOT02A</a></li>
@@ -277,6 +292,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32h573i_dk/readme.html">STM32H573I_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32l562e_dk/readme.html">STM32L562E_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp215f_dk/readme.html">stm32mp215f_dk</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp235f_dk/readme.html">stm32mp235f_dk</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
 </ul>
 </li>
@@ -307,6 +323,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../stm/technical/initlevel.html">Initlevel</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../stm/technical/initial_attestation.html">Initial Attestation Service</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/technical/key_and_provisionning.html">About TF-M Authentication Keys and Secret Provisioning</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../stm/technical/nv_counter.html">Nv counter</a></li>
 </ul>
 </li>
@@ -342,11 +359,11 @@
            <div itemprop="articleBody">
              
   <div class="section" id="adac-authenticated-debug-access-control">
-<h1>ADAC (Authenticated Debug Access Control)<a class="headerlink" href="#adac-authenticated-debug-access-control" title="Permalink to this heading"></a></h1>
+<h1>ADAC (Authenticated Debug Access Control)<a class="headerlink" href="tfm_adac_integration_guide.html#adac-authenticated-debug-access-control" title="Permalink to this heading"></a></h1>
 <div class="section" id="introduction">
-<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading"></a></h2>
+<h2>Introduction<a class="headerlink" href="tfm_adac_integration_guide.html#introduction" title="Permalink to this heading"></a></h2>
 <div class="section" id="background">
-<h3>Background<a class="headerlink" href="#background" title="Permalink to this heading"></a></h3>
+<h3>Background<a class="headerlink" href="tfm_adac_integration_guide.html#background" title="Permalink to this heading"></a></h3>
 <p>In order to make sure debug capabilities of any system do not become attack
 vectors, PSA provides reference ADAC system architecture. It specifies
 functional layers that reside above actual physical link.</p>
@@ -356,7 +373,7 @@ debug access to only authorized entities. Across various life cycle states of
 target device, it permits appropriate access to finely configured domains.</p>
 </div>
 <div class="section" id="requirements">
-<h3>Requirements<a class="headerlink" href="#requirements" title="Permalink to this heading"></a></h3>
+<h3>Requirements<a class="headerlink" href="tfm_adac_integration_guide.html#requirements" title="Permalink to this heading"></a></h3>
 <p>Debug capabilities must achieve several safety goals to be fully resilient.
 It requires</p>
 <ol class="arabic simple">
@@ -369,7 +386,7 @@ system design and topology, it must be implemented so to meet varying attack
 surface.</p>
 </div>
 <div class="section" id="adac-components-host-side">
-<h3>ADAC Components (Host Side)<a class="headerlink" href="#adac-components-host-side" title="Permalink to this heading"></a></h3>
+<h3>ADAC Components (Host Side)<a class="headerlink" href="tfm_adac_integration_guide.html#adac-components-host-side" title="Permalink to this heading"></a></h3>
 <ul>
 <li><p><code class="docutils literal notranslate"><span class="pre">Secure</span> <span class="pre">Debug</span> <span class="pre">Manager</span> <span class="pre">(SDM)</span></code>:  SDM is the host side component adac protocol
 implementation. Its API is implemented in below external github repository.</p>
@@ -382,7 +399,7 @@ implementation. Its API is implemented in below external github repository.</p>
 </div></blockquote>
 </div>
 <div class="section" id="adac-components-target-side">
-<h3>ADAC Components (Target Side)<a class="headerlink" href="#adac-components-target-side" title="Permalink to this heading"></a></h3>
+<h3>ADAC Components (Target Side)<a class="headerlink" href="tfm_adac_integration_guide.html#adac-components-target-side" title="Permalink to this heading"></a></h3>
 <ul>
 <li><p><code class="docutils literal notranslate"><span class="pre">Secure</span> <span class="pre">Debug</span> <span class="pre">Authenticator</span> <span class="pre">(SDA)</span></code>:  SDA is the target side component that
 implements ADAC protocol. It is implemented in below external repository.
@@ -392,7 +409,7 @@ It authenticates all input credentials and applies specific debug permissions.</
 </ul>
 </div>
 <div class="section" id="sda-integration">
-<h3>SDA integration<a class="headerlink" href="#sda-integration" title="Permalink to this heading"></a></h3>
+<h3>SDA integration<a class="headerlink" href="tfm_adac_integration_guide.html#sda-integration" title="Permalink to this heading"></a></h3>
 <p>The above mentioned SDA repository includes required HAL updates for a few
 supported platforms along with transport layer protocol. Hence, the API to
 initiate the connection with the host debugger and to perform
@@ -408,7 +425,7 @@ boot loader (BL2) or equivalent.</p>
 <p>However RSE platform has some implemenentation constraints due to which SDA is
 integrated in runtime service.
 For more details, please refer to the Implementation Constraints section in the
-<a class="reference external" href="https://trustedfirmware-m.readthedocs.io/projects/tf-m-extras/en/latest/partitions/adac_impl_for_rse.html" title="(in Trusted Firmware-M Extras vv2.2.0+e355943)"><span class="xref std std-doc">ADAC Implementation for RSE</span></a></p>
+<a class="reference external" href="https://trustedfirmware-m.readthedocs.io/projects/tf-m-extras/en/latest/partitions/adac_impl_for_rse.html" title="(in Trusted Firmware-M Extras vUnknown)"><span class="xref std std-doc">ADAC Implementation for RSE</span></a></p>
 <p>Please follow the below link for further information on SDA implementation.</p>
 <div class="line-block">
 <div class="line"><a class="reference external" href="https://developer.arm.com/documentation/den0101/latest">psa-adac read me</a></div>
@@ -416,7 +433,7 @@ For more details, please refer to the Implementation Constraints section in the
 </div>
 </div>
 <div class="section" id="reference">
-<h2>Reference<a class="headerlink" href="#reference" title="Permalink to this heading"></a></h2>
+<h2>Reference<a class="headerlink" href="tfm_adac_integration_guide.html#reference" title="Permalink to this heading"></a></h2>
 <div class="line-block">
 <div class="line"><a class="reference external" href="https://developer.arm.com/documentation/den0101/latest">ADAC specification</a></div>
 </div>

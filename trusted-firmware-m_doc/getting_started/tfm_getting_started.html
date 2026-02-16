@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>First Things First &mdash; Trusted Firmware-M v2.1.0-stm32mp-r1 documentation</title>
+  <title>First Things First &mdash; Trusted Firmware-M v2.1.3-stm32mp-r2 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/tfm_custom.css" type="text/css" />
@@ -37,7 +37,7 @@
               <img src="../_static/tf_logo_white.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                v2.1.0-stm32mp-r1
+                v2.1.3-stm32mp-r2
 
               </div>
 <div role="search">
@@ -66,11 +66,16 @@
 <li class="toctree-l3"><a class="reference internal" href="../security/security_advisories/fwu_write_vulnerability.html">Advisory TFMV-5</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../security/security_advisories/cc3xx_partial_tag_compare_on_chacha20_poly1305.html">Advisory TFMV-6</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../security/security_advisories/debug_log_vulnerability.html">Advisory TFMV-7</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../security/security_advisories/user_pointers_mailbox_vectors_vulnerability.html">Advisory TFMV-8</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../security/security_advisories/fwu_tlv_payload_out_of_bounds_vulnerability.html">Advisory TFMV-9</a></li>
 </ul>
 </li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../releases/index.html">Releases</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../releases/2.1.3.html">v2.1.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../releases/2.1.2.html">v2.1.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../releases/2.1.1.html">v2.1.1</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../releases/2.1.0.html">v2.1.0</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../releases/2.0.0.html">v2.0.0</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../releases/1.8.1.html">v1.8.1</a></li>
@@ -84,6 +89,10 @@
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../platform/index.html">Platforms</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../platform/adi/index.html">Analog Devices, Inc.</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../platform/adi/max32657/README.html">MAX32657</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../platform/arm/index.html">Arm</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../platform/arm/corstone1000/readme.html">Corstone-1000</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/arm/mps3/corstone300/README.html">Corstone-300 FPGA (AN547 and AN552) and FVP</a></li>
@@ -121,6 +130,10 @@
 <li class="toctree-l3"><a class="reference internal" href="../platform/nxp/lpcxpresso55s69/README.html">LPCXpresso55S69</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../platform/rpi/index.html">Raspberry Pi</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../platform/rpi/rp2350/readme.html">RP2350</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../platform/stm/index.html">STMICROELECTRONICS</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/common/stm32h5xx/readme.html">STM32H5</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/common/stm32l5xx/readme.html">STM32L5</a></li>
@@ -130,6 +143,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32h573i_dk/readme.html">STM32H573I_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32l562e_dk/readme.html">STM32L562E_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32mp215f_dk/readme.html">stm32mp215f_dk</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32mp235f_dk/readme.html">stm32mp235f_dk</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/b_u585i_iot02a/readme.html">B_U585I_IOT02A</a></li>
 </ul>
@@ -262,6 +276,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32h573i_dk/readme.html">STM32H573I_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32l562e_dk/readme.html">STM32L562E_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32mp215f_dk/readme.html">stm32mp215f_dk</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32mp235f_dk/readme.html">stm32mp235f_dk</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/nucleo_l552ze_q/readme.html">NUCLEO_L552ZE_Q</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/b_u585i_iot02a/readme.html">B_U585I_IOT02A</a></li>
@@ -276,6 +291,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32h573i_dk/readme.html">STM32H573I_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32l562e_dk/readme.html">STM32L562E_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32mp215f_dk/readme.html">stm32mp215f_dk</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32mp235f_dk/readme.html">stm32mp235f_dk</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
 </ul>
 </li>
@@ -306,6 +322,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../stm/technical/initlevel.html">Initlevel</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../stm/technical/initial_attestation.html">Initial Attestation Service</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../stm/technical/key_and_provisionning.html">About TF-M Authentication Keys and Secret Provisioning</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../stm/technical/nv_counter.html">Nv counter</a></li>
 </ul>
 </li>
@@ -339,9 +356,9 @@
            <div itemprop="articleBody">
              
   <div class="section" id="first-things-first">
-<h1>First Things First<a class="headerlink" href="#first-things-first" title="Permalink to this heading"></a></h1>
+<h1>First Things First<a class="headerlink" href="tfm_getting_started.html#first-things-first" title="Permalink to this heading"></a></h1>
 <div class="section" id="prerequisite">
-<h2>Prerequisite<a class="headerlink" href="#prerequisite" title="Permalink to this heading"></a></h2>
+<h2>Prerequisite<a class="headerlink" href="tfm_getting_started.html#prerequisite" title="Permalink to this heading"></a></h2>
 <p>Trusted Firmware M provides a reference implementation of platform security
 architecture  reference implementation aligning with PSA Certified guidelines.
 It is assumed that the reader is familiar with specifications can be found at
@@ -352,7 +369,7 @@ get started with ARMv8-M is
 <a class="reference external" href="https://developer.arm.com/architectures/cpu-architecture/m-profile">developer.arm.com</a>.</p>
 </div>
 <div class="section" id="build-and-run-instructions">
-<h2>Build and run instructions<a class="headerlink" href="#build-and-run-instructions" title="Permalink to this heading"></a></h2>
+<h2>Build and run instructions<a class="headerlink" href="tfm_getting_started.html#build-and-run-instructions" title="Permalink to this heading"></a></h2>
 <p>Trusted Firmware M source code is available on
 <a class="reference external" href="https://git.trustedfirmware.org/TF-M/trusted-firmware-m.git/">git.trustedfirmware.org</a>.</p>
 <p>To build &amp; run TF-M:</p>
@@ -373,7 +390,7 @@ contribute to this project.</p>
 </div>
 </div>
 <div class="section" id="set-up-build-environments">
-<h1>Set up build environments<a class="headerlink" href="#set-up-build-environments" title="Permalink to this heading"></a></h1>
+<h1>Set up build environments<a class="headerlink" href="tfm_getting_started.html#set-up-build-environments" title="Permalink to this heading"></a></h1>
 <p>TF-M officially supports a limited set of build environments and setups. In
 this context, official support means that the environments listed below
 are actively used by team members and active developers, hence users should
@@ -431,7 +448,7 @@ the pip package manager (from Python 3.4 it’s included)</p></li>
 </div></div>
 </div>
 <div class="section" id="install-python-dependencies">
-<h1>Install python dependencies<a class="headerlink" href="#install-python-dependencies" title="Permalink to this heading"></a></h1>
+<h1>Install python dependencies<a class="headerlink" href="tfm_getting_started.html#install-python-dependencies" title="Permalink to this heading"></a></h1>
 <p>Clone the TF-M source code, and then install the TF-M’s additional Python
 dependencies.</p>
 <div class="sphinx-tabs docutils container">
@@ -467,7 +484,7 @@ pip3<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </
 </div></div>
 </div>
 <div class="section" id="install-a-toolchain">
-<h1>Install a toolchain<a class="headerlink" href="#install-a-toolchain" title="Permalink to this heading"></a></h1>
+<h1>Install a toolchain<a class="headerlink" href="tfm_getting_started.html#install-a-toolchain" title="Permalink to this heading"></a></h1>
 <p>To compile TF-M code, at least one of the supported compiler toolchains have to
 be available in the build environment. The currently supported compiler
 versions are:</p>
@@ -553,7 +570,7 @@ Select other GNU Arm compiler versions instead.</p>
 </div></blockquote>
 </div>
 <div class="section" id="build-an521-regression-sample">
-<h1>Build AN521 regression sample<a class="headerlink" href="#build-an521-regression-sample" title="Permalink to this heading"></a></h1>
+<h1>Build AN521 regression sample<a class="headerlink" href="tfm_getting_started.html#build-an521-regression-sample" title="Permalink to this heading"></a></h1>
 <p>Here, we take building TF-M for AN521 platform with regression tests using GCC
 as an example:</p>
 <div class="sphinx-tabs docutils container">
@@ -604,7 +621,7 @@ to <code class="docutils literal notranslate"><span class="pre">C:\build_spe</sp
 </div></div>
 </div>
 <div class="section" id="run-an521-regression-sample">
-<h1>Run AN521 regression sample<a class="headerlink" href="#run-an521-regression-sample" title="Permalink to this heading"></a></h1>
+<h1>Run AN521 regression sample<a class="headerlink" href="tfm_getting_started.html#run-an521-regression-sample" title="Permalink to this heading"></a></h1>
 <p>Run the sample code on SSE-200 Fast-Model, using FVP_MPS2_AEMv8M provided by
 Arm Development Studio.</p>
 <div class="admonition note">
@@ -703,7 +720,7 @@ TEST: TFM_S_PS_TEST_1005 - PASSED!
 </div>
 </div>
 <div class="section" id="tool-dependency-overview">
-<h1>Tool &amp; Dependency overview<a class="headerlink" href="#tool-dependency-overview" title="Permalink to this heading"></a></h1>
+<h1>Tool &amp; Dependency overview<a class="headerlink" href="tfm_getting_started.html#tool-dependency-overview" title="Permalink to this heading"></a></h1>
 <p>To build the TF-M firmware the following tools are needed:</p>
 <blockquote>
 <div><ul class="simple">
@@ -716,7 +733,7 @@ TEST: TFM_S_PS_TEST_1005 - PASSED!
 </ul>
 </div></blockquote>
 <div class="section" id="dependency-chain">
-<h2>Dependency chain<a class="headerlink" href="#dependency-chain" title="Permalink to this heading"></a></h2>
+<h2>Dependency chain<a class="headerlink" href="tfm_getting_started.html#dependency-chain" title="Permalink to this heading"></a></h2>
 <p class="plantuml">
 <img src="../_images/plantuml-d97328799157453a7a877f8c73930296ed7a7bda.png" alt="&#64;startuml
  skinparam state {

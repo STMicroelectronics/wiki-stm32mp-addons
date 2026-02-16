@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Scope and purpose &mdash; Trusted Firmware-M v2.1.0-stm32mp-r1 documentation</title>
+  <title>Scope and purpose &mdash; Trusted Firmware-M v2.1.3-stm32mp-r2 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/tfm_custom.css" type="text/css" />
@@ -38,7 +38,7 @@
               <img src="../../../_static/tf_logo_white.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                v2.1.0-stm32mp-r1
+                v2.1.3-stm32mp-r2
 
               </div>
 <div role="search">
@@ -67,11 +67,16 @@
 <li class="toctree-l3"><a class="reference internal" href="../../../security/security_advisories/fwu_write_vulnerability.html">Advisory TFMV-5</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../security/security_advisories/cc3xx_partial_tag_compare_on_chacha20_poly1305.html">Advisory TFMV-6</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../security/security_advisories/debug_log_vulnerability.html">Advisory TFMV-7</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../security/security_advisories/user_pointers_mailbox_vectors_vulnerability.html">Advisory TFMV-8</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../security/security_advisories/fwu_tlv_payload_out_of_bounds_vulnerability.html">Advisory TFMV-9</a></li>
 </ul>
 </li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../releases/index.html">Releases</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../releases/2.1.3.html">v2.1.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../releases/2.1.2.html">v2.1.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../releases/2.1.1.html">v2.1.1</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../releases/2.1.0.html">v2.1.0</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../releases/2.0.0.html">v2.0.0</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../releases/1.8.1.html">v1.8.1</a></li>
@@ -85,6 +90,10 @@
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../platform/index.html">Platforms</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../platform/adi/index.html">Analog Devices, Inc.</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../platform/adi/max32657/README.html">MAX32657</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../../../platform/arm/index.html">Arm</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../platform/arm/corstone1000/readme.html">Corstone-1000</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../platform/arm/mps3/corstone300/README.html">Corstone-300 FPGA (AN547 and AN552) and FVP</a></li>
@@ -122,6 +131,10 @@
 <li class="toctree-l3"><a class="reference internal" href="../../../platform/nxp/lpcxpresso55s69/README.html">LPCXpresso55S69</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../../../platform/rpi/index.html">Raspberry Pi</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../platform/rpi/rp2350/readme.html">RP2350</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../../../platform/stm/index.html">STMICROELECTRONICS</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../platform/stm/common/stm32h5xx/readme.html">STM32H5</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../platform/stm/common/stm32l5xx/readme.html">STM32L5</a></li>
@@ -131,6 +144,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../../platform/stm/stm32h573i_dk/readme.html">STM32H573I_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../platform/stm/stm32l562e_dk/readme.html">STM32L562E_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../platform/stm/stm32mp215f_dk/readme.html">stm32mp215f_dk</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../platform/stm/stm32mp235f_dk/readme.html">stm32mp235f_dk</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../platform/stm/b_u585i_iot02a/readme.html">B_U585I_IOT02A</a></li>
 </ul>
@@ -263,6 +277,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../../platform/stm/stm32h573i_dk/readme.html">STM32H573I_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../platform/stm/stm32l562e_dk/readme.html">STM32L562E_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../platform/stm/stm32mp215f_dk/readme.html">stm32mp215f_dk</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../platform/stm/stm32mp235f_dk/readme.html">stm32mp235f_dk</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../platform/stm/nucleo_l552ze_q/readme.html">NUCLEO_L552ZE_Q</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../platform/stm/b_u585i_iot02a/readme.html">B_U585I_IOT02A</a></li>
@@ -277,6 +292,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../../platform/stm/stm32h573i_dk/readme.html">STM32H573I_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../platform/stm/stm32l562e_dk/readme.html">STM32L562E_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../platform/stm/stm32mp215f_dk/readme.html">stm32mp215f_dk</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../platform/stm/stm32mp235f_dk/readme.html">stm32mp235f_dk</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
 </ul>
 </li>
@@ -300,13 +316,14 @@
 </ul>
 </li>
 <li class="toctree-l2 current"><a class="reference internal" href="index.html">Devicetree</a><ul class="current">
-<li class="toctree-l3 current"><a class="current reference internal" href="#">Scope and purpose</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#concept">Concept</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#how-to-add-device">How to add device</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="devicetree_tfm.html#">Scope and purpose</a></li>
+<li class="toctree-l3"><a class="reference internal" href="devicetree_tfm.html#concept">Concept</a></li>
+<li class="toctree-l3"><a class="reference internal" href="devicetree_tfm.html#how-to-add-device">How to add device</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../initlevel.html">Initlevel</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../initial_attestation.html">Initial Attestation Service</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../key_and_provisionning.html">About TF-M Authentication Keys and Secret Provisioning</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../nv_counter.html">Nv counter</a></li>
 </ul>
 </li>
@@ -342,7 +359,7 @@
            <div itemprop="articleBody">
              
   <div class="section" id="scope-and-purpose">
-<span id="devicetree-tfm"></span><h1>Scope and purpose<a class="headerlink" href="#scope-and-purpose" title="Permalink to this heading"></a></h1>
+<span id="devicetree-tfm"></span><h1>Scope and purpose<a class="headerlink" href="devicetree_tfm.html#scope-and-purpose" title="Permalink to this heading"></a></h1>
 <p>The device tree (DT) allows to describe hardware available on supported boards.
 This desciption defines inter dependencies between devices.</p>
 <p>Usually, the DT representation is created and passed to the kernel as a binary
@@ -358,7 +375,7 @@ of hardware description and same kenel can be compatible with several boards, So
 DT description whitout parse a blob. TF-M is based on this alternative.</p>
 </div>
 <div class="section" id="concept">
-<h1>Concept<a class="headerlink" href="#concept" title="Permalink to this heading"></a></h1>
+<h1>Concept<a class="headerlink" href="devicetree_tfm.html#concept" title="Permalink to this heading"></a></h1>
 <p>There are two types of devicetree input files: devicetree sources (dts, dtsi) and devicetree bindings (yaml).
 The sources contain the devicetree itself. The bindings describe its contents, including
 data types. The build system uses devicetree sources and bindings to produce a generated C header.</p>
@@ -369,6 +386,7 @@ data types. The build system uses devicetree sources and bindings to produce a g
 <div class="highlight-devicetree notranslate"><div class="highlight"><pre><span></span><span class="nf">/</span><span class="cm"> </span><span class="p">{</span>
 <span class="w">     </span><span class="nf">first_node</span><span class="cm"> </span><span class="p">{</span>
 <span class="w">             </span><span class="nl">second_node_label</span><span class="p">:</span><span class="w"> </span><span class="nf">second_node</span><span class="o">@</span><span class="mi">10000000</span><span class="cm"> </span><span class="p">{</span>
+<span class="w">                     </span><span class="kr">compatible</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;foo,foo-compatible&quot;</span><span class="p">;</span>
 <span class="w">                     </span><span class="n">foo-val</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mi">3</span><span class="o">&gt;</span><span class="p">;</span>
 <span class="w">                     </span><span class="kr">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;okay&quot;</span><span class="p">;</span>
 <span class="w">             </span><span class="p">};</span>
@@ -404,11 +422,11 @@ All macro names start with <code class="docutils literal notranslate"><span clas
 </div>
 </div>
 <div class="section" id="how-to-add-device">
-<h1>How to add device<a class="headerlink" href="#how-to-add-device" title="Permalink to this heading"></a></h1>
+<h1>How to add device<a class="headerlink" href="devicetree_tfm.html#how-to-add-device" title="Permalink to this heading"></a></h1>
 <p>In this section we would to add and enable device using a new driver that requires some ressources
 (reg, int value).</p>
 <div class="section" id="devicetree-dts-and-bindings-yaml">
-<h2>Devicetree (dts) and bindings (yaml)<a class="headerlink" href="#devicetree-dts-and-bindings-yaml" title="Permalink to this heading"></a></h2>
+<h2>Devicetree (dts) and bindings (yaml)<a class="headerlink" href="devicetree_tfm.html#devicetree-dts-and-bindings-yaml" title="Permalink to this heading"></a></h2>
 <p>Files location:</p>
 <ul class="simple">
 <li><p>the devicetree source (dts, dtsi): <code class="docutils literal notranslate"><span class="pre">devicetree/dts/&lt;soc-family&gt;/&lt;vendor&gt;</span></code></p></li>
@@ -445,7 +463,7 @@ to type.</p>
 Use the <code class="docutils literal notranslate"><span class="pre">include:</span></code> key for this. Its value is either a string or a list.</p>
 </div>
 <div class="section" id="drivers">
-<h2>Drivers<a class="headerlink" href="#drivers" title="Permalink to this heading"></a></h2>
+<h2>Drivers<a class="headerlink" href="devicetree_tfm.html#drivers" title="Permalink to this heading"></a></h2>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="c1">// define compatible value, needed for DT_INST_XX macro</span>
 <span class="cp">#define DT_DRV_COMPAT foo_company_my_device</span>
 

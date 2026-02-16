@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Trusted Firmware-M Generic Threat Model &mdash; Trusted Firmware-M v2.1.0-stm32mp-r1 documentation</title>
+  <title>Trusted Firmware-M Generic Threat Model &mdash; Trusted Firmware-M v2.1.3-stm32mp-r2 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/tfm_custom.css" type="text/css" />
@@ -38,7 +38,7 @@
               <img src="../../_static/tf_logo_white.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                v2.1.0-stm32mp-r1
+                v2.1.3-stm32mp-r2
 
               </div>
 <div role="search">
@@ -58,7 +58,7 @@
 </ul>
 </li>
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">Security</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Threat model</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="generic_threat_model.html#">Threat model</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../security_advisories/index.html">Security Advisories</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../security_advisories/stack_seal_vulnerability.html">Advisory TFMV-1</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../security_advisories/svc_caller_sp_fetching_vulnerability.html">Advisory TFMV-2</a></li>
@@ -67,11 +67,16 @@
 <li class="toctree-l3"><a class="reference internal" href="../security_advisories/fwu_write_vulnerability.html">Advisory TFMV-5</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../security_advisories/cc3xx_partial_tag_compare_on_chacha20_poly1305.html">Advisory TFMV-6</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../security_advisories/debug_log_vulnerability.html">Advisory TFMV-7</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../security_advisories/user_pointers_mailbox_vectors_vulnerability.html">Advisory TFMV-8</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../security_advisories/fwu_tlv_payload_out_of_bounds_vulnerability.html">Advisory TFMV-9</a></li>
 </ul>
 </li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../releases/index.html">Releases</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/2.1.3.html">v2.1.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/2.1.2.html">v2.1.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/2.1.1.html">v2.1.1</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../releases/2.1.0.html">v2.1.0</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../releases/2.0.0.html">v2.0.0</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../releases/1.8.1.html">v1.8.1</a></li>
@@ -85,6 +90,10 @@
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../platform/index.html">Platforms</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/adi/index.html">Analog Devices, Inc.</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/adi/max32657/README.html">MAX32657</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../../platform/arm/index.html">Arm</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/arm/corstone1000/readme.html">Corstone-1000</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/arm/mps3/corstone300/README.html">Corstone-300 FPGA (AN547 and AN552) and FVP</a></li>
@@ -122,6 +131,10 @@
 <li class="toctree-l3"><a class="reference internal" href="../../platform/nxp/lpcxpresso55s69/README.html">LPCXpresso55S69</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/rpi/index.html">Raspberry Pi</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/rpi/rp2350/readme.html">RP2350</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../../platform/stm/index.html">STMICROELECTRONICS</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32h5xx/readme.html">STM32H5</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32l5xx/readme.html">STM32L5</a></li>
@@ -131,6 +144,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32h573i_dk/readme.html">STM32H573I_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32l562e_dk/readme.html">STM32L562E_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp215f_dk/readme.html">stm32mp215f_dk</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp235f_dk/readme.html">stm32mp235f_dk</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/b_u585i_iot02a/readme.html">B_U585I_IOT02A</a></li>
 </ul>
@@ -263,6 +277,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32h573i_dk/readme.html">STM32H573I_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32l562e_dk/readme.html">STM32L562E_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp215f_dk/readme.html">stm32mp215f_dk</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp235f_dk/readme.html">stm32mp235f_dk</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/nucleo_l552ze_q/readme.html">NUCLEO_L552ZE_Q</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/b_u585i_iot02a/readme.html">B_U585I_IOT02A</a></li>
@@ -277,6 +292,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32h573i_dk/readme.html">STM32H573I_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32l562e_dk/readme.html">STM32L562E_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp215f_dk/readme.html">stm32mp215f_dk</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp235f_dk/readme.html">stm32mp235f_dk</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
 </ul>
 </li>
@@ -307,6 +323,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../stm/technical/initlevel.html">Initlevel</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../stm/technical/initial_attestation.html">Initial Attestation Service</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/technical/key_and_provisionning.html">About TF-M Authentication Keys and Secret Provisioning</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../stm/technical/nv_counter.html">Nv counter</a></li>
 </ul>
 </li>
@@ -342,9 +359,9 @@
            <div itemprop="articleBody">
              
   <div class="section" id="trusted-firmware-m-generic-threat-model">
-<h1>Trusted Firmware-M Generic Threat Model<a class="headerlink" href="#trusted-firmware-m-generic-threat-model" title="Permalink to this heading"></a></h1>
+<h1>Trusted Firmware-M Generic Threat Model<a class="headerlink" href="generic_threat_model.html#trusted-firmware-m-generic-threat-model" title="Permalink to this heading"></a></h1>
 <div class="section" id="introduction">
-<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading"></a></h2>
+<h2>Introduction<a class="headerlink" href="generic_threat_model.html#introduction" title="Permalink to this heading"></a></h2>
 <p>This document introduces a generic threat model of Trusted Firmware-M (TF-M).
 This generic threat model provides an overall analysis of TF-M implementation
 and identifies general threats and mitigation.</p>
@@ -353,11 +370,11 @@ and identifies general threats and mitigation.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>If you think a security vulnerability is found, please follow
-Trustedfirmware.org <a class="reference internal" href="#security-incident-process" id="id1"><span>[Security-Incident-Process]</span></a> to contact TF-M security
+Trustedfirmware.org <a class="reference internal" href="generic_threat_model.html#security-incident-process" id="id1"><span>[Security-Incident-Process]</span></a> to contact TF-M security
 team.</p>
 </div>
 <div class="section" id="scope">
-<h3>Scope<a class="headerlink" href="#scope" title="Permalink to this heading"></a></h3>
+<h3>Scope<a class="headerlink" href="generic_threat_model.html#scope" title="Permalink to this heading"></a></h3>
 <p>TF-M supports diverse models and topologies. It also implements multiple
 isolation levels. Each case may focus on different target of evaluation (TOE)
 and identify different assets and threats.
@@ -370,7 +387,7 @@ dedicated threat model documents. Those threat models are out of the scope of
 this document.</p>
 </div>
 <div class="section" id="methodology">
-<h3>Methodology<a class="headerlink" href="#methodology" title="Permalink to this heading"></a></h3>
+<h3>Methodology<a class="headerlink" href="generic_threat_model.html#methodology" title="Permalink to this heading"></a></h3>
 <p>The threat modeling in this document follows the process listed below to
 build up the threat model.</p>
 <ul class="simple">
@@ -391,12 +408,12 @@ metrics. The principals and metrics should also be specified.</p>
 </div>
 </div>
 <div class="section" id="target-of-evaluation">
-<h2>Target of Evaluation<a class="headerlink" href="#target-of-evaluation" title="Permalink to this heading"></a></h2>
+<h2>Target of Evaluation<a class="headerlink" href="generic_threat_model.html#target-of-evaluation" title="Permalink to this heading"></a></h2>
 <p>A typical TF-M system diagram from a high-level overview is shown below. TF-M is
 running in the Secure Processing Environment (SPE) and NS software is running in
 Non-secure Processing Environment (NSPE). For more details, please refer to
-Platform Security Architecture Firmware Framework for M (FF-M) <a class="reference internal" href="#ff-m" id="id2"><span>[FF-M]</span></a> and
-FF-M 1.1 Extensions <a class="reference internal" href="#ff-m-1-1-extensions" id="id3"><span>[FF-M-1.1-Extensions]</span></a>.</p>
+Platform Security Architecture Firmware Framework for M (FF-M) <a class="reference internal" href="generic_threat_model.html#ff-m" id="id2"><span>[FF-M]</span></a> and
+FF-M 1.1 Extensions <a class="reference internal" href="generic_threat_model.html#ff-m-1-1-extensions" id="id3"><span>[FF-M-1.1-Extensions]</span></a>.</p>
 <div class="figure align-default">
 <img alt="../../_images/TF-M-block-diagram.png" src="../../_images/TF-M-block-diagram.png" />
 </div>
@@ -406,7 +423,7 @@ running in SPE.</p>
 Refer to dedicated threat models for the specific TOE definitions.</p>
 </div>
 <div class="section" id="asset-identification">
-<h2>Asset identification<a class="headerlink" href="#asset-identification" title="Permalink to this heading"></a></h2>
+<h2>Asset identification<a class="headerlink" href="generic_threat_model.html#asset-identification" title="Permalink to this heading"></a></h2>
 <p>In this threat model, assets include the general items listed below:</p>
 <ul>
 <li><p>Hardware Root of Trust data, e.g.</p>
@@ -442,9 +459,9 @@ assets too:</p>
 </ul>
 </div>
 <div class="section" id="data-flow-diagram">
-<h2>Data Flow Diagram<a class="headerlink" href="#data-flow-diagram" title="Permalink to this heading"></a></h2>
+<h2>Data Flow Diagram<a class="headerlink" href="generic_threat_model.html#data-flow-diagram" title="Permalink to this heading"></a></h2>
 <p>The Trust Boundary isolates SPE from NSPE, according to the TOE definition in
-<a class="reference internal" href="#target-of-evaluation">Target of Evaluation</a>. The Trust Boundary mapped to block diagram is shown
+<a class="reference internal" href="generic_threat_model.html#target-of-evaluation">Target of Evaluation</a>. The Trust Boundary mapped to block diagram is shown
 in the figure below. Other modules inside SPE stay in the same TOE as TF-M does.</p>
 <p>Valid data flows across the Trust Boundary are also shown in the figure below.
 This threat model only focuses on the data flows related to TF-M.</p>
@@ -453,7 +470,7 @@ This threat model only focuses on the data flows related to TF-M.</p>
 </div>
 <p>More details of data flows are listed below.</p>
 <span id="data-flow-table"></span><table class="docutils align-default" id="id24">
-<caption><span class="caption-number">Table 2: </span><span class="caption-text">TF-M Data Flows between NSPE and SPE</span><a class="headerlink" href="#id24" title="Permalink to this table"></a></caption>
+<caption><span class="caption-number">Table 2: </span><span class="caption-text">TF-M Data Flows between NSPE and SPE</span><a class="headerlink" href="generic_threat_model.html#id24" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 15%" />
 <col style="width: 85%" />
@@ -476,7 +493,7 @@ control to Non-secure state.</p></li>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">DF2</span></code></p></td>
 <td><p>NSPE requests TF-M RoT services.</p>
 <p>NSPE requests RoT services via PSA Client APIs defined in
-<a class="reference internal" href="#ff-m" id="id4"><span>[FF-M]</span></a>.</p>
+<a class="reference internal" href="generic_threat_model.html#ff-m" id="id4"><span>[FF-M]</span></a>.</p>
 <p>In Armv8-M TrustZone scenarios, SG instruction is executed in
 a Non-secure Callable region to trigger a transition from
 Non-secure state to Secure state.</p>
@@ -487,7 +504,7 @@ to secure core via mailbox.</p>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">DF3</span></code></p></td>
 <td><p>Secure Partitions fetch input data from NS and write back
 output data to NS.</p>
-<p>As required in <a class="reference internal" href="#ff-m" id="id5"><span>[FF-M]</span></a>, Secure Partitions should not directly
+<p>As required in <a class="reference internal" href="generic_threat_model.html#ff-m" id="id5"><span>[FF-M]</span></a>, Secure Partitions should not directly
 access NSPE memory. Instead, RoT services relies on TF-M SPM
 to access NSPE memory.</p>
 </td>
@@ -517,11 +534,11 @@ scenarios.</p></td>
 mentioned above should be prohibited by default.
 Proper isolation must be configured to prevent NSPE directly accessing SPE.</p>
 <p>Threats irrelevant to data flows in
-<a class="reference internal" href="#data-flow-table"><span class="std std-ref">TF-M Data Flows between NSPE and SPE</span></a> may be specified
-in <a class="reference internal" href="#miscellaneous-threats">Miscellaneous threats</a>.</p>
+<a class="reference internal" href="generic_threat_model.html#data-flow-table"><span class="std std-ref">TF-M Data Flows between NSPE and SPE</span></a> may be specified
+in <a class="reference internal" href="generic_threat_model.html#miscellaneous-threats">Miscellaneous threats</a>.</p>
 </div>
 <div class="section" id="data-flows-inside-spe-informative">
-<h3>Data flows inside SPE (informative)<a class="headerlink" href="#data-flows-inside-spe-informative" title="Permalink to this heading"></a></h3>
+<h3>Data flows inside SPE (informative)<a class="headerlink" href="generic_threat_model.html#data-flows-inside-spe-informative" title="Permalink to this heading"></a></h3>
 <p>Since all the SPE components stay in the TOE within the same Trust Boundary in
 this threat model, the data flows between SPE components are not covered in this
 threat model. Instead, those data flows and corresponding threats will be
@@ -538,31 +555,31 @@ Key (HUK).</p></li>
 </div>
 </div>
 <div class="section" id="threat-identification">
-<h2>Threat identification<a class="headerlink" href="#threat-identification" title="Permalink to this heading"></a></h2>
+<h2>Threat identification<a class="headerlink" href="generic_threat_model.html#threat-identification" title="Permalink to this heading"></a></h2>
 <div class="section" id="threat-priority">
-<h3>Threat priority<a class="headerlink" href="#threat-priority" title="Permalink to this heading"></a></h3>
+<h3>Threat priority<a class="headerlink" href="generic_threat_model.html#threat-priority" title="Permalink to this heading"></a></h3>
 <p>Threat priority is indicated by the score calculated via Common Vulnerability
-Scoring System (CVSS) Version 3.1 <a class="reference internal" href="#cvss" id="id6"><span>[CVSS]</span></a>. The higher the threat scores, the
+Scoring System (CVSS) Version 3.1 <a class="reference internal" href="generic_threat_model.html#cvss" id="id6"><span>[CVSS]</span></a>. The higher the threat scores, the
 greater severity the threat is with and the higher the priority is.</p>
 <p>CVSS scores can be mapped to qualitative severity ratings defined in CVSS 3.1
-specification <a class="reference internal" href="#cvss-spec" id="id7"><span>[CVSS_SPEC]</span></a>. This threat model follows the same mapping between
+specification <a class="reference internal" href="generic_threat_model.html#cvss-spec" id="id7"><span>[CVSS_SPEC]</span></a>. This threat model follows the same mapping between
 CVSS scores and threat priority rating.</p>
 <p>As a generic threat model, this document focuses on <em>Base Score</em> which reflects
 the constant and general severity of a threat according to its intrinsic
 characteristics.</p>
-<p>The <em>Impacted Component</em> defined in <a class="reference internal" href="#cvss-spec" id="id8"><span>[CVSS_SPEC]</span></a> refers to the assets listed in
-<a class="reference internal" href="#asset-identification">Asset identification</a>.</p>
+<p>The <em>Impacted Component</em> defined in <a class="reference internal" href="generic_threat_model.html#cvss-spec" id="id8"><span>[CVSS_SPEC]</span></a> refers to the assets listed in
+<a class="reference internal" href="generic_threat_model.html#asset-identification">Asset identification</a>.</p>
 </div>
 <div class="section" id="threats-and-mitigation-list">
-<h3>Threats and mitigation list<a class="headerlink" href="#threats-and-mitigation-list" title="Permalink to this heading"></a></h3>
+<h3>Threats and mitigation list<a class="headerlink" href="generic_threat_model.html#threats-and-mitigation-list" title="Permalink to this heading"></a></h3>
 <p>This section lists generic threats and corresponding mitigation, based on the
-the analysis of data flows in <a class="reference internal" href="#data-flow-diagram">Data Flow Diagram</a>.</p>
-<p>Threats are identified following <code class="docutils literal notranslate"><span class="pre">STRIDE</span></code> model. Please refer to <a class="reference internal" href="#stride" id="id9"><span>[STRIDE]</span></a> for
+the analysis of data flows in <a class="reference internal" href="generic_threat_model.html#data-flow-diagram">Data Flow Diagram</a>.</p>
+<p>Threats are identified following <code class="docutils literal notranslate"><span class="pre">STRIDE</span></code> model. Please refer to <a class="reference internal" href="generic_threat_model.html#stride" id="id9"><span>[STRIDE]</span></a> for
 more details.</p>
 <p>The field <code class="docutils literal notranslate"><span class="pre">CVSS</span> <span class="pre">Score</span></code> reflects the threat priority defined in
-<a class="reference internal" href="#threat-priority">Threat priority</a>. The field <code class="docutils literal notranslate"><span class="pre">CVSS</span> <span class="pre">Vector</span> <span class="pre">String</span></code> contains the textual
+<a class="reference internal" href="generic_threat_model.html#threat-priority">Threat priority</a>. The field <code class="docutils literal notranslate"><span class="pre">CVSS</span> <span class="pre">Vector</span> <span class="pre">String</span></code> contains the textual
 representation of the CVSS metric values used to score the threat. Refer to
-<a class="reference internal" href="#cvss-spec" id="id10"><span>[CVSS_SPEC]</span></a> for more details of CVSS vector string.</p>
+<a class="reference internal" href="generic_threat_model.html#cvss-spec" id="id10"><span>[CVSS_SPEC]</span></a> for more details of CVSS vector string.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>A generic threat may have different behaviors and therefore require different
@@ -572,10 +589,10 @@ threats. For the details in a specific configuration and usage scenario,
 please refer to the dedicated threat model document.</p>
 </div>
 <div class="section" id="ns-entry-initialization">
-<h4>NS entry initialization<a class="headerlink" href="#ns-entry-initialization" title="Permalink to this heading"></a></h4>
-<p>This section identifies threats on <code class="docutils literal notranslate"><span class="pre">DF1</span></code> defined in <a class="reference internal" href="#data-flow-diagram">Data Flow Diagram</a>.</p>
+<h4>NS entry initialization<a class="headerlink" href="generic_threat_model.html#ns-entry-initialization" title="Permalink to this heading"></a></h4>
+<p>This section identifies threats on <code class="docutils literal notranslate"><span class="pre">DF1</span></code> defined in <a class="reference internal" href="generic_threat_model.html#data-flow-diagram">Data Flow Diagram</a>.</p>
 <table class="colwidths-given docutils align-default" id="id25">
-<caption><span class="caption-number">Table 3: </span><span class="caption-text">TFM-GENERIC-NS-INIT-T-1</span><a class="headerlink" href="#id25" title="Permalink to this table"></a></caption>
+<caption><span class="caption-number">Table 3: </span><span class="caption-text">TFM-GENERIC-NS-INIT-T-1</span><a class="headerlink" href="generic_threat_model.html#id25" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 17%" />
 <col style="width: 83%" />
@@ -598,7 +615,7 @@ please refer to the dedicated threat model document.</p>
 The validation of NS image integrity and authenticity is
 completed in secure boot before jumping to NS entry or
 booting up NS core.
-Refer to <a class="reference internal" href="#secure-boot" id="id11"><span>[SECURE-BOOT]</span></a> for more details.</p>
+Refer to <a class="reference internal" href="generic_threat_model.html#secure-boot" id="id11"><span>[SECURE-BOOT]</span></a> for more details.</p>
 <p>The validation may vary in diverse vendor platforms
 specific Chain of Trust (CoT) implementation.</p>
 </td>
@@ -613,7 +630,7 @@ String</p></td>
 </tbody>
 </table>
 <table class="colwidths-given docutils align-default" id="id26">
-<caption><span class="caption-number">Table 4: </span><span class="caption-text">TFM-GENERIC-NS-INIT-T-2</span><a class="headerlink" href="#id26" title="Permalink to this table"></a></caption>
+<caption><span class="caption-number">Table 4: </span><span class="caption-text">TFM-GENERIC-NS-INIT-T-2</span><a class="headerlink" href="generic_threat_model.html#id26" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 17%" />
 <col style="width: 83%" />
@@ -643,7 +660,7 @@ protection.</p>
 <p>TF-M defines a non-volatile counter API to support
 anti-rollback. Each platform must implement it using
 specific trusted hardware non-volatile counters.
-For more details, refer to <a class="reference internal" href="#rollback-protect" id="id12"><span>[ROLLBACK-PROTECT]</span></a>.</p>
+For more details, refer to <a class="reference internal" href="generic_threat_model.html#rollback-protect" id="id12"><span>[ROLLBACK-PROTECT]</span></a>.</p>
 <p>The anti-rollback protection implementation can vary on
 diverse platforms.</p>
 </td>
@@ -658,7 +675,7 @@ String</p></td>
 </tbody>
 </table>
 <table class="colwidths-given docutils align-default" id="id27">
-<caption><span class="caption-number">Table 5: </span><span class="caption-text">TFM-GENERIC-NS-INIT-T-I-1</span><a class="headerlink" href="#id27" title="Permalink to this table"></a></caption>
+<caption><span class="caption-number">Table 5: </span><span class="caption-text">TFM-GENERIC-NS-INIT-T-I-1</span><a class="headerlink" href="generic_threat_model.html#id27" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 17%" />
 <col style="width: 83%" />
@@ -688,7 +705,7 @@ to NS entry or booting up NS core.</p>
 secure initialization before NS initialization starts.</p>
 <p>On dual-cpu platform, platform specific initialization
 must halt NS core until isolation is completed, as defined
-in <a class="reference internal" href="#dual-cpu-boot" id="id13"><span>[DUAL-CPU-BOOT]</span></a>.</p>
+in <a class="reference internal" href="generic_threat_model.html#dual-cpu-boot" id="id13"><span>[DUAL-CPU-BOOT]</span></a>.</p>
 <p>TF-M defines isolation configuration HALs for platform
 implementation. The specific isolation configuration
 depends on platform specific implementation.</p>
@@ -704,7 +721,7 @@ String</p></td>
 </tbody>
 </table>
 <table class="colwidths-given docutils align-default" id="id28">
-<caption><span class="caption-number">Table 6: </span><span class="caption-text">TFM-GENERIC-NS-INIT-T-I-2</span><a class="headerlink" href="#id28" title="Permalink to this table"></a></caption>
+<caption><span class="caption-number">Table 6: </span><span class="caption-text">TFM-GENERIC-NS-INIT-T-I-2</span><a class="headerlink" href="generic_threat_model.html#id28" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 17%" />
 <col style="width: 83%" />
@@ -751,7 +768,7 @@ String</p></td>
 </tbody>
 </table>
 <table class="colwidths-given docutils align-default" id="id29">
-<caption><span class="caption-number">Table 7: </span><span class="caption-text">TFM-GENERIC-NS-INIT-I-2</span><a class="headerlink" href="#id29" title="Permalink to this table"></a></caption>
+<caption><span class="caption-number">Table 7: </span><span class="caption-text">TFM-GENERIC-NS-INIT-I-2</span><a class="headerlink" href="generic_threat_model.html#id29" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 17%" />
 <col style="width: 83%" />
@@ -796,7 +813,7 @@ String</p></td>
 </tbody>
 </table>
 <table class="colwidths-given docutils align-default" id="id30">
-<caption><span class="caption-number">Table 8: </span><span class="caption-text">TFM-GENERIC-NS-INIT-D-1</span><a class="headerlink" href="#id30" title="Permalink to this table"></a></caption>
+<caption><span class="caption-number">Table 8: </span><span class="caption-text">TFM-GENERIC-NS-INIT-D-1</span><a class="headerlink" href="generic_threat_model.html#id30" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 17%" />
 <col style="width: 83%" />
@@ -835,10 +852,10 @@ String</p></td>
 </table>
 </div>
 <div class="section" id="nspe-requests-tf-m-secure-service">
-<h4>NSPE requests TF-M secure service<a class="headerlink" href="#nspe-requests-tf-m-secure-service" title="Permalink to this heading"></a></h4>
-<p>This section identifies threats on <code class="docutils literal notranslate"><span class="pre">DF2</span></code> defined in <a class="reference internal" href="#data-flow-diagram">Data Flow Diagram</a>.</p>
+<h4>NSPE requests TF-M secure service<a class="headerlink" href="generic_threat_model.html#nspe-requests-tf-m-secure-service" title="Permalink to this heading"></a></h4>
+<p>This section identifies threats on <code class="docutils literal notranslate"><span class="pre">DF2</span></code> defined in <a class="reference internal" href="generic_threat_model.html#data-flow-diagram">Data Flow Diagram</a>.</p>
 <table class="colwidths-given docutils align-default" id="id31">
-<caption><span class="caption-number">Table 9: </span><span class="caption-text">TFM-GENERIC-REQUEST-SERVICE-S-1</span><a class="headerlink" href="#id31" title="Permalink to this table"></a></caption>
+<caption><span class="caption-number">Table 9: </span><span class="caption-text">TFM-GENERIC-REQUEST-SERVICE-S-1</span><a class="headerlink" href="generic_threat_model.html#id31" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 17%" />
 <col style="width: 83%" />
@@ -852,7 +869,7 @@ String</p></td>
 to access secure data which NSPE must not directly access.</p></td>
 </tr>
 <tr class="row-odd"><td><p>Justification</p></td>
-<td><p><a class="reference internal" href="#ff-m" id="id14"><span>[FF-M]</span></a> defines <code class="docutils literal notranslate"><span class="pre">Client</span> <span class="pre">ID</span></code> to distinguish clients which
+<td><p><a class="reference internal" href="generic_threat_model.html#ff-m" id="id14"><span>[FF-M]</span></a> defines <code class="docutils literal notranslate"><span class="pre">Client</span> <span class="pre">ID</span></code> to distinguish clients which
 request RoT services. Secure clients are assigned with
 positive IDs and non-secure clients are assigned with
 negative ones.</p>
@@ -879,7 +896,7 @@ String</p></td>
 </tbody>
 </table>
 <table class="colwidths-given docutils align-default" id="id32">
-<caption><span class="caption-number">Table 10: </span><span class="caption-text">TFM-GENERIC-REQUEST-SERVICE-T-1</span><a class="headerlink" href="#id32" title="Permalink to this table"></a></caption>
+<caption><span class="caption-number">Table 10: </span><span class="caption-text">TFM-GENERIC-REQUEST-SERVICE-T-1</span><a class="headerlink" href="generic_threat_model.html#id32" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 17%" />
 <col style="width: 83%" />
@@ -920,7 +937,7 @@ String</p></td>
 </tbody>
 </table>
 <table class="colwidths-given docutils align-default" id="id33">
-<caption><span class="caption-number">Table 11: </span><span class="caption-text">TFM-GENERIC-REQUEST-SERVICE-T-2</span><a class="headerlink" href="#id33" title="Permalink to this table"></a></caption>
+<caption><span class="caption-number">Table 11: </span><span class="caption-text">TFM-GENERIC-REQUEST-SERVICE-T-2</span><a class="headerlink" href="generic_threat_model.html#id33" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 17%" />
 <col style="width: 83%" />
@@ -959,7 +976,7 @@ String</p></td>
 </tbody>
 </table>
 <table class="colwidths-given docutils align-default" id="id34">
-<caption><span class="caption-number">Table 12: </span><span class="caption-text">TFM-GENERIC-REQUEST-SERVICE-R-1</span><a class="headerlink" href="#id34" title="Permalink to this table"></a></caption>
+<caption><span class="caption-number">Table 12: </span><span class="caption-text">TFM-GENERIC-REQUEST-SERVICE-R-1</span><a class="headerlink" href="generic_threat_model.html#id34" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 17%" />
 <col style="width: 83%" />
@@ -995,7 +1012,7 @@ String</p></td>
 </tbody>
 </table>
 <table class="colwidths-given docutils align-default" id="id35">
-<caption><span class="caption-number">Table 13: </span><span class="caption-text">TFM-GENERIC-REQUEST-SERVICE-I-1</span><a class="headerlink" href="#id35" title="Permalink to this table"></a></caption>
+<caption><span class="caption-number">Table 13: </span><span class="caption-text">TFM-GENERIC-REQUEST-SERVICE-I-1</span><a class="headerlink" href="generic_threat_model.html#id35" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 17%" />
 <col style="width: 83%" />
@@ -1033,7 +1050,7 @@ String</p></td>
 </tbody>
 </table>
 <table class="colwidths-given docutils align-default" id="id36">
-<caption><span class="caption-number">Table 14: </span><span class="caption-text">TFM-GENERIC-REQUEST-SERVICE-T-I-1</span><a class="headerlink" href="#id36" title="Permalink to this table"></a></caption>
+<caption><span class="caption-number">Table 14: </span><span class="caption-text">TFM-GENERIC-REQUEST-SERVICE-T-I-1</span><a class="headerlink" href="generic_threat_model.html#id36" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 17%" />
 <col style="width: 83%" />
@@ -1070,7 +1087,7 @@ String</p></td>
 </tbody>
 </table>
 <table class="colwidths-given docutils align-default" id="id37">
-<caption><span class="caption-number">Table 15: </span><span class="caption-text">TFM-GENERIC-REQUEST-SERVICE-D-1</span><a class="headerlink" href="#id37" title="Permalink to this table"></a></caption>
+<caption><span class="caption-number">Table 15: </span><span class="caption-text">TFM-GENERIC-REQUEST-SERVICE-D-1</span><a class="headerlink" href="generic_threat_model.html#id37" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 17%" />
 <col style="width: 83%" />
@@ -1117,7 +1134,7 @@ String</p></td>
 </tbody>
 </table>
 <table class="colwidths-given docutils align-default" id="id38">
-<caption><span class="caption-number">Table 16: </span><span class="caption-text">TFM-GENERIC-REQUEST-SERVICE-D-2</span><a class="headerlink" href="#id38" title="Permalink to this table"></a></caption>
+<caption><span class="caption-number">Table 16: </span><span class="caption-text">TFM-GENERIC-REQUEST-SERVICE-D-2</span><a class="headerlink" href="generic_threat_model.html#id38" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 17%" />
 <col style="width: 83%" />
@@ -1179,12 +1196,12 @@ String</p></td>
 </table>
 </div>
 <div class="section" id="rot-services-read-and-write-ns-data">
-<h4>RoT services read and write NS data<a class="headerlink" href="#rot-services-read-and-write-ns-data" title="Permalink to this heading"></a></h4>
-<p>This section identifies threats on <code class="docutils literal notranslate"><span class="pre">DF3</span></code> defined in <a class="reference internal" href="#data-flow-diagram">Data Flow Diagram</a>.</p>
+<h4>RoT services read and write NS data<a class="headerlink" href="generic_threat_model.html#rot-services-read-and-write-ns-data" title="Permalink to this heading"></a></h4>
+<p>This section identifies threats on <code class="docutils literal notranslate"><span class="pre">DF3</span></code> defined in <a class="reference internal" href="generic_threat_model.html#data-flow-diagram">Data Flow Diagram</a>.</p>
 <p>RoT services can either directly access NS memory or rely on TF-M SPM to obtain NS input data and
 send response data back to NS memory.</p>
 <span id="tfm-generic-secure-service-rw-t-1"></span><table class="colwidths-given docutils align-default" id="id39">
-<caption><span class="caption-number">Table 17: </span><span class="caption-text">TFM-GENERIC-SECURE-SERVICE-RW-T-1</span><a class="headerlink" href="#id39" title="Permalink to this table"></a></caption>
+<caption><span class="caption-number">Table 17: </span><span class="caption-text">TFM-GENERIC-SECURE-SERVICE-RW-T-1</span><a class="headerlink" href="generic_threat_model.html#id39" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 17%" />
 <col style="width: 83%" />
@@ -1212,7 +1229,7 @@ data in NSPE memory after the validation passes.</p>
 </tr>
 <tr class="row-odd"><td><p>Mitigation</p></td>
 <td><p>If RoT services request SPM to read and write NS data.
-TF-M SPM follows <a class="reference internal" href="#ff-m" id="id15"><span>[FF-M]</span></a> to copy the NS input data into
+TF-M SPM follows <a class="reference internal" href="generic_threat_model.html#ff-m" id="id15"><span>[FF-M]</span></a> to copy the NS input data into
 SPE memory region owned by the RoT service, before the RoT
 service processes the data.
 Therefore, the NS input data is protected during the RoT
@@ -1234,7 +1251,7 @@ String</p></td>
 </tbody>
 </table>
 <span id="tfm-generic-secure-service-rw-t-2"></span><table class="colwidths-given docutils align-default" id="id40">
-<caption><span class="caption-number">Table 18: </span><span class="caption-text">TFM-GENERIC-SECURE-SERVICE-RW-T-2</span><a class="headerlink" href="#id40" title="Permalink to this table"></a></caption>
+<caption><span class="caption-number">Table 18: </span><span class="caption-text">TFM-GENERIC-SECURE-SERVICE-RW-T-2</span><a class="headerlink" href="generic_threat_model.html#id40" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 17%" />
 <col style="width: 83%" />
@@ -1250,7 +1267,7 @@ vectors, to tamper secure memory which the NS application
 must not access.</p></td>
 </tr>
 <tr class="row-odd"><td><p>Justification</p></td>
-<td><p><a class="reference internal" href="#ff-m" id="id16"><span>[FF-M]</span></a> limits the total number of input/output vectors to
+<td><p><a class="reference internal" href="generic_threat_model.html#ff-m" id="id16"><span>[FF-M]</span></a> limits the total number of input/output vectors to
 4. If a RoT service requires more input/output vectors, it
 may define a parameter structure which embeds multiple
 input/output buffers addresses.</p>
@@ -1293,7 +1310,7 @@ String</p></td>
 </tbody>
 </table>
 <table class="colwidths-given docutils align-default" id="id41">
-<caption><span class="caption-number">Table 19: </span><span class="caption-text">TFM-GENERIC-SECURE-SERVICE-RW-I-1</span><a class="headerlink" href="#id41" title="Permalink to this table"></a></caption>
+<caption><span class="caption-number">Table 19: </span><span class="caption-text">TFM-GENERIC-SECURE-SERVICE-RW-I-1</span><a class="headerlink" href="generic_threat_model.html#id41" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 17%" />
 <col style="width: 83%" />
@@ -1303,7 +1320,7 @@ String</p></td>
 <td><p><strong>TFM-GENERIC-SECURE-SERVICE-RW-I-1</strong></p></td>
 </tr>
 <tr class="row-even"><td><p>Description</p></td>
-<td><p>Similar to <a class="reference internal" href="#tfm-generic-secure-service-rw-t-2">TFM-GENERIC-SECURE-SERVICE-RW-T-2</a>, a malicious
+<td><p>Similar to <a class="reference internal" href="generic_threat_model.html#tfm-generic-secure-service-rw-t-2">TFM-GENERIC-SECURE-SERVICE-RW-T-2</a>, a malicious
 NS application can embed secure memory addresses in a
 parameter structure in RoT service request input vectors,
 to read secure data which the NS application must not
@@ -1311,7 +1328,7 @@ access.</p></td>
 </tr>
 <tr class="row-odd"><td><p>Justification</p></td>
 <td><p>Similar to the description in
-<a class="reference internal" href="#tfm-generic-secure-service-rw-t-2">TFM-GENERIC-SECURE-SERVICE-RW-T-2</a>, the secure memory
+<a class="reference internal" href="generic_threat_model.html#tfm-generic-secure-service-rw-t-2">TFM-GENERIC-SECURE-SERVICE-RW-T-2</a>, the secure memory
 addresses hidden in the RoT service input/output vector
 structure may bypass TF-M validation. Without a proper
 check, the RoT service may copy secure data to NSPE
@@ -1347,8 +1364,8 @@ String</p></td>
 </table>
 </div>
 <div class="section" id="tf-m-returns-secure-service-result">
-<h4>TF-M returns secure service result<a class="headerlink" href="#tf-m-returns-secure-service-result" title="Permalink to this heading"></a></h4>
-<p>This section identifies threats on <code class="docutils literal notranslate"><span class="pre">DF4</span></code> defined in <a class="reference internal" href="#data-flow-diagram">Data Flow Diagram</a>.</p>
+<h4>TF-M returns secure service result<a class="headerlink" href="generic_threat_model.html#tf-m-returns-secure-service-result" title="Permalink to this heading"></a></h4>
+<p>This section identifies threats on <code class="docutils literal notranslate"><span class="pre">DF4</span></code> defined in <a class="reference internal" href="generic_threat_model.html#data-flow-diagram">Data Flow Diagram</a>.</p>
 <p>When RoT service completes the request from NSPE, TF-M returns the success or
 failure error code to NS application.</p>
 <p>In Armv8-M TrustZone scenarios, TF-M writes the return code value in the general
@@ -1356,7 +1373,7 @@ purpose register and returns to Non-secure state.</p>
 <p>On dual-cpu platforms, TF-M writes the return code to NS mailbox message queue
 via mailbox.</p>
 <table class="colwidths-given docutils align-default" id="id42">
-<caption><span class="caption-number">Table 20: </span><span class="caption-text">TFM-GENERIC-RETURN-CODE-I-1</span><a class="headerlink" href="#id42" title="Permalink to this table"></a></caption>
+<caption><span class="caption-number">Table 20: </span><span class="caption-text">TFM-GENERIC-RETURN-CODE-I-1</span><a class="headerlink" href="generic_threat_model.html#id42" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 17%" />
 <col style="width: 83%" />
@@ -1400,10 +1417,10 @@ String</p></td>
 </table>
 </div>
 <div class="section" id="ns-interrupts-preempts-spe-execution">
-<h4>NS interrupts preempts SPE execution<a class="headerlink" href="#ns-interrupts-preempts-spe-execution" title="Permalink to this heading"></a></h4>
-<p>This section identifies threats on <code class="docutils literal notranslate"><span class="pre">DF5</span></code> defined in <a class="reference internal" href="#data-flow-diagram">Data Flow Diagram</a>.</p>
+<h4>NS interrupts preempts SPE execution<a class="headerlink" href="generic_threat_model.html#ns-interrupts-preempts-spe-execution" title="Permalink to this heading"></a></h4>
+<p>This section identifies threats on <code class="docutils literal notranslate"><span class="pre">DF5</span></code> defined in <a class="reference internal" href="generic_threat_model.html#data-flow-diagram">Data Flow Diagram</a>.</p>
 <table class="colwidths-given docutils align-default" id="id43">
-<caption><span class="caption-number">Table 21: </span><span class="caption-text">TFM-GENERIC-NS-INTERRUPT-I-1</span><a class="headerlink" href="#id43" title="Permalink to this table"></a></caption>
+<caption><span class="caption-number">Table 21: </span><span class="caption-text">TFM-GENERIC-NS-INTERRUPT-I-1</span><a class="headerlink" href="generic_threat_model.html#id43" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 17%" />
 <col style="width: 83%" />
@@ -1433,7 +1450,7 @@ besides secure FP context in FP caller registers, FP
 context in FP callee registers will also be cleaned by
 hardware automatically when NS interrupts occur, to prevent
 NSPE from probing secure FP context in FP registers. Refer
-to Armv8-M Architecture Reference Manual <a class="reference internal" href="#arm-arm" id="id17"><span>[Arm-ARM]</span></a> for
+to Armv8-M Architecture Reference Manual <a class="reference internal" href="generic_threat_model.html#arm-arm" id="id17"><span>[Arm-ARM]</span></a> for
 details.</p>
 <p>On dual-cpu platforms, shared registers are implementation
 defined, such as Inter-Processor Communication registers.
@@ -1451,7 +1468,7 @@ String</p></td>
 </tbody>
 </table>
 <table class="colwidths-given docutils align-default" id="id44">
-<caption><span class="caption-number">Table 22: </span><span class="caption-text">TFM-GENERIC-NS-INTERRUPT-D-1</span><a class="headerlink" href="#id44" title="Permalink to this table"></a></caption>
+<caption><span class="caption-number">Table 22: </span><span class="caption-text">TFM-GENERIC-NS-INTERRUPT-D-1</span><a class="headerlink" href="generic_threat_model.html#id44" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 17%" />
 <col style="width: 83%" />
@@ -1491,10 +1508,10 @@ String</p></td>
 </table>
 </div>
 <div class="section" id="secure-interrupts-preempts-nspe-execution">
-<h4>Secure interrupts preempts NSPE execution<a class="headerlink" href="#secure-interrupts-preempts-nspe-execution" title="Permalink to this heading"></a></h4>
-<p>This section identifies threats on <code class="docutils literal notranslate"><span class="pre">DF6</span></code> defined in <a class="reference internal" href="#data-flow-diagram">Data Flow Diagram</a>.</p>
+<h4>Secure interrupts preempts NSPE execution<a class="headerlink" href="generic_threat_model.html#secure-interrupts-preempts-nspe-execution" title="Permalink to this heading"></a></h4>
+<p>This section identifies threats on <code class="docutils literal notranslate"><span class="pre">DF6</span></code> defined in <a class="reference internal" href="generic_threat_model.html#data-flow-diagram">Data Flow Diagram</a>.</p>
 <table class="colwidths-given docutils align-default" id="id45">
-<caption><span class="caption-number">Table 23: </span><span class="caption-text">TFM-GENERIC-S-INTERRUPT-I-1</span><a class="headerlink" href="#id45" title="Permalink to this table"></a></caption>
+<caption><span class="caption-number">Table 23: </span><span class="caption-text">TFM-GENERIC-S-INTERRUPT-I-1</span><a class="headerlink" href="generic_threat_model.html#id45" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 17%" />
 <col style="width: 83%" />
@@ -1536,7 +1553,7 @@ context in FP caller registers, FP context in callee
 registers will also be cleaned by hardware automatically
 during S exception return, to prevent NSPE from probing
 secure FP context in FP registers. Refer to Armv8-M
-Architecture Reference Manual <a class="reference internal" href="#arm-arm" id="id18"><span>[Arm-ARM]</span></a> for details.</p>
+Architecture Reference Manual <a class="reference internal" href="generic_threat_model.html#arm-arm" id="id18"><span>[Arm-ARM]</span></a> for details.</p>
 </td>
 </tr>
 <tr class="row-even"><td><p>CVSS Score</p></td>
@@ -1550,11 +1567,11 @@ String</p></td>
 </table>
 </div>
 <div class="section" id="miscellaneous-threats">
-<h4>Miscellaneous threats<a class="headerlink" href="#miscellaneous-threats" title="Permalink to this heading"></a></h4>
+<h4>Miscellaneous threats<a class="headerlink" href="generic_threat_model.html#miscellaneous-threats" title="Permalink to this heading"></a></h4>
 <p>This section collects threats irrelevant to the valid TF-M data flows shown
 above.</p>
 <table class="colwidths-given docutils align-default" id="id46">
-<caption><span class="caption-number">Table 24: </span><span class="caption-text">TFM-GENERIC-STACK-SEAL</span><a class="headerlink" href="#id46" title="Permalink to this table"></a></caption>
+<caption><span class="caption-number">Table 24: </span><span class="caption-text">TFM-GENERIC-STACK-SEAL</span><a class="headerlink" href="generic_threat_model.html#id46" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 17%" />
 <col style="width: 83%" />
@@ -1576,7 +1593,7 @@ creating a fake exception return stack frame to
 de-privilege an interrupt, it is possible for Non-secure
 world software to manipulate the Secure Stacks, and
 potentially influence Secure control flow.</p>
-<p>Refer to <a class="reference internal" href="#stack-seal" id="id19"><span>[STACK-SEAL]</span></a> for details.</p>
+<p>Refer to <a class="reference internal" href="generic_threat_model.html#stack-seal" id="id19"><span>[STACK-SEAL]</span></a> for details.</p>
 </td>
 </tr>
 <tr class="row-even"><td><p>Category</p></td>
@@ -1585,7 +1602,7 @@ potentially influence Secure control flow.</p>
 <tr class="row-odd"><td><p>Mitigation</p></td>
 <td><p>TF-M has implemented common mitigation against stack seal
 vulnerability.</p>
-<p>Refer to <a class="reference internal" href="#advisory-tfmv-1" id="id20"><span>[ADVISORY-TFMV-1]</span></a> for details on analysis and
+<p>Refer to <a class="reference internal" href="generic_threat_model.html#advisory-tfmv-1" id="id20"><span>[ADVISORY-TFMV-1]</span></a> for details on analysis and
 mitigation in TF-M.</p>
 </td>
 </tr>
@@ -1599,7 +1616,7 @@ String</p></td>
 </tbody>
 </table>
 <table class="colwidths-given docutils align-default" id="id47">
-<caption><span class="caption-number">Table 25: </span><span class="caption-text">TFM-GENERIC-SVC-CALL-SP-FETCH</span><a class="headerlink" href="#id47" title="Permalink to this table"></a></caption>
+<caption><span class="caption-number">Table 25: </span><span class="caption-text">TFM-GENERIC-SVC-CALL-SP-FETCH</span><a class="headerlink" href="generic_threat_model.html#id47" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 17%" />
 <col style="width: 83%" />
@@ -1627,7 +1644,7 @@ overwriting some memory contents.</p></td>
 <tr class="row-odd"><td><p>Mitigation</p></td>
 <td><p>TF-M has enhanced implementation to mitigate this
 vulnerability.</p>
-<p>Refer to <a class="reference internal" href="#advisory-tfmv-2" id="id21"><span>[ADVISORY-TFMV-2]</span></a> for details on analysis and
+<p>Refer to <a class="reference internal" href="generic_threat_model.html#advisory-tfmv-2" id="id21"><span>[ADVISORY-TFMV-2]</span></a> for details on analysis and
 mitigation in TF-M.</p>
 </td>
 </tr>
@@ -1641,7 +1658,7 @@ String</p></td>
 </tbody>
 </table>
 <table class="colwidths-given docutils align-default" id="id48">
-<caption><span class="caption-number">Table 26: </span><span class="caption-text">VLLDM instruction security vulnerability</span><a class="headerlink" href="#id48" title="Permalink to this table"></a></caption>
+<caption><span class="caption-number">Table 26: </span><span class="caption-text">VLLDM instruction security vulnerability</span><a class="headerlink" href="generic_threat_model.html#id48" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 17%" />
 <col style="width: 83%" />
@@ -1655,7 +1672,7 @@ String</p></td>
 VLLDM instruction is abandoned due to an exception mid-way.</p></td>
 </tr>
 <tr class="row-odd"><td><p>Justification</p></td>
-<td><p>Refer to <a class="reference internal" href="#vlldm-vulnerability" id="id22"><span>[VLLDM-Vulnerability]</span></a> for details.</p></td>
+<td><p>Refer to <a class="reference internal" href="generic_threat_model.html#vlldm-vulnerability" id="id22"><span>[VLLDM-Vulnerability]</span></a> for details.</p></td>
 </tr>
 <tr class="row-even"><td><p>Category</p></td>
 <td><p>Tampering/Information disclosure</p></td>
@@ -1665,7 +1682,7 @@ VLLDM instruction is abandoned due to an exception mid-way.</p></td>
 TF-M configures NSACR to disable NSPE to access FPU.
 Therefore, secure data in FP registers is protected from
 NSPE.</p>
-<p>Refer to <a class="reference internal" href="#vlldm-vulnerability" id="id23"><span>[VLLDM-Vulnerability]</span></a>, for details on analysis
+<p>Refer to <a class="reference internal" href="generic_threat_model.html#vlldm-vulnerability" id="id23"><span>[VLLDM-Vulnerability]</span></a>, for details on analysis
 and mitigation.</p>
 </td>
 </tr>
@@ -1682,9 +1699,9 @@ String</p></td>
 </div>
 </div>
 <div class="section" id="version-control">
-<h2>Version control<a class="headerlink" href="#version-control" title="Permalink to this heading"></a></h2>
+<h2>Version control<a class="headerlink" href="generic_threat_model.html#version-control" title="Permalink to this heading"></a></h2>
 <table class="docutils align-default" id="id49">
-<caption><span class="caption-number">Table 27: </span><span class="caption-text">Version control</span><a class="headerlink" href="#id49" title="Permalink to this table"></a></caption>
+<caption><span class="caption-number">Table 27: </span><span class="caption-text">Version control</span><a class="headerlink" href="generic_threat_model.html#id49" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 12%" />
 <col style="width: 68%" />
@@ -1721,48 +1738,48 @@ String</p></td>
 </table>
 </div>
 <div class="section" id="reference">
-<h2>Reference<a class="headerlink" href="#reference" title="Permalink to this heading"></a></h2>
+<h2>Reference<a class="headerlink" href="generic_threat_model.html#reference" title="Permalink to this heading"></a></h2>
 <dl class="citation">
-<dt class="label" id="security-incident-process"><span class="brackets"><a class="fn-backref" href="#id1">Security-Incident-Process</a></span></dt>
+<dt class="label" id="security-incident-process"><span class="brackets"><a class="fn-backref" href="generic_threat_model.html#id1">Security-Incident-Process</a></span></dt>
 <dd><p><a class="reference external" href="https://trusted-firmware-docs.readthedocs.io/en/latest/security_center/incident_handling_process.html">Security Incident Handling Process</a></p>
 </dd>
-<dt class="label" id="ff-m"><span class="brackets">FF-M</span><span class="fn-backref">(<a href="#id2">1</a>,<a href="#id4">2</a>,<a href="#id5">3</a>,<a href="#id14">4</a>,<a href="#id15">5</a>,<a href="#id16">6</a>)</span></dt>
+<dt class="label" id="ff-m"><span class="brackets">FF-M</span><span class="fn-backref">(<a href="generic_threat_model.html#id2">1</a>,<a href="generic_threat_model.html#id4">2</a>,<a href="generic_threat_model.html#id5">3</a>,<a href="generic_threat_model.html#id14">4</a>,<a href="generic_threat_model.html#id15">5</a>,<a href="generic_threat_model.html#id16">6</a>)</span></dt>
 <dd><p><a class="reference external" href="https://developer.arm.com/documentation/den0063/latest/">Arm® Platform Security Architecture Firmware Framework 1.0</a></p>
 </dd>
-<dt class="label" id="ff-m-1-1-extensions"><span class="brackets"><a class="fn-backref" href="#id3">FF-M-1.1-Extensions</a></span></dt>
+<dt class="label" id="ff-m-1-1-extensions"><span class="brackets"><a class="fn-backref" href="generic_threat_model.html#id3">FF-M-1.1-Extensions</a></span></dt>
 <dd><p><a class="reference external" href="https://developer.arm.com/documentation/aes0039/latest/">Arm® Firmware Framework for M 1.1 Extensions</a></p>
 </dd>
-<dt class="label" id="dual-cpu-boot"><span class="brackets"><a class="fn-backref" href="#id13">DUAL-CPU-BOOT</a></span></dt>
+<dt class="label" id="dual-cpu-boot"><span class="brackets"><a class="fn-backref" href="generic_threat_model.html#id13">DUAL-CPU-BOOT</a></span></dt>
 <dd><p><a class="reference internal" href="../../design_docs/dual-cpu/booting_a_dual_core_system.html"><span class="doc">Booting a dual core system</span></a></p>
 </dd>
-<dt class="label" id="cvss"><span class="brackets"><a class="fn-backref" href="#id6">CVSS</a></span></dt>
+<dt class="label" id="cvss"><span class="brackets"><a class="fn-backref" href="generic_threat_model.html#id6">CVSS</a></span></dt>
 <dd><p><a class="reference external" href="https://www.first.org/cvss/calculator/3.1">Common Vulnerability Scoring System Version 3.1 Calculator</a></p>
 </dd>
-<dt class="label" id="cvss-spec"><span class="brackets">CVSS_SPEC</span><span class="fn-backref">(<a href="#id7">1</a>,<a href="#id8">2</a>,<a href="#id10">3</a>)</span></dt>
+<dt class="label" id="cvss-spec"><span class="brackets">CVSS_SPEC</span><span class="fn-backref">(<a href="generic_threat_model.html#id7">1</a>,<a href="generic_threat_model.html#id8">2</a>,<a href="generic_threat_model.html#id10">3</a>)</span></dt>
 <dd><p><a class="reference external" href="https://www.first.org/cvss/v3.1/specification-document">CVSS v3.1 Specification Document</a></p>
 </dd>
-<dt class="label" id="stride"><span class="brackets"><a class="fn-backref" href="#id9">STRIDE</a></span></dt>
+<dt class="label" id="stride"><span class="brackets"><a class="fn-backref" href="generic_threat_model.html#id9">STRIDE</a></span></dt>
 <dd><p><a class="reference external" href="https://learn.microsoft.com/en-us/previous-versions/commerce-server/ee823878(v=cs.20)">The STRIDE Threat Model</a></p>
 </dd>
-<dt class="label" id="secure-boot"><span class="brackets"><a class="fn-backref" href="#id11">SECURE-BOOT</a></span></dt>
+<dt class="label" id="secure-boot"><span class="brackets"><a class="fn-backref" href="generic_threat_model.html#id11">SECURE-BOOT</a></span></dt>
 <dd><p><a class="reference internal" href="../../design_docs/booting/tfm_secure_boot.html"><span class="doc">Secure boot</span></a></p>
 </dd>
-<dt class="label" id="rollback-protect"><span class="brackets"><a class="fn-backref" href="#id12">ROLLBACK-PROTECT</a></span></dt>
+<dt class="label" id="rollback-protect"><span class="brackets"><a class="fn-backref" href="generic_threat_model.html#id12">ROLLBACK-PROTECT</a></span></dt>
 <dd><p><a class="reference internal" href="../../design_docs/booting/secure_boot_rollback_protection.html"><span class="doc">Rollback protection in TF-M secure boot</span></a></p>
 </dd>
-<dt class="label" id="arm-arm"><span class="brackets">Arm-ARM</span><span class="fn-backref">(<a href="#id17">1</a>,<a href="#id18">2</a>)</span></dt>
+<dt class="label" id="arm-arm"><span class="brackets">Arm-ARM</span><span class="fn-backref">(<a href="generic_threat_model.html#id17">1</a>,<a href="generic_threat_model.html#id18">2</a>)</span></dt>
 <dd><p><a class="reference external" href="https://developer.arm.com/documentation/ddi0553/latest">Armv8-M Architecture Reference Manual</a></p>
 </dd>
-<dt class="label" id="stack-seal"><span class="brackets"><a class="fn-backref" href="#id19">STACK-SEAL</a></span></dt>
+<dt class="label" id="stack-seal"><span class="brackets"><a class="fn-backref" href="generic_threat_model.html#id19">STACK-SEAL</a></span></dt>
 <dd><p><a class="reference external" href="https://developer.arm.com/support/arm-security-updates/armv8-m-stack-sealing">Armv8-M processor Secure software Stack Sealing vulnerability</a></p>
 </dd>
-<dt class="label" id="advisory-tfmv-1"><span class="brackets"><a class="fn-backref" href="#id20">ADVISORY-TFMV-1</a></span></dt>
+<dt class="label" id="advisory-tfmv-1"><span class="brackets"><a class="fn-backref" href="generic_threat_model.html#id20">ADVISORY-TFMV-1</a></span></dt>
 <dd><p><a class="reference internal" href="../security_advisories/stack_seal_vulnerability.html"><span class="doc">Advisory TFMV-1</span></a></p>
 </dd>
-<dt class="label" id="advisory-tfmv-2"><span class="brackets"><a class="fn-backref" href="#id21">ADVISORY-TFMV-2</a></span></dt>
+<dt class="label" id="advisory-tfmv-2"><span class="brackets"><a class="fn-backref" href="generic_threat_model.html#id21">ADVISORY-TFMV-2</a></span></dt>
 <dd><p><a class="reference internal" href="../security_advisories/svc_caller_sp_fetching_vulnerability.html"><span class="doc">Advisory TFMV-2</span></a></p>
 </dd>
-<dt class="label" id="vlldm-vulnerability"><span class="brackets">VLLDM-Vulnerability</span><span class="fn-backref">(<a href="#id22">1</a>,<a href="#id23">2</a>)</span></dt>
+<dt class="label" id="vlldm-vulnerability"><span class="brackets">VLLDM-Vulnerability</span><span class="fn-backref">(<a href="generic_threat_model.html#id22">1</a>,<a href="generic_threat_model.html#id23">2</a>)</span></dt>
 <dd><p><a class="reference external" href="https://developer.arm.com/support/arm-security-updates/vlldm-instruction-security-vulnerability">VLLDM instruction Security Vulnerability</a></p>
 </dd>
 </dl>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Internal Trusted Storage (ITS) Service &mdash; Trusted Firmware-M v2.1.0-stm32mp-r1 documentation</title>
+  <title>Internal Trusted Storage (ITS) Service &mdash; Trusted Firmware-M v2.1.3-stm32mp-r2 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/tfm_custom.css" type="text/css" />
@@ -38,7 +38,7 @@
               <img src="../../_static/tf_logo_white.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                v2.1.0-stm32mp-r1
+                v2.1.3-stm32mp-r2
 
               </div>
 <div role="search">
@@ -67,11 +67,16 @@
 <li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/fwu_write_vulnerability.html">Advisory TFMV-5</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/cc3xx_partial_tag_compare_on_chacha20_poly1305.html">Advisory TFMV-6</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/debug_log_vulnerability.html">Advisory TFMV-7</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/user_pointers_mailbox_vectors_vulnerability.html">Advisory TFMV-8</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/fwu_tlv_payload_out_of_bounds_vulnerability.html">Advisory TFMV-9</a></li>
 </ul>
 </li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../releases/index.html">Releases</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/2.1.3.html">v2.1.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/2.1.2.html">v2.1.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/2.1.1.html">v2.1.1</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../releases/2.1.0.html">v2.1.0</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../releases/2.0.0.html">v2.0.0</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../releases/1.8.1.html">v1.8.1</a></li>
@@ -85,6 +90,10 @@
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../platform/index.html">Platforms</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/adi/index.html">Analog Devices, Inc.</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/adi/max32657/README.html">MAX32657</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../../platform/arm/index.html">Arm</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/arm/corstone1000/readme.html">Corstone-1000</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/arm/mps3/corstone300/README.html">Corstone-300 FPGA (AN547 and AN552) and FVP</a></li>
@@ -122,6 +131,10 @@
 <li class="toctree-l3"><a class="reference internal" href="../../platform/nxp/lpcxpresso55s69/README.html">LPCXpresso55S69</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/rpi/index.html">Raspberry Pi</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/rpi/rp2350/readme.html">RP2350</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../../platform/stm/index.html">STMICROELECTRONICS</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32h5xx/readme.html">STM32H5</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32l5xx/readme.html">STM32L5</a></li>
@@ -131,6 +144,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32h573i_dk/readme.html">STM32H573I_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32l562e_dk/readme.html">STM32L562E_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp215f_dk/readme.html">stm32mp215f_dk</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp235f_dk/readme.html">stm32mp235f_dk</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/b_u585i_iot02a/readme.html">B_U585I_IOT02A</a></li>
 </ul>
@@ -212,7 +226,7 @@
 <li class="toctree-l3"><a class="reference internal" href="tfm_uniform_secure_service_signature.html">Service Signing</a></li>
 <li class="toctree-l3"><a class="reference internal" href="tfm_crypto_design.html">Crypto</a></li>
 <li class="toctree-l3"><a class="reference internal" href="symmetric_initial_attest.html">Initial Attestation</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">Internal Trusted Storage</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="tfm_its_service.html#">Internal Trusted Storage</a></li>
 <li class="toctree-l3"><a class="reference internal" href="tfm_fwu_service.html">Firmware Update</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ps_key_management.html">PS Key Management</a></li>
 </ul>
@@ -263,6 +277,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32h573i_dk/readme.html">STM32H573I_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32l562e_dk/readme.html">STM32L562E_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp215f_dk/readme.html">stm32mp215f_dk</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp235f_dk/readme.html">stm32mp235f_dk</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/nucleo_l552ze_q/readme.html">NUCLEO_L552ZE_Q</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/b_u585i_iot02a/readme.html">B_U585I_IOT02A</a></li>
@@ -277,6 +292,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32h573i_dk/readme.html">STM32H573I_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32l562e_dk/readme.html">STM32L562E_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp215f_dk/readme.html">stm32mp215f_dk</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp235f_dk/readme.html">stm32mp235f_dk</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
 </ul>
 </li>
@@ -307,6 +323,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../stm/technical/initlevel.html">Initlevel</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../stm/technical/initial_attestation.html">Initial Attestation Service</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/technical/key_and_provisionning.html">About TF-M Authentication Keys and Secret Provisioning</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../stm/technical/nv_counter.html">Nv counter</a></li>
 </ul>
 </li>
@@ -342,7 +359,7 @@
            <div itemprop="articleBody">
              
   <div class="section" id="internal-trusted-storage-its-service">
-<h1>Internal Trusted Storage (ITS) Service<a class="headerlink" href="#internal-trusted-storage-its-service" title="Permalink to this heading"></a></h1>
+<h1>Internal Trusted Storage (ITS) Service<a class="headerlink" href="tfm_its_service.html#internal-trusted-storage-its-service" title="Permalink to this heading"></a></h1>
 <dl class="field-list simple">
 <dt class="field-odd">Author</dt>
 <dd class="field-odd"><p>Jamie Fox</p>
@@ -360,7 +377,7 @@
 </ul>
 </div>
 <div class="section" id="psa-internal-trusted-storage">
-<h2>PSA Internal Trusted Storage<a class="headerlink" href="#psa-internal-trusted-storage" title="Permalink to this heading"></a></h2>
+<h2>PSA Internal Trusted Storage<a class="headerlink" href="tfm_its_service.html#psa-internal-trusted-storage" title="Permalink to this heading"></a></h2>
 <p>PSA Internal Trusted Storage (ITS) is a PSA RoT Service for storing the most
 security-critical device data (e.g. cryptographic keys) in internal storage,
 which is trusted to provide data confidentiality and authenticity. This
@@ -370,13 +387,13 @@ for encryption, authentication and rollback protection to protect the
 data-at-rest.</p>
 </div>
 <div class="section" id="current-tf-m-secure-storage">
-<h2>Current TF-M Secure Storage<a class="headerlink" href="#current-tf-m-secure-storage" title="Permalink to this heading"></a></h2>
+<h2>Current TF-M Secure Storage<a class="headerlink" href="tfm_its_service.html#current-tf-m-secure-storage" title="Permalink to this heading"></a></h2>
 <p>Currently, the TF-M Secure Storage service implements PSA Protected Storage
 version 1.0-beta2. There is not yet an implementation of PSA Internal Trusted
 Storage in TF-M.</p>
 </div>
 <div class="section" id="new-tf-m-service">
-<h2>New TF-M service<a class="headerlink" href="#new-tf-m-service" title="Permalink to this heading"></a></h2>
+<h2>New TF-M service<a class="headerlink" href="tfm_its_service.html#new-tf-m-service" title="Permalink to this heading"></a></h2>
 <p>The proposal is to implement the <em>PSA Internal Trusted Storage API</em> with the
 <em>TF-M Internal Trusted Storage service</em>. It can be abbreviated to <em>TF-M ITS
 service</em> in general and to <code class="docutils literal notranslate"><span class="pre">its</span></code> in code. This name has the advantage of
@@ -411,7 +428,7 @@ and NV counter interfaces are not required. The rollback protection feature of
 the object table is also not required.</p>
 </div>
 <div class="section" id="code-structure">
-<h2>Code structure<a class="headerlink" href="#code-structure" title="Permalink to this heading"></a></h2>
+<h2>Code structure<a class="headerlink" href="tfm_its_service.html#code-structure" title="Permalink to this heading"></a></h2>
 <p>The code structure of the service will be as follows:</p>
 <p>TF-M repo:</p>
 <p><code class="docutils literal notranslate"><span class="pre">interface/</span></code></p>
@@ -442,7 +459,7 @@ flash_fs as a backend</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">secure/psa_its_s_interface_testsuite.c</span></code> - Secure interface tests</p></li>
 </ul>
 <div class="section" id="tf-m-its-implementation">
-<h3>TF-M ITS implementation<a class="headerlink" href="#tf-m-its-implementation" title="Permalink to this heading"></a></h3>
+<h3>TF-M ITS implementation<a class="headerlink" href="tfm_its_service.html#tf-m-its-implementation" title="Permalink to this heading"></a></h3>
 <p>The following APIs will be exposed by <code class="docutils literal notranslate"><span class="pre">tfm_internal_trusted_storage.h</span></code>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">psa_status_t</span> <span class="n">tfm_its_init</span><span class="p">(</span><span class="n">void</span><span class="p">);</span>
 
@@ -478,7 +495,7 @@ to the filesystem layer. It must also take care ensure that any PSA Storage
 flags associated with the UID are honoured.</p>
 </div>
 <div class="section" id="filesystem">
-<h3>Filesystem<a class="headerlink" href="#filesystem" title="Permalink to this heading"></a></h3>
+<h3>Filesystem<a class="headerlink" href="tfm_its_service.html#filesystem" title="Permalink to this heading"></a></h3>
 <p>The ITS filesystem will be copied and modified from the SST filesystem. The
 modifications required will be to rename symbols from <code class="docutils literal notranslate"><span class="pre">sst</span></code> to <code class="docutils literal notranslate"><span class="pre">its</span></code> and to
 update the implementation to be aligned with the latest version of the PSA
@@ -491,13 +508,13 @@ padding.</p>
 implemented (see below).</p>
 </div>
 <div class="section" id="flash-layer">
-<h3>Flash layer<a class="headerlink" href="#flash-layer" title="Permalink to this heading"></a></h3>
+<h3>Flash layer<a class="headerlink" href="tfm_its_service.html#flash-layer" title="Permalink to this heading"></a></h3>
 <p>The flash layer will be copied from SST, and modified to direct writes to the
 internal flash device. It too needs to be updated to use <code class="docutils literal notranslate"><span class="pre">psa_status_t</span></code> error
 types.</p>
 </div>
 <div class="section" id="platform-layer">
-<h3>Platform layer<a class="headerlink" href="#platform-layer" title="Permalink to this heading"></a></h3>
+<h3>Platform layer<a class="headerlink" href="tfm_its_service.html#platform-layer" title="Permalink to this heading"></a></h3>
 <p>The TF-M platform layer must be be updated to distinguish between the external
 flash device used for Protected Storage and internal flash device used for ITS.
 A flash region for the relevant storage service needs to be allocated in each.</p>
@@ -506,9 +523,9 @@ device, but in general they will separate devices with their own drivers.</p>
 </div>
 </div>
 <div class="section" id="detailed-design-considerations">
-<h2>Detailed design considerations<a class="headerlink" href="#detailed-design-considerations" title="Permalink to this heading"></a></h2>
+<h2>Detailed design considerations<a class="headerlink" href="tfm_its_service.html#detailed-design-considerations" title="Permalink to this heading"></a></h2>
 <div class="section" id="mapping-uid-onto-file-id">
-<h3>Mapping UID onto file ID<a class="headerlink" href="#mapping-uid-onto-file-id" title="Permalink to this heading"></a></h3>
+<h3>Mapping UID onto file ID<a class="headerlink" href="tfm_its_service.html#mapping-uid-onto-file-id" title="Permalink to this heading"></a></h3>
 <p>The ITS APIs identify assets with 64-bit UIDs, to which the ITS service must
 append the 32-bit client ID of the calling partition for access control. The
 existing filesystem uses 32-bit file IDs to identify files, so some mapping
@@ -542,7 +559,7 @@ complexity in secure storage.</p>
 <p>With this in mind, the proposed option is the second.</p>
 </div>
 <div class="section" id="storing-create-flags">
-<h3>Storing create flags<a class="headerlink" href="#storing-create-flags" title="Permalink to this heading"></a></h3>
+<h3>Storing create flags<a class="headerlink" href="tfm_its_service.html#storing-create-flags" title="Permalink to this heading"></a></h3>
 <p>The ITS APIs provide a 32-bit <code class="docutils literal notranslate"><span class="pre">create_flags</span></code> parameter, which contains bit
 flags that determine the properties of the stored data. Only one flag is
 currently defined for ITS: <code class="docutils literal notranslate"><span class="pre">PSA_STORAGE_FLAG_WRITE_ONCE</span></code>, which prevents a UID
@@ -567,7 +584,7 @@ and get_info operations.</p>
 the proposed solution.</p>
 </div>
 <div class="section" id="code-sharing-between-protected-storage-and-its">
-<h3>Code sharing between Protected Storage and ITS<a class="headerlink" href="#code-sharing-between-protected-storage-and-its" title="Permalink to this heading"></a></h3>
+<h3>Code sharing between Protected Storage and ITS<a class="headerlink" href="tfm_its_service.html#code-sharing-between-protected-storage-and-its" title="Permalink to this heading"></a></h3>
 <p>To de-duplicate the filesystem code used by both Protected Storage and ITS, it
 is proposed that Protected Storage calls ITS APIs as its backend filesystem.</p>
 <p>Protected Storage essentially becomes an encryption, authentication and rollback
@@ -609,7 +626,7 @@ has not been considered further at this time.</p>
 </div>
 </div>
 <div class="section" id="encryption-in-its">
-<h2>Encryption in ITS<a class="headerlink" href="#encryption-in-its" title="Permalink to this heading"></a></h2>
+<h2>Encryption in ITS<a class="headerlink" href="tfm_its_service.html#encryption-in-its" title="Permalink to this heading"></a></h2>
 <p>The ITS can optionally be configured to encrypt the internal trusted storage
 data.
 To support encryption in ITS the target platform must provide an
@@ -637,11 +654,11 @@ implementation of the APIs defined in <code class="docutils literal notranslate"
 </pre></div>
 </div>
 <p>Then encryption can be enabled by setting the build option <code class="docutils literal notranslate"><span class="pre">-DITS_ENCRYPTION=ON</span></code>.</p>
-<p>The figure <a class="reference internal" href="#fig-tfm-eits"><span class="std std-numref">Figure 18:</span></a> describes the encryption and decryption
+<p>The figure <a class="reference internal" href="tfm_its_service.html#fig-tfm-eits"><span class="std std-numref">Figure 18:</span></a> describes the encryption and decryption
 process happening when calling <code class="docutils literal notranslate"><span class="pre">tfm_its_set</span></code> and <code class="docutils literal notranslate"><span class="pre">tfm_its_get</span></code>.</p>
 <div class="figure align-center" id="fig-tfm-eits">
 <a class="reference internal image-reference" href="../../_images/tfm_its_encryption.svg"><img alt="../../_images/tfm_its_encryption.svg" src="../../_images/tfm_its_encryption.svg" width="80%" /></a>
-<p class="caption"><span class="caption-number">Figure 18: </span><span class="caption-text">En/Decryption of ITS</span><a class="headerlink" href="#fig-tfm-eits" title="Permalink to this image"></a></p>
+<p class="caption"><span class="caption-number">Figure 18: </span><span class="caption-text">En/Decryption of ITS</span><a class="headerlink" href="tfm_its_service.html#fig-tfm-eits" title="Permalink to this image"></a></p>
 </div>
 <p>By using an AEAD scheme, it is possible to not only encrypt the file data but
 also authenticate the file meta data, which include:</p>
@@ -653,8 +670,15 @@ also authenticate the file meta data, which include:</p>
 <p>The key used to perform the AEAD operation must be derived from a long-term
 key-derivation key and the file id, which is used as a derivation label.
 The long-term key-derivation key must be managed by the target platform.</p>
+<p>There is a generic implementation of the abovementioned functions under
+<code class="docutils literal notranslate"><span class="pre">platform/ext/common/template/tfm_hal_its_encryption.c</span></code> using PSA crypto calls
+similar to Protected Storage solution. When used, the default NV seed template
+under <code class="docutils literal notranslate"><span class="pre">platform/ext/common/template/crypto_nv_seed.c</span></code> must be disabled, as it
+relies on ITS. If there is a need for NV seed usage, an ITS independent
+implementation is required. If NV seed is not necessary, it can be turned off by
+setting <code class="docutils literal notranslate"><span class="pre">CRYPTO_NV_SEED=0</span></code>.</p>
 <hr class="docutils" />
-<p><em>Copyright (c) 2019-2022, Arm Limited. All rights reserved.</em></p>
+<p><em>Copyright (c) 2019-2024, Arm Limited. All rights reserved.</em></p>
 </div>
 </div>
 

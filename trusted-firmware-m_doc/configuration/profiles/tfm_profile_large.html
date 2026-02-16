@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Trusted Firmware-M Profile Large Design &mdash; Trusted Firmware-M v2.1.0-stm32mp-r1 documentation</title>
+  <title>Trusted Firmware-M Profile Large Design &mdash; Trusted Firmware-M v2.1.3-stm32mp-r2 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/tfm_custom.css" type="text/css" />
@@ -38,7 +38,7 @@
               <img src="../../_static/tf_logo_white.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                v2.1.0-stm32mp-r1
+                v2.1.3-stm32mp-r2
 
               </div>
 <div role="search">
@@ -67,11 +67,16 @@
 <li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/fwu_write_vulnerability.html">Advisory TFMV-5</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/cc3xx_partial_tag_compare_on_chacha20_poly1305.html">Advisory TFMV-6</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/debug_log_vulnerability.html">Advisory TFMV-7</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/user_pointers_mailbox_vectors_vulnerability.html">Advisory TFMV-8</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/fwu_tlv_payload_out_of_bounds_vulnerability.html">Advisory TFMV-9</a></li>
 </ul>
 </li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../releases/index.html">Releases</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/2.1.3.html">v2.1.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/2.1.2.html">v2.1.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/2.1.1.html">v2.1.1</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../releases/2.1.0.html">v2.1.0</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../releases/2.0.0.html">v2.0.0</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../releases/1.8.1.html">v1.8.1</a></li>
@@ -85,6 +90,10 @@
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../platform/index.html">Platforms</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/adi/index.html">Analog Devices, Inc.</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/adi/max32657/README.html">MAX32657</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../../platform/arm/index.html">Arm</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/arm/corstone1000/readme.html">Corstone-1000</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/arm/mps3/corstone300/README.html">Corstone-300 FPGA (AN547 and AN552) and FVP</a></li>
@@ -122,6 +131,10 @@
 <li class="toctree-l3"><a class="reference internal" href="../../platform/nxp/lpcxpresso55s69/README.html">LPCXpresso55S69</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/rpi/index.html">Raspberry Pi</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/rpi/rp2350/readme.html">RP2350</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../../platform/stm/index.html">STMICROELECTRONICS</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32h5xx/readme.html">STM32H5</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32l5xx/readme.html">STM32L5</a></li>
@@ -131,6 +144,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32h573i_dk/readme.html">STM32H573I_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32l562e_dk/readme.html">STM32L562E_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp215f_dk/readme.html">stm32mp215f_dk</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp235f_dk/readme.html">stm32mp235f_dk</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/b_u585i_iot02a/readme.html">B_U585I_IOT02A</a></li>
 </ul>
@@ -152,7 +166,7 @@
 <li class="toctree-l3"><a class="reference internal" href="tfm_profile_small.html"> Small</a></li>
 <li class="toctree-l3"><a class="reference internal" href="tfm_profile_medium_arot-less.html"> ARoT-less</a></li>
 <li class="toctree-l3"><a class="reference internal" href="tfm_profile_medium.html"> Medium</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#"> Large</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="tfm_profile_large.html#"> Large</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../test_configuration.html">Tests configuration</a></li>
@@ -263,6 +277,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32h573i_dk/readme.html">STM32H573I_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32l562e_dk/readme.html">STM32L562E_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp215f_dk/readme.html">stm32mp215f_dk</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp235f_dk/readme.html">stm32mp235f_dk</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/nucleo_l552ze_q/readme.html">NUCLEO_L552ZE_Q</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/b_u585i_iot02a/readme.html">B_U585I_IOT02A</a></li>
@@ -277,6 +292,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32h573i_dk/readme.html">STM32H573I_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32l562e_dk/readme.html">STM32L562E_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp215f_dk/readme.html">stm32mp215f_dk</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp235f_dk/readme.html">stm32mp235f_dk</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
 </ul>
 </li>
@@ -307,6 +323,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../stm/technical/initlevel.html">Initlevel</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../stm/technical/initial_attestation.html">Initial Attestation Service</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/technical/key_and_provisionning.html">About TF-M Authentication Keys and Secret Provisioning</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../stm/technical/nv_counter.html">Nv counter</a></li>
 </ul>
 </li>
@@ -342,12 +359,12 @@
            <div itemprop="articleBody">
              
   <div class="section" id="trusted-firmware-m-profile-large-design">
-<h1>Trusted Firmware-M Profile Large Design<a class="headerlink" href="#trusted-firmware-m-profile-large-design" title="Permalink to this heading"></a></h1>
+<h1>Trusted Firmware-M Profile Large Design<a class="headerlink" href="tfm_profile_large.html#trusted-firmware-m-profile-large-design" title="Permalink to this heading"></a></h1>
 <div class="section" id="introduction">
-<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading"></a></h2>
+<h2>Introduction<a class="headerlink" href="tfm_profile_large.html#introduction" title="Permalink to this heading"></a></h2>
 <p>As one of TF-M Profiles, Profile Large protects less resource-constrained Arm
 Cortex-M devices.</p>
-<p>Compared to Profile Small <a class="footnote-reference brackets" href="#id13" id="id1">1</a> and Profile Medium <a class="footnote-reference brackets" href="#id14" id="id2">2</a>, Profile Large aims to
+<p>Compared to Profile Small <a class="footnote-reference brackets" href="tfm_profile_large.html#id13" id="id1">1</a> and Profile Medium <a class="footnote-reference brackets" href="tfm_profile_large.html#id14" id="id2">2</a>, Profile Large aims to
 enable more secure features to support higher level of security required in more
 complex usage scenarios.</p>
 <blockquote>
@@ -361,18 +378,18 @@ Providers (CSP)</p></li>
 </ul>
 </div></blockquote>
 <p>Profile Large can be aligned as a reference implementation with the requirements
-defined in PSA Certified Level 3 Lightweight Protection Profile <a class="footnote-reference brackets" href="#id15" id="id3">3</a>.</p>
+defined in PSA Certified Level 3 Lightweight Protection Profile <a class="footnote-reference brackets" href="tfm_profile_large.html#id15" id="id3">3</a>.</p>
 </div>
 <div class="section" id="overall-design">
-<h2>Overall design<a class="headerlink" href="#overall-design" title="Permalink to this heading"></a></h2>
+<h2>Overall design<a class="headerlink" href="tfm_profile_large.html#overall-design" title="Permalink to this heading"></a></h2>
 <p>TF-M Profile Large defines the following feature set:</p>
 <blockquote>
 <div><ul>
 <li><p>Firmware Framework</p>
 <blockquote>
 <div><ul class="simple">
-<li><p>Inter-Process Communication (IPC) model <a class="footnote-reference brackets" href="#id16" id="id4">4</a></p></li>
-<li><p>Isolation level 3 <a class="footnote-reference brackets" href="#id16" id="id5">4</a></p></li>
+<li><p>Inter-Process Communication (IPC) model <a class="footnote-reference brackets" href="tfm_profile_large.html#id16" id="id4">4</a></p></li>
+<li><p>Isolation level 3 <a class="footnote-reference brackets" href="tfm_profile_large.html#id16" id="id5">4</a></p></li>
 </ul>
 </div></blockquote>
 </li>
@@ -381,7 +398,7 @@ defined in PSA Certified Level 3 Lightweight Protection Profile <a class="footno
 <blockquote>
 <div><ul>
 <li><p>Support both symmetric ciphers and asymmetric ciphers</p></li>
-<li><p>Asymmetric key based cipher suites defined in TLS 1.2 <a class="footnote-reference brackets" href="#id17" id="id6">5</a> to support
+<li><p>Asymmetric key based cipher suites defined in TLS 1.2 <a class="footnote-reference brackets" href="tfm_profile_large.html#id17" id="id6">5</a> to support
 direct secure connection to major CSPs, including</p>
 <blockquote>
 <div><ul class="simple">
@@ -429,17 +446,17 @@ Token (IAT)</p></li>
 </div></blockquote>
 </div>
 <div class="section" id="design-details">
-<h2>Design details<a class="headerlink" href="#design-details" title="Permalink to this heading"></a></h2>
+<h2>Design details<a class="headerlink" href="tfm_profile_large.html#design-details" title="Permalink to this heading"></a></h2>
 <p>More details of TF-M Profile Large design are described in following sections.</p>
 <div class="section" id="firmware-framework">
-<h3>Firmware framework<a class="headerlink" href="#firmware-framework" title="Permalink to this heading"></a></h3>
+<h3>Firmware framework<a class="headerlink" href="tfm_profile_large.html#firmware-framework" title="Permalink to this heading"></a></h3>
 <p>Profile Large selects IPC model and isolation level 3 by default.</p>
 <p>Isolation level 3 supports additional isolation between App RoT services,
 compared to isolation level 2. It can protect <a class="reference internal" href="../../glossary.html#term-RoT"><span class="xref std std-term">RoT</span></a> services from each
 other when their vendors don’t trust each other.</p>
 </div>
 <div class="section" id="crypto-service">
-<h3>Crypto service<a class="headerlink" href="#crypto-service" title="Permalink to this heading"></a></h3>
+<h3>Crypto service<a class="headerlink" href="tfm_profile_large.html#crypto-service" title="Permalink to this heading"></a></h3>
 <p>Profile Large supports direct connection to Cloud services via common protocols,
 such as TLS 1.2.</p>
 <p>In some usage scenarios, PSA RoT can be managed by device manufacturer or other
@@ -452,10 +469,10 @@ with Profile Large, without relying on PSA RoT upgrades of crypto.</p>
 alternatives to every cryptographic primitive for symmetric, asymmetric and
 hash, and be able to use them for encryption, AEAD, signature and verification.</p>
 <p>It will cost more resource in Profile Large to support more crypto algorithms
-and cipher suites, compared to Profile Medium <a class="footnote-reference brackets" href="#id14" id="id7">2</a>.</p>
+and cipher suites, compared to Profile Medium <a class="footnote-reference brackets" href="tfm_profile_large.html#id14" id="id7">2</a>.</p>
 </div>
 <div class="section" id="boot-loader">
-<h3>Boot loader<a class="headerlink" href="#boot-loader" title="Permalink to this heading"></a></h3>
+<h3>Boot loader<a class="headerlink" href="tfm_profile_large.html#boot-loader" title="Permalink to this heading"></a></h3>
 <p>BL2 implementation can be device specific. Devices may implement diverse
 boot processes with different features and configurations.
 However, the boot loader must support anti-rollback protection. Boot loader must
@@ -471,14 +488,14 @@ boot.</p>
 <p>Boot loader can implement software countermeasures to mitigate physical attacks.</p>
 </div>
 <div class="section" id="protected-storage">
-<h3>Protected Storage<a class="headerlink" href="#protected-storage" title="Permalink to this heading"></a></h3>
+<h3>Protected Storage<a class="headerlink" href="tfm_profile_large.html#protected-storage" title="Permalink to this heading"></a></h3>
 <p>PS service is required if an off-chip storage device is integrated and used on
 the platform.</p>
 <p>Anti-rollback protection in PS relies on non-volatile counter(s) provided by
 TF-M Platform <a class="reference internal" href="../../glossary.html#term-Secure-Partition"><span class="xref std std-term">Secure Partition</span></a> (SP).</p>
 </div>
 <div class="section" id="software-countermeasures-against-physical-attacks">
-<h3>Software countermeasures against physical attacks<a class="headerlink" href="#software-countermeasures-against-physical-attacks" title="Permalink to this heading"></a></h3>
+<h3>Software countermeasures against physical attacks<a class="headerlink" href="tfm_profile_large.html#software-countermeasures-against-physical-attacks" title="Permalink to this heading"></a></h3>
 <p>TF-M Profile Large enables TF-M Fault Injection Hardening (FIH) library Profile
 Medium by default. It enables the following countermeasure techniques:</p>
 <blockquote>
@@ -489,7 +506,7 @@ Medium by default. It enables the following countermeasure techniques:</p>
 <li><p>Redundant variables and condition checks</p></li>
 </ul>
 </div></blockquote>
-<p>Refer to TF-M physical attack mitigation design document <a class="footnote-reference brackets" href="#id18" id="id8">6</a> for FIH library
+<p>Refer to TF-M physical attack mitigation design document <a class="footnote-reference brackets" href="tfm_profile_large.html#id18" id="id8">6</a> for FIH library
 details.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -509,9 +526,9 @@ to protect platform specific implementation.</p>
 </div>
 </div>
 <div class="section" id="implementation">
-<h2>Implementation<a class="headerlink" href="#implementation" title="Permalink to this heading"></a></h2>
+<h2>Implementation<a class="headerlink" href="tfm_profile_large.html#implementation" title="Permalink to this heading"></a></h2>
 <div class="section" id="overview">
-<h3>Overview<a class="headerlink" href="#overview" title="Permalink to this heading"></a></h3>
+<h3>Overview<a class="headerlink" href="tfm_profile_large.html#overview" title="Permalink to this heading"></a></h3>
 <p>The basic idea is to add dedicated profile CMake configuration files under
 folder <code class="docutils literal notranslate"><span class="pre">config/profile</span></code> for TF-M Profile Large default configuration, the
 same as other TF-M Profiles do.</p>
@@ -526,17 +543,17 @@ This configuration extension file can be added via parameter
 configuration loading and overriding) can be found at
 <a class="reference internal" href="../build_configuration.html#tfm-cmake-configuration"><span class="std std-ref">Build configuration</span></a></p>
 <p>The details of configurations will be covered in each module in
-<a class="reference internal" href="#implementation-details">Implementation details</a>.</p>
+<a class="reference internal" href="tfm_profile_large.html#implementation-details">Implementation details</a>.</p>
 </div>
 <div class="section" id="implementation-details">
-<h3>Implementation details<a class="headerlink" href="#implementation-details" title="Permalink to this heading"></a></h3>
+<h3>Implementation details<a class="headerlink" href="tfm_profile_large.html#implementation-details" title="Permalink to this heading"></a></h3>
 <p>This section discusses the details of Profile Large implementation.</p>
 <div class="section" id="top-level-configuration-files">
-<h4>Top-level configuration files<a class="headerlink" href="#top-level-configuration-files" title="Permalink to this heading"></a></h4>
+<h4>Top-level configuration files<a class="headerlink" href="tfm_profile_large.html#top-level-configuration-files" title="Permalink to this heading"></a></h4>
 <p>The firmware framework configurations in <code class="docutils literal notranslate"><span class="pre">config/profile/profile_large</span></code> are
 shown below.</p>
 <table class="colwidths-auto docutils align-center" id="id22">
-<caption><span class="caption-number">Table 34: </span><span class="caption-text">Config flags in Profile Large top-level CMake config file</span><a class="headerlink" href="#id22" title="Permalink to this table"></a></caption>
+<caption><span class="caption-number">Table 34: </span><span class="caption-text">Config flags in Profile Large top-level CMake config file</span><a class="headerlink" href="tfm_profile_large.html#id22" title="Permalink to this table"></a></caption>
 <thead>
 <tr class="row-odd"><th class="head"><p>Configs</p></th>
 <th class="head"><p>Descriptions</p></th>
@@ -568,7 +585,7 @@ shown below.</p>
 <td><p>Enable Initial Attestation service</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">ON</span></code></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">TFM_PARTITION_PROTECTED_STORAGE</span></code> <a class="reference internal" href="#a" id="id9"><span>[a]</span></a></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">TFM_PARTITION_PROTECTED_STORAGE</span></code> <a class="reference internal" href="tfm_profile_large.html#a" id="id9"><span>[a]</span></a></p></td>
 <td><p>Enable PS service</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">ON</span></code></p></td>
 </tr>
@@ -579,27 +596,27 @@ shown below.</p>
 </tbody>
 </table>
 <dl class="citation">
-<dt class="label" id="a"><span class="brackets"><a class="fn-backref" href="#id9">a</a></span></dt>
+<dt class="label" id="a"><span class="brackets"><a class="fn-backref" href="tfm_profile_large.html#id9">a</a></span></dt>
 <dd><p>PS service is enabled by default. Platforms without off-chip storage
 devices can turn off <code class="docutils literal notranslate"><span class="pre">TFM_PARTITION_PROTECTED_STORAGE</span></code> to disable PS
-service. See <a class="reference internal" href="#protected-storage-secure-partition">Protected Storage Secure Partition</a> for details.</p>
+service. See <a class="reference internal" href="tfm_profile_large.html#protected-storage-secure-partition">Protected Storage Secure Partition</a> for details.</p>
 </dd>
 </dl>
 </div>
 <div class="section" id="crypto-service-configurations">
-<h4>Crypto service configurations<a class="headerlink" href="#crypto-service-configurations" title="Permalink to this heading"></a></h4>
+<h4>Crypto service configurations<a class="headerlink" href="tfm_profile_large.html#crypto-service-configurations" title="Permalink to this heading"></a></h4>
 <div class="section" id="crypto-secure-partition">
-<h5>Crypto Secure Partition<a class="headerlink" href="#crypto-secure-partition" title="Permalink to this heading"></a></h5>
+<h5>Crypto Secure Partition<a class="headerlink" href="tfm_profile_large.html#crypto-secure-partition" title="Permalink to this heading"></a></h5>
 <p>TF-M Profile Large enables Crypto SP in top-level CMake config file and selects
 all the Crypto modules.</p>
 </div>
 <div class="section" id="mbedtls-configurations">
-<h5>MbedTLS configurations<a class="headerlink" href="#mbedtls-configurations" title="Permalink to this heading"></a></h5>
+<h5>MbedTLS configurations<a class="headerlink" href="tfm_profile_large.html#mbedtls-configurations" title="Permalink to this heading"></a></h5>
 <p>TF-M Profile Large adds a dedicated MbedTLS config file
 <code class="docutils literal notranslate"><span class="pre">tfm_mbedcrypto_config_profile_large.h</span></code> and MbedTLS PSA config file
 <code class="docutils literal notranslate"><span class="pre">crypto_config_profile_large.h</span></code> under
 <code class="docutils literal notranslate"><span class="pre">/lib/ext/mbedcrypto/mbedcrypto_config</span></code> folder, instead of the common one
-<code class="docutils literal notranslate"><span class="pre">tfm_mbedcrypto_config_default.h</span></code> and <code class="docutils literal notranslate"><span class="pre">crypto_config_default.h</span></code> <a class="footnote-reference brackets" href="#id19" id="id10">7</a>.</p>
+<code class="docutils literal notranslate"><span class="pre">tfm_mbedcrypto_config_default.h</span></code> and <code class="docutils literal notranslate"><span class="pre">crypto_config_default.h</span></code> <a class="footnote-reference brackets" href="tfm_profile_large.html#id19" id="id10">7</a>.</p>
 <p>Major MbedTLS configurations are set as listed below:</p>
 <blockquote>
 <div><ul class="simple">
@@ -625,9 +642,9 @@ options, but is preferred as it keeps all configuration in cmake.</p>
 </div>
 </div>
 <div class="section" id="internal-trusted-storage-configurations">
-<h4>Internal Trusted Storage configurations<a class="headerlink" href="#internal-trusted-storage-configurations" title="Permalink to this heading"></a></h4>
+<h4>Internal Trusted Storage configurations<a class="headerlink" href="tfm_profile_large.html#internal-trusted-storage-configurations" title="Permalink to this heading"></a></h4>
 <p>ITS service is enabled in top-level Profile Large CMake config file by default.</p>
-<p>The internal transient buffer size <code class="docutils literal notranslate"><span class="pre">ITS_BUF_SIZE</span></code> <a class="footnote-reference brackets" href="#id20" id="id11">8</a> is set to 64 bytes by
+<p>The internal transient buffer size <code class="docutils literal notranslate"><span class="pre">ITS_BUF_SIZE</span></code> <a class="footnote-reference brackets" href="tfm_profile_large.html#id20" id="id11">8</a> is set to 64 bytes by
 default. A platform/use case can overwrite the buffer size in its specific
 configuration extension according to its actual requirement of assets and Flash
 attributes.</p>
@@ -635,7 +652,7 @@ attributes.</p>
 specific Flash hardware attributes.</p>
 </div>
 <div class="section" id="protected-storage-secure-partition">
-<h4>Protected Storage Secure Partition<a class="headerlink" href="#protected-storage-secure-partition" title="Permalink to this heading"></a></h4>
+<h4>Protected Storage Secure Partition<a class="headerlink" href="tfm_profile_large.html#protected-storage-secure-partition" title="Permalink to this heading"></a></h4>
 <p>Data confidentiality, integrity and anti-rollback protection are enabled by
 default in PS.</p>
 <p>If PS is selected, AES-CCM is used as AEAD algorithm by default. If platform
@@ -646,7 +663,7 @@ PS in platform specific configuration extension file via
 <code class="docutils literal notranslate"><span class="pre">platform/ext&lt;TFM_PLATFORM&gt;/config.cmake</span></code>.</p>
 </div>
 <div class="section" id="bl2-setting">
-<h4>BL2 setting<a class="headerlink" href="#bl2-setting" title="Permalink to this heading"></a></h4>
+<h4>BL2 setting<a class="headerlink" href="tfm_profile_large.html#bl2-setting" title="Permalink to this heading"></a></h4>
 <p>Profile Large enables MCUBoot provided by TF-M by default. A platform can
 overwrite this configuration by disabling MCUBoot in its configuration extension
 file <code class="docutils literal notranslate"><span class="pre">platform/ext&lt;TFM_PLATFORM&gt;/config.cmake</span></code>.</p>
@@ -656,25 +673,25 @@ default.</p>
 implementation defined.</p>
 </div>
 <div class="section" id="software-countermeasure-against-physical-attacks">
-<h4>Software countermeasure against physical attacks<a class="headerlink" href="#software-countermeasure-against-physical-attacks" title="Permalink to this heading"></a></h4>
+<h4>Software countermeasure against physical attacks<a class="headerlink" href="tfm_profile_large.html#software-countermeasure-against-physical-attacks" title="Permalink to this heading"></a></h4>
 <p>Profile Large selects TF-M FIH library Profile Medium by specifying
 <code class="docutils literal notranslate"><span class="pre">-DTFM_FIH_PROFILE=MEDIUM</span></code> in top-level CMake config file.</p>
 <p>System integrators shall implement software countermeasures in platform specific
 implementations.</p>
 </div>
 <div class="section" id="device-configuration-extension">
-<h4>Device configuration extension<a class="headerlink" href="#device-configuration-extension" title="Permalink to this heading"></a></h4>
+<h4>Device configuration extension<a class="headerlink" href="tfm_profile_large.html#device-configuration-extension" title="Permalink to this heading"></a></h4>
 <p>To change default configurations and add platform specific configurations,
 a platform can add a platform configuration file at
 <code class="docutils literal notranslate"><span class="pre">platform/ext&lt;TFM_PLATFORM&gt;/config.cmake</span></code></p>
 </div>
 <div class="section" id="test-configuration">
-<h4>Test configuration<a class="headerlink" href="#test-configuration" title="Permalink to this heading"></a></h4>
+<h4>Test configuration<a class="headerlink" href="tfm_profile_large.html#test-configuration" title="Permalink to this heading"></a></h4>
 <p>Some cryptography tests are disabled due to the reduced MbedTLS config.
 Profile Large specific test configurations are also specified in Profile Large
 top-level CMake config file <code class="docutils literal notranslate"><span class="pre">config/profile/profile_large_test.cmake</span></code>.</p>
 <table class="colwidths-auto docutils align-center" id="id23">
-<caption><span class="caption-number">Table 35: </span><span class="caption-text">Profile Large crypto test configuration</span><a class="headerlink" href="#id23" title="Permalink to this table"></a></caption>
+<caption><span class="caption-number">Table 35: </span><span class="caption-text">Profile Large crypto test configuration</span><a class="headerlink" href="tfm_profile_large.html#id23" title="Permalink to this table"></a></caption>
 <thead>
 <tr class="row-odd"><th class="head"><p>Configs</p></th>
 <th class="head"><p>Default value</p></th>
@@ -745,12 +762,12 @@ MAC, AEAD and symmetric ciphers</p></td>
 </div>
 </div>
 <div class="section" id="platform-support">
-<h2>Platform support<a class="headerlink" href="#platform-support" title="Permalink to this heading"></a></h2>
+<h2>Platform support<a class="headerlink" href="tfm_profile_large.html#platform-support" title="Permalink to this heading"></a></h2>
 <p>To enable Profile Large on a platform, the platform specific CMake file should
 be added into the platform support list in top-level Profile Large CMake config
 file.</p>
 <div class="section" id="building-profile-large">
-<h3>Building Profile Large<a class="headerlink" href="#building-profile-large" title="Permalink to this heading"></a></h3>
+<h3>Building Profile Large<a class="headerlink" href="tfm_profile_large.html#building-profile-large" title="Permalink to this heading"></a></h3>
 <p>To build Profile Large, argument <code class="docutils literal notranslate"><span class="pre">TFM_PROFILE</span></code> in build command line should be
 set to <code class="docutils literal notranslate"><span class="pre">profile_large</span></code>.</p>
 <p>Take AN521 as an example:</p>
@@ -780,37 +797,37 @@ cmake<span class="w"> </span>--build<span class="w"> </span>./<span class="w"> <
 </pre></div>
 </div>
 <p>More details of building instructions and parameters can be found TF-M build
-instruction guide <a class="footnote-reference brackets" href="#id21" id="id12">9</a>.</p>
+instruction guide <a class="footnote-reference brackets" href="tfm_profile_large.html#id21" id="id12">9</a>.</p>
 </div>
 </div>
 <div class="section" id="reference">
-<h2>Reference<a class="headerlink" href="#reference" title="Permalink to this heading"></a></h2>
+<h2>Reference<a class="headerlink" href="tfm_profile_large.html#reference" title="Permalink to this heading"></a></h2>
 <dl class="footnote brackets">
-<dt class="label" id="id13"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dt class="label" id="id13"><span class="brackets"><a class="fn-backref" href="tfm_profile_large.html#id1">1</a></span></dt>
 <dd><p><a class="reference internal" href="tfm_profile_small.html"><span class="doc">Trusted Firmware-M Profile Small Design</span></a></p>
 </dd>
-<dt class="label" id="id14"><span class="brackets">2</span><span class="fn-backref">(<a href="#id2">1</a>,<a href="#id7">2</a>)</span></dt>
+<dt class="label" id="id14"><span class="brackets">2</span><span class="fn-backref">(<a href="tfm_profile_large.html#id2">1</a>,<a href="tfm_profile_large.html#id7">2</a>)</span></dt>
 <dd><p><a class="reference internal" href="tfm_profile_medium.html"><span class="doc">Trusted Firmware-M Profile Medium Design</span></a></p>
 </dd>
-<dt class="label" id="id15"><span class="brackets"><a class="fn-backref" href="#id3">3</a></span></dt>
+<dt class="label" id="id15"><span class="brackets"><a class="fn-backref" href="tfm_profile_large.html#id3">3</a></span></dt>
 <dd><p><a class="reference external" href="https://www.psacertified.org/app/uploads/2020/12/JSADEN009-PSA_Certified_Level_3_LW_PP-1.0-BET02.pdf">PSA Certified Level 3 Lightweight Protection Profile</a></p>
 </dd>
-<dt class="label" id="id16"><span class="brackets">4</span><span class="fn-backref">(<a href="#id4">1</a>,<a href="#id5">2</a>)</span></dt>
+<dt class="label" id="id16"><span class="brackets">4</span><span class="fn-backref">(<a href="tfm_profile_large.html#id4">1</a>,<a href="tfm_profile_large.html#id5">2</a>)</span></dt>
 <dd><p><a class="reference external" href="https://developer.arm.com/documentation/den0063/latest/">Arm Platform Security Architecture Firmware Framework 1.0</a></p>
 </dd>
-<dt class="label" id="id17"><span class="brackets"><a class="fn-backref" href="#id6">5</a></span></dt>
+<dt class="label" id="id17"><span class="brackets"><a class="fn-backref" href="tfm_profile_large.html#id6">5</a></span></dt>
 <dd><p><a class="reference external" href="https://tools.ietf.org/html/rfc5246">The Transport Layer Security (TLS) Protocol Version 1.2</a></p>
 </dd>
-<dt class="label" id="id18"><span class="brackets"><a class="fn-backref" href="#id8">6</a></span></dt>
+<dt class="label" id="id18"><span class="brackets"><a class="fn-backref" href="tfm_profile_large.html#id8">6</a></span></dt>
 <dd><p><a class="reference internal" href="../../design_docs/tfm_physical_attack_mitigation.html"><span class="doc">Physical attack mitigation in Trusted Firmware-M</span></a></p>
 </dd>
-<dt class="label" id="id19"><span class="brackets"><a class="fn-backref" href="#id10">7</a></span></dt>
+<dt class="label" id="id19"><span class="brackets"><a class="fn-backref" href="tfm_profile_large.html#id10">7</a></span></dt>
 <dd><p><a class="reference internal" href="../../design_docs/services/tfm_crypto_design.html"><span class="doc">Crypto design</span></a></p>
 </dd>
-<dt class="label" id="id20"><span class="brackets"><a class="fn-backref" href="#id11">8</a></span></dt>
+<dt class="label" id="id20"><span class="brackets"><a class="fn-backref" href="tfm_profile_large.html#id11">8</a></span></dt>
 <dd><p><a class="reference internal" href="../../integration_guide/services/tfm_its_integration_guide.html"><span class="doc">ITS integration guide</span></a></p>
 </dd>
-<dt class="label" id="id21"><span class="brackets"><a class="fn-backref" href="#id12">9</a></span></dt>
+<dt class="label" id="id21"><span class="brackets"><a class="fn-backref" href="tfm_profile_large.html#id12">9</a></span></dt>
 <dd><p><a class="reference internal" href="../../building/tfm_build_instruction.html"><span class="doc">TF-M build instruction</span></a></p>
 </dd>
 </dl>

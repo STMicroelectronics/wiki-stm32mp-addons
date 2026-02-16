@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Physical attack mitigation in Trusted Firmware-M &mdash; Trusted Firmware-M v2.1.0-stm32mp-r1 documentation</title>
+  <title>Physical attack mitigation in Trusted Firmware-M &mdash; Trusted Firmware-M v2.1.3-stm32mp-r2 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/tfm_custom.css" type="text/css" />
@@ -38,7 +38,7 @@
               <img src="../_static/tf_logo_white.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                v2.1.0-stm32mp-r1
+                v2.1.3-stm32mp-r2
 
               </div>
 <div role="search">
@@ -67,11 +67,16 @@
 <li class="toctree-l3"><a class="reference internal" href="../security/security_advisories/fwu_write_vulnerability.html">Advisory TFMV-5</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../security/security_advisories/cc3xx_partial_tag_compare_on_chacha20_poly1305.html">Advisory TFMV-6</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../security/security_advisories/debug_log_vulnerability.html">Advisory TFMV-7</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../security/security_advisories/user_pointers_mailbox_vectors_vulnerability.html">Advisory TFMV-8</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../security/security_advisories/fwu_tlv_payload_out_of_bounds_vulnerability.html">Advisory TFMV-9</a></li>
 </ul>
 </li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../releases/index.html">Releases</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../releases/2.1.3.html">v2.1.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../releases/2.1.2.html">v2.1.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../releases/2.1.1.html">v2.1.1</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../releases/2.1.0.html">v2.1.0</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../releases/2.0.0.html">v2.0.0</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../releases/1.8.1.html">v1.8.1</a></li>
@@ -85,6 +90,10 @@
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../platform/index.html">Platforms</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../platform/adi/index.html">Analog Devices, Inc.</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../platform/adi/max32657/README.html">MAX32657</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../platform/arm/index.html">Arm</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../platform/arm/corstone1000/readme.html">Corstone-1000</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/arm/mps3/corstone300/README.html">Corstone-300 FPGA (AN547 and AN552) and FVP</a></li>
@@ -122,6 +131,10 @@
 <li class="toctree-l3"><a class="reference internal" href="../platform/nxp/lpcxpresso55s69/README.html">LPCXpresso55S69</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../platform/rpi/index.html">Raspberry Pi</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../platform/rpi/rp2350/readme.html">RP2350</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../platform/stm/index.html">STMICROELECTRONICS</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/common/stm32h5xx/readme.html">STM32H5</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/common/stm32l5xx/readme.html">STM32L5</a></li>
@@ -131,6 +144,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32h573i_dk/readme.html">STM32H573I_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32l562e_dk/readme.html">STM32L562E_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32mp215f_dk/readme.html">stm32mp215f_dk</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32mp235f_dk/readme.html">stm32mp235f_dk</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/b_u585i_iot02a/readme.html">B_U585I_IOT02A</a></li>
 </ul>
@@ -228,7 +242,7 @@
 <li class="toctree-l2"><a class="reference internal" href="ff_isolation.html">Isolation Rules</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tfm_builtin_keys.html">Builtin Keys</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tfm_log_system_design_document.html">Logging system</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Physical Attack Mitigation</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="tfm_physical_attack_mitigation.html#">Physical Attack Mitigation</a></li>
 </ul>
 </li>
 </ul>
@@ -263,6 +277,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32h573i_dk/readme.html">STM32H573I_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32l562e_dk/readme.html">STM32L562E_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32mp215f_dk/readme.html">stm32mp215f_dk</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32mp235f_dk/readme.html">stm32mp235f_dk</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/nucleo_l552ze_q/readme.html">NUCLEO_L552ZE_Q</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/b_u585i_iot02a/readme.html">B_U585I_IOT02A</a></li>
@@ -277,6 +292,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32h573i_dk/readme.html">STM32H573I_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32l562e_dk/readme.html">STM32L562E_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32mp215f_dk/readme.html">stm32mp215f_dk</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32mp235f_dk/readme.html">stm32mp235f_dk</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
 </ul>
 </li>
@@ -307,6 +323,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../stm/technical/initlevel.html">Initlevel</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../stm/technical/initial_attestation.html">Initial Attestation Service</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../stm/technical/key_and_provisionning.html">About TF-M Authentication Keys and Secret Provisioning</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../stm/technical/nv_counter.html">Nv counter</a></li>
 </ul>
 </li>
@@ -341,7 +358,7 @@
            <div itemprop="articleBody">
              
   <div class="section" id="physical-attack-mitigation-in-trusted-firmware-m">
-<h1>Physical attack mitigation in Trusted Firmware-M<a class="headerlink" href="#physical-attack-mitigation-in-trusted-firmware-m" title="Permalink to this heading"></a></h1>
+<h1>Physical attack mitigation in Trusted Firmware-M<a class="headerlink" href="tfm_physical_attack_mitigation.html#physical-attack-mitigation-in-trusted-firmware-m" title="Permalink to this heading"></a></h1>
 <dl class="field-list simple">
 <dt class="field-odd">Authors</dt>
 <dd class="field-odd"><p>Tamas Ban; David Hu</p>
@@ -354,8 +371,8 @@
 </dd>
 </dl>
 <div class="section" id="requirements">
-<h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this heading"></a></h2>
-<p>PSA Certified Level 3 Lightweight Protection Profile <a class="footnote-reference brackets" href="#id4" id="id1">1</a> requires protection
+<h2>Requirements<a class="headerlink" href="tfm_physical_attack_mitigation.html#requirements" title="Permalink to this heading"></a></h2>
+<p>PSA Certified Level 3 Lightweight Protection Profile <a class="footnote-reference brackets" href="tfm_physical_attack_mitigation.html#id4" id="id1">1</a> requires protection
 against physical attacks. This includes protection against manipulation of the
 hardware and any data, undetected manipulation of memory contents, physical
 probing on the chip’s surface. The RoT detects or prevents its operation outside
@@ -366,14 +383,14 @@ proven or tested.</p>
 <p class="admonition-title">Note</p>
 <p>Mitigation against certain level of physical attacks is a mandatory
 requirement for PSA Level 3 certification.
-The <a class="reference internal" href="#tf-m-against-physical-attacks"><span class="std std-ref">TF-M countermeasures against physical attacks</span></a> discussed below
+The <a class="reference internal" href="tfm_physical_attack_mitigation.html#tf-m-against-physical-attacks"><span class="std std-ref">TF-M countermeasures against physical attacks</span></a> discussed below
 doesn’t provide mitigation against all the physical attacks considered in
 scope for PSA L3 certification. Please check the Protection Profile document
 for an exhaustive list of requirements.</p>
 </div>
 </div>
 <div class="section" id="physical-attacks">
-<h2>Physical attacks<a class="headerlink" href="#physical-attacks" title="Permalink to this heading"></a></h2>
+<h2>Physical attacks<a class="headerlink" href="tfm_physical_attack_mitigation.html#physical-attacks" title="Permalink to this heading"></a></h2>
 <p>The goal of physical attacks is to alter the expected behavior of a circuit.
 This can be achieved by changing the device’s normal operating conditions to
 untested operating conditions. As a result a hazard might be triggered on the
@@ -401,7 +418,7 @@ result the threshold, that even non-proficient can successfully perform such
 attack, gets lower over time.</p>
 </div>
 <div class="section" id="effects-of-physical-attacks-in-hardware-and-in-software-execution">
-<h2>Effects of physical attacks in hardware and in software execution<a class="headerlink" href="#effects-of-physical-attacks-in-hardware-and-in-software-execution" title="Permalink to this heading"></a></h2>
+<h2>Effects of physical attacks in hardware and in software execution<a class="headerlink" href="tfm_physical_attack_mitigation.html#effects-of-physical-attacks-in-hardware-and-in-software-execution" title="Permalink to this heading"></a></h2>
 <p>The change in the behavior of the hardware and software cannot be seen in
 advance when performing a physical attack. On circuit-level they manifest
 in bit faults. These bit faults can cause varied effects in the behavior of
@@ -434,7 +451,7 @@ most common and probably the easily applicable fault model is the instruction
 skip.</p>
 </div>
 <div class="section" id="mitigation-against-physical-attacks">
-<h2>Mitigation against physical attacks<a class="headerlink" href="#mitigation-against-physical-attacks" title="Permalink to this heading"></a></h2>
+<h2>Mitigation against physical attacks<a class="headerlink" href="tfm_physical_attack_mitigation.html#mitigation-against-physical-attacks" title="Permalink to this heading"></a></h2>
 <p>The applicability of these attacks highly depends on the device. Some
 devices are more sensitive than others. Protection is possible at hardware and
 software levels as well.</p>
@@ -452,7 +469,7 @@ protection against physical attacks. The best of what is to achievable to harden
 the system to increase the cost of a successful attack (in terms of time and
 equipment), thereby making it non profitable to perform them.</p>
 <div class="section" id="software-countermeasures-against-physical-attacks">
-<span id="phy-att-countermeasures"></span><h3>Software countermeasures against physical attacks<a class="headerlink" href="#software-countermeasures-against-physical-attacks" title="Permalink to this heading"></a></h3>
+<span id="phy-att-countermeasures"></span><h3>Software countermeasures against physical attacks<a class="headerlink" href="tfm_physical_attack_mitigation.html#software-countermeasures-against-physical-attacks" title="Permalink to this heading"></a></h3>
 <p>There are practical coding techniques which can be applied to harden software
 against fault injection attacks. They significantly decrease the probability of
 a successful attack:</p>
@@ -510,9 +527,9 @@ sure that proper countermeasures are in-place and perform as expected.</p>
 </div>
 </div>
 <div class="section" id="tf-m-threat-model-against-physical-attacks">
-<span id="phy-att-threat-model"></span><h2>TF-M Threat Model against physical attacks<a class="headerlink" href="#tf-m-threat-model-against-physical-attacks" title="Permalink to this heading"></a></h2>
+<span id="phy-att-threat-model"></span><h2>TF-M Threat Model against physical attacks<a class="headerlink" href="tfm_physical_attack_mitigation.html#tf-m-threat-model-against-physical-attacks" title="Permalink to this heading"></a></h2>
 <div class="section" id="physical-attack-target">
-<h3>Physical attack target<a class="headerlink" href="#physical-attack-target" title="Permalink to this heading"></a></h3>
+<h3>Physical attack target<a class="headerlink" href="tfm_physical_attack_mitigation.html#physical-attack-target" title="Permalink to this heading"></a></h3>
 <p>A malicious actor performs physical attack against TF-M to retrieve assets from
 device. These assets can be sensitive data, credentials, crypto keys. These
 assets are protected in TF-M by proper isolation.</p>
@@ -538,7 +555,7 @@ to this area before setting up the memory isolation.</p></li>
 </div></blockquote>
 </div>
 <div class="section" id="assumptions-on-attacker-capability">
-<span id="attacker-capability"></span><h3>Assumptions on attacker capability<a class="headerlink" href="#assumptions-on-attacker-capability" title="Permalink to this heading"></a></h3>
+<span id="attacker-capability"></span><h3>Assumptions on attacker capability<a class="headerlink" href="tfm_physical_attack_mitigation.html#assumptions-on-attacker-capability" title="Permalink to this heading"></a></h3>
 <p>It is assumed that the attacker owns the following capabilities to perform
 physical attack against devices protected by TF-M.</p>
 <blockquote>
@@ -570,7 +587,7 @@ addresses are out of scope.</p></li>
 </div></blockquote>
 </div>
 <div class="section" id="physical-attack-scenarios-against-tf-m">
-<h3>Physical attack scenarios against TF-M<a class="headerlink" href="#physical-attack-scenarios-against-tf-m" title="Permalink to this heading"></a></h3>
+<h3>Physical attack scenarios against TF-M<a class="headerlink" href="tfm_physical_attack_mitigation.html#physical-attack-scenarios-against-tf-m" title="Permalink to this heading"></a></h3>
 <p>Based on the analysis above, a malicious actor may perform physical attacks
 against critical operations in <a class="reference internal" href="../glossary.html#term-SPE"><span class="xref std std-term">SPE</span></a> workflow and critical modules in
 TF-M, to indirectly gain unauthenticated accesses to assets.</p>
@@ -587,19 +604,19 @@ protect the assets from disclosure. Those operations and modules can include:</p
 </div></blockquote>
 <p>The detailed scenarios are discussed in following sections.</p>
 <div class="section" id="physical-attacks-against-bootloader">
-<h4>Physical attacks against bootloader<a class="headerlink" href="#physical-attacks-against-bootloader" title="Permalink to this heading"></a></h4>
+<h4>Physical attacks against bootloader<a class="headerlink" href="tfm_physical_attack_mitigation.html#physical-attacks-against-bootloader" title="Permalink to this heading"></a></h4>
 <p>Physical attacks may bypass secure image validation in bootloader and a
 malicious image can be installed.</p>
 <p>The countermeasures is bootloader specific implementation and out of the scope
 of this document. TF-M relies on MCUboot by default. MCUboot has already
-implemented countermeasures against fault injection attacks <a class="footnote-reference brackets" href="#id6" id="id2">3</a>.</p>
+implemented countermeasures against fault injection attacks <a class="footnote-reference brackets" href="tfm_physical_attack_mitigation.html#id6" id="id2">3</a>.</p>
 </div>
 <div class="section" id="physical-attacks-against-tf-m-spm">
-<span id="physical-attacks-spm"></span><h4>Physical attacks against TF-M SPM<a class="headerlink" href="#physical-attacks-against-tf-m-spm" title="Permalink to this heading"></a></h4>
+<span id="physical-attacks-spm"></span><h4>Physical attacks against TF-M SPM<a class="headerlink" href="tfm_physical_attack_mitigation.html#physical-attacks-against-tf-m-spm" title="Permalink to this heading"></a></h4>
 <p>TF-M SPM initializes and manages the isolation configuration. It also performs
 permission check against secure service requests from PSA clients.</p>
 <div class="section" id="static-isolation-configuration">
-<h5>Static isolation configuration<a class="headerlink" href="#static-isolation-configuration" title="Permalink to this heading"></a></h5>
+<h5>Static isolation configuration<a class="headerlink" href="tfm_physical_attack_mitigation.html#static-isolation-configuration" title="Permalink to this heading"></a></h5>
 <p>It is TF-M SPM’s responsibility to build up isolation during the initialization
 phase. If this is missed or not done correctly then it might be possible for
 non-secure code to access some secure memory area or an external device can
@@ -625,7 +642,7 @@ peripheral which is intended to be secure.</p></li>
 </div></blockquote>
 </div>
 <div class="section" id="psa-client-permission-checks">
-<h5>PSA client permission checks<a class="headerlink" href="#psa-client-permission-checks" title="Permalink to this heading"></a></h5>
+<h5>PSA client permission checks<a class="headerlink" href="tfm_physical_attack_mitigation.html#psa-client-permission-checks" title="Permalink to this heading"></a></h5>
 <p>TF-M SPM performs several permission checks against secure service requests from
 a PSA client, such as:</p>
 <ul>
@@ -651,7 +668,7 @@ other clients and interrupts.
 It should be more difficult than pure fault injection.</p>
 </div>
 <div class="section" id="dynamic-isolation-boundary-configuration">
-<h5>Dynamic isolation boundary configuration<a class="headerlink" href="#dynamic-isolation-boundary-configuration" title="Permalink to this heading"></a></h5>
+<h5>Dynamic isolation boundary configuration<a class="headerlink" href="tfm_physical_attack_mitigation.html#dynamic-isolation-boundary-configuration" title="Permalink to this heading"></a></h5>
 <p>Physical attack may affect the isolation boundary setting during TF-M context
 switch, especially in Isolation Level 3. For example:</p>
 <blockquote>
@@ -669,7 +686,7 @@ vulnerable RoT service to access assets after fault injection.</p>
 </div>
 </div>
 <div class="section" id="physical-attacks-against-tf-m-crypto-service">
-<h4>Physical attacks against TF-M Crypto service<a class="headerlink" href="#physical-attacks-against-tf-m-crypto-service" title="Permalink to this heading"></a></h4>
+<h4>Physical attacks against TF-M Crypto service<a class="headerlink" href="tfm_physical_attack_mitigation.html#physical-attacks-against-tf-m-crypto-service" title="Permalink to this heading"></a></h4>
 <p>Since crypto operations are done by mbedTLS library or by a custom crypto
 accelerator engine and its related software driver stack, the analysis of
 physical attacks against crypto operations is out-of-scope for this document.
@@ -679,37 +696,37 @@ physical attacks. So crypto software and hardware must be hardened against
 side-channel and physical attacks.</p>
 </div>
 <div class="section" id="physical-attacks-against-secure-storage">
-<h4>Physical attacks against Secure Storage<a class="headerlink" href="#physical-attacks-against-secure-storage" title="Permalink to this heading"></a></h4>
+<h4>Physical attacks against Secure Storage<a class="headerlink" href="tfm_physical_attack_mitigation.html#physical-attacks-against-secure-storage" title="Permalink to this heading"></a></h4>
 <div class="section" id="physical-attacks-against-internal-trusted-storage">
-<h5>Physical attacks against Internal Trusted Storage<a class="headerlink" href="#physical-attacks-against-internal-trusted-storage" title="Permalink to this heading"></a></h5>
-<p>Based on the assumption in <a class="reference internal" href="#attacker-capability"><span class="std std-ref">Assumptions on attacker capability</span></a>, a malicious actor is
+<h5>Physical attacks against Internal Trusted Storage<a class="headerlink" href="tfm_physical_attack_mitigation.html#physical-attacks-against-internal-trusted-storage" title="Permalink to this heading"></a></h5>
+<p>Based on the assumption in <a class="reference internal" href="tfm_physical_attack_mitigation.html#attacker-capability"><span class="std std-ref">Assumptions on attacker capability</span></a>, a malicious actor is
 unable to directly retrieve assets via physical attacks against
 <a class="reference internal" href="../glossary.html#term-Internal-Trusted-Storage"><span class="xref std std-term">Internal Trusted Storage</span></a> (ITS).</p>
 <p>Instead, a malicious actor can inject faults into isolation configuration of ITS
 area in TF-M SPM to gain the access to assets stored in ITS. Refer to
-<a class="reference internal" href="#physical-attacks-spm"><span class="std std-ref">Physical attacks against TF-M SPM</span></a> for details.</p>
+<a class="reference internal" href="tfm_physical_attack_mitigation.html#physical-attacks-spm"><span class="std std-ref">Physical attacks against TF-M SPM</span></a> for details.</p>
 </div>
 <div class="section" id="physical-attacks-against-protected-storage">
-<h5>Physical attacks against Protected Storage<a class="headerlink" href="#physical-attacks-against-protected-storage" title="Permalink to this heading"></a></h5>
-<p>Based on the assumption in <a class="reference internal" href="#attacker-capability"><span class="std std-ref">Assumptions on attacker capability</span></a>, a malicious actor can be
+<h5>Physical attacks against Protected Storage<a class="headerlink" href="tfm_physical_attack_mitigation.html#physical-attacks-against-protected-storage" title="Permalink to this heading"></a></h5>
+<p>Based on the assumption in <a class="reference internal" href="tfm_physical_attack_mitigation.html#attacker-capability"><span class="std std-ref">Assumptions on attacker capability</span></a>, a malicious actor can be
 able to directly access external storage device.
 Therefore <a class="reference internal" href="../glossary.html#term-Protected-Storage"><span class="xref std std-term">Protected Storage</span></a> (PS) shall enable encryption and
 authentication by default to detect tampering with the content in external
 storage device.</p>
 <p>A malicious actor can also inject faults into isolation configuration of PS and
 external storage device peripherals in TF-M SPM to gain the access to assets
-stored in PS. Refer to <a class="reference internal" href="#physical-attacks-spm"><span class="std std-ref">Physical attacks against TF-M SPM</span></a> for details.</p>
+stored in PS. Refer to <a class="reference internal" href="tfm_physical_attack_mitigation.html#physical-attacks-spm"><span class="std std-ref">Physical attacks against TF-M SPM</span></a> for details.</p>
 <p>It is out of the scope of TF-M to fully prevent malicious actors from directly
 tampering with or retrieving content stored in external storage devices.</p>
 </div>
 </div>
 <div class="section" id="physical-attacks-against-platform-specific-implementation">
-<h4>Physical attacks against platform specific implementation<a class="headerlink" href="#physical-attacks-against-platform-specific-implementation" title="Permalink to this heading"></a></h4>
+<h4>Physical attacks against platform specific implementation<a class="headerlink" href="tfm_physical_attack_mitigation.html#physical-attacks-against-platform-specific-implementation" title="Permalink to this heading"></a></h4>
 <p>Platform specific implementation includes critical TF-M HAL implementations.
 A malicious actor can perform physical attack against those platform specific
 implementations to bypass the countermeasures in TF-M common code.</p>
 <div class="section" id="platform-early-initialization">
-<h5>Platform early initialization<a class="headerlink" href="#platform-early-initialization" title="Permalink to this heading"></a></h5>
+<h5>Platform early initialization<a class="headerlink" href="tfm_physical_attack_mitigation.html#platform-early-initialization" title="Permalink to this heading"></a></h5>
 <p>TFM provides a HAL API for platforms to perform HW initialization before SPM
 initialization starts.
 The system integrator is responsible to implement this API on a particular SoC
@@ -721,7 +738,7 @@ and harden it against physical attacks:</p>
 integrator can choose to even harden some of these initializations functions
 within this platform init API. One of the examples is the debug access setting.</p>
 <div class="section" id="debug-access-setting">
-<h6>Debug access setting<a class="headerlink" href="#debug-access-setting" title="Permalink to this heading"></a></h6>
+<h6>Debug access setting<a class="headerlink" href="tfm_physical_attack_mitigation.html#debug-access-setting" title="Permalink to this heading"></a></h6>
 <p>TF-M configures debug access according to device lifecycle and accessible debug
 certificates. In general, TF-M locks down the debug port if the device is in
 secure production state.
@@ -730,7 +747,7 @@ physical attacks.</p>
 </div>
 </div>
 <div class="section" id="platform-specific-isolation-configuration">
-<h5>Platform specific isolation configuration<a class="headerlink" href="#platform-specific-isolation-configuration" title="Permalink to this heading"></a></h5>
+<h5>Platform specific isolation configuration<a class="headerlink" href="tfm_physical_attack_mitigation.html#platform-specific-isolation-configuration" title="Permalink to this heading"></a></h5>
 <p>TFM SPM exposes a HAL API for static and dynamic isolation configuration. The
 system integrator is responsible to implement these API on a particular SoC and
 harden it against physical attacks.</p>
@@ -741,7 +758,7 @@ harden it against physical attacks.</p>
 </div>
 </div>
 <div class="section" id="memory-access-check">
-<h5>Memory access check<a class="headerlink" href="#memory-access-check" title="Permalink to this heading"></a></h5>
+<h5>Memory access check<a class="headerlink" href="tfm_physical_attack_mitigation.html#memory-access-check" title="Permalink to this heading"></a></h5>
 <p>TFM SPM exposes a HAL API for platform specific memory access check. The
 system integrator is responsible to implement this API on a particular SoC and
 harden it against physical attacks.</p>
@@ -756,17 +773,17 @@ harden it against physical attacks.</p>
 </div>
 </div>
 <div class="section" id="tf-m-countermeasures-against-physical-attacks">
-<span id="tf-m-against-physical-attacks"></span><h2>TF-M countermeasures against physical attacks<a class="headerlink" href="#tf-m-countermeasures-against-physical-attacks" title="Permalink to this heading"></a></h2>
+<span id="tf-m-against-physical-attacks"></span><h2>TF-M countermeasures against physical attacks<a class="headerlink" href="tfm_physical_attack_mitigation.html#tf-m-countermeasures-against-physical-attacks" title="Permalink to this heading"></a></h2>
 <p>This section propose a design of software countermeasures against physical
 attacks.</p>
 <div class="section" id="fault-injection-hardening-library">
-<h3>Fault injection hardening library<a class="headerlink" href="#fault-injection-hardening-library" title="Permalink to this heading"></a></h3>
+<h3>Fault injection hardening library<a class="headerlink" href="tfm_physical_attack_mitigation.html#fault-injection-hardening-library" title="Permalink to this heading"></a></h3>
 <p>There is no open-source library which implements generic mitigation techniques
-listed in <a class="reference internal" href="#phy-att-countermeasures"><span class="std std-ref">Software countermeasures against physical attacks</span></a>.
+listed in <a class="reference internal" href="tfm_physical_attack_mitigation.html#phy-att-countermeasures"><span class="std std-ref">Software countermeasures against physical attacks</span></a>.
 TF-M project implements a portion of these techniques. TF-M software
 countermeasures are implemented as a small library Fault Injection Hardening
 (FIH) in TF-M code base. A similar library was first introduced and tested in
-the MCUboot project (version 1.7.0) <a class="footnote-reference brackets" href="#id5" id="id3">2</a> which TF-M relies on.</p>
+the MCUboot project (version 1.7.0) <a class="footnote-reference brackets" href="tfm_physical_attack_mitigation.html#id5" id="id3">2</a> which TF-M relies on.</p>
 <p>The FIH library is put under TF-M <code class="docutils literal notranslate"><span class="pre">lib/fih/</span></code>.</p>
 <p>The implementation of the different techniques was assigned to fault injection
 protection profiles. Four profiles (OFF, LOW, MEDIUM, HIGH) were introduced to fit
@@ -833,8 +850,8 @@ time by setting (default is OFF):</p>
 </div></blockquote>
 </div>
 <div class="section" id="how-to-use-fih-library">
-<h3>How to use FIH library<a class="headerlink" href="#how-to-use-fih-library" title="Permalink to this heading"></a></h3>
-<p>As analyzed in <a class="reference internal" href="#phy-att-threat-model"><span class="std std-ref">TF-M Threat Model against physical attacks</span></a>, this section focuses on integrating
+<h3>How to use FIH library<a class="headerlink" href="tfm_physical_attack_mitigation.html#how-to-use-fih-library" title="Permalink to this heading"></a></h3>
+<p>As analyzed in <a class="reference internal" href="tfm_physical_attack_mitigation.html#phy-att-threat-model"><span class="std std-ref">TF-M Threat Model against physical attacks</span></a>, this section focuses on integrating
 FIH library in TF-M SPM to mitigate physical attacks.</p>
 <blockquote>
 <div><ul>
@@ -938,13 +955,13 @@ according to usage scenarios.</p>
 </div></blockquote>
 </div>
 <div class="section" id="impact-on-memory-footprint">
-<h3>Impact on memory footprint<a class="headerlink" href="#impact-on-memory-footprint" title="Permalink to this heading"></a></h3>
+<h3>Impact on memory footprint<a class="headerlink" href="tfm_physical_attack_mitigation.html#impact-on-memory-footprint" title="Permalink to this heading"></a></h3>
 <p>The addition of protection code against physical attacks increases the memory
 footprint. The actual increase depends on the selected profile and where the
 mitigation code is added.</p>
 </div>
 <div class="section" id="attack-experiment-with-spm">
-<h3>Attack experiment with SPM<a class="headerlink" href="#attack-experiment-with-spm" title="Permalink to this heading"></a></h3>
+<h3>Attack experiment with SPM<a class="headerlink" href="tfm_physical_attack_mitigation.html#attack-experiment-with-spm" title="Permalink to this heading"></a></h3>
 <p>The goal is to bypass the setting of memory isolation hardware with simulated
 instruction skips in fast model execution (FVP_MPS2_AEMv8M) in order to execute
 the regular non-secure test code in secure state. This is done by identifying
@@ -984,15 +1001,15 @@ mitigation techniques and some random delays.</p>
 </div>
 </div>
 <div class="section" id="reference">
-<h2>Reference<a class="headerlink" href="#reference" title="Permalink to this heading"></a></h2>
+<h2>Reference<a class="headerlink" href="tfm_physical_attack_mitigation.html#reference" title="Permalink to this heading"></a></h2>
 <dl class="footnote brackets">
-<dt class="label" id="id4"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dt class="label" id="id4"><span class="brackets"><a class="fn-backref" href="tfm_physical_attack_mitigation.html#id1">1</a></span></dt>
 <dd><p><a class="reference external" href="https://www.psacertified.org/app/uploads/2020/11/JSADEN009-PSA_Certified_Level_3_LW_PP-1.0-ALP02.pdf">PSA Certified Level 3 Lightweight Protection Profile</a></p>
 </dd>
-<dt class="label" id="id5"><span class="brackets"><a class="fn-backref" href="#id3">2</a></span></dt>
+<dt class="label" id="id5"><span class="brackets"><a class="fn-backref" href="tfm_physical_attack_mitigation.html#id3">2</a></span></dt>
 <dd><p><a class="reference external" href="https://github.com/mcu-tools/mcuboot/blob/master/boot/bootutil/include/bootutil/fault_injection_hardening.h">MCUboot project</a></p>
 </dd>
-<dt class="label" id="id6"><span class="brackets"><a class="fn-backref" href="#id2">3</a></span></dt>
+<dt class="label" id="id6"><span class="brackets"><a class="fn-backref" href="tfm_physical_attack_mitigation.html#id2">3</a></span></dt>
 <dd><p><a class="reference external" href="https://www.trustedfirmware.org/docs/TF-M_fault_injection_mitigation.pdf">MCUboot fault injection mitigation</a></p>
 </dd>
 </dl>

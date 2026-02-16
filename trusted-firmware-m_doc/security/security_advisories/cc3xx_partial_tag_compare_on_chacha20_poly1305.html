@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Advisory TFMV-6 &mdash; Trusted Firmware-M v2.1.0-stm32mp-r1 documentation</title>
+  <title>Advisory TFMV-6 &mdash; Trusted Firmware-M v2.1.3-stm32mp-r2 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/tfm_custom.css" type="text/css" />
@@ -38,7 +38,7 @@
               <img src="../../_static/tf_logo_white.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                v2.1.0-stm32mp-r1
+                v2.1.3-stm32mp-r2
 
               </div>
 <div role="search">
@@ -65,13 +65,18 @@
 <li class="toctree-l3"><a class="reference internal" href="crypto_multi_part_ops_abort_fail.html">Advisory TFMV-3</a></li>
 <li class="toctree-l3"><a class="reference internal" href="profile_small_key_id_encoding_vulnerability.html">Advisory TFMV-4</a></li>
 <li class="toctree-l3"><a class="reference internal" href="fwu_write_vulnerability.html">Advisory TFMV-5</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">Advisory TFMV-6</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="cc3xx_partial_tag_compare_on_chacha20_poly1305.html#">Advisory TFMV-6</a></li>
 <li class="toctree-l3"><a class="reference internal" href="debug_log_vulnerability.html">Advisory TFMV-7</a></li>
+<li class="toctree-l3"><a class="reference internal" href="user_pointers_mailbox_vectors_vulnerability.html">Advisory TFMV-8</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fwu_tlv_payload_out_of_bounds_vulnerability.html">Advisory TFMV-9</a></li>
 </ul>
 </li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../releases/index.html">Releases</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/2.1.3.html">v2.1.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/2.1.2.html">v2.1.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/2.1.1.html">v2.1.1</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../releases/2.1.0.html">v2.1.0</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../releases/2.0.0.html">v2.0.0</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../releases/1.8.1.html">v1.8.1</a></li>
@@ -85,6 +90,10 @@
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../platform/index.html">Platforms</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/adi/index.html">Analog Devices, Inc.</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/adi/max32657/README.html">MAX32657</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../../platform/arm/index.html">Arm</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/arm/corstone1000/readme.html">Corstone-1000</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/arm/mps3/corstone300/README.html">Corstone-300 FPGA (AN547 and AN552) and FVP</a></li>
@@ -122,6 +131,10 @@
 <li class="toctree-l3"><a class="reference internal" href="../../platform/nxp/lpcxpresso55s69/README.html">LPCXpresso55S69</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/rpi/index.html">Raspberry Pi</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/rpi/rp2350/readme.html">RP2350</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../../platform/stm/index.html">STMICROELECTRONICS</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32h5xx/readme.html">STM32H5</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32l5xx/readme.html">STM32L5</a></li>
@@ -131,6 +144,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32h573i_dk/readme.html">STM32H573I_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32l562e_dk/readme.html">STM32L562E_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp215f_dk/readme.html">stm32mp215f_dk</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp235f_dk/readme.html">stm32mp235f_dk</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/b_u585i_iot02a/readme.html">B_U585I_IOT02A</a></li>
 </ul>
@@ -263,6 +277,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32h573i_dk/readme.html">STM32H573I_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32l562e_dk/readme.html">STM32L562E_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp215f_dk/readme.html">stm32mp215f_dk</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp235f_dk/readme.html">stm32mp235f_dk</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/nucleo_l552ze_q/readme.html">NUCLEO_L552ZE_Q</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/b_u585i_iot02a/readme.html">B_U585I_IOT02A</a></li>
@@ -277,6 +292,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32h573i_dk/readme.html">STM32H573I_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32l562e_dk/readme.html">STM32L562E_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp215f_dk/readme.html">stm32mp215f_dk</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp235f_dk/readme.html">stm32mp235f_dk</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
 </ul>
 </li>
@@ -307,6 +323,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../stm/technical/initlevel.html">Initlevel</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../stm/technical/initial_attestation.html">Initial Attestation Service</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/technical/key_and_provisionning.html">About TF-M Authentication Keys and Secret Provisioning</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../stm/technical/nv_counter.html">Nv counter</a></li>
 </ul>
 </li>
@@ -342,7 +359,7 @@
            <div itemprop="articleBody">
              
   <div class="section" id="advisory-tfmv-6">
-<h1>Advisory TFMV-6<a class="headerlink" href="#advisory-tfmv-6" title="Permalink to this heading"></a></h1>
+<h1>Advisory TFMV-6<a class="headerlink" href="cc3xx_partial_tag_compare_on_chacha20_poly1305.html#advisory-tfmv-6" title="Permalink to this heading"></a></h1>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 22%" />
@@ -388,9 +405,9 @@ authentication tag instead of the full length of 16 bytes</p></td>
 </tbody>
 </table>
 <div class="section" id="background">
-<h2>Background<a class="headerlink" href="#background" title="Permalink to this heading"></a></h2>
+<h2>Background<a class="headerlink" href="cc3xx_partial_tag_compare_on_chacha20_poly1305.html#background" title="Permalink to this heading"></a></h2>
 <div class="section" id="aead-algorithms">
-<h3>AEAD algorithms<a class="headerlink" href="#aead-algorithms" title="Permalink to this heading"></a></h3>
+<h3>AEAD algorithms<a class="headerlink" href="cc3xx_partial_tag_compare_on_chacha20_poly1305.html#aead-algorithms" title="Permalink to this heading"></a></h3>
 <p>Authenticated Encryption with Associated Data (AEAD) is a common ciphering
 method where the data to be encrypted is also authenticated as part of the
 process by creating an authentication tag. When the encrypted data is then
@@ -400,13 +417,13 @@ allows for Authenticity in addition to the confidentiality granted by the
 encryption process. Using PSA Crypto APIs, it’s possible to use several of
 such algorithms, such as AES in Galois-Counter Mode (GCM), AES in Counter with
 CBC-Mac Mode (CCM) or Chacha20-Poly1305, which is a combination of the Chacha20
-cipher with the Poly1305 authenticator <a class="footnote-reference brackets" href="#id4" id="id1">1</a>.</p>
+cipher with the Poly1305 authenticator <a class="footnote-reference brackets" href="cc3xx_partial_tag_compare_on_chacha20_poly1305.html#id4" id="id1">1</a>.</p>
 <p>In particular for Chacha20-Poly1305 the corresponding macro defining the
 algorithm in PSA Cryptographic API specification is PSA_ALG_CHACHA20_POLY1305.</p>
 </div>
 <div class="section" id="single-part-vs-multipart-api-functions">
-<h3>Single part vs multipart API functions<a class="headerlink" href="#single-part-vs-multipart-api-functions" title="Permalink to this heading"></a></h3>
-<p>PSA Crypto API specification <a class="footnote-reference brackets" href="#id5" id="id2">2</a> allows the usage of AEAD algorithms through
+<h3>Single part vs multipart API functions<a class="headerlink" href="cc3xx_partial_tag_compare_on_chacha20_poly1305.html#single-part-vs-multipart-api-functions" title="Permalink to this heading"></a></h3>
+<p>PSA Crypto API specification <a class="footnote-reference brackets" href="cc3xx_partial_tag_compare_on_chacha20_poly1305.html#id5" id="id2">2</a> allows the usage of AEAD algorithms through
 several possible APIs, that can be grouped generally in the single part, or
 integrated, operation type, and in the multipart operation type. The main
 difference is that for single part operations, the whole encryption and tag
@@ -422,8 +439,8 @@ single part APIs by calling the underlying multipart functions, effectively
 encapsulating the multipart flow in the single part APIs.</p>
 </div>
 <div class="section" id="psa-unified-driver-api-for-cryptoprocessors">
-<h3>PSA Unified Driver API for Cryptoprocessors<a class="headerlink" href="#psa-unified-driver-api-for-cryptoprocessors" title="Permalink to this heading"></a></h3>
-<p>The PSA Unified Driver API for Cryptoprocessors spec <a class="footnote-reference brackets" href="#id6" id="id3">3</a> allows a PSA compliant
+<h3>PSA Unified Driver API for Cryptoprocessors<a class="headerlink" href="cc3xx_partial_tag_compare_on_chacha20_poly1305.html#psa-unified-driver-api-for-cryptoprocessors" title="Permalink to this heading"></a></h3>
+<p>The PSA Unified Driver API for Cryptoprocessors spec <a class="footnote-reference brackets" href="cc3xx_partial_tag_compare_on_chacha20_poly1305.html#id6" id="id3">3</a> allows a PSA compliant
 implementation to redirect some of the operations to the underlying hardware
 accelerated platform. For example, CryptoCell is a cryptographic accelerator
 available in some of the TF-M supported platforms that can accelerate crypto
@@ -445,7 +462,7 @@ to OFF: <code class="docutils literal notranslate"><span class="pre">CC312_LEGAC
 </div>
 </div>
 <div class="section" id="impact">
-<h2>Impact<a class="headerlink" href="#impact" title="Permalink to this heading"></a></h2>
+<h2>Impact<a class="headerlink" href="cc3xx_partial_tag_compare_on_chacha20_poly1305.html#impact" title="Permalink to this heading"></a></h2>
 <p>When the PSA Driver API interface is used and is not configured to rely on the
 corresponding multipart functions, when performing the verification of the
 authentication tag at the end of the authenticated decryption process, the
@@ -454,7 +471,7 @@ instead of the full 16 bytes). This allows for the possibility of unauthenticate
 data to be recognized as authentic. An attacker could theoretically construct
 a malicious payload to actively exploit such partial verification.</p>
 <div class="section" id="impacted-psa-crypto-api-functions">
-<h3>Impacted PSA Crypto API functions<a class="headerlink" href="#impacted-psa-crypto-api-functions" title="Permalink to this heading"></a></h3>
+<h3>Impacted PSA Crypto API functions<a class="headerlink" href="cc3xx_partial_tag_compare_on_chacha20_poly1305.html#impacted-psa-crypto-api-functions" title="Permalink to this heading"></a></h3>
 <p>The following PSA single part crypto operation function is impacted:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">psa_aead_decrypt</span></code></p></li>
@@ -462,7 +479,7 @@ a malicious payload to actively exploit such partial verification.</p>
 </div>
 </div>
 <div class="section" id="mitigation">
-<h2>Mitigation<a class="headerlink" href="#mitigation" title="Permalink to this heading"></a></h2>
+<h2>Mitigation<a class="headerlink" href="cc3xx_partial_tag_compare_on_chacha20_poly1305.html#mitigation" title="Permalink to this heading"></a></h2>
 <p>The verification of the authentication tag must happen on the full 16 bytes of
 instead of just the first 4 bytes. This means that loop that currently performs
 such verification in the <code class="docutils literal notranslate"><span class="pre">cc3xx_decrypt_chacha20_poly1305()</span></code> function must be
@@ -480,15 +497,15 @@ changed from this:</p>
 </div>
 </div>
 <div class="section" id="references">
-<h2>References<a class="headerlink" href="#references" title="Permalink to this heading"></a></h2>
+<h2>References<a class="headerlink" href="cc3xx_partial_tag_compare_on_chacha20_poly1305.html#references" title="Permalink to this heading"></a></h2>
 <dl class="footnote brackets">
-<dt class="label" id="id4"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dt class="label" id="id4"><span class="brackets"><a class="fn-backref" href="cc3xx_partial_tag_compare_on_chacha20_poly1305.html#id1">1</a></span></dt>
 <dd><p>Chacha20 and Poly1305 for IETF Protocols: <a class="reference external" href="https://datatracker.ietf.org/doc/html/rfc7539">https://datatracker.ietf.org/doc/html/rfc7539</a></p>
 </dd>
-<dt class="label" id="id5"><span class="brackets"><a class="fn-backref" href="#id2">2</a></span></dt>
+<dt class="label" id="id5"><span class="brackets"><a class="fn-backref" href="cc3xx_partial_tag_compare_on_chacha20_poly1305.html#id2">2</a></span></dt>
 <dd><p>PSA Cryptographic API v1.1: <a class="reference external" href="https://armmbed.github.io/mbed-crypto/html/">https://armmbed.github.io/mbed-crypto/html/</a></p>
 </dd>
-<dt class="label" id="id6"><span class="brackets"><a class="fn-backref" href="#id3">3</a></span></dt>
+<dt class="label" id="id6"><span class="brackets"><a class="fn-backref" href="cc3xx_partial_tag_compare_on_chacha20_poly1305.html#id3">3</a></span></dt>
 <dd><p>PSA Unified Driver interface: <a class="reference external" href="https://github.com/Mbed-TLS/mbedtls/blob/development/docs/proposed/psa-driver-interface.md">https://github.com/Mbed-TLS/mbedtls/blob/development/docs/proposed/psa-driver-interface.md</a></p>
 </dd>
 </dl>

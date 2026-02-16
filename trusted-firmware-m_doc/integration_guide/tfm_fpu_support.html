@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Floating-Point Support &mdash; Trusted Firmware-M v2.1.0-stm32mp-r1 documentation</title>
+  <title>Floating-Point Support &mdash; Trusted Firmware-M v2.1.3-stm32mp-r2 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/tfm_custom.css" type="text/css" />
@@ -38,7 +38,7 @@
               <img src="../_static/tf_logo_white.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                v2.1.0-stm32mp-r1
+                v2.1.3-stm32mp-r2
 
               </div>
 <div role="search">
@@ -67,11 +67,16 @@
 <li class="toctree-l3"><a class="reference internal" href="../security/security_advisories/fwu_write_vulnerability.html">Advisory TFMV-5</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../security/security_advisories/cc3xx_partial_tag_compare_on_chacha20_poly1305.html">Advisory TFMV-6</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../security/security_advisories/debug_log_vulnerability.html">Advisory TFMV-7</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../security/security_advisories/user_pointers_mailbox_vectors_vulnerability.html">Advisory TFMV-8</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../security/security_advisories/fwu_tlv_payload_out_of_bounds_vulnerability.html">Advisory TFMV-9</a></li>
 </ul>
 </li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../releases/index.html">Releases</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../releases/2.1.3.html">v2.1.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../releases/2.1.2.html">v2.1.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../releases/2.1.1.html">v2.1.1</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../releases/2.1.0.html">v2.1.0</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../releases/2.0.0.html">v2.0.0</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../releases/1.8.1.html">v1.8.1</a></li>
@@ -85,6 +90,10 @@
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../platform/index.html">Platforms</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../platform/adi/index.html">Analog Devices, Inc.</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../platform/adi/max32657/README.html">MAX32657</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../platform/arm/index.html">Arm</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../platform/arm/corstone1000/readme.html">Corstone-1000</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/arm/mps3/corstone300/README.html">Corstone-300 FPGA (AN547 and AN552) and FVP</a></li>
@@ -122,6 +131,10 @@
 <li class="toctree-l3"><a class="reference internal" href="../platform/nxp/lpcxpresso55s69/README.html">LPCXpresso55S69</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../platform/rpi/index.html">Raspberry Pi</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../platform/rpi/rp2350/readme.html">RP2350</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../platform/stm/index.html">STMICROELECTRONICS</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/common/stm32h5xx/readme.html">STM32H5</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/common/stm32l5xx/readme.html">STM32L5</a></li>
@@ -131,6 +144,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32h573i_dk/readme.html">STM32H573I_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32l562e_dk/readme.html">STM32L562E_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32mp215f_dk/readme.html">stm32mp215f_dk</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32mp235f_dk/readme.html">stm32mp235f_dk</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/b_u585i_iot02a/readme.html">B_U585I_IOT02A</a></li>
 </ul>
@@ -167,7 +181,7 @@
 <li class="toctree-l2"><a class="reference internal" href="spm_backends.html">SPM Backends</a></li>
 <li class="toctree-l2"><a class="reference internal" href="non-secure_client_extension_integration_guide.html">NS client integration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="os_migration_guide_armv8m.html">OS migration to Armv8-M</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Floating-Point Support</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="tfm_fpu_support.html#">Floating-Point Support</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tfm_secure_irq_integration_guide.html">Secure Interrupt</a></li>
 <li class="toctree-l2"><a class="reference internal" href="platform_provisioning.html">Platform Provisioning</a></li>
 <li class="toctree-l2"><a class="reference internal" href="platform/index.html">Adding a new platform</a><ul>
@@ -263,6 +277,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32h573i_dk/readme.html">STM32H573I_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32l562e_dk/readme.html">STM32L562E_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32mp215f_dk/readme.html">stm32mp215f_dk</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32mp235f_dk/readme.html">stm32mp235f_dk</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/nucleo_l552ze_q/readme.html">NUCLEO_L552ZE_Q</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/b_u585i_iot02a/readme.html">B_U585I_IOT02A</a></li>
@@ -277,6 +292,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32h573i_dk/readme.html">STM32H573I_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32l562e_dk/readme.html">STM32L562E_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32mp215f_dk/readme.html">stm32mp215f_dk</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32mp235f_dk/readme.html">stm32mp235f_dk</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
 </ul>
 </li>
@@ -307,6 +323,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../stm/technical/initlevel.html">Initlevel</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../stm/technical/initial_attestation.html">Initial Attestation Service</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../stm/technical/key_and_provisionning.html">About TF-M Authentication Keys and Secret Provisioning</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../stm/technical/nv_counter.html">Nv counter</a></li>
 </ul>
 </li>
@@ -341,26 +358,26 @@
            <div itemprop="articleBody">
              
   <div class="section" id="floating-point-support">
-<h1>Floating-Point Support<a class="headerlink" href="#floating-point-support" title="Permalink to this heading"></a></h1>
-<p>TF-M adds several configuration flags to control Floating point (FP) <a class="footnote-reference brackets" href="#id13" id="id1">1</a>
+<h1>Floating-Point Support<a class="headerlink" href="tfm_fpu_support.html#floating-point-support" title="Permalink to this heading"></a></h1>
+<p>TF-M adds several configuration flags to control Floating point (FP) <a class="footnote-reference brackets" href="tfm_fpu_support.html#id13" id="id1">1</a>
 support in TF-M Secure Processing Environment (SPE) and Non Secure Processing
 Environment (NSPE).</p>
 <ul class="simple">
 <li><p>Support FP in SPE or NSPE.</p></li>
-<li><p>Support FP Application Binary Interface (ABI) <a class="footnote-reference brackets" href="#id14" id="id2">2</a> types: software, hardware.
+<li><p>Support FP Application Binary Interface (ABI) <a class="footnote-reference brackets" href="tfm_fpu_support.html#id14" id="id2">2</a> types: software, hardware.
 SPE and NSPE shall use the same FP ABI type.</p></li>
 <li><p>Support lazy stacking enable/disable in SPE only, NSPE is not allowed to
 enable/disable this feature.</p></li>
-<li><p>Support GNU Arm Embedded Toolchain <a class="footnote-reference brackets" href="#id15" id="id3">3</a>. <code class="docutils literal notranslate"><span class="pre">GNU</span> <span class="pre">Arm</span> <span class="pre">Embedded</span> <span class="pre">Toolchain</span> <span class="pre">10.3-</span>
+<li><p>Support GNU Arm Embedded Toolchain <a class="footnote-reference brackets" href="tfm_fpu_support.html#id15" id="id3">3</a>. <code class="docutils literal notranslate"><span class="pre">GNU</span> <span class="pre">Arm</span> <span class="pre">Embedded</span> <span class="pre">Toolchain</span> <span class="pre">10.3-</span>
 <span class="pre">2021.10</span></code> and later version shall be used to mitigate VLLDM instruction
-security vulnerability <a class="footnote-reference brackets" href="#id16" id="id4">4</a>.</p></li>
-<li><p>Support both IPC <a class="footnote-reference brackets" href="#id17" id="id5">5</a> and SFN <a class="footnote-reference brackets" href="#id23" id="id6">11</a> models in TF-M.</p></li>
+security vulnerability <a class="footnote-reference brackets" href="tfm_fpu_support.html#id16" id="id4">4</a>.</p></li>
+<li><p>Support both IPC <a class="footnote-reference brackets" href="tfm_fpu_support.html#id17" id="id5">5</a> and SFN <a class="footnote-reference brackets" href="tfm_fpu_support.html#id23" id="id6">11</a> models in TF-M.</p></li>
 <li><p>Support Armv8-M mainline.</p></li>
 <li><p>Support isolation level 1,2,3.</p></li>
-<li><p>Support Arm Compiler for Embedded <a class="footnote-reference brackets" href="#id22" id="id7">10</a>. <code class="docutils literal notranslate"><span class="pre">Arm</span> <span class="pre">Compiler</span> <span class="pre">for</span> <span class="pre">Embedded</span> <span class="pre">6.17</span></code>
+<li><p>Support Arm Compiler for Embedded <a class="footnote-reference brackets" href="tfm_fpu_support.html#id22" id="id7">10</a>. <code class="docutils literal notranslate"><span class="pre">Arm</span> <span class="pre">Compiler</span> <span class="pre">for</span> <span class="pre">Embedded</span> <span class="pre">6.17</span></code>
 and later version shall be used to mitigate VLLDM instruction security
-vulnerability <a class="footnote-reference brackets" href="#id16" id="id8">4</a>.</p></li>
-<li><p>Does not support use FPU in First-Level Interrupt Handling (FLIH) <a class="footnote-reference brackets" href="#id18" id="id9">6</a> at
+vulnerability <a class="footnote-reference brackets" href="tfm_fpu_support.html#id16" id="id8">4</a>.</p></li>
+<li><p>Does not support use FPU in First-Level Interrupt Handling (FLIH) <a class="footnote-reference brackets" href="tfm_fpu_support.html#id18" id="id9">6</a> at
 current stage.</p></li>
 </ul>
 <p>Please refer to Arm AN521 or AN552 platform as a reference implementation when
@@ -374,19 +391,19 @@ configurations described below.</p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>FPU test issue has not been fixed yet on Musca-S1 <a class="footnote-reference brackets" href="#id19" id="id10">7</a>. When running FPU
+<p>FPU test issue has not been fixed yet on Musca-S1 <a class="footnote-reference brackets" href="tfm_fpu_support.html#id19" id="id10">7</a>. When running FPU
 tests on Musca-S1, secure thread fails to trigger secure interrupt. FPU test
 is disabled by default on Musca-S1 until the issue is fixed.</p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p><code class="docutils literal notranslate"><span class="pre">GNU</span> <span class="pre">Arm</span> <span class="pre">Embedded</span> <span class="pre">Toolchain</span> <span class="pre">10.3-2021.10</span></code> may have issue that reports
-<code class="docutils literal notranslate"><span class="pre">'-mcpu=cortex-m55'</span> <span class="pre">conflicts</span> <span class="pre">with</span> <span class="pre">'-march=armv8.1-m.main'</span></code> warning <a class="footnote-reference brackets" href="#id20" id="id11">8</a>.
+<code class="docutils literal notranslate"><span class="pre">'-mcpu=cortex-m55'</span> <span class="pre">conflicts</span> <span class="pre">with</span> <span class="pre">'-march=armv8.1-m.main'</span></code> warning <a class="footnote-reference brackets" href="tfm_fpu_support.html#id20" id="id11">8</a>.
 This issue has been fixed in the later version.</p>
 </div>
 <div class="section" id="fp-abi-type-for-spe-and-nspe">
-<h2>FP ABI type for SPE and NSPE<a class="headerlink" href="#fp-abi-type-for-spe-and-nspe" title="Permalink to this heading"></a></h2>
-<p>FP design in Armv8.0-M <a class="footnote-reference brackets" href="#id21" id="id12">9</a> architecture requires consistent FP ABI types
+<h2>FP ABI type for SPE and NSPE<a class="headerlink" href="tfm_fpu_support.html#fp-abi-type-for-spe-and-nspe" title="Permalink to this heading"></a></h2>
+<p>FP design in Armv8.0-M <a class="footnote-reference brackets" href="tfm_fpu_support.html#id21" id="id12">9</a> architecture requires consistent FP ABI types
 between SPE and NSPE. Furthermore, both sides shall set up CPACR individually
 when FPU is used. Otherwise, No Coprocessor (NOCP) usage fault will be asserted
 during FP context switch between security states.</p>
@@ -404,7 +421,7 @@ Example:</p>
 </div>
 </div>
 <div class="section" id="cmake-configurations-for-fp-support">
-<h2>CMake configurations for FP support<a class="headerlink" href="#cmake-configurations-for-fp-support" title="Permalink to this heading"></a></h2>
+<h2>CMake configurations for FP support<a class="headerlink" href="tfm_fpu_support.html#cmake-configurations-for-fp-support" title="Permalink to this heading"></a></h2>
 <p>The following CMake configurations configure <code class="docutils literal notranslate"><span class="pre">COMPILER_CP_FLAG</span></code> in TF-M SPE.</p>
 <ul>
 <li><p><code class="docutils literal notranslate"><span class="pre">CONFIG_TFM_ENABLE_FP</span></code> is used to enable/disable FPU usage.</p>
@@ -488,39 +505,39 @@ set correct FPU configuration for platform.</p>
 </li>
 </ul>
 <div class="section" id="reference">
-<h3>Reference<a class="headerlink" href="#reference" title="Permalink to this heading"></a></h3>
+<h3>Reference<a class="headerlink" href="tfm_fpu_support.html#reference" title="Permalink to this heading"></a></h3>
 <dl class="footnote brackets">
-<dt class="label" id="id13"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dt class="label" id="id13"><span class="brackets"><a class="fn-backref" href="tfm_fpu_support.html#id1">1</a></span></dt>
 <dd><p><a class="reference external" href="https://www.arm.com/why-arm/technologies/floating-point">High-Performance Hardware Support for Floating-Point Operations</a></p>
 </dd>
-<dt class="label" id="id14"><span class="brackets"><a class="fn-backref" href="#id2">2</a></span></dt>
+<dt class="label" id="id14"><span class="brackets"><a class="fn-backref" href="tfm_fpu_support.html#id2">2</a></span></dt>
 <dd><p><a class="reference external" href="https://www.keil.com/support/man/docs/armclang_ref/armclang_ref_chr1417451577871.htm">Float Point ABI</a></p>
 </dd>
-<dt class="label" id="id15"><span class="brackets"><a class="fn-backref" href="#id3">3</a></span></dt>
+<dt class="label" id="id15"><span class="brackets"><a class="fn-backref" href="tfm_fpu_support.html#id3">3</a></span></dt>
 <dd><p><a class="reference external" href="https://developer.arm.com/tools-and-software/open-source-software/developer-tools/gnu-toolchain/gnu-rm">GNU Arm Embedded Toolchain</a></p>
 </dd>
-<dt class="label" id="id16"><span class="brackets">4</span><span class="fn-backref">(<a href="#id4">1</a>,<a href="#id8">2</a>)</span></dt>
+<dt class="label" id="id16"><span class="brackets">4</span><span class="fn-backref">(<a href="tfm_fpu_support.html#id4">1</a>,<a href="tfm_fpu_support.html#id8">2</a>)</span></dt>
 <dd><p><a class="reference external" href="https://developer.arm.com/support/arm-security-updates/vlldm-instruction-security-vulnerability">VLLDM instruction Security Vulnerability</a></p>
 </dd>
-<dt class="label" id="id17"><span class="brackets"><a class="fn-backref" href="#id5">5</a></span></dt>
+<dt class="label" id="id17"><span class="brackets"><a class="fn-backref" href="tfm_fpu_support.html#id5">5</a></span></dt>
 <dd><p><a class="reference external" href="https://developer.arm.com/documentation/den0063/latest/">Arm® Platform Security Architecture Firmware Framework 1.0</a></p>
 </dd>
-<dt class="label" id="id18"><span class="brackets"><a class="fn-backref" href="#id9">6</a></span></dt>
+<dt class="label" id="id18"><span class="brackets"><a class="fn-backref" href="tfm_fpu_support.html#id9">6</a></span></dt>
 <dd><p><a class="reference internal" href="tfm_secure_irq_integration_guide.html"><span class="doc">Secure Interrupt Integration Guide</span></a></p>
 </dd>
-<dt class="label" id="id19"><span class="brackets"><a class="fn-backref" href="#id10">7</a></span></dt>
+<dt class="label" id="id19"><span class="brackets"><a class="fn-backref" href="tfm_fpu_support.html#id10">7</a></span></dt>
 <dd><p><a class="reference external" href="https://developer.arm.com/tools-and-software/development-boards/iot-test-chips-and-boards/musca-s1-test-chip-board">Musca-S1 Test Chip Board</a></p>
 </dd>
-<dt class="label" id="id20"><span class="brackets"><a class="fn-backref" href="#id11">8</a></span></dt>
+<dt class="label" id="id20"><span class="brackets"><a class="fn-backref" href="tfm_fpu_support.html#id11">8</a></span></dt>
 <dd><p><a class="reference external" href="https://gcc.gnu.org/bugzilla/show_bug.cgi?id=97327">GCC Issue on ‘-mcpu=cortex-m55’ conflicts with ‘-march=armv8.1-m.main’ Warning</a></p>
 </dd>
-<dt class="label" id="id21"><span class="brackets"><a class="fn-backref" href="#id12">9</a></span></dt>
+<dt class="label" id="id21"><span class="brackets"><a class="fn-backref" href="tfm_fpu_support.html#id12">9</a></span></dt>
 <dd><p><a class="reference external" href="https://developer.arm.com/documentation/ddi0553/latest">Armv8-M Architecture Reference Manual</a></p>
 </dd>
-<dt class="label" id="id22"><span class="brackets"><a class="fn-backref" href="#id7">10</a></span></dt>
+<dt class="label" id="id22"><span class="brackets"><a class="fn-backref" href="tfm_fpu_support.html#id7">10</a></span></dt>
 <dd><p><a class="reference external" href="https://developer.arm.com/Tools%20and%20Software/Arm%20Compiler%20for%20Embedded">Arm Compiler for Embedded</a></p>
 </dd>
-<dt class="label" id="id23"><span class="brackets"><a class="fn-backref" href="#id6">11</a></span></dt>
+<dt class="label" id="id23"><span class="brackets"><a class="fn-backref" href="tfm_fpu_support.html#id6">11</a></span></dt>
 <dd><p><a class="reference external" href="https://developer.arm.com/documentation/aes0039/latest/">FF-M v1.1 Extension</a></p>
 </dd>
 </dl>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Fixing implicit casting for C enumeration values &mdash; Trusted Firmware-M v2.1.0-stm32mp-r1 documentation</title>
+  <title>Fixing implicit casting for C enumeration values &mdash; Trusted Firmware-M v2.1.3-stm32mp-r2 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/tfm_custom.css" type="text/css" />
@@ -38,7 +38,7 @@
               <img src="../../_static/tf_logo_white.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                v2.1.0-stm32mp-r1
+                v2.1.3-stm32mp-r2
 
               </div>
 <div role="search">
@@ -67,11 +67,16 @@
 <li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/fwu_write_vulnerability.html">Advisory TFMV-5</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/cc3xx_partial_tag_compare_on_chacha20_poly1305.html">Advisory TFMV-6</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/debug_log_vulnerability.html">Advisory TFMV-7</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/user_pointers_mailbox_vectors_vulnerability.html">Advisory TFMV-8</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/fwu_tlv_payload_out_of_bounds_vulnerability.html">Advisory TFMV-9</a></li>
 </ul>
 </li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../releases/index.html">Releases</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/2.1.3.html">v2.1.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/2.1.2.html">v2.1.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/2.1.1.html">v2.1.1</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../releases/2.1.0.html">v2.1.0</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../releases/2.0.0.html">v2.0.0</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../releases/1.8.1.html">v1.8.1</a></li>
@@ -85,6 +90,10 @@
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../platform/index.html">Platforms</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/adi/index.html">Analog Devices, Inc.</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/adi/max32657/README.html">MAX32657</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../../platform/arm/index.html">Arm</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/arm/corstone1000/readme.html">Corstone-1000</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/arm/mps3/corstone300/README.html">Corstone-300 FPGA (AN547 and AN552) and FVP</a></li>
@@ -122,6 +131,10 @@
 <li class="toctree-l3"><a class="reference internal" href="../../platform/nxp/lpcxpresso55s69/README.html">LPCXpresso55S69</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/rpi/index.html">Raspberry Pi</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/rpi/rp2350/readme.html">RP2350</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../../platform/stm/index.html">STMICROELECTRONICS</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32h5xx/readme.html">STM32H5</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32l5xx/readme.html">STM32L5</a></li>
@@ -131,6 +144,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32h573i_dk/readme.html">STM32H573I_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32l562e_dk/readme.html">STM32L562E_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp215f_dk/readme.html">stm32mp215f_dk</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp235f_dk/readme.html">stm32mp235f_dk</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/b_u585i_iot02a/readme.html">B_U585I_IOT02A</a></li>
 </ul>
@@ -222,7 +236,7 @@
 <li class="toctree-l3"><a class="reference internal" href="hardware_abstraction_layer.html">Hardware Abstraction Layer</a></li>
 <li class="toctree-l3"><a class="reference internal" href="tfm_cooperative_scheduling_rules.html">Cooperative Scheduling</a></li>
 <li class="toctree-l3"><a class="reference internal" href="tfm_code_generation_with_jinja2.html">Code Templates</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">Implicit Typecasting</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="enum_implicit_casting.html#">Implicit Typecasting</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../ff_isolation.html">Isolation Rules</a></li>
@@ -263,6 +277,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32h573i_dk/readme.html">STM32H573I_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32l562e_dk/readme.html">STM32L562E_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp215f_dk/readme.html">stm32mp215f_dk</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp235f_dk/readme.html">stm32mp235f_dk</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/nucleo_l552ze_q/readme.html">NUCLEO_L552ZE_Q</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/b_u585i_iot02a/readme.html">B_U585I_IOT02A</a></li>
@@ -277,6 +292,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32h573i_dk/readme.html">STM32H573I_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32l562e_dk/readme.html">STM32L562E_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp215f_dk/readme.html">stm32mp215f_dk</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp235f_dk/readme.html">stm32mp235f_dk</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
 </ul>
 </li>
@@ -307,6 +323,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../stm/technical/initlevel.html">Initlevel</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../stm/technical/initial_attestation.html">Initial Attestation Service</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/technical/key_and_provisionning.html">About TF-M Authentication Keys and Secret Provisioning</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../stm/technical/nv_counter.html">Nv counter</a></li>
 </ul>
 </li>
@@ -342,7 +359,7 @@
            <div itemprop="articleBody">
              
   <div class="section" id="fixing-implicit-casting-for-c-enumeration-values">
-<h1>Fixing implicit casting for C enumeration values<a class="headerlink" href="#fixing-implicit-casting-for-c-enumeration-values" title="Permalink to this heading"></a></h1>
+<h1>Fixing implicit casting for C enumeration values<a class="headerlink" href="enum_implicit_casting.html#fixing-implicit-casting-for-c-enumeration-values" title="Permalink to this heading"></a></h1>
 <dl class="field-list simple">
 <dt class="field-odd">Author</dt>
 <dd class="field-odd"><p>Hugues de Valon</p>
@@ -355,7 +372,7 @@
 </dd>
 </dl>
 <div class="section" id="abstract">
-<h2>Abstract<a class="headerlink" href="#abstract" title="Permalink to this heading"></a></h2>
+<h2>Abstract<a class="headerlink" href="enum_implicit_casting.html#abstract" title="Permalink to this heading"></a></h2>
 <p>C enumerations provide a nice way to increase readability by creating new
 enumerated types but the developer should take extra care when mixing
 enumeration and integer values.
@@ -363,11 +380,11 @@ This document investigates C enumerations safety and proposes strategies on how
 to fix the implicit casting of the enumeration values of TF-M with other types.</p>
 </div>
 <div class="section" id="c99-standard-point-of-view">
-<h2>C99 Standard point of view<a class="headerlink" href="#c99-standard-point-of-view" title="Permalink to this heading"></a></h2>
+<h2>C99 Standard point of view<a class="headerlink" href="enum_implicit_casting.html#c99-standard-point-of-view" title="Permalink to this heading"></a></h2>
 <p>In TF-M many implicit casts are done between integer types (<code class="docutils literal notranslate"><span class="pre">uint32_t</span></code>,
 <code class="docutils literal notranslate"><span class="pre">int32_t</span></code>, <code class="docutils literal notranslate"><span class="pre">size_t</span></code>, etc), enumerated types (<code class="docutils literal notranslate"><span class="pre">enum</span> <span class="pre">foobar</span></code>) and
 enumeration constants (<code class="docutils literal notranslate"><span class="pre">FOOBAR_ENUM_1</span></code>).</p>
-<p>According to the C99 standard <a class="footnote-reference brackets" href="#id3" id="id1">1</a>:</p>
+<p>According to the C99 standard <a class="footnote-reference brackets" href="enum_implicit_casting.html#id3" id="id1">1</a>:</p>
 <blockquote>
 <div><p><strong>§6.2.5, 16</strong>:
 An enumeration comprises a set of named integer constant values. Each
@@ -384,7 +401,7 @@ or an unsigned integer type. The choice of type is implementation-defined,
 but shall be capable of representing the values of all the members of the
 enumeration.</p>
 </div></blockquote>
-<p>From these four quotes from the C99 standard <a class="footnote-reference brackets" href="#id3" id="id2">1</a>, the following conclusions can
+<p>From these four quotes from the C99 standard <a class="footnote-reference brackets" href="enum_implicit_casting.html#id3" id="id2">1</a>, the following conclusions can
 be made:</p>
 <ul class="simple">
 <li><p>an enumeration defines a new type and should be treated as such</p></li>
@@ -430,7 +447,7 @@ into an <code class="docutils literal notranslate"><span class="pre">int</span><
 </ul>
 </div>
 <div class="section" id="strategies-to-fix">
-<h2>Strategies to fix<a class="headerlink" href="#strategies-to-fix" title="Permalink to this heading"></a></h2>
+<h2>Strategies to fix<a class="headerlink" href="enum_implicit_casting.html#strategies-to-fix" title="Permalink to this heading"></a></h2>
 <ol class="arabic simple" start="0">
 <li><p>Replace the enumerated type with an integer type and replace the enumeration
 constant with preprocessor constants.</p></li>
@@ -448,7 +465,7 @@ to check that the integer type can contain the enumeration value.</p></li>
 </ol>
 </div>
 <div class="section" id="design-proposal-for-tf-m">
-<h2>Design proposal for TF-M<a class="headerlink" href="#design-proposal-for-tf-m" title="Permalink to this heading"></a></h2>
+<h2>Design proposal for TF-M<a class="headerlink" href="enum_implicit_casting.html#design-proposal-for-tf-m" title="Permalink to this heading"></a></h2>
 <p>In TF-M, an action will be taken for all enumerated types and enumeration
 constants that are used for implicit casting. The goal of this proposal is to
 remove all implicit casting of enumeration values in TF-M.</p>
@@ -520,7 +537,7 @@ an <code class="docutils literal notranslate"><span class="pre">int32_t</span></
 removed and replaced with the <code class="docutils literal notranslate"><span class="pre">psa_status_t</span></code> type to remove the implicit
 casting.</p>
 <dl class="footnote brackets">
-<dt class="label" id="id3"><span class="brackets">1</span><span class="fn-backref">(<a href="#id1">1</a>,<a href="#id2">2</a>)</span></dt>
+<dt class="label" id="id3"><span class="brackets">1</span><span class="fn-backref">(<a href="enum_implicit_casting.html#id1">1</a>,<a href="enum_implicit_casting.html#id2">2</a>)</span></dt>
 <dd><p>C99 standard: <a class="reference external" href="http://www.open-std.org/jtc1/sc22/WG14/www/docs/n1256.pdf">http://www.open-std.org/jtc1/sc22/WG14/www/docs/n1256.pdf</a></p>
 </dd>
 </dl>

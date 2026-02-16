@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Communication Prototype Between NSPE And SPE In Dual Core System &mdash; Trusted Firmware-M v2.1.0-stm32mp-r1 documentation</title>
+  <title>Communication Prototype Between NSPE And SPE In Dual Core System &mdash; Trusted Firmware-M v2.1.3-stm32mp-r2 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/tfm_custom.css" type="text/css" />
@@ -38,7 +38,7 @@
               <img src="../../_static/tf_logo_white.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                v2.1.0-stm32mp-r1
+                v2.1.3-stm32mp-r2
 
               </div>
 <div role="search">
@@ -67,11 +67,16 @@
 <li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/fwu_write_vulnerability.html">Advisory TFMV-5</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/cc3xx_partial_tag_compare_on_chacha20_poly1305.html">Advisory TFMV-6</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/debug_log_vulnerability.html">Advisory TFMV-7</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/user_pointers_mailbox_vectors_vulnerability.html">Advisory TFMV-8</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/fwu_tlv_payload_out_of_bounds_vulnerability.html">Advisory TFMV-9</a></li>
 </ul>
 </li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../releases/index.html">Releases</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/2.1.3.html">v2.1.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/2.1.2.html">v2.1.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/2.1.1.html">v2.1.1</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../releases/2.1.0.html">v2.1.0</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../releases/2.0.0.html">v2.0.0</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../releases/1.8.1.html">v1.8.1</a></li>
@@ -85,6 +90,10 @@
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../platform/index.html">Platforms</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/adi/index.html">Analog Devices, Inc.</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/adi/max32657/README.html">MAX32657</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../../platform/arm/index.html">Arm</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/arm/corstone1000/readme.html">Corstone-1000</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/arm/mps3/corstone300/README.html">Corstone-300 FPGA (AN547 and AN552) and FVP</a></li>
@@ -122,6 +131,10 @@
 <li class="toctree-l3"><a class="reference internal" href="../../platform/nxp/lpcxpresso55s69/README.html">LPCXpresso55S69</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/rpi/index.html">Raspberry Pi</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/rpi/rp2350/readme.html">RP2350</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../../platform/stm/index.html">STMICROELECTRONICS</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32h5xx/readme.html">STM32H5</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32l5xx/readme.html">STM32L5</a></li>
@@ -131,6 +144,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32h573i_dk/readme.html">STM32H573I_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32l562e_dk/readme.html">STM32L562E_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp215f_dk/readme.html">stm32mp215f_dk</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp235f_dk/readme.html">stm32mp235f_dk</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/b_u585i_iot02a/readme.html">B_U585I_IOT02A</a></li>
 </ul>
@@ -198,7 +212,7 @@
 </li>
 <li class="toctree-l2 current"><a class="reference internal" href="index.html">Dual CPU</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="booting_a_dual_core_system.html">Booting</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">SPE - NSPE communication</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="communication_prototype_between_nspe_and_spe_in_dual_core_systems.html#">SPE - NSPE communication</a></li>
 <li class="toctree-l3"><a class="reference internal" href="mailbox_design_on_dual_core_system.html">Mailbox</a></li>
 <li class="toctree-l3"><a class="reference internal" href="mailbox_ns_agent_update.html">Mailbox update</a></li>
 <li class="toctree-l3"><a class="reference internal" href="tfm_multi_core_access_check.html">Memory Access Check</a></li>
@@ -263,6 +277,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32h573i_dk/readme.html">STM32H573I_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32l562e_dk/readme.html">STM32L562E_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp215f_dk/readme.html">stm32mp215f_dk</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp235f_dk/readme.html">stm32mp235f_dk</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/nucleo_l552ze_q/readme.html">NUCLEO_L552ZE_Q</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/b_u585i_iot02a/readme.html">B_U585I_IOT02A</a></li>
@@ -277,6 +292,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32h573i_dk/readme.html">STM32H573I_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32l562e_dk/readme.html">STM32L562E_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp215f_dk/readme.html">stm32mp215f_dk</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp235f_dk/readme.html">stm32mp235f_dk</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
 </ul>
 </li>
@@ -307,6 +323,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../stm/technical/initlevel.html">Initlevel</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../stm/technical/initial_attestation.html">Initial Attestation Service</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/technical/key_and_provisionning.html">About TF-M Authentication Keys and Secret Provisioning</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../stm/technical/nv_counter.html">Nv counter</a></li>
 </ul>
 </li>
@@ -342,7 +359,7 @@
            <div itemprop="articleBody">
              
   <div class="section" id="communication-prototype-between-nspe-and-spe-in-dual-core-system">
-<h1>Communication Prototype Between NSPE And SPE In Dual Core System<a class="headerlink" href="#communication-prototype-between-nspe-and-spe-in-dual-core-system" title="Permalink to this heading"></a></h1>
+<h1>Communication Prototype Between NSPE And SPE In Dual Core System<a class="headerlink" href="communication_prototype_between_nspe_and_spe_in_dual_core_systems.html#communication-prototype-between-nspe-and-spe-in-dual-core-system" title="Permalink to this heading"></a></h1>
 <dl class="field-list simple">
 <dt class="field-odd">Author</dt>
 <dd class="field-odd"><p>David Hu</p>
@@ -355,7 +372,7 @@
 </dd>
 </dl>
 <div class="section" id="introduction">
-<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading"></a></h2>
+<h2>Introduction<a class="headerlink" href="communication_prototype_between_nspe_and_spe_in_dual_core_systems.html#introduction" title="Permalink to this heading"></a></h2>
 <p>This document proposes a generic prototype of the communication between NSPE
 (Non-secure Processing Environment) and SPE (Secure Processing Environment) in
 TF-M on a dual core system.</p>
@@ -368,7 +385,7 @@ between NSPE core and SPE core</p></li>
 <li><p>TF-M runs on the Secure core with platform specific drivers support.</p></li>
 </ul>
 <div class="section" id="scope">
-<h3>Scope<a class="headerlink" href="#scope" title="Permalink to this heading"></a></h3>
+<h3>Scope<a class="headerlink" href="communication_prototype_between_nspe_and_spe_in_dual_core_systems.html#scope" title="Permalink to this heading"></a></h3>
 <p>This design document focuses on the dual core communication design inside TF-M.
 Some changes to TF-M core/Secure Partition Manager (SPM) are listed to support
 the dual core communication. This document only discusses the implementation
@@ -378,24 +395,24 @@ implementation. The related changes to TF-M non-secure interface library are not
 discussed in detail in this document.</p>
 <p>Some requirements to mailbox functionalities are defined in this document. The
 detailed mailbox design or implementations is not specified in this document.
-Please refer to mailbox dedicated document <a class="footnote-reference brackets" href="#id6" id="id1">1</a>.</p>
+Please refer to mailbox dedicated document <a class="footnote-reference brackets" href="communication_prototype_between_nspe_and_spe_in_dual_core_systems.html#id6" id="id1">1</a>.</p>
 </div>
 <div class="section" id="organization-of-the-document">
-<h3>Organization of the document<a class="headerlink" href="#organization-of-the-document" title="Permalink to this heading"></a></h3>
+<h3>Organization of the document<a class="headerlink" href="communication_prototype_between_nspe_and_spe_in_dual_core_systems.html#organization-of-the-document" title="Permalink to this heading"></a></h3>
 <ul class="simple">
-<li><p><a class="reference internal" href="#overall-workflow-in-dual-core-communication">Overall workflow in dual core communication</a> provides an overall workflow of
+<li><p><a class="reference internal" href="communication_prototype_between_nspe_and_spe_in_dual_core_systems.html#overall-workflow-in-dual-core-communication">Overall workflow in dual core communication</a> provides an overall workflow of
 dual core communication between NSPE and SPE.</p></li>
-<li><p><a class="reference internal" href="#requirements-on-mailbox-communication">Requirements on mailbox communication</a> lists general requirements of
+<li><p><a class="reference internal" href="communication_prototype_between_nspe_and_spe_in_dual_core_systems.html#requirements-on-mailbox-communication">Requirements on mailbox communication</a> lists general requirements of
 mailbox, from the perspective of dual core communication.</p></li>
-<li><p><a class="reference internal" href="#psa-client-call-handling-flow-in-tf-m">PSA client call handling flow in TF-M</a> discusses about the detailed sequence
+<li><p><a class="reference internal" href="communication_prototype_between_nspe_and_spe_in_dual_core_systems.html#psa-client-call-handling-flow-in-tf-m">PSA client call handling flow in TF-M</a> discusses about the detailed sequence
 and key modules of handling PSA client call in TF-M.</p></li>
-<li><p><a class="reference internal" href="#summary-of-changes-to-tf-m-core-spm">Summary of changes to TF-M core/SPM</a> summarizes the potential changes to
+<li><p><a class="reference internal" href="communication_prototype_between_nspe_and_spe_in_dual_core_systems.html#summary-of-changes-to-tf-m-core-spm">Summary of changes to TF-M core/SPM</a> summarizes the potential changes to
 TF-M core/SPM to support dual core communication.</p></li>
 </ul>
 </div>
 </div>
 <div class="section" id="overall-workflow-in-dual-core-communication">
-<h2>Overall workflow in dual core communication<a class="headerlink" href="#overall-workflow-in-dual-core-communication" title="Permalink to this heading"></a></h2>
+<h2>Overall workflow in dual core communication<a class="headerlink" href="communication_prototype_between_nspe_and_spe_in_dual_core_systems.html#overall-workflow-in-dual-core-communication" title="Permalink to this heading"></a></h2>
 <p>The overall workflow in dual-core scenario can be described as follows</p>
 <ol class="arabic simple">
 <li><p>Non-secure application calls TF-M non-secure interface library to request
@@ -418,22 +435,22 @@ via mailbox.</p></li>
 <p>The interfaces between NSPE app and TF-M NSPE interface library are unchanged
 so the underlying platform specific details are transparent to NSPE
 application.</p>
-<p>Step 3 ~ step 5 are covered in <a class="reference internal" href="#psa-client-call-handling-flow-in-tf-m">PSA client call handling flow in TF-M</a> in
+<p>Step 3 ~ step 5 are covered in <a class="reference internal" href="communication_prototype_between_nspe_and_spe_in_dual_core_systems.html#psa-client-call-handling-flow-in-tf-m">PSA client call handling flow in TF-M</a> in
 detail.</p>
 </div>
 <div class="section" id="requirements-on-mailbox-communication">
-<h2>Requirements on mailbox communication<a class="headerlink" href="#requirements-on-mailbox-communication" title="Permalink to this heading"></a></h2>
+<h2>Requirements on mailbox communication<a class="headerlink" href="communication_prototype_between_nspe_and_spe_in_dual_core_systems.html#requirements-on-mailbox-communication" title="Permalink to this heading"></a></h2>
 <p>The communication between NSPE and SPE relies on mailbox communication
 implementation. The mailbox functionalities are eventually implemented by
 platform specific Inter-Processor Communication drivers.
 This section lists some general requirements on mailbox communication between
 NSPE and SPE.</p>
 <div class="section" id="data-transferred-between-npse-and-spe">
-<h3>Data transferred between NPSE and SPE<a class="headerlink" href="#data-transferred-between-npse-and-spe" title="Permalink to this heading"></a></h3>
+<h3>Data transferred between NPSE and SPE<a class="headerlink" href="communication_prototype_between_nspe_and_spe_in_dual_core_systems.html#data-transferred-between-npse-and-spe" title="Permalink to this heading"></a></h3>
 <p>A mailbox message shall contain the information and parameters of a PSA client
 call. After SPE is notified by a mailbox event, SPE fetches the parameters from
 NSPE for PSA Client call processing.
-The mailbox design document <a class="footnote-reference brackets" href="#id6" id="id2">1</a> defines the structure of the mailbox message.</p>
+The mailbox design document <a class="footnote-reference brackets" href="communication_prototype_between_nspe_and_spe_in_dual_core_systems.html#id6" id="id2">1</a> defines the structure of the mailbox message.</p>
 <p>The information and parameters of PSA Client call in the mailbox message include</p>
 <ul class="simple">
 <li><p>PSA Client API</p></li>
@@ -457,14 +474,14 @@ accomplish mailbox communication between NSPE and SPE.</p>
 PSA_SUCCESS or a handle, shall be returned from SPE to NSPE via mailbox.</p>
 </div>
 <div class="section" id="mailbox-synchronization-between-nspe-and-spe">
-<h3>Mailbox synchronization between NSPE and SPE<a class="headerlink" href="#mailbox-synchronization-between-nspe-and-spe" title="Permalink to this heading"></a></h3>
+<h3>Mailbox synchronization between NSPE and SPE<a class="headerlink" href="communication_prototype_between_nspe_and_spe_in_dual_core_systems.html#mailbox-synchronization-between-nspe-and-spe" title="Permalink to this heading"></a></h3>
 <p>Synchronization and protection between NSPE and SPE accesses to shared mailbox
 objects and variables shall be implemented.</p>
 <p>When a core accesses shared mailbox objects or variables, proper mechanisms
 must protect concurrent operations from the other core.</p>
 </div>
 <div class="section" id="support-of-multiple-ongoing-ns-psa-client-calls-informative">
-<h3>Support of multiple ongoing NS PSA client calls (informative)<a class="headerlink" href="#support-of-multiple-ongoing-ns-psa-client-calls-informative" title="Permalink to this heading"></a></h3>
+<h3>Support of multiple ongoing NS PSA client calls (informative)<a class="headerlink" href="communication_prototype_between_nspe_and_spe_in_dual_core_systems.html#support-of-multiple-ongoing-ns-psa-client-calls-informative" title="Permalink to this heading"></a></h3>
 <p>If the support of multiple ongoing NS PSA client calls in TF-M is required
 in dual-core systems, an optional queue can be maintained in TF-M core to store
 multiple mailbox objects received from NSPE.
@@ -477,7 +494,7 @@ blocked from submitting PSA client calls until the first is completed.</p>
 </div>
 </div>
 <div class="section" id="psa-client-call-handling-flow-in-tf-m">
-<h2>PSA client call handling flow in TF-M<a class="headerlink" href="#psa-client-call-handling-flow-in-tf-m" title="Permalink to this heading"></a></h2>
+<h2>PSA client call handling flow in TF-M<a class="headerlink" href="communication_prototype_between_nspe_and_spe_in_dual_core_systems.html#psa-client-call-handling-flow-in-tf-m" title="Permalink to this heading"></a></h2>
 <p>This section provides more details about the flow of PSA client call handing in
 TF-M.</p>
 <p>The sequence of handling PSA Client call request in TF-M is listed as below</p>
@@ -496,16 +513,16 @@ NSPE via mailbox.</p></li>
 <p>Several key modules in the whole process are covered in detail in following
 sections.</p>
 <ul class="simple">
-<li><p><a class="reference internal" href="#inter-processor-communication-interrupt-handler">Inter-Processor Communication interrupt handler</a> discusses the
+<li><p><a class="reference internal" href="communication_prototype_between_nspe_and_spe_in_dual_core_systems.html#inter-processor-communication-interrupt-handler">Inter-Processor Communication interrupt handler</a> discusses the
 Inter-Processor Communication interrupt handler</p></li>
-<li><p><a class="reference internal" href="#tf-m-remote-procedure-call-rpc-layer">TF-M Remote Procedure Call (RPC) layer</a> introduces TF-M Remote Procedure
+<li><p><a class="reference internal" href="communication_prototype_between_nspe_and_spe_in_dual_core_systems.html#tf-m-remote-procedure-call-rpc-layer">TF-M Remote Procedure Call (RPC) layer</a> introduces TF-M Remote Procedure
 Call layer to support dual-core communication.</p></li>
-<li><p><a class="reference internal" href="#ns-agent-mailbox-partition">ns_agent_mailbox partition</a> describes the mailbox agent partition.</p></li>
-<li><p><a class="reference internal" href="#return-value-replying-routine-in-tf-m">Return value replying routine in TF-M</a> proposes the routine to send the
+<li><p><a class="reference internal" href="communication_prototype_between_nspe_and_spe_in_dual_core_systems.html#ns-agent-mailbox-partition">ns_agent_mailbox partition</a> describes the mailbox agent partition.</p></li>
+<li><p><a class="reference internal" href="communication_prototype_between_nspe_and_spe_in_dual_core_systems.html#return-value-replying-routine-in-tf-m">Return value replying routine in TF-M</a> proposes the routine to send the
 return value to NSPE.</p></li>
 </ul>
 <div class="section" id="inter-processor-communication-interrupt-handler">
-<h3>Inter-Processor Communication interrupt handler<a class="headerlink" href="#inter-processor-communication-interrupt-handler" title="Permalink to this heading"></a></h3>
+<h3>Inter-Processor Communication interrupt handler<a class="headerlink" href="communication_prototype_between_nspe_and_spe_in_dual_core_systems.html#inter-processor-communication-interrupt-handler" title="Permalink to this heading"></a></h3>
 <p>Platform specific driver shall implement the Inter-Processor Communication
 interrupt handler to deal with the Inter-Processor Communication interrupt
 asserted by NSPE.
@@ -516,7 +533,7 @@ the interrupt.</p>
 <p>The platform’s <code class="docutils literal notranslate"><span class="pre">tfm_peripherals_def.h</span></code> file shall define a macro
 <code class="docutils literal notranslate"><span class="pre">MAILBOX_IRQ</span></code> that identifies the interrupt being used. The platform must
 also provide a function <code class="docutils literal notranslate"><span class="pre">mailbox_irq_init()</span></code> that initialises the interrupt
-as described in <a class="footnote-reference brackets" href="#id7" id="id3">2</a>.</p>
+as described in <a class="footnote-reference brackets" href="communication_prototype_between_nspe_and_spe_in_dual_core_systems.html#id7" id="id3">2</a>.</p>
 <p>Platform specific driver shall put Inter-Processor Communication interrupt into
 a proper exception priority, according to system and application requirements.
 The proper priority setting must guarantee that</p>
@@ -529,14 +546,14 @@ priorities, are not blocked by Inter-Processor Communication interrupt ISR.</p><
 <p>The exception priority setting is IMPLEMENTATION DEFINED.</p>
 </div>
 <div class="section" id="tf-m-remote-procedure-call-rpc-layer">
-<h3>TF-M Remote Procedure Call (RPC) layer<a class="headerlink" href="#tf-m-remote-procedure-call-rpc-layer" title="Permalink to this heading"></a></h3>
+<h3>TF-M Remote Procedure Call (RPC) layer<a class="headerlink" href="communication_prototype_between_nspe_and_spe_in_dual_core_systems.html#tf-m-remote-procedure-call-rpc-layer" title="Permalink to this heading"></a></h3>
 <p>This design brings a concept of Remote Procedure Call layer into TF-M.</p>
 <p>The RPC layer sits between TF-M SPM and mailbox implementation. The purpose of
 RPC layer is to decouple mailbox implementation and TF-M SPM and enhance the
 generality of entire dual-core communication.</p>
 <p>The RPC layer provides a set of APIs to TF-M SPM to handle and reply PSA client
 call from NSPE in dual-core scenario. Please refer to
-<a class="reference internal" href="#tf-m-rpc-definitions-to-tf-m-spm">TF-M RPC definitions to TF-M SPM</a> for API details.
+<a class="reference internal" href="communication_prototype_between_nspe_and_spe_in_dual_core_systems.html#tf-m-rpc-definitions-to-tf-m-spm">TF-M RPC definitions to TF-M SPM</a> for API details.
 It hides the details of specific mailbox implementation from TF-M SPM. It avoids
 modifying TF-M SPM to fit mailbox development and changes.
 It can keep a unified PSA client call process in TF-M SPM in both single
@@ -548,10 +565,10 @@ mailbox operations.
 RPC layer also defines a set of PSA client call handler APIs for mailbox
 implementation. RPC specific client call handlers parse the PSA client call
 parameters and invoke common TF-M PSA client call handlers. Please refer to
-<a class="reference internal" href="#tf-m-rpc-definitions-for-mailbox">TF-M RPC definitions for mailbox</a> for the details.</p>
+<a class="reference internal" href="communication_prototype_between_nspe_and_spe_in_dual_core_systems.html#tf-m-rpc-definitions-for-mailbox">TF-M RPC definitions for mailbox</a> for the details.</p>
 </div>
 <div class="section" id="ns-agent-mailbox-partition">
-<h3>ns_agent_mailbox partition<a class="headerlink" href="#ns-agent-mailbox-partition" title="Permalink to this heading"></a></h3>
+<h3>ns_agent_mailbox partition<a class="headerlink" href="communication_prototype_between_nspe_and_spe_in_dual_core_systems.html#ns-agent-mailbox-partition" title="Permalink to this heading"></a></h3>
 <p>A partition will be dedicated to interacting with the NSPE through the mailbox.
 This partition will call <code class="docutils literal notranslate"><span class="pre">tfm_hal_boot_ns_cpu()</span></code> and
 tfm_hal_wait_for_ns_cpu_ready() to ensure that the non-secure core is running.
@@ -565,7 +582,7 @@ the non-secure code.</p>
 check and handle PSA client call request from NSPE.
 <code class="docutils literal notranslate"><span class="pre">tfm_rpc_client_call_handler()</span></code> invokes request handling callback function to
 eventually execute specific mailbox message handling operations. The mailbox
-APIs are defined in mailbox design document <a class="footnote-reference brackets" href="#id6" id="id4">1</a>.</p>
+APIs are defined in mailbox design document <a class="footnote-reference brackets" href="communication_prototype_between_nspe_and_spe_in_dual_core_systems.html#id6" id="id4">1</a>.</p>
 <p>The handling process in mailbox operation consists of the following steps.</p>
 <ol class="arabic simple">
 <li><p>SPE mailbox fetches the PSA client call parameters from NSPE mailbox.
@@ -597,22 +614,22 @@ handle the PSA message.</p></li>
 will share the same PSA client call routines inside TF-M SPM. The current
 handler definitions can be adjusted to be more generic for dual-core scenario
 and single Armv8-M implementation. Please refer to
-<a class="reference internal" href="#summary-of-changes-to-tf-m-core-spm">Summary of changes to TF-M core/SPM</a> for details.</p>
+<a class="reference internal" href="communication_prototype_between_nspe_and_spe_in_dual_core_systems.html#summary-of-changes-to-tf-m-core-spm">Summary of changes to TF-M core/SPM</a> for details.</p>
 <p>If there are multiple NSPE PSA client call requests pending, SPE mailbox can
 process mailbox messages one by one.</p>
 </div>
 <div class="section" id="return-value-replying-routine-in-tf-m">
-<h3>Return value replying routine in TF-M<a class="headerlink" href="#return-value-replying-routine-in-tf-m" title="Permalink to this heading"></a></h3>
+<h3>Return value replying routine in TF-M<a class="headerlink" href="communication_prototype_between_nspe_and_spe_in_dual_core_systems.html#return-value-replying-routine-in-tf-m" title="Permalink to this heading"></a></h3>
 <p>Diverse PSA client calls can be implemented with different return value replying
 routines.</p>
 <ul class="simple">
-<li><p><a class="reference internal" href="#replying-routine-for-psa-framework-version-and-psa-version">Replying routine for psa_framework_version() and psa_version()</a> describes
+<li><p><a class="reference internal" href="communication_prototype_between_nspe_and_spe_in_dual_core_systems.html#replying-routine-for-psa-framework-version-and-psa-version">Replying routine for psa_framework_version() and psa_version()</a> describes
 the routine for <code class="docutils literal notranslate"><span class="pre">psa_framework_version()</span></code> and <code class="docutils literal notranslate"><span class="pre">psa_version()</span></code>.</p></li>
-<li><p><a class="reference internal" href="#replying-routine-for-psa-connect-psa-call-and-psa-close">Replying routine for psa_connect(), psa_call() and psa_close()</a> describes
+<li><p><a class="reference internal" href="communication_prototype_between_nspe_and_spe_in_dual_core_systems.html#replying-routine-for-psa-connect-psa-call-and-psa-close">Replying routine for psa_connect(), psa_call() and psa_close()</a> describes
 the routine for <code class="docutils literal notranslate"><span class="pre">psa_connect()</span></code>, <code class="docutils literal notranslate"><span class="pre">psa_call()</span></code> and <code class="docutils literal notranslate"><span class="pre">psa_close()</span></code>.</p></li>
 </ul>
 <div class="section" id="replying-routine-for-psa-framework-version-and-psa-version">
-<h4>Replying routine for psa_framework_version() and psa_version()<a class="headerlink" href="#replying-routine-for-psa-framework-version-and-psa-version" title="Permalink to this heading"></a></h4>
+<h4>Replying routine for psa_framework_version() and psa_version()<a class="headerlink" href="communication_prototype_between_nspe_and_spe_in_dual_core_systems.html#replying-routine-for-psa-framework-version-and-psa-version" title="Permalink to this heading"></a></h4>
 <p>For <code class="docutils literal notranslate"><span class="pre">psa_framework_version()</span></code> and <code class="docutils literal notranslate"><span class="pre">psa_version()</span></code>, the return value can be
 directly returned from the dedicated TF-M RPC PSA client call handlers.
 Therefore, the return value can be directly replied in mailbox handling process.</p>
@@ -620,7 +637,7 @@ Therefore, the return value can be directly replied in mailbox handling process.
 dual-core scenario during building.</p>
 </div>
 <div class="section" id="replying-routine-for-psa-connect-psa-call-and-psa-close">
-<h4>Replying routine for psa_connect(), psa_call() and psa_close()<a class="headerlink" href="#replying-routine-for-psa-connect-psa-call-and-psa-close" title="Permalink to this heading"></a></h4>
+<h4>Replying routine for psa_connect(), psa_call() and psa_close()<a class="headerlink" href="communication_prototype_between_nspe_and_spe_in_dual_core_systems.html#replying-routine-for-psa-connect-psa-call-and-psa-close" title="Permalink to this heading"></a></h4>
 <p>For <code class="docutils literal notranslate"><span class="pre">psa_connect()</span></code>, <code class="docutils literal notranslate"><span class="pre">psa_call()</span></code> and <code class="docutils literal notranslate"><span class="pre">psa_close()</span></code>, the PSA client call
 is completed in the target Secure Partition. The target Secure Partition calls
 <code class="docutils literal notranslate"><span class="pre">psa_reply()</span></code> to reply the return value to TF-M SPM. In the SVC handler of
@@ -637,33 +654,33 @@ Partition. The mailbox implementation shall return the error code to NSPE.</p>
 </div>
 </div>
 <div class="section" id="summary-of-changes-to-tf-m-core-spm">
-<h2>Summary of changes to TF-M core/SPM<a class="headerlink" href="#summary-of-changes-to-tf-m-core-spm" title="Permalink to this heading"></a></h2>
+<h2>Summary of changes to TF-M core/SPM<a class="headerlink" href="communication_prototype_between_nspe_and_spe_in_dual_core_systems.html#summary-of-changes-to-tf-m-core-spm" title="Permalink to this heading"></a></h2>
 <p>This section discusses the general changes related to NSPE and SPE
 communication to current TF-M core/SPM implementations.</p>
 <p>The detailed mailbox implementations are not covered in this section. Please
-refer to mailbox dedicated document <a class="footnote-reference brackets" href="#id6" id="id5">1</a>.
+refer to mailbox dedicated document <a class="footnote-reference brackets" href="communication_prototype_between_nspe_and_spe_in_dual_core_systems.html#id6" id="id5">1</a>.
 The platform specific implementations are also not covered in this section,
 including the Inter-Processor Communication interrupt or its interrupt handler.</p>
 <div class="section" id="common-psa-client-call-handlers">
-<h3>Common PSA client call handlers<a class="headerlink" href="#common-psa-client-call-handlers" title="Permalink to this heading"></a></h3>
+<h3>Common PSA client call handlers<a class="headerlink" href="communication_prototype_between_nspe_and_spe_in_dual_core_systems.html#common-psa-client-call-handlers" title="Permalink to this heading"></a></h3>
 <p>Common PSA client call handlers shall be extracted from current PSA client
 call handlers implementation in TF-M.
 Common PSA client call handlers are shared by both TF-M RPC layer in dual-core
 scenario and SVCall handlers in single Armv8-M scenario.</p>
 </div>
 <div class="section" id="tf-m-rpc-layer">
-<h3>TF-M RPC layer<a class="headerlink" href="#tf-m-rpc-layer" title="Permalink to this heading"></a></h3>
+<h3>TF-M RPC layer<a class="headerlink" href="communication_prototype_between_nspe_and_spe_in_dual_core_systems.html#tf-m-rpc-layer" title="Permalink to this heading"></a></h3>
 <p>This section describes the TF-M RPC data types and APIs.</p>
 <ul class="simple">
-<li><p><a class="reference internal" href="#tf-m-rpc-definitions-to-tf-m-spm">TF-M RPC definitions to TF-M SPM</a> lists the data types and APIs to be
+<li><p><a class="reference internal" href="communication_prototype_between_nspe_and_spe_in_dual_core_systems.html#tf-m-rpc-definitions-to-tf-m-spm">TF-M RPC definitions to TF-M SPM</a> lists the data types and APIs to be
 invoked by TF-M SPM.</p></li>
-<li><p><a class="reference internal" href="#tf-m-rpc-definitions-for-mailbox">TF-M RPC definitions for mailbox</a> lists the data types and APIs to be
+<li><p><a class="reference internal" href="communication_prototype_between_nspe_and_spe_in_dual_core_systems.html#tf-m-rpc-definitions-for-mailbox">TF-M RPC definitions for mailbox</a> lists the data types and APIs to be
 referred by mailbox implementation</p></li>
 </ul>
 <div class="section" id="tf-m-rpc-definitions-to-tf-m-spm">
-<h4>TF-M RPC definitions to TF-M SPM<a class="headerlink" href="#tf-m-rpc-definitions-to-tf-m-spm" title="Permalink to this heading"></a></h4>
+<h4>TF-M RPC definitions to TF-M SPM<a class="headerlink" href="communication_prototype_between_nspe_and_spe_in_dual_core_systems.html#tf-m-rpc-definitions-to-tf-m-spm" title="Permalink to this heading"></a></h4>
 <div class="section" id="tfm-rpc-success">
-<h5>TFM_RPC_SUCCESS<a class="headerlink" href="#tfm-rpc-success" title="Permalink to this heading"></a></h5>
+<h5>TFM_RPC_SUCCESS<a class="headerlink" href="communication_prototype_between_nspe_and_spe_in_dual_core_systems.html#tfm-rpc-success" title="Permalink to this heading"></a></h5>
 <p><code class="docutils literal notranslate"><span class="pre">TFM_RPC_SUCCESS</span></code> is a general return value to indicate that the RPC operation
 succeeds.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#define TFM_RPC_SUCCESS             (0)</span>
@@ -671,7 +688,7 @@ succeeds.</p>
 </div>
 </div>
 <div class="section" id="tfm-rpc-inval-param">
-<h5>TFM_RPC_INVAL_PARAM<a class="headerlink" href="#tfm-rpc-inval-param" title="Permalink to this heading"></a></h5>
+<h5>TFM_RPC_INVAL_PARAM<a class="headerlink" href="communication_prototype_between_nspe_and_spe_in_dual_core_systems.html#tfm-rpc-inval-param" title="Permalink to this heading"></a></h5>
 <p><code class="docutils literal notranslate"><span class="pre">TFM_RPC_INVAL_PARAM</span></code> is a return value to indicate that the input parameters
 are invalid.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#define TFM_RPC_INVAL_PARAM         (INT32_MIN + 1)</span>
@@ -679,7 +696,7 @@ are invalid.</p>
 </div>
 </div>
 <div class="section" id="tfm-rpc-conflict-callback">
-<h5>TFM_RPC_CONFLICT_CALLBACK<a class="headerlink" href="#tfm-rpc-conflict-callback" title="Permalink to this heading"></a></h5>
+<h5>TFM_RPC_CONFLICT_CALLBACK<a class="headerlink" href="communication_prototype_between_nspe_and_spe_in_dual_core_systems.html#tfm-rpc-conflict-callback" title="Permalink to this heading"></a></h5>
 <p>Currently one and only one mailbox implementation is supported in dual core
 communication. This flag indicates that callback functions from one mailbox
 implementation are already registered and no more implementations are accepted.</p>
@@ -688,7 +705,7 @@ implementation are already registered and no more implementations are accepted.<
 </div>
 </div>
 <div class="section" id="tfm-rpc-client-call-handler">
-<h5><code class="docutils literal notranslate"><span class="pre">tfm_rpc_client_call_handler()</span></code><a class="headerlink" href="#tfm-rpc-client-call-handler" title="Permalink to this heading"></a></h5>
+<h5><code class="docutils literal notranslate"><span class="pre">tfm_rpc_client_call_handler()</span></code><a class="headerlink" href="communication_prototype_between_nspe_and_spe_in_dual_core_systems.html#tfm-rpc-client-call-handler" title="Permalink to this heading"></a></h5>
 <p>TF-M PendSV handler calls this function to handle NSPE PSA client call request.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">tfm_rpc_client_call_handler</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
 </pre></div>
@@ -700,7 +717,7 @@ Please note that <code class="docutils literal notranslate"><span class="pre">tf
 underlying mailbox handling.</p>
 </div>
 <div class="section" id="tfm-rpc-client-call-reply">
-<h5><code class="docutils literal notranslate"><span class="pre">tfm_rpc_client_call_reply()</span></code><a class="headerlink" href="#tfm-rpc-client-call-reply" title="Permalink to this heading"></a></h5>
+<h5><code class="docutils literal notranslate"><span class="pre">tfm_rpc_client_call_reply()</span></code><a class="headerlink" href="communication_prototype_between_nspe_and_spe_in_dual_core_systems.html#tfm-rpc-client-call-reply" title="Permalink to this heading"></a></h5>
 <p>TF-M <code class="docutils literal notranslate"><span class="pre">psa_reply()</span></code> handler calls this function to reply PSA client call return
 result to NSPE.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">tfm_rpc_client_call_reply</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">owner</span><span class="p">,</span><span class="w"> </span><span class="kt">int32_t</span><span class="w"> </span><span class="n">ret</span><span class="p">);</span>
@@ -730,9 +747,9 @@ underlying mailbox reply process.</p>
 </div>
 </div>
 <div class="section" id="tf-m-rpc-definitions-for-mailbox">
-<h4>TF-M RPC definitions for mailbox<a class="headerlink" href="#tf-m-rpc-definitions-for-mailbox" title="Permalink to this heading"></a></h4>
+<h4>TF-M RPC definitions for mailbox<a class="headerlink" href="communication_prototype_between_nspe_and_spe_in_dual_core_systems.html#tf-m-rpc-definitions-for-mailbox" title="Permalink to this heading"></a></h4>
 <div class="section" id="mailbox-operations-callbacks">
-<h5>Mailbox operations callbacks<a class="headerlink" href="#mailbox-operations-callbacks" title="Permalink to this heading"></a></h5>
+<h5>Mailbox operations callbacks<a class="headerlink" href="communication_prototype_between_nspe_and_spe_in_dual_core_systems.html#mailbox-operations-callbacks" title="Permalink to this heading"></a></h5>
 <p>This structures contains the callback functions for specific mailbox operations.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">tfm_rpc_ops_t</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="p">(</span><span class="o">*</span><span class="n">handle_req</span><span class="p">)(</span><span class="kt">void</span><span class="p">);</span>
@@ -742,7 +759,7 @@ underlying mailbox reply process.</p>
 </div>
 </div>
 <div class="section" id="tfm-rpc-register-ops">
-<h5><code class="docutils literal notranslate"><span class="pre">tfm_rpc_register_ops()</span></code><a class="headerlink" href="#tfm-rpc-register-ops" title="Permalink to this heading"></a></h5>
+<h5><code class="docutils literal notranslate"><span class="pre">tfm_rpc_register_ops()</span></code><a class="headerlink" href="communication_prototype_between_nspe_and_spe_in_dual_core_systems.html#tfm-rpc-register-ops" title="Permalink to this heading"></a></h5>
 <p>This function registers underlying mailbox operations into TF-M RPC callbacks.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int32_t</span><span class="w"> </span><span class="nf">tfm_rpc_register_ops</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">tfm_rpc_ops_t</span><span class="w"> </span><span class="o">*</span><span class="n">ops_ptr</span><span class="p">);</span>
 </pre></div>
@@ -781,7 +798,7 @@ enabling secure services for NSPE.</p>
 allowed in runtime.</p>
 </div>
 <div class="section" id="tfm-rpc-unregister-ops">
-<h5><code class="docutils literal notranslate"><span class="pre">tfm_rpc_unregister_ops()</span></code><a class="headerlink" href="#tfm-rpc-unregister-ops" title="Permalink to this heading"></a></h5>
+<h5><code class="docutils literal notranslate"><span class="pre">tfm_rpc_unregister_ops()</span></code><a class="headerlink" href="communication_prototype_between_nspe_and_spe_in_dual_core_systems.html#tfm-rpc-unregister-ops" title="Permalink to this heading"></a></h5>
 <p>This function unregisters underlying mailbox operations from TF-M RPC callbacks.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">tfm_rpc_unregister_ops</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
 </pre></div>
@@ -791,7 +808,7 @@ allowed in runtime.</p>
 allowed in runtime.</p>
 </div>
 <div class="section" id="tfm-rpc-psa-framework-version">
-<h5><code class="docutils literal notranslate"><span class="pre">tfm_rpc_psa_framework_version()</span></code><a class="headerlink" href="#tfm-rpc-psa-framework-version" title="Permalink to this heading"></a></h5>
+<h5><code class="docutils literal notranslate"><span class="pre">tfm_rpc_psa_framework_version()</span></code><a class="headerlink" href="communication_prototype_between_nspe_and_spe_in_dual_core_systems.html#tfm-rpc-psa-framework-version" title="Permalink to this heading"></a></h5>
 <p>TF-M RPC handler for psa_framework_version().</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">uint32_t</span><span class="w"> </span><span class="nf">tfm_rpc_psa_framework_version</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
 </pre></div>
@@ -814,7 +831,7 @@ providing the runtime services.</p></td>
 handler in TF-M.</p>
 </div>
 <div class="section" id="tfm-rpc-psa-version">
-<h5><code class="docutils literal notranslate"><span class="pre">tfm_rpc_psa_version()</span></code><a class="headerlink" href="#tfm-rpc-psa-version" title="Permalink to this heading"></a></h5>
+<h5><code class="docutils literal notranslate"><span class="pre">tfm_rpc_psa_version()</span></code><a class="headerlink" href="communication_prototype_between_nspe_and_spe_in_dual_core_systems.html#tfm-rpc-psa-version" title="Permalink to this heading"></a></h5>
 <p>TF-M RPC handler for psa_version().</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">uint32_t</span><span class="w"> </span><span class="nf">tfm_rpc_psa_version</span><span class="p">(</span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">sid</span><span class="p">);</span>
 </pre></div>
@@ -853,7 +870,7 @@ The parameters in params shall be prepared before calling
 <code class="docutils literal notranslate"><span class="pre">tfm_rpc_psa_version()</span></code>.</p>
 </div>
 <div class="section" id="tfm-rpc-psa-connect">
-<h5><code class="docutils literal notranslate"><span class="pre">tfm_rpc_psa_connect()</span></code><a class="headerlink" href="#tfm-rpc-psa-connect" title="Permalink to this heading"></a></h5>
+<h5><code class="docutils literal notranslate"><span class="pre">tfm_rpc_psa_connect()</span></code><a class="headerlink" href="communication_prototype_between_nspe_and_spe_in_dual_core_systems.html#tfm-rpc-psa-connect" title="Permalink to this heading"></a></h5>
 <p>TF-M RPC handler for <code class="docutils literal notranslate"><span class="pre">psa_connect()</span></code>.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">psa_status_t</span><span class="w"> </span><span class="nf">tfm_rpc_psa_connect</span><span class="p">(</span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">sid</span><span class="p">,</span>
 <span class="w">                                 </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">version</span><span class="p">,</span>
@@ -906,7 +923,7 @@ service.</p></td>
 <p><code class="docutils literal notranslate"><span class="pre">tfm_rpc_psa_connect()</span></code> invokes common <code class="docutils literal notranslate"><span class="pre">psa_connect()</span></code> handler in TF-M.</p>
 </div>
 <div class="section" id="tfm-rpc-psa-call">
-<h5><code class="docutils literal notranslate"><span class="pre">tfm_rpc_psa_call()</span></code><a class="headerlink" href="#tfm-rpc-psa-call" title="Permalink to this heading"></a></h5>
+<h5><code class="docutils literal notranslate"><span class="pre">tfm_rpc_psa_call()</span></code><a class="headerlink" href="communication_prototype_between_nspe_and_spe_in_dual_core_systems.html#tfm-rpc-psa-call" title="Permalink to this heading"></a></h5>
 <p>TF-M RPC handler for <code class="docutils literal notranslate"><span class="pre">psa_call()</span></code>.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">psa_status_t</span><span class="w"> </span><span class="nf">tfm_rpc_psa_call</span><span class="p">(</span><span class="n">psa_handle_t</span><span class="w"> </span><span class="n">handle</span><span class="p">,</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">control</span><span class="p">,</span>
 <span class="w">                              </span><span class="k">const</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">client_params_t</span><span class="w"> </span><span class="o">*</span><span class="n">params</span><span class="p">,</span>
@@ -960,7 +977,7 @@ The value of control and parameters in params shall be prepared before
 calling <code class="docutils literal notranslate"><span class="pre">tfm_rpc_psa_call()</span></code>.</p>
 </div>
 <div class="section" id="tfm-rpc-psa-close">
-<h5><code class="docutils literal notranslate"><span class="pre">tfm_rpc_psa_close()</span></code><a class="headerlink" href="#tfm-rpc-psa-close" title="Permalink to this heading"></a></h5>
+<h5><code class="docutils literal notranslate"><span class="pre">tfm_rpc_psa_close()</span></code><a class="headerlink" href="communication_prototype_between_nspe_and_spe_in_dual_core_systems.html#tfm-rpc-psa-close" title="Permalink to this heading"></a></h5>
 <p>TF-M RPC <code class="docutils literal notranslate"><span class="pre">psa_close()</span></code> handler</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">psa_status_t</span><span class="w"> </span><span class="nf">tfm_rpc_psa_close</span><span class="p">(</span><span class="n">psa_handle_t</span><span class="w"> </span><span class="n">handle</span><span class="p">);</span>
 </pre></div>
@@ -998,7 +1015,7 @@ calling <code class="docutils literal notranslate"><span class="pre">tfm_rpc_psa
 </div>
 </div>
 <div class="section" id="other-modifications">
-<h3>Other modifications<a class="headerlink" href="#other-modifications" title="Permalink to this heading"></a></h3>
+<h3>Other modifications<a class="headerlink" href="communication_prototype_between_nspe_and_spe_in_dual_core_systems.html#other-modifications" title="Permalink to this heading"></a></h3>
 <p>The following mandatory changes are also required.</p>
 <ul class="simple">
 <li><p>One or more compile flag(s) shall be defined to select corresponding
@@ -1008,12 +1025,12 @@ building.</p></li>
 </div>
 </div>
 <div class="section" id="reference">
-<h2>Reference<a class="headerlink" href="#reference" title="Permalink to this heading"></a></h2>
+<h2>Reference<a class="headerlink" href="communication_prototype_between_nspe_and_spe_in_dual_core_systems.html#reference" title="Permalink to this heading"></a></h2>
 <dl class="footnote brackets">
-<dt class="label" id="id6"><span class="brackets">1</span><span class="fn-backref">(<a href="#id1">1</a>,<a href="#id2">2</a>,<a href="#id4">3</a>,<a href="#id5">4</a>)</span></dt>
+<dt class="label" id="id6"><span class="brackets">1</span><span class="fn-backref">(<a href="communication_prototype_between_nspe_and_spe_in_dual_core_systems.html#id1">1</a>,<a href="communication_prototype_between_nspe_and_spe_in_dual_core_systems.html#id2">2</a>,<a href="communication_prototype_between_nspe_and_spe_in_dual_core_systems.html#id4">3</a>,<a href="communication_prototype_between_nspe_and_spe_in_dual_core_systems.html#id5">4</a>)</span></dt>
 <dd><p><a class="reference internal" href="mailbox_design_on_dual_core_system.html"><span class="doc">Mailbox Design in TF-M on Dual-core System</span></a></p>
 </dd>
-<dt class="label" id="id7"><span class="brackets"><a class="fn-backref" href="#id3">2</a></span></dt>
+<dt class="label" id="id7"><span class="brackets"><a class="fn-backref" href="communication_prototype_between_nspe_and_spe_in_dual_core_systems.html#id3">2</a></span></dt>
 <dd><p><a class="reference internal" href="../../integration_guide/tfm_secure_irq_integration_guide.html"><span class="doc">Secure Interrupt Integration Guide</span></a></p>
 </dd>
 </dl>

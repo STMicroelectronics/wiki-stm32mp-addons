@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Mailbox NS Agent Design Update &mdash; Trusted Firmware-M v2.1.0-stm32mp-r1 documentation</title>
+  <title>Mailbox NS Agent Design Update &mdash; Trusted Firmware-M v2.1.3-stm32mp-r2 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/tfm_custom.css" type="text/css" />
@@ -38,7 +38,7 @@
               <img src="../../_static/tf_logo_white.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                v2.1.0-stm32mp-r1
+                v2.1.3-stm32mp-r2
 
               </div>
 <div role="search">
@@ -67,11 +67,16 @@
 <li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/fwu_write_vulnerability.html">Advisory TFMV-5</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/cc3xx_partial_tag_compare_on_chacha20_poly1305.html">Advisory TFMV-6</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/debug_log_vulnerability.html">Advisory TFMV-7</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/user_pointers_mailbox_vectors_vulnerability.html">Advisory TFMV-8</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/fwu_tlv_payload_out_of_bounds_vulnerability.html">Advisory TFMV-9</a></li>
 </ul>
 </li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../releases/index.html">Releases</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/2.1.3.html">v2.1.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/2.1.2.html">v2.1.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/2.1.1.html">v2.1.1</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../releases/2.1.0.html">v2.1.0</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../releases/2.0.0.html">v2.0.0</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../releases/1.8.1.html">v1.8.1</a></li>
@@ -85,6 +90,10 @@
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../platform/index.html">Platforms</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/adi/index.html">Analog Devices, Inc.</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/adi/max32657/README.html">MAX32657</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../../platform/arm/index.html">Arm</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/arm/corstone1000/readme.html">Corstone-1000</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/arm/mps3/corstone300/README.html">Corstone-300 FPGA (AN547 and AN552) and FVP</a></li>
@@ -122,6 +131,10 @@
 <li class="toctree-l3"><a class="reference internal" href="../../platform/nxp/lpcxpresso55s69/README.html">LPCXpresso55S69</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/rpi/index.html">Raspberry Pi</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/rpi/rp2350/readme.html">RP2350</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../../platform/stm/index.html">STMICROELECTRONICS</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32h5xx/readme.html">STM32H5</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32l5xx/readme.html">STM32L5</a></li>
@@ -131,6 +144,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32h573i_dk/readme.html">STM32H573I_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32l562e_dk/readme.html">STM32L562E_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp215f_dk/readme.html">stm32mp215f_dk</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp235f_dk/readme.html">stm32mp235f_dk</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/b_u585i_iot02a/readme.html">B_U585I_IOT02A</a></li>
 </ul>
@@ -200,7 +214,7 @@
 <li class="toctree-l3"><a class="reference internal" href="booting_a_dual_core_system.html">Booting</a></li>
 <li class="toctree-l3"><a class="reference internal" href="communication_prototype_between_nspe_and_spe_in_dual_core_systems.html">SPE - NSPE communication</a></li>
 <li class="toctree-l3"><a class="reference internal" href="mailbox_design_on_dual_core_system.html">Mailbox</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">Mailbox update</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="mailbox_ns_agent_update.html#">Mailbox update</a></li>
 <li class="toctree-l3"><a class="reference internal" href="tfm_multi_core_access_check.html">Memory Access Check</a></li>
 </ul>
 </li>
@@ -263,6 +277,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32h573i_dk/readme.html">STM32H573I_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32l562e_dk/readme.html">STM32L562E_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp215f_dk/readme.html">stm32mp215f_dk</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp235f_dk/readme.html">stm32mp235f_dk</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/nucleo_l552ze_q/readme.html">NUCLEO_L552ZE_Q</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/b_u585i_iot02a/readme.html">B_U585I_IOT02A</a></li>
@@ -277,6 +292,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32h573i_dk/readme.html">STM32H573I_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32l562e_dk/readme.html">STM32L562E_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp215f_dk/readme.html">stm32mp215f_dk</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp235f_dk/readme.html">stm32mp235f_dk</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
 </ul>
 </li>
@@ -307,6 +323,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../stm/technical/initlevel.html">Initlevel</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../stm/technical/initial_attestation.html">Initial Attestation Service</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/technical/key_and_provisionning.html">About TF-M Authentication Keys and Secret Provisioning</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../stm/technical/nv_counter.html">Nv counter</a></li>
 </ul>
 </li>
@@ -342,7 +359,7 @@
            <div itemprop="articleBody">
              
   <div class="section" id="mailbox-ns-agent-design-update">
-<h1>Mailbox NS Agent Design Update<a class="headerlink" href="#mailbox-ns-agent-design-update" title="Permalink to this heading"></a></h1>
+<h1>Mailbox NS Agent Design Update<a class="headerlink" href="mailbox_ns_agent_update.html#mailbox-ns-agent-design-update" title="Permalink to this heading"></a></h1>
 <dl class="field-list simple">
 <dt class="field-odd">Organization</dt>
 <dd class="field-odd"><p>Arm Limited</p>
@@ -352,7 +369,7 @@
 </dd>
 </dl>
 <div class="section" id="background">
-<h2>Background<a class="headerlink" href="#background" title="Permalink to this heading"></a></h2>
+<h2>Background<a class="headerlink" href="mailbox_ns_agent_update.html#background" title="Permalink to this heading"></a></h2>
 <p>The SPE component that maintains the non-secure clients’ request is called
 ‘NS Agent’ in TF-M. Besides the Trustzone-based isolation mechanism, there is
 one other isolation mechanism that implements individual PEs in physically
@@ -398,7 +415,7 @@ message not to be handled in time.</p></li>
 <p>Extra design items need to be added to address the issues.</p>
 </div>
 <div class="section" id="design-update">
-<h2>Design Update<a class="headerlink" href="#design-update" title="Permalink to this heading"></a></h2>
+<h2>Design Update<a class="headerlink" href="mailbox_ns_agent_update.html#design-update" title="Permalink to this heading"></a></h2>
 <p>The below figure shows the overall design to cover various component types.
 NS Agents are the implementation-defined components that provide FF-M compliant
 Client API to the non-secure clients. Hence from the view of the non-secure
@@ -407,7 +424,7 @@ Agent needs customization in SPM since it has extra requirements compared to
 a generic secure partition.</p>
 <div class="figure align-center" id="fig-mailbox1">
 <a class="reference internal image-reference" href="../../_images/mailbox_ns_agent1.svg"><img alt="../../_images/mailbox_ns_agent1.svg" src="../../_images/mailbox_ns_agent1.svg" width="70%" /></a>
-<p class="caption"><span class="caption-number">Figure 4: </span><span class="caption-text">Component types and the callable API set</span><a class="headerlink" href="#fig-mailbox1" title="Permalink to this image"></a></p>
+<p class="caption"><span class="caption-number">Figure 4: </span><span class="caption-text">Component types and the callable API set</span><a class="headerlink" href="mailbox_ns_agent_update.html#fig-mailbox1" title="Permalink to this image"></a></p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -442,7 +459,7 @@ acknowledges are also required.</p>
 <p>A standard Secure Partition gets errors when calling the <code class="docutils literal notranslate"><span class="pre">Agent</span> <span class="pre">API</span></code>.</p>
 </div>
 <div class="section" id="updated-programming-interfaces">
-<h3>Updated programming interfaces<a class="headerlink" href="#updated-programming-interfaces" title="Permalink to this heading"></a></h3>
+<h3>Updated programming interfaces<a class="headerlink" href="mailbox_ns_agent_update.html#updated-programming-interfaces" title="Permalink to this heading"></a></h3>
 <p>These Client APIs are expanded from the standard Client APIs:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">agent_psa_connect()</span></code> is extended from <code class="docutils literal notranslate"><span class="pre">psa_connect()</span></code>.</p></li>
@@ -461,7 +478,7 @@ proposed API and data structures.</p>
 </div>
 </div>
 <div class="section" id="input-and-output-vectors">
-<h3>Input and output vectors<a class="headerlink" href="#input-and-output-vectors" title="Permalink to this heading"></a></h3>
+<h3>Input and output vectors<a class="headerlink" href="mailbox_ns_agent_update.html#input-and-output-vectors" title="Permalink to this heading"></a></h3>
 <p>When non-secure clients call <code class="docutils literal notranslate"><span class="pre">psa_call()</span></code>, a mailbox message containing
 <code class="docutils literal notranslate"><span class="pre">psa_call()</span></code> parameters is delivered into <code class="docutils literal notranslate"><span class="pre">Mailbox</span> <span class="pre">NS</span> <span class="pre">Agent</span></code> and the agent
 needs to extract parameters from the message and then call <code class="docutils literal notranslate"><span class="pre">agent_psa_call()</span></code>.
@@ -537,7 +554,7 @@ Hence it is safe to claim <code class="docutils literal notranslate"><span class
 </div>
 </div>
 <div class="section" id="agent-specific-client-api">
-<h3>Agent-specific Client API<a class="headerlink" href="#agent-specific-client-api" title="Permalink to this heading"></a></h3>
+<h3>Agent-specific Client API<a class="headerlink" href="mailbox_ns_agent_update.html#agent-specific-client-api" title="Permalink to this heading"></a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">agent_psa_connect()</span></code> and <code class="docutils literal notranslate"><span class="pre">agent_psa_close()</span></code> are the APIs added to support
 agent forwarding NS requests.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">psa_handle_t</span><span class="w"> </span><span class="nf">agent_psa_connect</span><span class="p">(</span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">sid</span><span class="p">,</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">version</span><span class="p">,</span>
@@ -615,7 +632,7 @@ table are reserved for future usage.</p>
 </div>
 </div>
 <div class="section" id="agent-specific-signal">
-<h3>Agent-specific signal<a class="headerlink" href="#agent-specific-signal" title="Permalink to this heading"></a></h3>
+<h3>Agent-specific signal<a class="headerlink" href="mailbox_ns_agent_update.html#agent-specific-signal" title="Permalink to this heading"></a></h3>
 <p>To cooperate with the agent-specific API, one extra acknowledgement signal is
 defined:</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#define ASYNC_MSG_REPLY            (0x00000004u)</span>
@@ -632,7 +649,7 @@ put in member <code class="docutils literal notranslate"><span class="pre">rhand
 <code class="docutils literal notranslate"><span class="pre">psa_get()</span></code> gets <code class="docutils literal notranslate"><span class="pre">panic</span></code>.</p>
 </div>
 <div class="section" id="code-example">
-<h3>Code Example<a class="headerlink" href="#code-example" title="Permalink to this heading"></a></h3>
+<h3>Code Example<a class="headerlink" href="mailbox_ns_agent_update.html#code-example" title="Permalink to this heading"></a></h3>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cm">/*</span>
 <span class="cm"> * The actual implementation can change this __customized_t freely, or</span>
 <span class="cm"> * discard this type and apply some in-house mechanism - the example</span>
@@ -714,7 +731,7 @@ the mailbox Agent developer.</p>
 </div>
 </div>
 <div class="section" id="customized-manifest-attribute">
-<h3>Customized manifest attribute<a class="headerlink" href="#customized-manifest-attribute" title="Permalink to this heading"></a></h3>
+<h3>Customized manifest attribute<a class="headerlink" href="mailbox_ns_agent_update.html#customized-manifest-attribute" title="Permalink to this heading"></a></h3>
 <p>Three extra customized manifest attributes are added:</p>
 <table class="docutils align-default">
 <colgroup>
@@ -773,7 +790,7 @@ where the mapping is defined as the following:</p>
 </div>
 </div>
 <div class="section" id="manifest-tooling-update">
-<h2>Manifest tooling update<a class="headerlink" href="#manifest-tooling-update" title="Permalink to this heading"></a></h2>
+<h2>Manifest tooling update<a class="headerlink" href="mailbox_ns_agent_update.html#manifest-tooling-update" title="Permalink to this heading"></a></h2>
 <p>The manifest for agents involves specific keys (‘ns_agent’ e.g.), these keys
 give hints about how to achieve out-of-FF-M partitions which might be abused
 easily by developers, for example, claim partitions as agents. Some
@@ -795,14 +812,14 @@ in ns_agent_mailbox.yaml. Otherwise, the manifest tool reports an error when a
 non-agent service abuses ns_agent in its manifest.</p>
 </div>
 <div class="section" id="runtime-programming-characteristics">
-<h2>Runtime programming characteristics<a class="headerlink" href="#runtime-programming-characteristics" title="Permalink to this heading"></a></h2>
+<h2>Runtime programming characteristics<a class="headerlink" href="mailbox_ns_agent_update.html#runtime-programming-characteristics" title="Permalink to this heading"></a></h2>
 <p>Mailbox agent shall not be blocked by Agent-specific APIs. It can be blocked when:</p>
 <ul class="simple">
 <li><p>It is calling standard PSA Client APIs.</p></li>
 <li><p>It is calling <code class="docutils literal notranslate"><span class="pre">psa_wait()</span></code>.</p></li>
 </ul>
 <div class="section" id="idle-processing">
-<h3>IDLE processing<a class="headerlink" href="#idle-processing" title="Permalink to this heading"></a></h3>
+<h3>IDLE processing<a class="headerlink" href="mailbox_ns_agent_update.html#idle-processing" title="Permalink to this heading"></a></h3>
 <p>Only ONE place is recommended to enter IDLE. The place is decided based on the
 system topologies:</p>
 <ul class="simple">

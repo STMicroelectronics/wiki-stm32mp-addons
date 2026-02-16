@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Stateless Root of Trust Services Reference &mdash; Trusted Firmware-M v2.1.0-stm32mp-r1 documentation</title>
+  <title>Stateless Root of Trust Services Reference &mdash; Trusted Firmware-M v2.1.3-stm32mp-r2 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/tfm_custom.css" type="text/css" />
@@ -38,7 +38,7 @@
               <img src="../../_static/tf_logo_white.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                v2.1.0-stm32mp-r1
+                v2.1.3-stm32mp-r2
 
               </div>
 <div role="search">
@@ -67,11 +67,16 @@
 <li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/fwu_write_vulnerability.html">Advisory TFMV-5</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/cc3xx_partial_tag_compare_on_chacha20_poly1305.html">Advisory TFMV-6</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/debug_log_vulnerability.html">Advisory TFMV-7</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/user_pointers_mailbox_vectors_vulnerability.html">Advisory TFMV-8</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/fwu_tlv_payload_out_of_bounds_vulnerability.html">Advisory TFMV-9</a></li>
 </ul>
 </li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../releases/index.html">Releases</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/2.1.3.html">v2.1.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/2.1.2.html">v2.1.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/2.1.1.html">v2.1.1</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../releases/2.1.0.html">v2.1.0</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../releases/2.0.0.html">v2.0.0</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../releases/1.8.1.html">v1.8.1</a></li>
@@ -85,6 +90,10 @@
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../platform/index.html">Platforms</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/adi/index.html">Analog Devices, Inc.</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/adi/max32657/README.html">MAX32657</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../../platform/arm/index.html">Arm</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/arm/corstone1000/readme.html">Corstone-1000</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/arm/mps3/corstone300/README.html">Corstone-300 FPGA (AN547 and AN552) and FVP</a></li>
@@ -122,6 +131,10 @@
 <li class="toctree-l3"><a class="reference internal" href="../../platform/nxp/lpcxpresso55s69/README.html">LPCXpresso55S69</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/rpi/index.html">Raspberry Pi</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/rpi/rp2350/readme.html">RP2350</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../../platform/stm/index.html">STMICROELECTRONICS</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32h5xx/readme.html">STM32H5</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32l5xx/readme.html">STM32L5</a></li>
@@ -131,6 +144,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32h573i_dk/readme.html">STM32H573I_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32l562e_dk/readme.html">STM32L562E_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp215f_dk/readme.html">stm32mp215f_dk</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp235f_dk/readme.html">stm32mp235f_dk</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/b_u585i_iot02a/readme.html">B_U585I_IOT02A</a></li>
 </ul>
@@ -208,7 +222,7 @@
 <li class="toctree-l3"><a class="reference internal" href="secure_partition_manager.html">Secure Partition Manager</a></li>
 <li class="toctree-l3"><a class="reference internal" href="secure_partition_runtime_library.html">Secure Partition RTL</a></li>
 <li class="toctree-l3"><a class="reference internal" href="tfm_psa_inter_process_communication.html">Inter-Process Communication</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">Stateless Services</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="stateless_rot_service.html#">Stateless Services</a></li>
 <li class="toctree-l3"><a class="reference internal" href="tfm_uniform_secure_service_signature.html">Service Signing</a></li>
 <li class="toctree-l3"><a class="reference internal" href="tfm_crypto_design.html">Crypto</a></li>
 <li class="toctree-l3"><a class="reference internal" href="symmetric_initial_attest.html">Initial Attestation</a></li>
@@ -263,6 +277,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32h573i_dk/readme.html">STM32H573I_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32l562e_dk/readme.html">STM32L562E_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp215f_dk/readme.html">stm32mp215f_dk</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp235f_dk/readme.html">stm32mp235f_dk</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/nucleo_l552ze_q/readme.html">NUCLEO_L552ZE_Q</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/b_u585i_iot02a/readme.html">B_U585I_IOT02A</a></li>
@@ -277,6 +292,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32h573i_dk/readme.html">STM32H573I_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32l562e_dk/readme.html">STM32L562E_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp215f_dk/readme.html">stm32mp215f_dk</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp235f_dk/readme.html">stm32mp235f_dk</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
 </ul>
 </li>
@@ -307,6 +323,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../stm/technical/initlevel.html">Initlevel</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../stm/technical/initial_attestation.html">Initial Attestation Service</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/technical/key_and_provisionning.html">About TF-M Authentication Keys and Secret Provisioning</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../stm/technical/nv_counter.html">Nv counter</a></li>
 </ul>
 </li>
@@ -342,7 +359,7 @@
            <div itemprop="articleBody">
              
   <div class="section" id="stateless-root-of-trust-services-reference">
-<h1>Stateless Root of Trust Services Reference<a class="headerlink" href="#stateless-root-of-trust-services-reference" title="Permalink to this heading"></a></h1>
+<h1>Stateless Root of Trust Services Reference<a class="headerlink" href="stateless_rot_service.html#stateless-root-of-trust-services-reference" title="Permalink to this heading"></a></h1>
 <dl class="field-list simple">
 <dt class="field-odd">Author</dt>
 <dd class="field-odd"><p>Mingyang Sun</p>
@@ -355,23 +372,23 @@
 </dd>
 </dl>
 <div class="section" id="introduction">
-<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading"></a></h2>
+<h2>Introduction<a class="headerlink" href="stateless_rot_service.html#introduction" title="Permalink to this heading"></a></h2>
 <p>This document describes the implementation for the FF-M v1.1 feature -
 ‘Stateless RoT Service’, and the related references when developing RoT
 services.</p>
-<p>It is recommended to refer to the FF-M v1.0 specification <a class="footnote-reference brackets" href="#id3" id="id1">1</a> and FF-M v1.1
-extension <a class="footnote-reference brackets" href="#id4" id="id2">2</a> for background and rationale details.</p>
+<p>It is recommended to refer to the FF-M v1.0 specification <a class="footnote-reference brackets" href="stateless_rot_service.html#id3" id="id1">1</a> and FF-M v1.1
+extension <a class="footnote-reference brackets" href="stateless_rot_service.html#id4" id="id2">2</a> for background and rationale details.</p>
 </div>
 <div class="section" id="implementation-details">
-<h2>Implementation Details<a class="headerlink" href="#implementation-details" title="Permalink to this heading"></a></h2>
+<h2>Implementation Details<a class="headerlink" href="stateless_rot_service.html#implementation-details" title="Permalink to this heading"></a></h2>
 <p>This chapter describes the implementation-defined items, including stateless
 handle value definition, tooling update, and programming API changes.</p>
 <div class="section" id="stateless-handle-value-definition">
-<h3>Stateless Handle Value Definition<a class="headerlink" href="#stateless-handle-value-definition" title="Permalink to this heading"></a></h3>
+<h3>Stateless Handle Value Definition<a class="headerlink" href="stateless_rot_service.html#stateless-handle-value-definition" title="Permalink to this heading"></a></h3>
 <p>The index, stateless indicator, and service version information are encoded into
 a handle by the manifest tooling, and then generated to header file <code class="docutils literal notranslate"><span class="pre">sid.h</span></code>.</p>
 <table class="colwidths-given docutils align-default" id="id5">
-<caption><span class="caption-number">Table 42: </span><span class="caption-text">Bit Fields of Stateless Handle</span><a class="headerlink" href="#id5" title="Permalink to this table"></a></caption>
+<caption><span class="caption-number">Table 42: </span><span class="caption-text">Bit Fields of Stateless Handle</span><a class="headerlink" href="stateless_rot_service.html#id5" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 20%" />
 <col style="width: 80%" />
@@ -412,7 +429,7 @@ locating a stateless service in SPM logic. A range of index [0, 31] is the
 initial implementation. Future expansion is possible.</p>
 </div>
 <div class="section" id="tooling-support">
-<h3>Tooling Support<a class="headerlink" href="#tooling-support" title="Permalink to this heading"></a></h3>
+<h3>Tooling Support<a class="headerlink" href="stateless_rot_service.html#tooling-support" title="Permalink to this heading"></a></h3>
 <p>TF-M provides a tool (<code class="docutils literal notranslate"><span class="pre">tools/tfm_parse_manifest_list.py</span></code>) to generate source
 header files required by partition and services. For example, the generated
 <code class="docutils literal notranslate"><span class="pre">sid.h</span></code> contains service ID and version. The tooling is extended to generate
@@ -427,26 +444,26 @@ assigned.</p></li>
 <li><p>Other settings - tooling reports an error.</p></li>
 </ul>
 <p>Finally, the tooling encodes the handle according to definitions in
-<a class="reference internal" href="#stateless-handle-value-definition">Stateless Handle Value Definition</a> section, and writes them to <code class="docutils literal notranslate"><span class="pre">sid.h</span></code>
+<a class="reference internal" href="stateless_rot_service.html#stateless-handle-value-definition">Stateless Handle Value Definition</a> section, and writes them to <code class="docutils literal notranslate"><span class="pre">sid.h</span></code>
 header file.</p>
 </div>
 <div class="section" id="changes-in-programming-api">
-<h3>Changes in Programming API<a class="headerlink" href="#changes-in-programming-api" title="Permalink to this heading"></a></h3>
+<h3>Changes in Programming API<a class="headerlink" href="stateless_rot_service.html#changes-in-programming-api" title="Permalink to this heading"></a></h3>
 <p>This chapter describes the changes in programming API for stateless services.
 The following APIs’ behavious and message data structure members are updated to
 support the stateless service.</p>
 <div class="section" id="psa-connect">
-<h4>psa_connect()<a class="headerlink" href="#psa-connect" title="Permalink to this heading"></a></h4>
+<h4>psa_connect()<a class="headerlink" href="stateless_rot_service.html#psa-connect" title="Permalink to this heading"></a></h4>
 <p>According to FF-M v1.1, client calling <code class="docutils literal notranslate"><span class="pre">psa_connect()</span></code> with the SID of a
 stateless RoT Service is a <code class="docutils literal notranslate"><span class="pre">PROGRAMMER_ERROR</span></code>.</p>
 </div>
 <div class="section" id="psa-close">
-<h4>psa_close()<a class="headerlink" href="#psa-close" title="Permalink to this heading"></a></h4>
+<h4>psa_close()<a class="headerlink" href="stateless_rot_service.html#psa-close" title="Permalink to this heading"></a></h4>
 <p>According to FF-M v1.1, client passing a stateless handle to call this API is a
 <code class="docutils literal notranslate"><span class="pre">PROGRAMMER_ERROR</span></code>.</p>
 </div>
 <div class="section" id="psa-call">
-<h4>psa_call()<a class="headerlink" href="#psa-call" title="Permalink to this heading"></a></h4>
+<h4>psa_call()<a class="headerlink" href="stateless_rot_service.html#psa-call" title="Permalink to this heading"></a></h4>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">psa_status_t</span><span class="w"> </span><span class="n">psa_call</span><span class="p">(</span><span class="n">psa_handle_t</span><span class="w"> </span><span class="n">handle</span><span class="p">,</span><span class="w"> </span><span class="kt">int32_t</span><span class="w"> </span><span class="n">type</span><span class="p">,</span>
 <span class="w">                      </span><span class="k">const</span><span class="w"> </span><span class="n">psa_invec</span><span class="w"> </span><span class="o">*</span><span class="n">in_vec</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">in_len</span><span class="p">,</span>
 <span class="w">                      </span><span class="n">psa_outvec</span><span class="w"> </span><span class="o">*</span><span class="n">out_vec</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">out_len</span><span class="p">)</span>
@@ -469,19 +486,19 @@ allocation.</p></li>
 handle to handle pool.</p>
 </div>
 <div class="section" id="psa-set-rhandle">
-<h4>psa_set_rhandle()<a class="headerlink" href="#psa-set-rhandle" title="Permalink to this heading"></a></h4>
+<h4>psa_set_rhandle()<a class="headerlink" href="stateless_rot_service.html#psa-set-rhandle" title="Permalink to this heading"></a></h4>
 <p>According to FF-M v1.1, stateless service calling this API on a message is a
 <code class="docutils literal notranslate"><span class="pre">PROGRAMMER_ERROR</span></code> and it will never return.</p>
 </div>
 <div class="section" id="psa-msg-t-type">
-<h4>psa_msg_t type<a class="headerlink" href="#psa-msg-t-type" title="Permalink to this heading"></a></h4>
+<h4>psa_msg_t type<a class="headerlink" href="stateless_rot_service.html#psa-msg-t-type" title="Permalink to this heading"></a></h4>
 <p>The <code class="docutils literal notranslate"><span class="pre">rhandle</span></code> member of a <code class="docutils literal notranslate"><span class="pre">psa_msg_t</span></code> type received by a stateless RoT
 Service is always <code class="docutils literal notranslate"><span class="pre">NULL</span></code>.</p>
 </div>
 </div>
 </div>
 <div class="section" id="application-recommendation">
-<h2>Application Recommendation<a class="headerlink" href="#application-recommendation" title="Permalink to this heading"></a></h2>
+<h2>Application Recommendation<a class="headerlink" href="stateless_rot_service.html#application-recommendation" title="Permalink to this heading"></a></h2>
 <p>There are particular services that do not need sessions. The access to the
 service is a one-shot connection. These services provide standalone operations
 that do not require any non-volatile state of resources to be maintained by the
@@ -491,7 +508,7 @@ quick access and to avoid extra overheads.</p>
 <p>In this case, <code class="docutils literal notranslate"><span class="pre">rhandle</span></code> access would be prohibited as it is used for saving
 state or non-volatile resources while stateless services do not need them.</p>
 <div class="section" id="update-feasibility-of-existing-services">
-<h3>Update Feasibility of Existing Services<a class="headerlink" href="#update-feasibility-of-existing-services" title="Permalink to this heading"></a></h3>
+<h3>Update Feasibility of Existing Services<a class="headerlink" href="stateless_rot_service.html#update-feasibility-of-existing-services" title="Permalink to this heading"></a></h3>
 <p>TF-M native services are used widely. They only need standalone operations and
 do not need to keep state between sessions. For example, the service in Crypto
 partition does not do anything during <code class="docutils literal notranslate"><span class="pre">psa_connect()</span></code> or <code class="docutils literal notranslate"><span class="pre">psa_close()</span></code>
@@ -499,7 +516,7 @@ process. Same for services in other partitions, thus all of them can be
 implemented as stateless.</p>
 <p>Analysis for them:</p>
 <table class="colwidths-given docutils align-default" id="id6">
-<caption><span class="caption-number">Table 43: </span><span class="caption-text">TF-M Partition Services Update Possibility</span><a class="headerlink" href="#id6" title="Permalink to this table"></a></caption>
+<caption><span class="caption-number">Table 43: </span><span class="caption-text">TF-M Partition Services Update Possibility</span><a class="headerlink" href="stateless_rot_service.html#id6" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 30%" />
 <col style="width: 30%" />
@@ -541,7 +558,7 @@ implemented as stateless.</p>
 <p>Other services are not analyzed here.</p>
 </div>
 <div class="section" id="grouping-services">
-<h3>Grouping Services<a class="headerlink" href="#grouping-services" title="Permalink to this heading"></a></h3>
+<h3>Grouping Services<a class="headerlink" href="stateless_rot_service.html#grouping-services" title="Permalink to this heading"></a></h3>
 <p>Stateless service table is stored statically, and TF-M supports 32 stateless
 services currently.</p>
 <p>Similar stateless services in a partition could be grouped, and assign one
@@ -553,7 +570,7 @@ and uses the type parameter to distinguish different stateless services.
 Therefore, more stateless services can be supported.</p>
 </div>
 <div class="section" id="migrating-to-stateless-services">
-<h3>Migrating to Stateless Services<a class="headerlink" href="#migrating-to-stateless-services" title="Permalink to this heading"></a></h3>
+<h3>Migrating to Stateless Services<a class="headerlink" href="stateless_rot_service.html#migrating-to-stateless-services" title="Permalink to this heading"></a></h3>
 <p>Please refer to Chapter 4 “Stateless Root of Trust services”, Appendix B.3.2
 “Using a stateless RoT Service”, and Appendix D “Implementing session-less RoT
 Services” in FF-M v1.1 document for details on which kind of service can be
@@ -561,12 +578,12 @@ stateless and how to implement a stateless service.</p>
 </div>
 </div>
 <div class="section" id="reference">
-<h2>Reference<a class="headerlink" href="#reference" title="Permalink to this heading"></a></h2>
+<h2>Reference<a class="headerlink" href="stateless_rot_service.html#reference" title="Permalink to this heading"></a></h2>
 <dl class="footnote brackets">
-<dt class="label" id="id3"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dt class="label" id="id3"><span class="brackets"><a class="fn-backref" href="stateless_rot_service.html#id1">1</a></span></dt>
 <dd><p><a class="reference external" href="https://developer.arm.com/documentation/den0063/latest/">FF-M v1.0 Specification</a></p>
 </dd>
-<dt class="label" id="id4"><span class="brackets"><a class="fn-backref" href="#id2">2</a></span></dt>
+<dt class="label" id="id4"><span class="brackets"><a class="fn-backref" href="stateless_rot_service.html#id2">2</a></span></dt>
 <dd><p><a class="reference external" href="https://developer.arm.com/documentation/aes0039/latest/">FF-M v1.1 Extension</a></p>
 </dd>
 </dl>

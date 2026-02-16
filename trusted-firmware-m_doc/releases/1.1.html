@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Version 1.1 &mdash; Trusted Firmware-M v2.1.0-stm32mp-r1 documentation</title>
+  <title>Version 1.1 &mdash; Trusted Firmware-M v2.1.3-stm32mp-r2 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/tfm_custom.css" type="text/css" />
@@ -36,7 +36,7 @@
               <img src="../_static/tf_logo_white.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                v2.1.0-stm32mp-r1
+                v2.1.3-stm32mp-r2
 
               </div>
 <div role="search">
@@ -65,11 +65,16 @@
 <li class="toctree-l3"><a class="reference internal" href="../security/security_advisories/fwu_write_vulnerability.html">Advisory TFMV-5</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../security/security_advisories/cc3xx_partial_tag_compare_on_chacha20_poly1305.html">Advisory TFMV-6</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../security/security_advisories/debug_log_vulnerability.html">Advisory TFMV-7</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../security/security_advisories/user_pointers_mailbox_vectors_vulnerability.html">Advisory TFMV-8</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../security/security_advisories/fwu_tlv_payload_out_of_bounds_vulnerability.html">Advisory TFMV-9</a></li>
 </ul>
 </li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="index.html">Releases</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="2.1.3.html">v2.1.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="2.1.2.html">v2.1.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="2.1.1.html">v2.1.1</a></li>
 <li class="toctree-l2"><a class="reference internal" href="2.1.0.html">v2.1.0</a></li>
 <li class="toctree-l2"><a class="reference internal" href="2.0.0.html">v2.0.0</a></li>
 <li class="toctree-l2"><a class="reference internal" href="1.8.1.html">v1.8.1</a></li>
@@ -83,6 +88,10 @@
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../platform/index.html">Platforms</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../platform/adi/index.html">Analog Devices, Inc.</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../platform/adi/max32657/README.html">MAX32657</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../platform/arm/index.html">Arm</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../platform/arm/corstone1000/readme.html">Corstone-1000</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/arm/mps3/corstone300/README.html">Corstone-300 FPGA (AN547 and AN552) and FVP</a></li>
@@ -120,6 +129,10 @@
 <li class="toctree-l3"><a class="reference internal" href="../platform/nxp/lpcxpresso55s69/README.html">LPCXpresso55S69</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../platform/rpi/index.html">Raspberry Pi</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../platform/rpi/rp2350/readme.html">RP2350</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../platform/stm/index.html">STMICROELECTRONICS</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/common/stm32h5xx/readme.html">STM32H5</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/common/stm32l5xx/readme.html">STM32L5</a></li>
@@ -129,6 +142,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32h573i_dk/readme.html">STM32H573I_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32l562e_dk/readme.html">STM32L562E_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32mp215f_dk/readme.html">stm32mp215f_dk</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32mp235f_dk/readme.html">stm32mp235f_dk</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/b_u585i_iot02a/readme.html">B_U585I_IOT02A</a></li>
 </ul>
@@ -261,6 +275,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32h573i_dk/readme.html">STM32H573I_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32l562e_dk/readme.html">STM32L562E_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32mp215f_dk/readme.html">stm32mp215f_dk</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32mp235f_dk/readme.html">stm32mp235f_dk</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/nucleo_l552ze_q/readme.html">NUCLEO_L552ZE_Q</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/b_u585i_iot02a/readme.html">B_U585I_IOT02A</a></li>
@@ -275,6 +290,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32h573i_dk/readme.html">STM32H573I_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32l562e_dk/readme.html">STM32L562E_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32mp215f_dk/readme.html">stm32mp215f_dk</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32mp235f_dk/readme.html">stm32mp235f_dk</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
 </ul>
 </li>
@@ -305,6 +321,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../stm/technical/initlevel.html">Initlevel</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../stm/technical/initial_attestation.html">Initial Attestation Service</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../stm/technical/key_and_provisionning.html">About TF-M Authentication Keys and Secret Provisioning</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../stm/technical/nv_counter.html">Nv counter</a></li>
 </ul>
 </li>
@@ -338,9 +355,9 @@
            <div itemprop="articleBody">
              
   <div class="section" id="version-1-1">
-<h1>Version 1.1<a class="headerlink" href="#version-1-1" title="Permalink to this heading"></a></h1>
+<h1>Version 1.1<a class="headerlink" href="1.1.html#version-1-1" title="Permalink to this heading"></a></h1>
 <div class="section" id="new-features">
-<h2>New Features<a class="headerlink" href="#new-features" title="Permalink to this heading"></a></h2>
+<h2>New Features<a class="headerlink" href="1.1.html#new-features" title="Permalink to this heading"></a></h2>
 <ul class="simple">
 <li><p>Upgraded MCUBoot to v1.6.0., default is now the upstream MCUBoot instead of
 the TF-M fork.</p></li>
@@ -362,7 +379,7 @@ repository. This removes dependency on the external <code class="docutils litera
 </ul>
 </div>
 <div class="section" id="new-platforms-supported">
-<h2>New Platforms supported<a class="headerlink" href="#new-platforms-supported" title="Permalink to this heading"></a></h2>
+<h2>New Platforms supported<a class="headerlink" href="1.1.html#new-platforms-supported" title="Permalink to this heading"></a></h2>
 <ul class="simple">
 <li><p>Cortex-M33 based system:</p>
 <ul>
@@ -379,7 +396,7 @@ repository. This removes dependency on the external <code class="docutils litera
 </ul>
 </div>
 <div class="section" id="new-platforms-limitations">
-<h2>New Platforms limitations<a class="headerlink" href="#new-platforms-limitations" title="Permalink to this heading"></a></h2>
+<h2>New Platforms limitations<a class="headerlink" href="1.1.html#new-platforms-limitations" title="Permalink to this heading"></a></h2>
 <ul class="simple">
 <li><p>LPCXpresso55S69-EVK doesn’t support BL2.</p></li>
 <li><p>LPCXpresso55S69-EVK doesn’t support ARMCLANG and IARARM toolchain. Patch
@@ -391,7 +408,7 @@ support for IARARM is available at
 </ul>
 </div>
 <div class="section" id="known-issues">
-<h2>Known issues<a class="headerlink" href="#known-issues" title="Permalink to this heading"></a></h2>
+<h2>Known issues<a class="headerlink" href="1.1.html#known-issues" title="Permalink to this heading"></a></h2>
 <p>Some open issues exist and will not be fixed in this release.</p>
 <table class="docutils align-default">
 <colgroup>
@@ -452,7 +469,7 @@ support for IARARM is available at
 </table>
 </div>
 <div class="section" id="issues-fixed-since-1-0">
-<h2>Issues fixed since 1.0<a class="headerlink" href="#issues-fixed-since-1-0" title="Permalink to this heading"></a></h2>
+<h2>Issues fixed since 1.0<a class="headerlink" href="1.1.html#issues-fixed-since-1-0" title="Permalink to this heading"></a></h2>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 50%" />

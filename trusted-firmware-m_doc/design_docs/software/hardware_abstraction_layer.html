@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Hardware Abstraction Layer &mdash; Trusted Firmware-M v2.1.0-stm32mp-r1 documentation</title>
+  <title>Hardware Abstraction Layer &mdash; Trusted Firmware-M v2.1.3-stm32mp-r2 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/tfm_custom.css" type="text/css" />
@@ -38,7 +38,7 @@
               <img src="../../_static/tf_logo_white.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                v2.1.0-stm32mp-r1
+                v2.1.3-stm32mp-r2
 
               </div>
 <div role="search">
@@ -67,11 +67,16 @@
 <li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/fwu_write_vulnerability.html">Advisory TFMV-5</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/cc3xx_partial_tag_compare_on_chacha20_poly1305.html">Advisory TFMV-6</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/debug_log_vulnerability.html">Advisory TFMV-7</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/user_pointers_mailbox_vectors_vulnerability.html">Advisory TFMV-8</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/fwu_tlv_payload_out_of_bounds_vulnerability.html">Advisory TFMV-9</a></li>
 </ul>
 </li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../releases/index.html">Releases</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/2.1.3.html">v2.1.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/2.1.2.html">v2.1.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/2.1.1.html">v2.1.1</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../releases/2.1.0.html">v2.1.0</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../releases/2.0.0.html">v2.0.0</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../releases/1.8.1.html">v1.8.1</a></li>
@@ -85,6 +90,10 @@
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../platform/index.html">Platforms</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/adi/index.html">Analog Devices, Inc.</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/adi/max32657/README.html">MAX32657</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../../platform/arm/index.html">Arm</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/arm/corstone1000/readme.html">Corstone-1000</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/arm/mps3/corstone300/README.html">Corstone-300 FPGA (AN547 and AN552) and FVP</a></li>
@@ -122,6 +131,10 @@
 <li class="toctree-l3"><a class="reference internal" href="../../platform/nxp/lpcxpresso55s69/README.html">LPCXpresso55S69</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/rpi/index.html">Raspberry Pi</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/rpi/rp2350/readme.html">RP2350</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../../platform/stm/index.html">STMICROELECTRONICS</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32h5xx/readme.html">STM32H5</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32l5xx/readme.html">STM32L5</a></li>
@@ -131,6 +144,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32h573i_dk/readme.html">STM32H573I_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32l562e_dk/readme.html">STM32L562E_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp215f_dk/readme.html">stm32mp215f_dk</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp235f_dk/readme.html">stm32mp235f_dk</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/b_u585i_iot02a/readme.html">B_U585I_IOT02A</a></li>
 </ul>
@@ -219,7 +233,7 @@
 </li>
 <li class="toctree-l2 current"><a class="reference internal" href="index.html">Software Design</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="code_sharing.html">Code Sharing</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">Hardware Abstraction Layer</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="hardware_abstraction_layer.html#">Hardware Abstraction Layer</a></li>
 <li class="toctree-l3"><a class="reference internal" href="tfm_cooperative_scheduling_rules.html">Cooperative Scheduling</a></li>
 <li class="toctree-l3"><a class="reference internal" href="tfm_code_generation_with_jinja2.html">Code Templates</a></li>
 <li class="toctree-l3"><a class="reference internal" href="enum_implicit_casting.html">Implicit Typecasting</a></li>
@@ -263,6 +277,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32h573i_dk/readme.html">STM32H573I_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32l562e_dk/readme.html">STM32L562E_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp215f_dk/readme.html">stm32mp215f_dk</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp235f_dk/readme.html">stm32mp235f_dk</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/nucleo_l552ze_q/readme.html">NUCLEO_L552ZE_Q</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/b_u585i_iot02a/readme.html">B_U585I_IOT02A</a></li>
@@ -277,6 +292,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32h573i_dk/readme.html">STM32H573I_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32l562e_dk/readme.html">STM32L562E_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp215f_dk/readme.html">stm32mp215f_dk</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp235f_dk/readme.html">stm32mp235f_dk</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
 </ul>
 </li>
@@ -307,6 +323,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../stm/technical/initlevel.html">Initlevel</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../stm/technical/initial_attestation.html">Initial Attestation Service</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/technical/key_and_provisionning.html">About TF-M Authentication Keys and Secret Provisioning</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../stm/technical/nv_counter.html">Nv counter</a></li>
 </ul>
 </li>
@@ -342,7 +359,7 @@
            <div itemprop="articleBody">
              
   <div class="section" id="hardware-abstraction-layer">
-<h1>Hardware Abstraction Layer<a class="headerlink" href="#hardware-abstraction-layer" title="Permalink to this heading"></a></h1>
+<h1>Hardware Abstraction Layer<a class="headerlink" href="hardware_abstraction_layer.html#hardware-abstraction-layer" title="Permalink to this heading"></a></h1>
 <dl class="field-list simple">
 <dt class="field-odd">Organization</dt>
 <dd class="field-odd"><p>Arm Limited</p>
@@ -355,7 +372,7 @@
 </dd>
 </dl>
 <div class="section" id="introduction">
-<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading"></a></h2>
+<h2>Introduction<a class="headerlink" href="hardware_abstraction_layer.html#introduction" title="Permalink to this heading"></a></h2>
 <p><a class="reference internal" href="../../glossary.html#term-TF-M"><span class="xref std std-term">TF-M</span></a> <a class="reference internal" href="../../glossary.html#term-HAL"><span class="xref std std-term">HAL</span></a> abstracts the hardware-oriented and platform specific
 operations on the <a class="reference internal" href="../../glossary.html#term-SPE"><span class="xref std std-term">SPE</span></a> side and provides a set of APIs to the upper
 layers such as <a class="reference internal" href="../../glossary.html#term-SPM"><span class="xref std std-term">SPM</span></a>, <a class="reference internal" href="../../glossary.html#term-RoT-Service"><span class="xref std std-term">RoT Service</span></a>.
@@ -375,7 +392,7 @@ the interfaces from the software perspective only. Please reference
 <a class="reference internal" href="../../glossary.html#term-TBSA-M"><span class="xref std std-term">TBSA-M</span></a> for your security hardware design.</p>
 </div>
 <div class="section" id="design-goals">
-<h3>Design Goals<a class="headerlink" href="#design-goals" title="Permalink to this heading"></a></h3>
+<h3>Design Goals<a class="headerlink" href="hardware_abstraction_layer.html#design-goals" title="Permalink to this heading"></a></h3>
 <p><a class="reference internal" href="../../glossary.html#term-TF-M"><span class="xref std std-term">TF-M</span></a> <a class="reference internal" href="../../glossary.html#term-HAL"><span class="xref std std-term">HAL</span></a> is designed to simplify the integration efforts on
 different platforms.</p>
 <p><a class="reference internal" href="../../glossary.html#term-TF-M"><span class="xref std std-term">TF-M</span></a> <a class="reference internal" href="../../glossary.html#term-HAL"><span class="xref std std-term">HAL</span></a> is designed to make it easy to use the hardware and
@@ -386,7 +403,7 @@ devices.</p>
 </div>
 </div>
 <div class="section" id="overview">
-<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this heading"></a></h2>
+<h2>Overview<a class="headerlink" href="hardware_abstraction_layer.html#overview" title="Permalink to this heading"></a></h2>
 <p>This section provides an overview of the abstraction layer structure.</p>
 <div class="figure align-default">
 <img alt="../../_images/hal_structure.png" src="../../_images/hal_structure.png" />
@@ -424,7 +441,7 @@ for more details.</p></li>
 </div>
 </div>
 <div class="section" id="design-principles">
-<h2>Design Principles<a class="headerlink" href="#design-principles" title="Permalink to this heading"></a></h2>
+<h2>Design Principles<a class="headerlink" href="hardware_abstraction_layer.html#design-principles" title="Permalink to this heading"></a></h2>
 <p>As <a class="reference internal" href="../../glossary.html#term-TF-M"><span class="xref std std-term">TF-M</span></a> runs on resource-constrained devices, the <a class="reference internal" href="../../glossary.html#term-HAL"><span class="xref std std-term">HAL</span></a> tries to
 avoid multiple level abstractions which cost more resources.</p>
 <p>Part of the <a class="reference internal" href="../../glossary.html#term-HAL"><span class="xref std std-term">HAL</span></a> interfaces does not focus on exact hardware operations
@@ -440,16 +457,16 @@ trusts the <a class="reference internal" href="../../glossary.html#term-HAL"><sp
 essentially no further extensive checks will be provided.</p>
 </div>
 <div class="section" id="source-files">
-<h2>Source Files<a class="headerlink" href="#source-files" title="Permalink to this heading"></a></h2>
+<h2>Source Files<a class="headerlink" href="hardware_abstraction_layer.html#source-files" title="Permalink to this heading"></a></h2>
 <p>This section describes the source file of the <a class="reference internal" href="../../glossary.html#term-TF-M"><span class="xref std std-term">TF-M</span></a> <a class="reference internal" href="../../glossary.html#term-HAL"><span class="xref std std-term">HAL</span></a>,
 including the header and c files.</p>
 <div class="section" id="tfm-hal-defs-h">
-<h3>tfm_hal_defs.h<a class="headerlink" href="#tfm-hal-defs-h" title="Permalink to this heading"></a></h3>
+<h3>tfm_hal_defs.h<a class="headerlink" href="hardware_abstraction_layer.html#tfm-hal-defs-h" title="Permalink to this heading"></a></h3>
 <p>This header file contains the definitions of common macros and types used by all
-<a class="reference internal" href="../../glossary.html#term-HAL"><span class="xref std std-term">HAL</span></a> APIs. Please refer to <a class="reference internal" href="#status-codes">Status Codes</a> for detailed definitions.</p>
+<a class="reference internal" href="../../glossary.html#term-HAL"><span class="xref std std-term">HAL</span></a> APIs. Please refer to <a class="reference internal" href="hardware_abstraction_layer.html#status-codes">Status Codes</a> for detailed definitions.</p>
 </div>
 <div class="section" id="tfm-hal-module-h-c">
-<h3>tfm_hal_[module].[h/c]<a class="headerlink" href="#tfm-hal-module-h-c" title="Permalink to this heading"></a></h3>
+<h3>tfm_hal_[module].[h/c]<a class="headerlink" href="hardware_abstraction_layer.html#tfm-hal-module-h-c" title="Permalink to this heading"></a></h3>
 <p>All other headers and c files are classified by the modules, such as isolation,
 platform, interrupt, devices, etc.</p>
 <div class="admonition note">
@@ -461,12 +478,12 @@ implement all the sub APIs.</p>
 </div>
 </div>
 <div class="section" id="status-codes">
-<h2>Status Codes<a class="headerlink" href="#status-codes" title="Permalink to this heading"></a></h2>
+<h2>Status Codes<a class="headerlink" href="hardware_abstraction_layer.html#status-codes" title="Permalink to this heading"></a></h2>
 <p>These are common status and error codes for all <a class="reference internal" href="../../glossary.html#term-HAL"><span class="xref std std-term">HAL</span></a> APIs.</p>
 <div class="section" id="types">
-<h3>Types<a class="headerlink" href="#types" title="Permalink to this heading"></a></h3>
+<h3>Types<a class="headerlink" href="hardware_abstraction_layer.html#types" title="Permalink to this heading"></a></h3>
 <div class="section" id="tfm-hal-status-t">
-<h4>tfm_hal_status_t<a class="headerlink" href="#tfm-hal-status-t" title="Permalink to this heading"></a></h4>
+<h4>tfm_hal_status_t<a class="headerlink" href="hardware_abstraction_layer.html#tfm-hal-status-t" title="Permalink to this heading"></a></h4>
 <p>This is a status code to be used as the return type of <a class="reference internal" href="../../glossary.html#term-HAL"><span class="xref std std-term">HAL</span></a> APIs.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">enum</span><span class="w"> </span><span class="n">tfm_hal_status_t</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="n">TFM_HAL_ERROR_MEM_FAULT</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SCHAR_MIN</span><span class="p">,</span>
@@ -483,58 +500,58 @@ implement all the sub APIs.</p>
 </div>
 </div>
 <div class="section" id="error-codes">
-<h3>Error Codes<a class="headerlink" href="#error-codes" title="Permalink to this heading"></a></h3>
+<h3>Error Codes<a class="headerlink" href="hardware_abstraction_layer.html#error-codes" title="Permalink to this heading"></a></h3>
 <p>Negative values indicate an error. Zero and positive values indicate success.</p>
 <p>Here is the general list. The detailed usages for each error code are described
 in the API introduction sections.</p>
 <div class="section" id="tfm-hal-success">
-<h4>TFM_HAL_SUCCESS<a class="headerlink" href="#tfm-hal-success" title="Permalink to this heading"></a></h4>
+<h4>TFM_HAL_SUCCESS<a class="headerlink" href="hardware_abstraction_layer.html#tfm-hal-success" title="Permalink to this heading"></a></h4>
 <p>Status code to indicate general success.</p>
 </div>
 <div class="section" id="tfm-hal-error-generic">
-<h4>TFM_HAL_ERROR_GENERIC<a class="headerlink" href="#tfm-hal-error-generic" title="Permalink to this heading"></a></h4>
+<h4>TFM_HAL_ERROR_GENERIC<a class="headerlink" href="hardware_abstraction_layer.html#tfm-hal-error-generic" title="Permalink to this heading"></a></h4>
 <p>Status code to indicate an error that does not correspond to any defined failure
 cause.</p>
 </div>
 <div class="section" id="tfm-hal-error-not-init">
-<h4>TFM_HAL_ERROR_NOT_INIT<a class="headerlink" href="#tfm-hal-error-not-init" title="Permalink to this heading"></a></h4>
+<h4>TFM_HAL_ERROR_NOT_INIT<a class="headerlink" href="hardware_abstraction_layer.html#tfm-hal-error-not-init" title="Permalink to this heading"></a></h4>
 <p>Status code to indicate that the module is not initialed.</p>
 </div>
 <div class="section" id="tfm-hal-error-invalid-input">
-<h4>TFM_HAL_ERROR_INVALID_INPUT<a class="headerlink" href="#tfm-hal-error-invalid-input" title="Permalink to this heading"></a></h4>
+<h4>TFM_HAL_ERROR_INVALID_INPUT<a class="headerlink" href="hardware_abstraction_layer.html#tfm-hal-error-invalid-input" title="Permalink to this heading"></a></h4>
 <p>Status code to indicate that the input is invalid.</p>
 </div>
 <div class="section" id="tfm-hal-error-not-supported">
-<h4>TFM_HAL_ERROR_NOT_SUPPORTED<a class="headerlink" href="#tfm-hal-error-not-supported" title="Permalink to this heading"></a></h4>
+<h4>TFM_HAL_ERROR_NOT_SUPPORTED<a class="headerlink" href="hardware_abstraction_layer.html#tfm-hal-error-not-supported" title="Permalink to this heading"></a></h4>
 <p>Status code to indicate that the requested operation or a parameter is not
 supported.</p>
 </div>
 <div class="section" id="tfm-hal-error-bad-state">
-<h4>TFM_HAL_ERROR_BAD_STATE<a class="headerlink" href="#tfm-hal-error-bad-state" title="Permalink to this heading"></a></h4>
+<h4>TFM_HAL_ERROR_BAD_STATE<a class="headerlink" href="hardware_abstraction_layer.html#tfm-hal-error-bad-state" title="Permalink to this heading"></a></h4>
 <p>Status code to indicate that the requested action cannot be performed in the
 current state.</p>
 </div>
 <div class="section" id="tfm-hal-error-max-value">
-<h4>TFM_HAL_ERROR_MAX_VALUE<a class="headerlink" href="#tfm-hal-error-max-value" title="Permalink to this heading"></a></h4>
+<h4>TFM_HAL_ERROR_MAX_VALUE<a class="headerlink" href="hardware_abstraction_layer.html#tfm-hal-error-max-value" title="Permalink to this heading"></a></h4>
 <p>Status code to indicate that the current number has got the max value.</p>
 </div>
 <div class="section" id="tfm-hal-error-mem-fault">
-<h4>TFM_HAL_ERROR_MEM_FAULT<a class="headerlink" href="#tfm-hal-error-mem-fault" title="Permalink to this heading"></a></h4>
+<h4>TFM_HAL_ERROR_MEM_FAULT<a class="headerlink" href="hardware_abstraction_layer.html#tfm-hal-error-mem-fault" title="Permalink to this heading"></a></h4>
 <p>Status code to indicate that the memory check failed.</p>
 </div>
 </div>
 </div>
 <div class="section" id="api-definition-for-tf-m-spm">
-<h2>API Definition for TF-M SPM<a class="headerlink" href="#api-definition-for-tf-m-spm" title="Permalink to this heading"></a></h2>
+<h2>API Definition for TF-M SPM<a class="headerlink" href="hardware_abstraction_layer.html#api-definition-for-tf-m-spm" title="Permalink to this heading"></a></h2>
 <p>This section describes the APIs defined for <a class="reference internal" href="../../glossary.html#term-TF-M"><span class="xref std std-term">TF-M</span></a> <a class="reference internal" href="../../glossary.html#term-SPM"><span class="xref std std-term">SPM</span></a>.</p>
 <div class="section" id="platform-api">
-<h3>Platform API<a class="headerlink" href="#platform-api" title="Permalink to this heading"></a></h3>
+<h3>Platform API<a class="headerlink" href="hardware_abstraction_layer.html#platform-api" title="Permalink to this heading"></a></h3>
 <p>The platform API is a higher-level abstraction layer of the platform, other than
 a dedicated API set for the special hardware devices.</p>
 <div class="section" id="apis">
-<h4>APIs<a class="headerlink" href="#apis" title="Permalink to this heading"></a></h4>
+<h4>APIs<a class="headerlink" href="hardware_abstraction_layer.html#apis" title="Permalink to this heading"></a></h4>
 <div class="section" id="tfm-hal-platform-init">
-<h5>tfm_hal_platform_init()<a class="headerlink" href="#tfm-hal-platform-init" title="Permalink to this heading"></a></h5>
+<h5>tfm_hal_platform_init()<a class="headerlink" href="hardware_abstraction_layer.html#tfm-hal-platform-init" title="Permalink to this heading"></a></h5>
 <p><strong>Prototype</strong></p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">enum</span><span class="w"> </span><span class="n">tfm_hal_status_t</span><span class="w"> </span><span class="n">tfm_hal_platform_init</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
 </pre></div>
@@ -558,7 +575,7 @@ initialization.</p>
 </ul>
 </div>
 <div class="section" id="tfm-hal-system-reset">
-<h5>tfm_hal_system_reset()<a class="headerlink" href="#tfm-hal-system-reset" title="Permalink to this heading"></a></h5>
+<h5>tfm_hal_system_reset()<a class="headerlink" href="hardware_abstraction_layer.html#tfm-hal-system-reset" title="Permalink to this heading"></a></h5>
 <p><strong>Prototype</strong></p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="n">tfm_hal_system_reset</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
 </pre></div>
@@ -580,7 +597,7 @@ the system when a fatal error occurs.</p>
 <p>This API should not return.</p>
 </div>
 <div class="section" id="tfm-hal-system-halt">
-<h5>tfm_hal_system_halt()<a class="headerlink" href="#tfm-hal-system-halt" title="Permalink to this heading"></a></h5>
+<h5>tfm_hal_system_halt()<a class="headerlink" href="hardware_abstraction_layer.html#tfm-hal-system-halt" title="Permalink to this heading"></a></h5>
 <p><strong>Prototype</strong></p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="n">tfm_hal_system_halt</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
 </pre></div>
@@ -604,7 +621,7 @@ system when a fatal error occurs.</p>
 </div>
 </div>
 <div class="section" id="isolation-api">
-<h3>Isolation API<a class="headerlink" href="#isolation-api" title="Permalink to this heading"></a></h3>
+<h3>Isolation API<a class="headerlink" href="hardware_abstraction_layer.html#isolation-api" title="Permalink to this heading"></a></h3>
 <p>The <a class="reference internal" href="../../glossary.html#term-PSA-FF-M"><span class="xref std std-term">PSA-FF-M</span></a> defines three isolation levels and a memory access rule to
 provide diverse levels of security. The isolation API provides the functions to
 implement these requirements.</p>
@@ -674,48 +691,48 @@ same domain does not need to change the activated boundary.</p>
 <p>The boundary contains the partition’s memory accessibility information, hence
 memory access check shall be performed based on boundary.</p>
 <div class="section" id="memory-access-attributes">
-<h4>Memory Access Attributes<a class="headerlink" href="#memory-access-attributes" title="Permalink to this heading"></a></h4>
+<h4>Memory Access Attributes<a class="headerlink" href="hardware_abstraction_layer.html#memory-access-attributes" title="Permalink to this heading"></a></h4>
 <p>The memory access attributes are encoded as bit fields, you can logic OR them to
 have a combination of the atrributes, for example
 <code class="docutils literal notranslate"><span class="pre">TFM_HAL_ACCESS_UNPRIVILEGED</span> <span class="pre">|</span> <span class="pre">TFM_HAL_ACCESS_READABLE</span></code> is unprivileged
 readable. The data type is <cite>uint32_t</cite>.</p>
 <div class="section" id="tfm-hal-access-executable">
-<h5>TFM_HAL_ACCESS_EXECUTABLE<a class="headerlink" href="#tfm-hal-access-executable" title="Permalink to this heading"></a></h5>
+<h5>TFM_HAL_ACCESS_EXECUTABLE<a class="headerlink" href="hardware_abstraction_layer.html#tfm-hal-access-executable" title="Permalink to this heading"></a></h5>
 <p>The memory is executable.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#define TFM_HAL_ACCESS_EXECUTABLE (1UL &lt;&lt; 0)</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="tfm-hal-access-readable">
-<h5>TFM_HAL_ACCESS_READABLE<a class="headerlink" href="#tfm-hal-access-readable" title="Permalink to this heading"></a></h5>
+<h5>TFM_HAL_ACCESS_READABLE<a class="headerlink" href="hardware_abstraction_layer.html#tfm-hal-access-readable" title="Permalink to this heading"></a></h5>
 <p>The memory is readable.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#define TFM_HAL_ACCESS_READABLE (1UL &lt;&lt; 1)</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="tfm-hal-access-writable">
-<h5>TFM_HAL_ACCESS_WRITABLE<a class="headerlink" href="#tfm-hal-access-writable" title="Permalink to this heading"></a></h5>
+<h5>TFM_HAL_ACCESS_WRITABLE<a class="headerlink" href="hardware_abstraction_layer.html#tfm-hal-access-writable" title="Permalink to this heading"></a></h5>
 <p>The memory is writable.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#define TFM_HAL_ACCESS_WRITABLE (1UL &lt;&lt; 2)</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="tfm-hal-access-unprivileged">
-<h5>TFM_HAL_ACCESS_UNPRIVILEGED<a class="headerlink" href="#tfm-hal-access-unprivileged" title="Permalink to this heading"></a></h5>
+<h5>TFM_HAL_ACCESS_UNPRIVILEGED<a class="headerlink" href="hardware_abstraction_layer.html#tfm-hal-access-unprivileged" title="Permalink to this heading"></a></h5>
 <p>The memory is unprivileged mode accessible.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#define TFM_HAL_ACCESS_UNPRIVILEGED (1UL &lt;&lt; 3)</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="tfm-hal-access-device">
-<h5>TFM_HAL_ACCESS_DEVICE<a class="headerlink" href="#tfm-hal-access-device" title="Permalink to this heading"></a></h5>
+<h5>TFM_HAL_ACCESS_DEVICE<a class="headerlink" href="hardware_abstraction_layer.html#tfm-hal-access-device" title="Permalink to this heading"></a></h5>
 <p>The memory is a MMIO device.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#define TFM_HAL_ACCESS_DEVICE (1UL &lt;&lt; 4)</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="tfm-hal-access-ns">
-<h5>TFM_HAL_ACCESS_NS<a class="headerlink" href="#tfm-hal-access-ns" title="Permalink to this heading"></a></h5>
+<h5>TFM_HAL_ACCESS_NS<a class="headerlink" href="hardware_abstraction_layer.html#tfm-hal-access-ns" title="Permalink to this heading"></a></h5>
 <p>The memory is accessible from <a class="reference internal" href="../../glossary.html#term-NSPE"><span class="xref std std-term">NSPE</span></a></p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#define TFM_HAL_ACCESS_NS (1UL &lt;&lt; 5)</span>
 </pre></div>
@@ -723,9 +740,9 @@ readable. The data type is <cite>uint32_t</cite>.</p>
 </div>
 </div>
 <div class="section" id="id1">
-<h4>APIs<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h4>
+<h4>APIs<a class="headerlink" href="hardware_abstraction_layer.html#id1" title="Permalink to this heading"></a></h4>
 <div class="section" id="tfm-hal-verify-static-boundaries">
-<h5>tfm_hal_verify_static_boundaries()<a class="headerlink" href="#tfm-hal-verify-static-boundaries" title="Permalink to this heading"></a></h5>
+<h5>tfm_hal_verify_static_boundaries()<a class="headerlink" href="hardware_abstraction_layer.html#tfm-hal-verify-static-boundaries" title="Permalink to this heading"></a></h5>
 <p><strong>Prototype</strong></p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">fih_int</span><span class="w"> </span><span class="n">tfm_hal_verify_static_boundaries</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
 </pre></div>
@@ -744,7 +761,7 @@ readable. The data type is <cite>uint32_t</cite>.</p>
 </ul>
 </div>
 <div class="section" id="tfm-hal-set-up-static-boundaries">
-<h5>tfm_hal_set_up_static_boundaries()<a class="headerlink" href="#tfm-hal-set-up-static-boundaries" title="Permalink to this heading"></a></h5>
+<h5>tfm_hal_set_up_static_boundaries()<a class="headerlink" href="hardware_abstraction_layer.html#tfm-hal-set-up-static-boundaries" title="Permalink to this heading"></a></h5>
 <p><strong>Prototype</strong></p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">enum</span><span class="w"> </span><span class="n">tfm_hal_status_t</span><span class="w"> </span><span class="n">tfm_hal_set_up_static_boundaries</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
 </pre></div>
@@ -771,7 +788,7 @@ Trust which is for isolation level 2 and 3 only.</p></li>
 </ul>
 </div>
 <div class="section" id="tfm-hal-bind-boundary">
-<h5>tfm_hal_bind_boundary()<a class="headerlink" href="#tfm-hal-bind-boundary" title="Permalink to this heading"></a></h5>
+<h5>tfm_hal_bind_boundary()<a class="headerlink" href="hardware_abstraction_layer.html#tfm-hal-bind-boundary" title="Permalink to this heading"></a></h5>
 <p><strong>Prototype</strong></p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">enum</span><span class="w"> </span><span class="n">tfm_hal_status_t</span><span class="w"> </span><span class="nf">tfm_hal_bind_boundary</span><span class="p">(</span>
 <span class="w">                                </span><span class="k">const</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">partition_load_info_t</span><span class="w"> </span><span class="o">*</span><span class="n">p_ldinf</span><span class="p">,</span>
@@ -781,7 +798,7 @@ Trust which is for isolation level 2 and 3 only.</p></li>
 <p><strong>Description</strong></p>
 <p>This API binds partition with a platform-generated boundary. The boundary is
 bound by writing the generated value into <code class="docutils literal notranslate"><span class="pre">p_boundary</span></code>. And this bound
-boundary is used in subsequent calls to <a class="reference internal" href="#tfm-hal-activate-boundary">tfm_hal_activate_boundary()</a> when
+boundary is used in subsequent calls to <a class="reference internal" href="hardware_abstraction_layer.html#tfm-hal-activate-boundary">tfm_hal_activate_boundary()</a> when
 boundary’s owner partition get scheduled for running.</p>
 <p><strong>Parameter</strong></p>
 <ul class="simple">
@@ -795,7 +812,7 @@ boundary’s owner partition get scheduled for running.</p>
 </ul>
 </div>
 <div class="section" id="tfm-hal-activate-boundary">
-<h5>tfm_hal_activate_boundary()<a class="headerlink" href="#tfm-hal-activate-boundary" title="Permalink to this heading"></a></h5>
+<h5>tfm_hal_activate_boundary()<a class="headerlink" href="hardware_abstraction_layer.html#tfm-hal-activate-boundary" title="Permalink to this heading"></a></h5>
 <p><strong>Prototype</strong></p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">enum</span><span class="w"> </span><span class="n">tfm_hal_status_t</span><span class="w"> </span><span class="nf">tfm_hal_activate_boundary</span><span class="p">(</span>
 <span class="w">                            </span><span class="k">const</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">partition_load_info_t</span><span class="w"> </span><span class="o">*</span><span class="n">p_ldinf</span><span class="p">,</span>
@@ -819,7 +836,7 @@ value is bound in function <code class="docutils literal notranslate"><span clas
 </ul>
 </div>
 <div class="section" id="tfm-hal-memory-check">
-<h5>tfm_hal_memory_check()<a class="headerlink" href="#tfm-hal-memory-check" title="Permalink to this heading"></a></h5>
+<h5>tfm_hal_memory_check()<a class="headerlink" href="hardware_abstraction_layer.html#tfm-hal-memory-check" title="Permalink to this heading"></a></h5>
 <p><strong>Prototype</strong></p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">tfm_hal_status_t</span><span class="w"> </span><span class="n">tfm_hal_memory_check</span><span class="p">(</span><span class="kt">uintptr_t</span><span class="w"> </span><span class="n">boundary</span><span class="p">,</span>
 <span class="w">                                      </span><span class="kt">uintptr_t</span><span class="w"> </span><span class="n">base</span><span class="p">,</span>
@@ -838,7 +855,7 @@ Check <cite>tfm_hal_bind_boundary</cite> for details.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">base</span></code> - The base address of the region.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">size</span></code> - The size of the region.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">access_type</span></code> - The memory access types to be checked between given memory
-and boundaries. The <a class="reference internal" href="#memory-access-attributes">Memory Access Attributes</a>.</p></li>
+and boundaries. The <a class="reference internal" href="hardware_abstraction_layer.html#memory-access-attributes">Memory Access Attributes</a>.</p></li>
 </ul>
 <p><strong>Return Values</strong></p>
 <ul class="simple">
@@ -854,7 +871,7 @@ a platform-specific pointer validation needs to be considered before
 referencing the content in this pointer.</p>
 </div>
 <div class="section" id="tfm-hal-boundary-need-switch">
-<h5>tfm_hal_boundary_need_switch()<a class="headerlink" href="#tfm-hal-boundary-need-switch" title="Permalink to this heading"></a></h5>
+<h5>tfm_hal_boundary_need_switch()<a class="headerlink" href="hardware_abstraction_layer.html#tfm-hal-boundary-need-switch" title="Permalink to this heading"></a></h5>
 <p><strong>Prototype</strong></p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">bool</span><span class="w"> </span><span class="n">tfm_hal_boundary_need_switch</span><span class="p">(</span><span class="kt">uintptr_t</span><span class="w"> </span><span class="n">boundary_from</span><span class="p">,</span>
 <span class="w">                                  </span><span class="kt">uintptr_t</span><span class="w"> </span><span class="n">boundary_to</span><span class="p">)</span>
@@ -876,13 +893,13 @@ referencing the content in this pointer.</p>
 </div>
 </div>
 <div class="section" id="log-api">
-<h3>Log API<a class="headerlink" href="#log-api" title="Permalink to this heading"></a></h3>
+<h3>Log API<a class="headerlink" href="hardware_abstraction_layer.html#log-api" title="Permalink to this heading"></a></h3>
 <p>The log API is used by the <a class="reference internal" href="../../glossary.html#term-TF-M"><span class="xref std std-term">TF-M</span></a> <a class="reference internal" href="../tfm_log_system_design_document.html"><span class="doc">log system</span></a>.
 The log device could be uart, memory, usb, etc.</p>
 <div class="section" id="id2">
-<h4>APIs<a class="headerlink" href="#id2" title="Permalink to this heading"></a></h4>
+<h4>APIs<a class="headerlink" href="hardware_abstraction_layer.html#id2" title="Permalink to this heading"></a></h4>
 <div class="section" id="tfm-hal-output-partition-log">
-<h5>tfm_hal_output_partition_log()<a class="headerlink" href="#tfm-hal-output-partition-log" title="Permalink to this heading"></a></h5>
+<h5>tfm_hal_output_partition_log()<a class="headerlink" href="hardware_abstraction_layer.html#tfm-hal-output-partition-log" title="Permalink to this heading"></a></h5>
 <p><strong>Prototype</strong></p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int32_t</span><span class="w"> </span><span class="n">tfm_hal_output_partition_log</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">str</span><span class="p">,</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">len</span><span class="p">)</span>
 </pre></div>
@@ -905,7 +922,7 @@ The log device could be uart, memory, usb, etc.</p>
 <p>None.</p>
 </div>
 <div class="section" id="tfm-hal-output-spm-log">
-<h5>tfm_hal_output_spm_log()<a class="headerlink" href="#tfm-hal-output-spm-log" title="Permalink to this heading"></a></h5>
+<h5>tfm_hal_output_spm_log()<a class="headerlink" href="hardware_abstraction_layer.html#tfm-hal-output-spm-log" title="Permalink to this heading"></a></h5>
 <p><strong>Prototype</strong></p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int32_t</span><span class="w"> </span><span class="n">tfm_hal_output_spm_log</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">str</span><span class="p">,</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">len</span><span class="p">)</span>
 </pre></div>
@@ -931,7 +948,7 @@ for more information.</p>
 </div>
 </div>
 <div class="section" id="interrupt-apis">
-<h3>Interrupt APIs<a class="headerlink" href="#interrupt-apis" title="Permalink to this heading"></a></h3>
+<h3>Interrupt APIs<a class="headerlink" href="hardware_abstraction_layer.html#interrupt-apis" title="Permalink to this heading"></a></h3>
 <p>The SPM HAL interrupt APIs are intended for operations on Interrupt Controllers
 of platforms.</p>
 <p>APIs for control registers of interrupt sources are not in the scope of this set
@@ -939,9 +956,9 @@ of APIs.
 Secure Partitions should define the APIs for managing interrupts with those MMIO
 registers.</p>
 <div class="section" id="id3">
-<h4>APIs<a class="headerlink" href="#id3" title="Permalink to this heading"></a></h4>
+<h4>APIs<a class="headerlink" href="hardware_abstraction_layer.html#id3" title="Permalink to this heading"></a></h4>
 <div class="section" id="tfm-hal-irq-enable">
-<h5>tfm_hal_irq_enable()<a class="headerlink" href="#tfm-hal-irq-enable" title="Permalink to this heading"></a></h5>
+<h5>tfm_hal_irq_enable()<a class="headerlink" href="hardware_abstraction_layer.html#tfm-hal-irq-enable" title="Permalink to this heading"></a></h5>
 <p><strong>Prototype</strong></p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">enum</span><span class="w"> </span><span class="n">tfm_hal_status_t</span><span class="w"> </span><span class="n">tfm_hal_irq_enable</span><span class="p">(</span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">irq_num</span><span class="p">)</span>
 </pre></div>
@@ -961,7 +978,7 @@ supported number of external interrupts.</p></li>
 </ul>
 </div>
 <div class="section" id="tfm-hal-irq-disable">
-<h5>tfm_hal_irq_disable()<a class="headerlink" href="#tfm-hal-irq-disable" title="Permalink to this heading"></a></h5>
+<h5>tfm_hal_irq_disable()<a class="headerlink" href="hardware_abstraction_layer.html#tfm-hal-irq-disable" title="Permalink to this heading"></a></h5>
 <p><strong>Prototype</strong></p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">enum</span><span class="w"> </span><span class="n">tfm_hal_status_t</span><span class="w"> </span><span class="n">tfm_hal_irq_disable</span><span class="p">(</span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">irq_num</span><span class="p">)</span>
 </pre></div>
@@ -981,7 +998,7 @@ supported number of external interrupts.</p></li>
 </ul>
 </div>
 <div class="section" id="tfm-hal-irq-clear-pending">
-<h5>tfm_hal_irq_clear_pending()<a class="headerlink" href="#tfm-hal-irq-clear-pending" title="Permalink to this heading"></a></h5>
+<h5>tfm_hal_irq_clear_pending()<a class="headerlink" href="hardware_abstraction_layer.html#tfm-hal-irq-clear-pending" title="Permalink to this heading"></a></h5>
 <p><strong>Prototype</strong></p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">enum</span><span class="w"> </span><span class="n">tfm_hal_status_t</span><span class="w"> </span><span class="n">tfm_hal_irq_clear_pending</span><span class="p">(</span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">irq_num</span><span class="p">)</span>
 </pre></div>
@@ -1001,7 +1018,7 @@ supported number of external interrupts.</p></li>
 </ul>
 </div>
 <div class="section" id="initializations">
-<h5>Initializations<a class="headerlink" href="#initializations" title="Permalink to this heading"></a></h5>
+<h5>Initializations<a class="headerlink" href="hardware_abstraction_layer.html#initializations" title="Permalink to this heading"></a></h5>
 <p><strong>Prototype</strong></p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">enum</span><span class="w"> </span><span class="n">tfm_hal_status_t</span><span class="w"> </span><span class="p">{</span><span class="n">source_symbol</span><span class="p">}</span><span class="n">_init</span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">p_pt</span><span class="p">,</span>
 <span class="w">                                           </span><span class="k">const</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">irq_load_info_t</span><span class="w"> </span><span class="o">*</span><span class="n">p_ildi</span><span class="p">)</span>
@@ -1037,7 +1054,7 @@ for more information.</p>
 </div>
 </div>
 <div class="section" id="api-definition-for-secure-partitions">
-<h2>API Definition for Secure Partitions<a class="headerlink" href="#api-definition-for-secure-partitions" title="Permalink to this heading"></a></h2>
+<h2>API Definition for Secure Partitions<a class="headerlink" href="hardware_abstraction_layer.html#api-definition-for-secure-partitions" title="Permalink to this heading"></a></h2>
 <p>The Secure Partition (SP) <a class="reference internal" href="../../glossary.html#term-HAL"><span class="xref std std-term">HAL</span></a> mainly focuses on two parts:</p>
 <blockquote>
 <div><ul class="simple">
@@ -1050,7 +1067,7 @@ provided by the platform.</p></li>
 <p>The Secure Partition abstraction support will be introduced in the peripheral
 API definition.</p>
 <div class="section" id="its-and-ps-flash-api">
-<h3>ITS and PS flash API<a class="headerlink" href="#its-and-ps-flash-api" title="Permalink to this heading"></a></h3>
+<h3>ITS and PS flash API<a class="headerlink" href="hardware_abstraction_layer.html#its-and-ps-flash-api" title="Permalink to this heading"></a></h3>
 <p>There are two kinds of flash:</p>
 <blockquote>
 <div><ul class="simple">
@@ -1061,68 +1078,68 @@ API definition.</p>
 <p>The ITS HAL for the internal flash device is defined in the <code class="docutils literal notranslate"><span class="pre">tfm_hal_its.h</span></code>
 header and the PS HAL in the <code class="docutils literal notranslate"><span class="pre">tfm_hal_ps.h</span></code> header.</p>
 <div class="section" id="macros">
-<h4>Macros<a class="headerlink" href="#macros" title="Permalink to this heading"></a></h4>
+<h4>Macros<a class="headerlink" href="hardware_abstraction_layer.html#macros" title="Permalink to this heading"></a></h4>
 <div class="section" id="internal-trusted-storage">
-<h5>Internal Trusted Storage<a class="headerlink" href="#internal-trusted-storage" title="Permalink to this heading"></a></h5>
+<h5>Internal Trusted Storage<a class="headerlink" href="hardware_abstraction_layer.html#internal-trusted-storage" title="Permalink to this heading"></a></h5>
 <div class="section" id="tfm-hal-its-flash-driver">
-<h6>TFM_HAL_ITS_FLASH_DRIVER<a class="headerlink" href="#tfm-hal-its-flash-driver" title="Permalink to this heading"></a></h6>
+<h6>TFM_HAL_ITS_FLASH_DRIVER<a class="headerlink" href="hardware_abstraction_layer.html#tfm-hal-its-flash-driver" title="Permalink to this heading"></a></h6>
 <p>Defines the identifier of the CMSIS Flash ARM_DRIVER_FLASH object to use for
 ITS. It must have been allocated by the platform and will be declared extern in
 the HAL header.</p>
 </div>
 <div class="section" id="tfm-hal-its-program-unit">
-<h6>TFM_HAL_ITS_PROGRAM_UNIT<a class="headerlink" href="#tfm-hal-its-program-unit" title="Permalink to this heading"></a></h6>
+<h6>TFM_HAL_ITS_PROGRAM_UNIT<a class="headerlink" href="hardware_abstraction_layer.html#tfm-hal-its-program-unit" title="Permalink to this heading"></a></h6>
 <p>Defines the size of the ITS flash device’s physical program unit (the smallest
 unit of data that can be individually programmed to flash). It must be equal to
 TFM_HAL_ITS_FLASH_DRIVER.GetInfo()-&gt;program_unit, but made available at compile
 time so that filesystem structures can be statically sized.</p>
 </div>
 <div class="section" id="tfm-hal-its-flash-area-addr">
-<h6>TFM_HAL_ITS_FLASH_AREA_ADDR<a class="headerlink" href="#tfm-hal-its-flash-area-addr" title="Permalink to this heading"></a></h6>
+<h6>TFM_HAL_ITS_FLASH_AREA_ADDR<a class="headerlink" href="hardware_abstraction_layer.html#tfm-hal-its-flash-area-addr" title="Permalink to this heading"></a></h6>
 <p>Defines the base address of the dedicated flash area for ITS.</p>
 </div>
 <div class="section" id="tfm-hal-its-flash-area-size">
-<h6>TFM_HAL_ITS_FLASH_AREA_SIZE<a class="headerlink" href="#tfm-hal-its-flash-area-size" title="Permalink to this heading"></a></h6>
+<h6>TFM_HAL_ITS_FLASH_AREA_SIZE<a class="headerlink" href="hardware_abstraction_layer.html#tfm-hal-its-flash-area-size" title="Permalink to this heading"></a></h6>
 <p>Defines the size of the dedicated flash area for ITS in bytes.</p>
 </div>
 <div class="section" id="tfm-hal-its-sectors-per-block">
-<h6>TFM_HAL_ITS_SECTORS_PER_BLOCK<a class="headerlink" href="#tfm-hal-its-sectors-per-block" title="Permalink to this heading"></a></h6>
+<h6>TFM_HAL_ITS_SECTORS_PER_BLOCK<a class="headerlink" href="hardware_abstraction_layer.html#tfm-hal-its-sectors-per-block" title="Permalink to this heading"></a></h6>
 <p>Defines the number of contiguous physical flash erase sectors that form a
 logical filesystem erase block.</p>
 </div>
 </div>
 <div class="section" id="protected-storage">
-<h5>Protected Storage<a class="headerlink" href="#protected-storage" title="Permalink to this heading"></a></h5>
+<h5>Protected Storage<a class="headerlink" href="hardware_abstraction_layer.html#protected-storage" title="Permalink to this heading"></a></h5>
 <div class="section" id="tfm-hal-ps-flash-driver">
-<h6>TFM_HAL_PS_FLASH_DRIVER<a class="headerlink" href="#tfm-hal-ps-flash-driver" title="Permalink to this heading"></a></h6>
+<h6>TFM_HAL_PS_FLASH_DRIVER<a class="headerlink" href="hardware_abstraction_layer.html#tfm-hal-ps-flash-driver" title="Permalink to this heading"></a></h6>
 <p>Defines the identifier of the CMSIS Flash ARM_DRIVER_FLASH object to use for
 PS. It must have been allocated by the platform and will be declared extern in
 the HAL header.</p>
 </div>
 <div class="section" id="tfm-hal-ps-program-unit">
-<h6>TFM_HAL_PS_PROGRAM_UNIT<a class="headerlink" href="#tfm-hal-ps-program-unit" title="Permalink to this heading"></a></h6>
+<h6>TFM_HAL_PS_PROGRAM_UNIT<a class="headerlink" href="hardware_abstraction_layer.html#tfm-hal-ps-program-unit" title="Permalink to this heading"></a></h6>
 <p>Defines the size of the PS flash device’s physical program unit (the smallest
 unit of data that can be individually programmed to flash). It must be equal to
 TFM_HAL_PS_FLASH_DRIVER.GetInfo()-&gt;program_unit, but made available at compile
 time so that filesystem structures can be statically sized.</p>
 </div>
 <div class="section" id="tfm-hal-ps-flash-area-addr">
-<h6>TFM_HAL_PS_FLASH_AREA_ADDR<a class="headerlink" href="#tfm-hal-ps-flash-area-addr" title="Permalink to this heading"></a></h6>
+<h6>TFM_HAL_PS_FLASH_AREA_ADDR<a class="headerlink" href="hardware_abstraction_layer.html#tfm-hal-ps-flash-area-addr" title="Permalink to this heading"></a></h6>
 <p>Defines the base address of the dedicated flash area for PS.</p>
 </div>
 <div class="section" id="tfm-hal-ps-flash-area-size">
-<h6>TFM_HAL_PS_FLASH_AREA_SIZE<a class="headerlink" href="#tfm-hal-ps-flash-area-size" title="Permalink to this heading"></a></h6>
+<h6>TFM_HAL_PS_FLASH_AREA_SIZE<a class="headerlink" href="hardware_abstraction_layer.html#tfm-hal-ps-flash-area-size" title="Permalink to this heading"></a></h6>
 <p>Defines the size of the dedicated flash area for PS in bytes.</p>
 </div>
 <div class="section" id="tfm-hal-ps-sectors-per-block">
-<h6>TFM_HAL_PS_SECTORS_PER_BLOCK<a class="headerlink" href="#tfm-hal-ps-sectors-per-block" title="Permalink to this heading"></a></h6>
+<h6>TFM_HAL_PS_SECTORS_PER_BLOCK<a class="headerlink" href="hardware_abstraction_layer.html#tfm-hal-ps-sectors-per-block" title="Permalink to this heading"></a></h6>
 <p>Defines the number of contiguous physical flash erase sectors that form a
 logical filesystem erase block.</p>
 </div>
 </div>
 </div>
 <div class="section" id="optional-definitions">
-<h4>Optional definitions<a class="headerlink" href="#optional-definitions" title="Permalink to this heading"></a></h4>
+<h4>Optional definitions<a class="headerlink" href="hardware_abstraction_layer.html#optional-definitions" title="Permalink to this heading"></a></h4>
 <p>The <code class="docutils literal notranslate"><span class="pre">TFM_HAL_ITS_FLASH_AREA_ADDR</span></code>, <code class="docutils literal notranslate"><span class="pre">TFM_HAL_ITS_FLASH_AREA_SIZE</span></code> and
 <code class="docutils literal notranslate"><span class="pre">TFM_HAL_ITS_SECTORS_PER_BLOCK</span></code> definitions are optional. If not defined, the
 platform must implement <code class="docutils literal notranslate"><span class="pre">tfm_hal_its_fs_info()</span></code> instead.</p>
@@ -1131,9 +1148,9 @@ platform must implement <code class="docutils literal notranslate"><span class="
 <code class="docutils literal notranslate"><span class="pre">TFM_HAL_ITS_SECTORS_PER_BLOCK</span></code> is not defined.</p>
 </div>
 <div class="section" id="objects">
-<h4>Objects<a class="headerlink" href="#objects" title="Permalink to this heading"></a></h4>
+<h4>Objects<a class="headerlink" href="hardware_abstraction_layer.html#objects" title="Permalink to this heading"></a></h4>
 <div class="section" id="arm-driver-flash">
-<h5>ARM_DRIVER_FLASH<a class="headerlink" href="#arm-driver-flash" title="Permalink to this heading"></a></h5>
+<h5>ARM_DRIVER_FLASH<a class="headerlink" href="hardware_abstraction_layer.html#arm-driver-flash" title="Permalink to this heading"></a></h5>
 <p>The ITS and PS HAL headers each expose a CMSIS Flash Driver instance.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">extern</span><span class="w"> </span><span class="n">ARM_DRIVER_FLASH</span><span class="w"> </span><span class="n">TFM_HAL_ITS_FLASH_DRIVER</span>
 
@@ -1146,9 +1163,9 @@ as the sector size.</p>
 </div>
 </div>
 <div class="section" id="id4">
-<h4>Types<a class="headerlink" href="#id4" title="Permalink to this heading"></a></h4>
+<h4>Types<a class="headerlink" href="hardware_abstraction_layer.html#id4" title="Permalink to this heading"></a></h4>
 <div class="section" id="tfm-hal-its-fs-info-t">
-<h5>tfm_hal_its_fs_info_t<a class="headerlink" href="#tfm-hal-its-fs-info-t" title="Permalink to this heading"></a></h5>
+<h5>tfm_hal_its_fs_info_t<a class="headerlink" href="hardware_abstraction_layer.html#tfm-hal-its-fs-info-t" title="Permalink to this heading"></a></h5>
 <p>Struct containing information required from the platform at runtime to configure
 the ITS filesystem.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">tfm_hal_its_fs_info_t</span><span class="w"> </span><span class="p">{</span>
@@ -1168,7 +1185,7 @@ the ITS filesystem.</p>
 </div></blockquote>
 </div>
 <div class="section" id="tfm-hal-ps-fs-info-t">
-<h5>tfm_hal_ps_fs_info_t<a class="headerlink" href="#tfm-hal-ps-fs-info-t" title="Permalink to this heading"></a></h5>
+<h5>tfm_hal_ps_fs_info_t<a class="headerlink" href="hardware_abstraction_layer.html#tfm-hal-ps-fs-info-t" title="Permalink to this heading"></a></h5>
 <p>Struct containing information required from the platform at runtime to configure
 the PS filesystem.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">tfm_hal_ps_fs_info_t</span><span class="w"> </span><span class="p">{</span>
@@ -1189,9 +1206,9 @@ the PS filesystem.</p>
 </div>
 </div>
 <div class="section" id="functions">
-<h4>Functions<a class="headerlink" href="#functions" title="Permalink to this heading"></a></h4>
+<h4>Functions<a class="headerlink" href="hardware_abstraction_layer.html#functions" title="Permalink to this heading"></a></h4>
 <div class="section" id="tfm-hal-its-fs-info">
-<h5>tfm_hal_its_fs_info()<a class="headerlink" href="#tfm-hal-its-fs-info" title="Permalink to this heading"></a></h5>
+<h5>tfm_hal_its_fs_info()<a class="headerlink" href="hardware_abstraction_layer.html#tfm-hal-its-fs-info" title="Permalink to this heading"></a></h5>
 <p><strong>Prototype</strong></p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">enum</span><span class="w"> </span><span class="n">tfm_hal_status_t</span><span class="w"> </span><span class="nf">tfm_hal_its_fs_info</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">tfm_hal_its_fs_info_t</span><span class="w"> </span><span class="o">*</span><span class="n">fs_info</span><span class="p">);</span>
 </pre></div>
@@ -1213,7 +1230,7 @@ compromise. The block of flash supplied must meet the security requirements of
 Internal Trusted Storage.</p>
 </div>
 <div class="section" id="tfm-hal-ps-fs-info">
-<h5>tfm_hal_ps_fs_info()<a class="headerlink" href="#tfm-hal-ps-fs-info" title="Permalink to this heading"></a></h5>
+<h5>tfm_hal_ps_fs_info()<a class="headerlink" href="hardware_abstraction_layer.html#tfm-hal-ps-fs-info" title="Permalink to this heading"></a></h5>
 <p><strong>Prototype</strong></p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">enum</span><span class="w"> </span><span class="n">tfm_hal_status_t</span><span class="w"> </span><span class="nf">tfm_hal_ps_fs_info</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">tfm_hal_ps_fs_info_t</span><span class="w"> </span><span class="o">*</span><span class="n">fs_info</span><span class="p">);</span>
 </pre></div>

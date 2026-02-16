@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Secure Partition Manager &mdash; Trusted Firmware-M v2.1.0-stm32mp-r1 documentation</title>
+  <title>Secure Partition Manager &mdash; Trusted Firmware-M v2.1.3-stm32mp-r2 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/tfm_custom.css" type="text/css" />
@@ -38,7 +38,7 @@
               <img src="../../_static/tf_logo_white.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                v2.1.0-stm32mp-r1
+                v2.1.3-stm32mp-r2
 
               </div>
 <div role="search">
@@ -67,11 +67,16 @@
 <li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/fwu_write_vulnerability.html">Advisory TFMV-5</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/cc3xx_partial_tag_compare_on_chacha20_poly1305.html">Advisory TFMV-6</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/debug_log_vulnerability.html">Advisory TFMV-7</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/user_pointers_mailbox_vectors_vulnerability.html">Advisory TFMV-8</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/fwu_tlv_payload_out_of_bounds_vulnerability.html">Advisory TFMV-9</a></li>
 </ul>
 </li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../releases/index.html">Releases</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/2.1.3.html">v2.1.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/2.1.2.html">v2.1.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/2.1.1.html">v2.1.1</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../releases/2.1.0.html">v2.1.0</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../releases/2.0.0.html">v2.0.0</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../releases/1.8.1.html">v1.8.1</a></li>
@@ -85,6 +90,10 @@
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../platform/index.html">Platforms</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/adi/index.html">Analog Devices, Inc.</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/adi/max32657/README.html">MAX32657</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../../platform/arm/index.html">Arm</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/arm/corstone1000/readme.html">Corstone-1000</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/arm/mps3/corstone300/README.html">Corstone-300 FPGA (AN547 and AN552) and FVP</a></li>
@@ -122,6 +131,10 @@
 <li class="toctree-l3"><a class="reference internal" href="../../platform/nxp/lpcxpresso55s69/README.html">LPCXpresso55S69</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/rpi/index.html">Raspberry Pi</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/rpi/rp2350/readme.html">RP2350</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../../platform/stm/index.html">STMICROELECTRONICS</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32h5xx/readme.html">STM32H5</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32l5xx/readme.html">STM32L5</a></li>
@@ -131,6 +144,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32h573i_dk/readme.html">STM32H573I_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32l562e_dk/readme.html">STM32L562E_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp215f_dk/readme.html">stm32mp215f_dk</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp235f_dk/readme.html">stm32mp235f_dk</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/b_u585i_iot02a/readme.html">B_U585I_IOT02A</a></li>
 </ul>
@@ -205,7 +219,7 @@
 </ul>
 </li>
 <li class="toctree-l2 current"><a class="reference internal" href="index.html">Secure Services</a><ul class="current">
-<li class="toctree-l3 current"><a class="current reference internal" href="#">Secure Partition Manager</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="secure_partition_manager.html#">Secure Partition Manager</a></li>
 <li class="toctree-l3"><a class="reference internal" href="secure_partition_runtime_library.html">Secure Partition RTL</a></li>
 <li class="toctree-l3"><a class="reference internal" href="tfm_psa_inter_process_communication.html">Inter-Process Communication</a></li>
 <li class="toctree-l3"><a class="reference internal" href="stateless_rot_service.html">Stateless Services</a></li>
@@ -263,6 +277,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32h573i_dk/readme.html">STM32H573I_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32l562e_dk/readme.html">STM32L562E_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp215f_dk/readme.html">stm32mp215f_dk</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp235f_dk/readme.html">stm32mp235f_dk</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/nucleo_l552ze_q/readme.html">NUCLEO_L552ZE_Q</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/b_u585i_iot02a/readme.html">B_U585I_IOT02A</a></li>
@@ -277,6 +292,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32h573i_dk/readme.html">STM32H573I_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32l562e_dk/readme.html">STM32L562E_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp215f_dk/readme.html">stm32mp215f_dk</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp235f_dk/readme.html">stm32mp235f_dk</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
 </ul>
 </li>
@@ -307,6 +323,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../stm/technical/initlevel.html">Initlevel</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../stm/technical/initial_attestation.html">Initial Attestation Service</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/technical/key_and_provisionning.html">About TF-M Authentication Keys and Secret Provisioning</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../stm/technical/nv_counter.html">Nv counter</a></li>
 </ul>
 </li>
@@ -342,7 +359,7 @@
            <div itemprop="articleBody">
              
   <div class="section" id="secure-partition-manager">
-<h1>Secure Partition Manager<a class="headerlink" href="#secure-partition-manager" title="Permalink to this heading"></a></h1>
+<h1>Secure Partition Manager<a class="headerlink" href="secure_partition_manager.html#secure-partition-manager" title="Permalink to this heading"></a></h1>
 <p>This document describes the Secure Partition Manager (<cite>SPM</cite>) implementation
 design in Trusted Firmware-M (<cite>TF-M</cite>).</p>
 <div class="admonition note">
@@ -358,11 +375,11 @@ referenced documents if it is not described in this document.</p></li>
 </ul>
 </div>
 <div class="section" id="introduction">
-<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading"></a></h2>
+<h2>Introduction<a class="headerlink" href="secure_partition_manager.html#introduction" title="Permalink to this heading"></a></h2>
 <p>The service access process of FF-M:</p>
 <div class="figure align-center" id="fig-tfmdev">
 <a class="reference internal image-reference" href="../../_images/tfmdev.svg"><img alt="../../_images/tfmdev.svg" src="../../_images/tfmdev.svg" width="80%" /></a>
-<p class="caption"><span class="caption-number">Figure 5: </span><span class="caption-text">FF-M service access process</span><a class="headerlink" href="#fig-tfmdev" title="Permalink to this image"></a></p>
+<p class="caption"><span class="caption-number">Figure 5: </span><span class="caption-text">FF-M service access process</span><a class="headerlink" href="secure_partition_manager.html#fig-tfmdev" title="Permalink to this image"></a></p>
 </div>
 <p>Secure services (aka <cite>Service</cite>) is the component providing secure
 functionalities in <cite>SPE</cite>, and <cite>Client</cite> is the user of the <cite>Service</cite>. A service
@@ -395,7 +412,7 @@ concept of TF-M SPM surrounds the FF-M defined service management and access
 process. Besides this, another important implementation part is partition
 runtime management.</p>
 <div class="section" id="partition-runtime-model">
-<h3>Partition runtime model<a class="headerlink" href="#partition-runtime-model" title="Permalink to this heading"></a></h3>
+<h3>Partition runtime model<a class="headerlink" href="secure_partition_manager.html#partition-runtime-model" title="Permalink to this heading"></a></h3>
 <p>One partition must work under as <cite>ONE</cite> of the runtime models:
 <cite>Inter-process communication</cite> (<cite>IPC</cite>) model or <cite>Secure Function</cite> (<cite>SFN</cite>)
 model.</p>
@@ -436,13 +453,13 @@ partition.</p>
 </div>
 </div>
 <div class="section" id="components-and-isolation-levels">
-<h3>Components and isolation levels<a class="headerlink" href="#components-and-isolation-levels" title="Permalink to this heading"></a></h3>
+<h3>Components and isolation levels<a class="headerlink" href="secure_partition_manager.html#components-and-isolation-levels" title="Permalink to this heading"></a></h3>
 <p>There are <cite>THREE</cite> isolation levels defined in <cite>FF-M</cite>. These levels can
 fulfil different security requirements by defining different isolation
 boundaries.</p>
 <div class="figure align-center" id="fig-modelisolation">
 <a class="reference internal image-reference" href="../../_images/modelisolation.svg"><img alt="../../_images/modelisolation.svg" src="../../_images/modelisolation.svg" width="80%" /></a>
-<p class="caption"><span class="caption-number">Figure 6: </span><span class="caption-text">Components and isolation boundaries</span><a class="headerlink" href="#fig-modelisolation" title="Permalink to this image"></a></p>
+<p class="caption"><span class="caption-number">Figure 6: </span><span class="caption-text">Components and isolation boundaries</span><a class="headerlink" href="secure_partition_manager.html#fig-modelisolation" title="Permalink to this image"></a></p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -452,7 +469,7 @@ specification.</p>
 <p>Not like an <cite>SPE</cite> client that can call <cite>Client API</cite> to access the secure
 services in one step, an <cite>NSPE</cite> client needs to cross the secure boundaries
 first before calling <cite>Client API</cite>. The component <cite>NS Agent</cite> in
-<a class="reference internal" href="#fig-modelisolation"><span class="std std-numref">Figure 6:</span></a> represents <cite>NSPE</cite> clients after they crossed
+<a class="reference internal" href="secure_partition_manager.html#fig-modelisolation"><span class="std std-numref">Figure 6:</span></a> represents <cite>NSPE</cite> clients after they crossed
 the secure boundaries. This could help <cite>SPM</cite> handles the request in a
 unified way instead of care about the special boundaries.</p>
 <div class="admonition note">
@@ -469,11 +486,11 @@ logic can be extremely simplified since no other process execution needs to
 be scheduled. But the scheduling interface is still necessary to SPM, this
 could help SPM treat both <cite>SFN</cite> and <cite>IPC</cite> model implementation in a unified
 way.</p>
-<p>Check <a class="reference internal" href="#ns-agent">NS Agent</a> for details.</p>
+<p>Check <a class="reference internal" href="secure_partition_manager.html#ns-agent">NS Agent</a> for details.</p>
 </div>
 </div>
 <div class="section" id="implementation-principle">
-<h3>Implementation principle<a class="headerlink" href="#implementation-principle" title="Permalink to this heading"></a></h3>
+<h3>Implementation principle<a class="headerlink" href="secure_partition_manager.html#implementation-principle" title="Permalink to this heading"></a></h3>
 <p>The principles for TF-M SPM implementation:</p>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
@@ -492,7 +509,7 @@ Customized interfaces are restricted.</p></li>
 </div>
 </div>
 <div class="section" id="runtime-management">
-<h2>Runtime management<a class="headerlink" href="#runtime-management" title="Permalink to this heading"></a></h2>
+<h2>Runtime management<a class="headerlink" href="secure_partition_manager.html#runtime-management" title="Permalink to this heading"></a></h2>
 <p>The runtime execution runs among the components, there are <strong>4</strong> runtime
 states:</p>
 <ul class="simple">
@@ -509,12 +526,12 @@ state can be nested.</p></li>
 <p>The state transition diagram:</p>
 <div class="figure align-center" id="fig-spestate">
 <a class="reference internal image-reference" href="../../_images/spestate.svg"><img alt="../../_images/spestate.svg" src="../../_images/spestate.svg" width="70%" /></a>
-<p class="caption"><span class="caption-number">Figure 7: </span><span class="caption-text">SPE runtime execution states</span><a class="headerlink" href="#fig-spestate" title="Permalink to this image"></a></p>
+<p class="caption"><span class="caption-number">Figure 7: </span><span class="caption-text">SPE runtime execution states</span><a class="headerlink" href="secure_partition_manager.html#fig-spestate" title="Permalink to this image"></a></p>
 </div>
 <div class="section" id="initializing">
-<h3>Initializing<a class="headerlink" href="#initializing" title="Permalink to this heading"></a></h3>
+<h3>Initializing<a class="headerlink" href="secure_partition_manager.html#initializing" title="Permalink to this heading"></a></h3>
 <p>The goal of TF-M initializing is to perform necessary initialization and
-move to the <a class="reference internal" href="#serving">Serving</a> state. This state starts with platform-specific power
+move to the <a class="reference internal" href="secure_partition_manager.html#serving">Serving</a> state. This state starts with platform-specific power
 on sequence, then <cite>SPM</cite> takes over the execution to perform these operations:</p>
 <ol class="arabic simple">
 <li><p>A preparation initialization process before SPM runtime initialization.</p></li>
@@ -529,7 +546,7 @@ execution measurement mechansim to mitigate the <cite>Hardware Fault Injection</
 attack.</p>
 </div>
 <div class="section" id="preparation-initialization">
-<h4>Preparation initialization<a class="headerlink" href="#preparation-initialization" title="Permalink to this heading"></a></h4>
+<h4>Preparation initialization<a class="headerlink" href="secure_partition_manager.html#preparation-initialization" title="Permalink to this heading"></a></h4>
 <p>The purpose of this preparation initialization is to provide a chance for
 performing those security required but generic platform power-on skipped
 operations, such as:</p>
@@ -549,7 +566,7 @@ initializing them.</p>
 are implemented as its sub-routines for reference:</p>
 <ul class="simple">
 <li><p>Architecture extensions initialization, Check chapter
-<a class="reference internal" href="#architecture-security-settings">Architecture security settings</a> for detailed information.</p></li>
+<a class="reference internal" href="secure_partition_manager.html#architecture-security-settings">Architecture security settings</a> for detailed information.</p></li>
 <li><p>Isolation and lifecycle initialization.</p></li>
 </ul>
 <p>The load isolation boundaries need to be set up here, such as SPE/NSPE
@@ -564,7 +581,7 @@ settings can be part of lifecycle settings.</p>
 </div>
 </div>
 <div class="section" id="spm-runtime-initialization">
-<h4>SPM runtime initialization<a class="headerlink" href="#spm-runtime-initialization" title="Permalink to this heading"></a></h4>
+<h4>SPM runtime initialization<a class="headerlink" href="secure_partition_manager.html#spm-runtime-initialization" title="Permalink to this heading"></a></h4>
 <p>This procedure initializes necessary runtime operations such as memory
 allocator, loading partitions and partition-specific initialization
 (binding partitions with platform resources).</p>
@@ -614,43 +631,43 @@ implementation runtime model:</p>
 thread has the highest priority.</p></li>
 </ul>
 <p>As the other partitions, the client is created with context standby, and it
-is executed after the <a class="reference internal" href="#post-initialization">Post initialization</a> stage.</p>
+is executed after the <a class="reference internal" href="secure_partition_manager.html#post-initialization">Post initialization</a> stage.</p>
 </div>
 <div class="section" id="post-initialization">
-<h4>Post initialization<a class="headerlink" href="#post-initialization" title="Permalink to this heading"></a></h4>
+<h4>Post initialization<a class="headerlink" href="secure_partition_manager.html#post-initialization" title="Permalink to this heading"></a></h4>
 <p>Platform code can change specific partition settings in this procedure before
 partitions start. A few SPM API is callable at this stage, such as set a
 signal into a specific partition, or customized peripheral settings.</p>
 </div>
 </div>
 <div class="section" id="serving">
-<h3>Serving<a class="headerlink" href="#serving" title="Permalink to this heading"></a></h3>
+<h3>Serving<a class="headerlink" href="secure_partition_manager.html#serving" title="Permalink to this heading"></a></h3>
 <p>Two execution categories work under this state:</p>
 <ul class="simple">
-<li><p><a class="reference internal" href="#partition-initialization-routine-execution">Partition initialization routine execution</a>.</p></li>
-<li><p><a class="reference internal" href="#secure-service-access">Secure service access</a>.</p></li>
+<li><p><a class="reference internal" href="secure_partition_manager.html#partition-initialization-routine-execution">Partition initialization routine execution</a>.</p></li>
+<li><p><a class="reference internal" href="secure_partition_manager.html#secure-service-access">Secure service access</a>.</p></li>
 </ul>
 <p>This state indicates the serving is ongoing. It is mainly the service routine
 execution, plus a few SPM executions when SPM API gets called.</p>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
 <p>The service access process introduced in this chapter
-(Such as <a class="reference internal" href="#secure-service-access">Secure service access</a>) is abstracted from the FF-M
+(Such as <a class="reference internal" href="secure_partition_manager.html#secure-service-access">Secure service access</a>) is abstracted from the FF-M
 specification. Reference the FF-M specification for the details of each
 step.</p>
 </div>
 <div class="section" id="partition-initialization-routine-execution">
-<h4>Partition initialization routine execution<a class="headerlink" href="#partition-initialization-routine-execution" title="Permalink to this heading"></a></h4>
+<h4>Partition initialization routine execution<a class="headerlink" href="secure_partition_manager.html#partition-initialization-routine-execution" title="Permalink to this heading"></a></h4>
 <p>The partition initialization routines get called. One partition may access its
 depending services during initializing, then this procedure is a
-<a class="reference internal" href="#secure-service-access">Secure service access</a>.</p>
+<a class="reference internal" href="secure_partition_manager.html#secure-service-access">Secure service access</a>.</p>
 <p>The initialization routine gets called initially by
 <cite>Partition initialization client</cite>, also can be called by Client API before
 service access, if the target partition is not initialized but a service
 access request is raised by one client.</p>
 </div>
 <div class="section" id="secure-service-access">
-<h4>Secure service access<a class="headerlink" href="#secure-service-access" title="Permalink to this heading"></a></h4>
+<h4>Secure service access<a class="headerlink" href="secure_partition_manager.html#secure-service-access" title="Permalink to this heading"></a></h4>
 <p>The process of service access:</p>
 <ol class="arabic simple">
 <li><p>A <cite>client</cite> calls an FF-M Client API.</p></li>
@@ -684,7 +701,7 @@ called firstly as it is the interface for service access. There are two ABI
 types when calling SPM API: Cross-boundary or No-cross-boundary.</p>
 </div>
 <div class="section" id="calling-spm-api">
-<h4>Calling SPM API<a class="headerlink" href="#calling-spm-api" title="Permalink to this heading"></a></h4>
+<h4>Calling SPM API<a class="headerlink" href="secure_partition_manager.html#calling-spm-api" title="Permalink to this heading"></a></h4>
 <p>SPM is placed in the PRoT domain. It MAY have isolation boundaries under
 particular isolation levels. For example:</p>
 <ul class="simple">
@@ -697,15 +714,15 @@ directly, while a cross-boundary call needs a mechanism (Supervisor call e.g.)
 to cross the boundary first before reaching the API entrance.</p>
 <div class="figure align-center" id="fig-twocalltypes">
 <a class="reference internal image-reference" href="../../_images/twocalltypes.svg"><img alt="../../_images/twocalltypes.svg" src="../../_images/twocalltypes.svg" width="60%" /></a>
-<p class="caption"><span class="caption-number">Figure 8: </span><span class="caption-text">SPM call types</span><a class="headerlink" href="#fig-twocalltypes" title="Permalink to this image"></a></p>
+<p class="caption"><span class="caption-number">Figure 8: </span><span class="caption-text">SPM call types</span><a class="headerlink" href="secure_partition_manager.html#fig-twocalltypes" title="Permalink to this image"></a></p>
 </div>
 </div>
 <div class="section" id="spm-internal-execution-flow">
-<h4>SPM internal execution flow<a class="headerlink" href="#spm-internal-execution-flow" title="Permalink to this heading"></a></h4>
+<h4>SPM internal execution flow<a class="headerlink" href="secure_partition_manager.html#spm-internal-execution-flow" title="Permalink to this heading"></a></h4>
 <p>SPM internal execution flow as shown in diagram:</p>
 <div class="figure align-center" id="fig-abi-scheduler">
 <a class="reference internal image-reference" href="../../_images/abi_scheduler.svg"><img alt="../../_images/abi_scheduler.svg" src="../../_images/abi_scheduler.svg" width="60%" /></a>
-<p class="caption"><span class="caption-number">Figure 9: </span><span class="caption-text">SPM API runtime</span><a class="headerlink" href="#fig-abi-scheduler" title="Permalink to this image"></a></p>
+<p class="caption"><span class="caption-number">Figure 9: </span><span class="caption-text">SPM API runtime</span><a class="headerlink" href="secure_partition_manager.html#fig-abi-scheduler" title="Permalink to this image"></a></p>
 </div>
 <p>The process:</p>
 <ul class="simple">
@@ -756,7 +773,7 @@ multiple ways to lock the scheduler:</p>
 </ul>
 </div>
 <div class="section" id="backend-service-messaging">
-<h4>Backend service messaging<a class="headerlink" href="#backend-service-messaging" title="Permalink to this heading"></a></h4>
+<h4>Backend service messaging<a class="headerlink" href="secure_partition_manager.html#backend-service-messaging" title="Permalink to this heading"></a></h4>
 <p>A message to service is created after the target service is found and the
 target partition runtime model is known. The preparation before ABI triggers
 the final accessing:</p>
@@ -781,7 +798,7 @@ SPM API call procedure.</p></li>
 </div>
 </div>
 <div class="section" id="sessions-and-contexts">
-<h4>Sessions and contexts<a class="headerlink" href="#sessions-and-contexts" title="Permalink to this heading"></a></h4>
+<h4>Sessions and contexts<a class="headerlink" href="secure_partition_manager.html#sessions-and-contexts" title="Permalink to this heading"></a></h4>
 <p>FF-M API allows multiple sessions for a service if the service is classic
 connection-based. The service can maintain multiple local session data and use
 <cite>rhandle</cite> in the message body to identify which client this session is bound
@@ -801,7 +818,7 @@ request in an SFN partition.</p></li>
 </ul>
 </div>
 <div class="section" id="abi-type-summary">
-<h4>ABI type summary<a class="headerlink" href="#abi-type-summary" title="Permalink to this heading"></a></h4>
+<h4>ABI type summary<a class="headerlink" href="secure_partition_manager.html#abi-type-summary" title="Permalink to this heading"></a></h4>
 <p>The interface type is decided by the runtime model of the target component.
 Hence PSA API has two types of ABI: <cite>Cross-boundary ABI</cite> and
 <cite>Function call ABI</cite>. After SPM operations, one more component runtime type
@@ -809,7 +826,7 @@ shows up: The IPC partition, hence <cite>schedule</cite> is the mechanism when a
 services inside an IPC partition.</p>
 <div class="figure align-center" id="fig-spmabi">
 <a class="reference internal image-reference" href="../../_images/spmabitypes.svg"><img alt="../../_images/spmabitypes.svg" src="../../_images/spmabitypes.svg" width="60%" /></a>
-<p class="caption"><span class="caption-number">Figure 10: </span><span class="caption-text">ABI types</span><a class="headerlink" href="#fig-spmabi" title="Permalink to this image"></a></p>
+<p class="caption"><span class="caption-number">Figure 10: </span><span class="caption-text">ABI types</span><a class="headerlink" href="secure_partition_manager.html#fig-spmabi" title="Permalink to this image"></a></p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -819,7 +836,7 @@ covered in the above diagram.</p>
 </div>
 </div>
 <div class="section" id="idle-state">
-<h3>IDLE state<a class="headerlink" href="#idle-state" title="Permalink to this heading"></a></h3>
+<h3>IDLE state<a class="headerlink" href="secure_partition_manager.html#idle-state" title="Permalink to this heading"></a></h3>
 <p>The <cite>IDLE state</cite> can be represented by the <cite>NS Agent</cite> action:</p>
 <ul class="simple">
 <li><p>Launching NSPE software (Trustzone case, e.g.), or send a signal to NSPE
@@ -830,7 +847,7 @@ system. Its execution indicates other partitions’ initialization has
 accomplished.</p>
 </div>
 <div class="section" id="background-state">
-<h3>Background state<a class="headerlink" href="#background-state" title="Permalink to this heading"></a></h3>
+<h3>Background state<a class="headerlink" href="secure_partition_manager.html#background-state" title="Permalink to this heading"></a></h3>
 <p>Background execution can happen at any time when the arrival of interrupts or
 execution faults. An ongoing background execution indicates the state is a
 <cite>Background state</cite>. The characteristics:</p>
@@ -851,7 +868,7 @@ design document for details.</p>
 </div>
 </div>
 <div class="section" id="practical-implementation-items">
-<h2>Practical implementation items<a class="headerlink" href="#practical-implementation-items" title="Permalink to this heading"></a></h2>
+<h2>Practical implementation items<a class="headerlink" href="secure_partition_manager.html#practical-implementation-items" title="Permalink to this heading"></a></h2>
 <p>This chapter describes the practical implementation contents.</p>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
@@ -862,7 +879,7 @@ describing architecture-specific items.</p>
 following chapters introduce the mandatory settings for security
 requirements.</p>
 <div class="section" id="architecture-security-settings">
-<h3>Architecture security settings<a class="headerlink" href="#architecture-security-settings" title="Permalink to this heading"></a></h3>
+<h3>Architecture security settings<a class="headerlink" href="secure_partition_manager.html#architecture-security-settings" title="Permalink to this heading"></a></h3>
 <p>When an <cite>Armv8m Security Extension</cite> (Aka <cite>Trustzone-M</cite>) is available in the
 system, these settings are required to be set:</p>
 <ul class="simple">
@@ -873,7 +890,7 @@ handler mode execution(<cite>AIRCR.PRIS</cite>).</p></li>
 <li><p>Disable NSPE hardware faults when a secure fault is happening. Trap in the
 secure fault with the highest priority can be a valid option.</p></li>
 <li><p>Push seals on the stack top when a stack is allocated (<cite>TFMV-1</cite>). Also
-check <a class="reference internal" href="#stack-seal">Stack seal</a> chapter for details.</p></li>
+check <a class="reference internal" href="secure_partition_manager.html#stack-seal">Stack seal</a> chapter for details.</p></li>
 </ul>
 <p>Besides <cite>Armv8m Security Extension</cite>, these settings need to care when
 <cite>Floatpoint Extension</cite> is enabled for partition usage:</p>
@@ -887,7 +904,7 @@ booting.</p></li>
 <p>Floatpoint usage is prohibited in SPM and background execution.</p>
 </div>
 <div class="section" id="stack-seal">
-<h4>Stack seal<a class="headerlink" href="#stack-seal" title="Permalink to this heading"></a></h4>
+<h4>Stack seal<a class="headerlink" href="secure_partition_manager.html#stack-seal" title="Permalink to this heading"></a></h4>
 <p>When Trustzone-M is applied, the architecture specification recommends sealing
 the secure stack by:</p>
 <ul class="simple">
@@ -899,7 +916,7 @@ out.</p></li>
 <p>Check architecture specification and vulnerability <cite>TFMV-1</cite> for details.</p>
 </div>
 <div class="section" id="trustzone-m-reentrant">
-<h4>Trustzone-M reentrant<a class="headerlink" href="#trustzone-m-reentrant" title="Permalink to this heading"></a></h4>
+<h4>Trustzone-M reentrant<a class="headerlink" href="secure_partition_manager.html#trustzone-m-reentrant" title="Permalink to this heading"></a></h4>
 <p>The Trustzone-M has characteristics that:</p>
 <ul class="simple">
 <li><p>SPE keeps the last assigned stack pointer value when execution leaves SPE.</p></li>
@@ -925,10 +942,10 @@ veneer entry:</p>
 </div>
 </div>
 <div class="section" id="spm-runtime-abi">
-<h3>SPM Runtime ABI<a class="headerlink" href="#spm-runtime-abi" title="Permalink to this heading"></a></h3>
+<h3>SPM Runtime ABI<a class="headerlink" href="secure_partition_manager.html#spm-runtime-abi" title="Permalink to this heading"></a></h3>
 <p>This chapter describes the runtime implementation of SPM.</p>
 <div class="section" id="scheduling">
-<h4>Scheduling<a class="headerlink" href="#scheduling" title="Permalink to this heading"></a></h4>
+<h4>Scheduling<a class="headerlink" href="secure_partition_manager.html#scheduling" title="Permalink to this heading"></a></h4>
 <p>The scheduling logic is put inside the PendSV mode. PendSV mode’s priority
 is set as one level higher than the default thread mode priority. If
 <cite>Trustzone-M</cite> is present, the priority is set as the lowest just above NS
@@ -941,8 +958,8 @@ the latest run-able thread.</p></li>
 </ul>
 </div>
 <div class="section" id="function-call-abi">
-<h4>Function call ABI<a class="headerlink" href="#function-call-abi" title="Permalink to this heading"></a></h4>
-<p>In the diagram <a class="reference internal" href="#fig-abi-scheduler"><span class="std std-numref">Figure 9:</span></a>, the ABI can have two basic
+<h4>Function call ABI<a class="headerlink" href="secure_partition_manager.html#function-call-abi" title="Permalink to this heading"></a></h4>
+<p>In the diagram <a class="reference internal" href="secure_partition_manager.html#fig-abi-scheduler"><span class="std std-numref">Figure 9:</span></a>, the ABI can have two basic
 types: cross-boundary and direct call (No-cross-boundary).</p>
 <p>When applying <cite>SVCall</cite> (<cite>SVC</cite>) as the cross-boundary mechanism, the
 implementation can be straight like:</p>
@@ -957,7 +974,7 @@ be a direct function call.</p>
 </div>
 </div>
 <div class="section" id="ns-agent">
-<h3>NS Agent<a class="headerlink" href="#ns-agent" title="Permalink to this heading"></a></h3>
+<h3>NS Agent<a class="headerlink" href="secure_partition_manager.html#ns-agent" title="Permalink to this heading"></a></h3>
 <p>The <cite>NS Agent</cite> (<cite>NSA</cite>) forwards NSPE service access request to SPM. It is a
 special <cite>partition</cite> that:</p>
 <ul class="simple">
@@ -975,7 +992,7 @@ special <cite>partition</cite> that:</p>
 <p>This process is put inside the ARoT domain, to prevent assign unnecessary
 PRoT permissions to the NSPE request parsing logic.</p>
 <div class="section" id="trustzone-m-specific">
-<h4>Trustzone-M specific<a class="headerlink" href="#trustzone-m-specific" title="Permalink to this heading"></a></h4>
+<h4>Trustzone-M specific<a class="headerlink" href="secure_partition_manager.html#trustzone-m-specific" title="Permalink to this heading"></a></h4>
 <p>The functionalities of a Trustzone-M specific NSA is:</p>
 <ul class="simple">
 <li><p>Launch NSPE when booting.</p></li>
@@ -986,11 +1003,11 @@ identify them, special mechanisms can be proposed to provide the identification.
 Check specific NS ID client ID or context related documents for details.</p>
 <div class="figure align-center" id="fig-tzcontext">
 <a class="reference internal image-reference" href="../../_images/tzcontext.svg"><img alt="../../_images/tzcontext.svg" src="../../_images/tzcontext.svg" width="40%" /></a>
-<p class="caption"><span class="caption-number">Figure 11: </span><span class="caption-text">TZ NSA and specific service</span><a class="headerlink" href="#fig-tzcontext" title="Permalink to this image"></a></p>
+<p class="caption"><span class="caption-number">Figure 11: </span><span class="caption-text">TZ NSA and specific service</span><a class="headerlink" href="secure_partition_manager.html#fig-tzcontext" title="Permalink to this image"></a></p>
 </div>
 </div>
 <div class="section" id="rpc-specific">
-<h4>RPC specific<a class="headerlink" href="#rpc-specific" title="Permalink to this heading"></a></h4>
+<h4>RPC specific<a class="headerlink" href="secure_partition_manager.html#rpc-specific" title="Permalink to this heading"></a></h4>
 <p>Compared to Trustzone-M NSA, RPC NSA looks closer to a generic partition:</p>
 <ul class="simple">
 <li><p>It has a message loop, keep waiting for RPC events.</p></li>
@@ -1007,7 +1024,7 @@ requests.</p></li>
 </div>
 </div>
 <div class="section" id="partition">
-<h3>Partition<a class="headerlink" href="#partition" title="Permalink to this heading"></a></h3>
+<h3>Partition<a class="headerlink" href="secure_partition_manager.html#partition" title="Permalink to this heading"></a></h3>
 <p>A partition is a set of services in the same scope. Services are generally
 implemented as functions, and the partition exposes the services in different
 ways based on the partition model: <cite>IPC</cite> or <cite>SFN</cite>.</p>
@@ -1021,7 +1038,7 @@ the low-level <cite>FF-M</cite> Client API. These API needs to be integrated
 into client space.</p></li>
 </ul>
 <div class="section" id="partition-loading">
-<h4>Partition loading<a class="headerlink" href="#partition-loading" title="Permalink to this heading"></a></h4>
+<h4>Partition loading<a class="headerlink" href="secure_partition_manager.html#partition-loading" title="Permalink to this heading"></a></h4>
 <p>SPM needs to set up runtime objects to manage partitions by parsing the load
 information of partitions. In general, the partition load information is
 stored in a const memory area can be random read directly, hence SPM can direct
@@ -1057,7 +1074,7 @@ common load info type.</p>
 </div>
 </div>
 <div class="section" id="peripheral-binding">
-<h4>Peripheral binding<a class="headerlink" href="#peripheral-binding" title="Permalink to this heading"></a></h4>
+<h4>Peripheral binding<a class="headerlink" href="secure_partition_manager.html#peripheral-binding" title="Permalink to this heading"></a></h4>
 <p>A partition can declare multiple peripherals (Interrupts are part of
 peripherals). The peripherals binding process:</p>
 <ul class="simple">
@@ -1073,11 +1090,11 @@ load information.</p></li>
 </div>
 </div>
 <div class="section" id="integration-and-development">
-<h2>Integration and development<a class="headerlink" href="#integration-and-development" title="Permalink to this heading"></a></h2>
+<h2>Integration and development<a class="headerlink" href="secure_partition_manager.html#integration-and-development" title="Permalink to this heading"></a></h2>
 <p>These modules are expected to be object/library level modularised, each
 module should be generated into object/library at build time:</p>
 <table class="colwidths-given docutils align-default" id="id1">
-<caption><span class="caption-number">Table 40: </span><span class="caption-text">Object level modularization</span><a class="headerlink" href="#id1" title="Permalink to this table"></a></caption>
+<caption><span class="caption-number">Table 40: </span><span class="caption-text">Object level modularization</span><a class="headerlink" href="secure_partition_manager.html#id1" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 40%" />
 <col style="width: 60%" />
@@ -1103,14 +1120,14 @@ module should be generated into object/library at build time:</p>
 </tbody>
 </table>
 <div class="section" id="hal">
-<h3>HAL<a class="headerlink" href="#hal" title="Permalink to this heading"></a></h3>
+<h3>HAL<a class="headerlink" href="secure_partition_manager.html#hal" title="Permalink to this heading"></a></h3>
 <p>The HAL here mainly refers to the SPM HAL. The SPM HAL implementation is
 running with the same privilege level and hardware mode with SPM. The
 implementation is object level modularized with SPM.</p>
 <p>Check the <cite>HAL</cite> design document for details.</p>
 </div>
 <div class="section" id="configurations">
-<h3>Configurations<a class="headerlink" href="#configurations" title="Permalink to this heading"></a></h3>
+<h3>Configurations<a class="headerlink" href="secure_partition_manager.html#configurations" title="Permalink to this heading"></a></h3>
 <p>The same TF-M code base is flexible to address different implementation
 requirements, from the simplest device with isolation level 1 to the most
 complicated device with isolation level 3 and optional isolation rules.</p>
@@ -1120,9 +1137,9 @@ There are several profiles defined.</p>
 </div>
 </div>
 <div class="section" id="history">
-<h2>History<a class="headerlink" href="#history" title="Permalink to this heading"></a></h2>
+<h2>History<a class="headerlink" href="secure_partition_manager.html#history" title="Permalink to this heading"></a></h2>
 <table class="colwidths-given docutils align-default" id="id2">
-<caption><span class="caption-number">Table 41: </span><span class="caption-text">Revision</span><a class="headerlink" href="#id2" title="Permalink to this table"></a></caption>
+<caption><span class="caption-number">Table 41: </span><span class="caption-text">Revision</span><a class="headerlink" href="secure_partition_manager.html#id2" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 20%" />
 <col style="width: 80%" />

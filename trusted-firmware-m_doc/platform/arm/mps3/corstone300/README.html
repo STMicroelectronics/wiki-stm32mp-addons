@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Corstone SSE-300 with Ethos-U55/U65 Example Subsystem for Arm Ecosystem FVP and for MPS3 (AN547, AN552) &mdash; Trusted Firmware-M v2.1.0-stm32mp-r1 documentation</title>
+  <title>Corstone SSE-300 with Ethos-U55/U65 Example Subsystem for Arm Ecosystem FVP and for MPS3 (AN547, AN552) &mdash; Trusted Firmware-M v2.1.3-stm32mp-r2 documentation</title>
       <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../../../_static/css/tfm_custom.css" type="text/css" />
@@ -38,7 +38,7 @@
               <img src="../../../../_static/tf_logo_white.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                v2.1.0-stm32mp-r1
+                v2.1.3-stm32mp-r2
 
               </div>
 <div role="search">
@@ -67,11 +67,16 @@
 <li class="toctree-l3"><a class="reference internal" href="../../../../security/security_advisories/fwu_write_vulnerability.html">Advisory TFMV-5</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../security/security_advisories/cc3xx_partial_tag_compare_on_chacha20_poly1305.html">Advisory TFMV-6</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../security/security_advisories/debug_log_vulnerability.html">Advisory TFMV-7</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../security/security_advisories/user_pointers_mailbox_vectors_vulnerability.html">Advisory TFMV-8</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../security/security_advisories/fwu_tlv_payload_out_of_bounds_vulnerability.html">Advisory TFMV-9</a></li>
 </ul>
 </li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../releases/index.html">Releases</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../releases/2.1.3.html">v2.1.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../releases/2.1.2.html">v2.1.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../releases/2.1.1.html">v2.1.1</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../releases/2.1.0.html">v2.1.0</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../releases/2.0.0.html">v2.0.0</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../releases/1.8.1.html">v1.8.1</a></li>
@@ -85,9 +90,13 @@
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../../../index.html">Platforms</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../../adi/index.html">Analog Devices, Inc.</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../adi/max32657/README.html">MAX32657</a></li>
+</ul>
+</li>
 <li class="toctree-l2 current"><a class="reference internal" href="../../index.html">Arm</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="../../corstone1000/readme.html">Corstone-1000</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">Corstone-300 FPGA (AN547 and AN552) and FVP</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="README.html#">Corstone-300 FPGA (AN547 and AN552) and FVP</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../corstone310/README.html">Corstone-310 FPGA (AN555) and FVP</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../mps4/corstone315/README.html">Corstone-315 FVP</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../musca_b1/readme.html">Musca-B1</a></li>
@@ -122,6 +131,10 @@
 <li class="toctree-l3"><a class="reference internal" href="../../../nxp/lpcxpresso55s69/README.html">LPCXpresso55S69</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../../../rpi/index.html">Raspberry Pi</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../rpi/rp2350/readme.html">RP2350</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../../../stm/index.html">STMICROELECTRONICS</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../stm/common/stm32h5xx/readme.html">STM32H5</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../stm/common/stm32l5xx/readme.html">STM32L5</a></li>
@@ -131,6 +144,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../../stm/stm32h573i_dk/readme.html">STM32H573I_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../stm/stm32l562e_dk/readme.html">STM32L562E_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../stm/stm32mp215f_dk/readme.html">stm32mp215f_dk</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../stm/stm32mp235f_dk/readme.html">stm32mp235f_dk</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../stm/b_u585i_iot02a/readme.html">B_U585I_IOT02A</a></li>
 </ul>
@@ -263,6 +277,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../../stm/stm32h573i_dk/readme.html">STM32H573I_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../stm/stm32l562e_dk/readme.html">STM32L562E_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../stm/stm32mp215f_dk/readme.html">stm32mp215f_dk</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../stm/stm32mp235f_dk/readme.html">stm32mp235f_dk</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../stm/nucleo_l552ze_q/readme.html">NUCLEO_L552ZE_Q</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../stm/b_u585i_iot02a/readme.html">B_U585I_IOT02A</a></li>
@@ -277,6 +292,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../../stm/stm32h573i_dk/readme.html">STM32H573I_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../stm/stm32l562e_dk/readme.html">STM32L562E_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../stm/stm32mp215f_dk/readme.html">stm32mp215f_dk</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../stm/stm32mp235f_dk/readme.html">stm32mp235f_dk</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
 </ul>
 </li>
@@ -307,6 +323,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../stm/technical/initlevel.html">Initlevel</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../stm/technical/initial_attestation.html">Initial Attestation Service</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../stm/technical/key_and_provisionning.html">About TF-M Authentication Keys and Secret Provisioning</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../stm/technical/nv_counter.html">Nv counter</a></li>
 </ul>
 </li>
@@ -342,9 +359,9 @@
            <div itemprop="articleBody">
              
   <div class="section" id="corstone-sse-300-with-ethos-u55-u65-example-subsystem-for-arm-ecosystem-fvp-and-for-mps3-an547-an552">
-<h1>Corstone SSE-300 with Ethos-U55/U65 Example Subsystem for Arm Ecosystem FVP and for MPS3 (AN547, AN552)<a class="headerlink" href="#corstone-sse-300-with-ethos-u55-u65-example-subsystem-for-arm-ecosystem-fvp-and-for-mps3-an547-an552" title="Permalink to this heading"></a></h1>
+<h1>Corstone SSE-300 with Ethos-U55/U65 Example Subsystem for Arm Ecosystem FVP and for MPS3 (AN547, AN552)<a class="headerlink" href="README.html#corstone-sse-300-with-ethos-u55-u65-example-subsystem-for-arm-ecosystem-fvp-and-for-mps3-an547-an552" title="Permalink to this heading"></a></h1>
 <div class="section" id="introduction">
-<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading"></a></h2>
+<h2>Introduction<a class="headerlink" href="README.html#introduction" title="Permalink to this heading"></a></h2>
 <p>Corstone-300 is an Arm reference subsystem for secure System on Chips
 containing an Armv8.1-M Cortex-M55 processor and an Ethos-U55/U65 neural
 network processor. It is an MPS3 based platform with the usual MPS3
@@ -362,12 +379,12 @@ interrupt number and an example NPU setup as non-secure, unprivileged.</p>
 </div>
 </div>
 <div class="section" id="building-tf-m">
-<h2>Building TF-M<a class="headerlink" href="#building-tf-m" title="Permalink to this heading"></a></h2>
+<h2>Building TF-M<a class="headerlink" href="README.html#building-tf-m" title="Permalink to this heading"></a></h2>
 <div class="section" id="follow-the-instructions-in-building-instructions">
-<h3>Follow the instructions in <a class="reference internal" href="../../../../building/tfm_build_instruction.html"><span class="doc">Building instructions</span></a>.<a class="headerlink" href="#follow-the-instructions-in-building-instructions" title="Permalink to this heading"></a></h3>
+<h3>Follow the instructions in <a class="reference internal" href="../../../../building/tfm_build_instruction.html"><span class="doc">Building instructions</span></a>.<a class="headerlink" href="README.html#follow-the-instructions-in-building-instructions" title="Permalink to this heading"></a></h3>
 </div>
 <div class="section" id="build-instructions-with-platform-name-arm-mps3-corstone300-an547">
-<h3>Build instructions with platform name: arm/mps3/corstone300/an547<a class="headerlink" href="#build-instructions-with-platform-name-arm-mps3-corstone300-an547" title="Permalink to this heading"></a></h3>
+<h3>Build instructions with platform name: arm/mps3/corstone300/an547<a class="headerlink" href="README.html#build-instructions-with-platform-name-arm-mps3-corstone300-an547" title="Permalink to this heading"></a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">-DTFM_PLATFORM=arm/mps3/corstone300/an547</span></code></p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -376,7 +393,7 @@ interrupt number and an example NPU setup as non-secure, unprivileged.</p>
 </div>
 </div>
 <div class="section" id="build-instructions-with-platform-name-arm-mps3-corstone300-an552">
-<h3>Build instructions with platform name: arm/mps3/corstone300/an552<a class="headerlink" href="#build-instructions-with-platform-name-arm-mps3-corstone300-an552" title="Permalink to this heading"></a></h3>
+<h3>Build instructions with platform name: arm/mps3/corstone300/an552<a class="headerlink" href="README.html#build-instructions-with-platform-name-arm-mps3-corstone300-an552" title="Permalink to this heading"></a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">-DTFM_PLATFORM=arm/mps3/corstone300/an552</span></code></p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -385,7 +402,7 @@ interrupt number and an example NPU setup as non-secure, unprivileged.</p>
 </div>
 </div>
 <div class="section" id="build-instructions-with-platform-name-arm-mps3-corstone300-fvp">
-<h3>Build instructions with platform name: arm/mps3/corstone300/fvp<a class="headerlink" href="#build-instructions-with-platform-name-arm-mps3-corstone300-fvp" title="Permalink to this heading"></a></h3>
+<h3>Build instructions with platform name: arm/mps3/corstone300/fvp<a class="headerlink" href="README.html#build-instructions-with-platform-name-arm-mps3-corstone300-fvp" title="Permalink to this heading"></a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">-DTFM_PLATFORM=arm/mps3/corstone300/fvp</span></code></p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -435,7 +452,7 @@ The generated provisioning_data.c file can be found at
 </div>
 </div>
 <div class="section" id="to-run-the-example-code-on-corstone-sse-300-with-ethos-u55-u65-example-subsystem-for-mps3-an547">
-<h2>To run the example code on Corstone SSE-300 with Ethos-U55/U65 Example Subsystem for MPS3 (AN547)<a class="headerlink" href="#to-run-the-example-code-on-corstone-sse-300-with-ethos-u55-u65-example-subsystem-for-mps3-an547" title="Permalink to this heading"></a></h2>
+<h2>To run the example code on Corstone SSE-300 with Ethos-U55/U65 Example Subsystem for MPS3 (AN547)<a class="headerlink" href="README.html#to-run-the-example-code-on-corstone-sse-300-with-ethos-u55-u65-example-subsystem-for-mps3-an547" title="Permalink to this heading"></a></h2>
 <p>FPGA image is available to download <a class="reference external" href="https://developer.arm.com/tools-and-software/development-boards/fpga-prototyping-boards/download-fpga-images">here</a></p>
 <p>If the link above is not working just go to <a class="reference external" href="https://developer.arm.com/downloads">Arm PDH</a> and search for AN547.</p>
 <p>To run BL2 bootloader, TF-M example application and tests in the MPS3 board,
@@ -493,7 +510,7 @@ to <code class="docutils literal notranslate"><span class="pre">Debug</span></co
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>If <code class="docutils literal notranslate"><span class="pre">-DPLATFORM_DEFAULT_PROVISIONING=OFF</span></code> is set then the provisioning bundle has to
-be placed on the <code class="docutils literal notranslate"><span class="pre">0x10022400</span></code> address by copying <code class="docutils literal notranslate"><span class="pre">encrypted_provisioning_bundle.bin</span></code> and
+be placed on the <code class="docutils literal notranslate"><span class="pre">0x10022400</span></code> address by copying <code class="docutils literal notranslate"><span class="pre">provisioning_bundle.bin</span></code> and
 renaming it to <code class="docutils literal notranslate"><span class="pre">prv.bin</span></code>, then extending the images.txt with:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">IMAGE2UPDATE</span><span class="p">:</span> <span class="n">AUTO</span>
 <span class="n">IMAGE2ADDRESS</span><span class="p">:</span> <span class="mh">0x00022400</span>
@@ -503,7 +520,7 @@ renaming it to <code class="docutils literal notranslate"><span class="pre">prv.
 </div>
 </div>
 <div class="section" id="to-run-the-example-code-on-corstone-sse-300-with-ethos-u55-u65-example-subsystem-for-mps3-an552">
-<h2>To run the example code on Corstone SSE-300 with Ethos-U55/U65 Example Subsystem for MPS3 (AN552)<a class="headerlink" href="#to-run-the-example-code-on-corstone-sse-300-with-ethos-u55-u65-example-subsystem-for-mps3-an552" title="Permalink to this heading"></a></h2>
+<h2>To run the example code on Corstone SSE-300 with Ethos-U55/U65 Example Subsystem for MPS3 (AN552)<a class="headerlink" href="README.html#to-run-the-example-code-on-corstone-sse-300-with-ethos-u55-u65-example-subsystem-for-mps3-an552" title="Permalink to this heading"></a></h2>
 <p>FPGA image is available to download <a class="reference external" href="https://developer.arm.com/tools-and-software/development-boards/fpga-prototyping-boards/download-fpga-images">here</a></p>
 <p>If the link above is not working just go to <a class="reference external" href="https://developer.arm.com/downloads">Arm PDH</a> and search for AN552.</p>
 <p>To run BL2 bootloader and TF-M example application and tests in the MPS3 board,
@@ -561,7 +578,7 @@ to <code class="docutils literal notranslate"><span class="pre">Debug</span></co
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>If <code class="docutils literal notranslate"><span class="pre">-DPLATFORM_DEFAULT_PROVISIONING=OFF</span></code> is set then the provisioning bundle has to
-be placed on the <code class="docutils literal notranslate"><span class="pre">0x10022400</span></code> address by copying <code class="docutils literal notranslate"><span class="pre">encrypted_provisioning_bundle.bin</span></code> and
+be placed on the <code class="docutils literal notranslate"><span class="pre">0x10022400</span></code> address by copying <code class="docutils literal notranslate"><span class="pre">provisioning_bundle.bin</span></code> and
 renaming it to <code class="docutils literal notranslate"><span class="pre">prv.bin</span></code>, then extending the images.txt with:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">IMAGE2UPDATE</span><span class="p">:</span> <span class="n">AUTO</span>
 <span class="n">IMAGE2ADDRESS</span><span class="p">:</span> <span class="mh">0x00022400</span>
@@ -571,7 +588,7 @@ renaming it to <code class="docutils literal notranslate"><span class="pre">prv.
 </div>
 </div>
 <div class="section" id="to-run-the-example-code-on-corstone-300-ethos-u55-u65-ecosystem-fvp">
-<h2>To run the example code on Corstone-300 Ethos-U55/U65 Ecosystem FVP<a class="headerlink" href="#to-run-the-example-code-on-corstone-300-ethos-u55-u65-ecosystem-fvp" title="Permalink to this heading"></a></h2>
+<h2>To run the example code on Corstone-300 Ethos-U55/U65 Ecosystem FVP<a class="headerlink" href="README.html#to-run-the-example-code-on-corstone-300-ethos-u55-u65-ecosystem-fvp" title="Permalink to this heading"></a></h2>
 <p>FVP is available to download <a class="reference external" href="https://developer.arm.com/tools-and-software/open-source-software/arm-platforms-software/arm-ecosystem-fvps">here</a></p>
 <ol class="arabic">
 <li><p>Install the FVP</p></li>
@@ -613,12 +630,12 @@ to <code class="docutils literal notranslate"><span class="pre">Debug</span></co
 <p class="admonition-title">Note</p>
 <p>If <code class="docutils literal notranslate"><span class="pre">-DPLATFORM_DEFAULT_PROVISIONING=OFF</span></code> is set then the provisioning bundle has to
 be placed on the <code class="docutils literal notranslate"><span class="pre">0x10022000</span></code> address with:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./FVP_Corstone_SSE-300_Ethos-U55 -a cpu0*=&quot;&lt;path-to-build-directory&gt;/bl2.axf&quot; --data &quot;&lt;path-to-build-directory&gt;/tfm_s_ns_signed.bin&quot;@0x38000000 --data &quot;&lt;path-to-build-directory&gt;/encrypted_provisioning_bundle.bin&quot;@0x10022000
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./FVP_Corstone_SSE-300_Ethos-U55 -a cpu0*=&quot;&lt;path-to-build-directory&gt;/bl2.axf&quot; --data &quot;&lt;path-to-build-directory&gt;/tfm_s_ns_signed.bin&quot;@0x38000000 --data &quot;&lt;path-to-build-directory&gt;/provisioning_bundle.bin&quot;@0x10022000
 </pre></div>
 </div>
 </div>
 <hr class="docutils" />
-<p><em>Copyright (c) 2020-2023, Arm Limited. All rights reserved.</em></p>
+<p><em>Copyright (c) 2020-2024, Arm Limited. All rights reserved.</em></p>
 </div>
 </div>
 

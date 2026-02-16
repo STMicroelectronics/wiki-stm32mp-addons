@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Source Structure &mdash; Trusted Firmware-M v2.1.0-stm32mp-r1 documentation</title>
+  <title>Source Structure &mdash; Trusted Firmware-M v2.1.3-stm32mp-r2 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/tfm_custom.css" type="text/css" />
@@ -38,7 +38,7 @@
               <img src="../../_static/tf_logo_white.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                v2.1.0-stm32mp-r1
+                v2.1.3-stm32mp-r2
 
               </div>
 <div role="search">
@@ -67,11 +67,16 @@
 <li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/fwu_write_vulnerability.html">Advisory TFMV-5</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/cc3xx_partial_tag_compare_on_chacha20_poly1305.html">Advisory TFMV-6</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/debug_log_vulnerability.html">Advisory TFMV-7</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/user_pointers_mailbox_vectors_vulnerability.html">Advisory TFMV-8</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/fwu_tlv_payload_out_of_bounds_vulnerability.html">Advisory TFMV-9</a></li>
 </ul>
 </li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../releases/index.html">Releases</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/2.1.3.html">v2.1.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/2.1.2.html">v2.1.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/2.1.1.html">v2.1.1</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../releases/2.1.0.html">v2.1.0</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../releases/2.0.0.html">v2.0.0</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../releases/1.8.1.html">v1.8.1</a></li>
@@ -85,6 +90,10 @@
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../platform/index.html">Platforms</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/adi/index.html">Analog Devices, Inc.</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/adi/max32657/README.html">MAX32657</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../../platform/arm/index.html">Arm</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/arm/corstone1000/readme.html">Corstone-1000</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/arm/mps3/corstone300/README.html">Corstone-300 FPGA (AN547 and AN552) and FVP</a></li>
@@ -122,6 +131,10 @@
 <li class="toctree-l3"><a class="reference internal" href="../../platform/nxp/lpcxpresso55s69/README.html">LPCXpresso55S69</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/rpi/index.html">Raspberry Pi</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/rpi/rp2350/readme.html">RP2350</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../../platform/stm/index.html">STMICROELECTRONICS</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32h5xx/readme.html">STM32H5</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32l5xx/readme.html">STM32L5</a></li>
@@ -131,6 +144,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32h573i_dk/readme.html">STM32H573I_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32l562e_dk/readme.html">STM32L562E_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp215f_dk/readme.html">stm32mp215f_dk</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp235f_dk/readme.html">stm32mp235f_dk</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/b_u585i_iot02a/readme.html">B_U585I_IOT02A</a></li>
 </ul>
@@ -159,7 +173,7 @@
 </ul>
 </li>
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">Integration Guide</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Source Structure</a><ul>
+<li class="toctree-l2 current"><a class="current reference internal" href="source_structure.html#">Source Structure</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="platform_folder.html">Details for the /platform folder</a></li>
 <li class="toctree-l3"><a class="reference internal" href="platform_ext_folder.html">Details for the /platform/ext folder</a></li>
 </ul>
@@ -263,6 +277,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32h573i_dk/readme.html">STM32H573I_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32l562e_dk/readme.html">STM32L562E_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp215f_dk/readme.html">stm32mp215f_dk</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp235f_dk/readme.html">stm32mp235f_dk</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/nucleo_l552ze_q/readme.html">NUCLEO_L552ZE_Q</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/b_u585i_iot02a/readme.html">B_U585I_IOT02A</a></li>
@@ -277,6 +292,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32h573i_dk/readme.html">STM32H573I_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32l562e_dk/readme.html">STM32L562E_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp215f_dk/readme.html">stm32mp215f_dk</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp235f_dk/readme.html">stm32mp235f_dk</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
 </ul>
 </li>
@@ -307,6 +323,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../stm/technical/initlevel.html">Initlevel</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../stm/technical/initial_attestation.html">Initial Attestation Service</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/technical/key_and_provisionning.html">About TF-M Authentication Keys and Secret Provisioning</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../stm/technical/nv_counter.html">Nv counter</a></li>
 </ul>
 </li>
@@ -342,7 +359,7 @@
            <div itemprop="articleBody">
              
   <div class="section" id="source-structure">
-<span id="id1"></span><h1>Source Structure<a class="headerlink" href="#source-structure" title="Permalink to this heading"></a></h1>
+<span id="id1"></span><h1>Source Structure<a class="headerlink" href="source_structure.html#source-structure" title="Permalink to this heading"></a></h1>
 <p>TF-M is designed to provide a user-friendly source structure to ease
 integration and service development. This document introduces the source
 structure and its design intention of TF-M. Additionally, the folders below are
@@ -354,7 +371,7 @@ important for TF-M integration and descibed in a separate documents:</p>
 </ul>
 </div>
 <div class="section" id="tf-m-root">
-<h2>/ (TF-M root)<a class="headerlink" href="#tf-m-root" title="Permalink to this heading"></a></h2>
+<h2>/ (TF-M root)<a class="headerlink" href="source_structure.html#tf-m-root" title="Permalink to this heading"></a></h2>
 <p>This table describes the structure under the root folder with part of
 possible folders.</p>
 <table class="docutils align-default">
@@ -389,10 +406,10 @@ possible folders.</p>
 <tr class="row-even"><td><p>lib</p></td>
 <td><p>The 3rd party libraries</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#platform">platform</a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="source_structure.html#platform">platform</a></p></td>
 <td><p>Platform intermedia files</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#secure-fw">secure_fw</a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="source_structure.html#secure-fw">secure_fw</a></p></td>
 <td><p>The secure firmware</p></td>
 </tr>
 <tr class="row-odd"><td><p>tools</p></td>
@@ -402,7 +419,7 @@ possible folders.</p>
 </table>
 </div>
 <div class="section" id="platform">
-<h2>platform<a class="headerlink" href="#platform" title="Permalink to this heading"></a></h2>
+<h2>platform<a class="headerlink" href="source_structure.html#platform" title="Permalink to this heading"></a></h2>
 <p>The <cite>platform</cite> folder contains SW ports of all <a class="reference internal" href="../../platform/index.html#supported-platforms"><span class="std std-ref">supported platforms</span></a> and the files necessary for <a class="reference internal" href="../platform/index.html#adding-platform"><span class="std std-ref">adding a new platform</span></a>. Please refer to <a class="reference internal" href="platform_folder.html#platform-folder"><span class="std std-ref">platform folder document</span></a> for more information.</p>
 <table class="docutils align-default">
 <colgroup>
@@ -424,7 +441,7 @@ possible folders.</p>
 </tbody>
 </table>
 <div class="section" id="platform-ext">
-<h3>platform/ext<a class="headerlink" href="#platform-ext" title="Permalink to this heading"></a></h3>
+<h3>platform/ext<a class="headerlink" href="source_structure.html#platform-ext" title="Permalink to this heading"></a></h3>
 <p>This folder can include imported files licensed differently from TF-M’s
 BSD-3 license. More details are in the dedicated document <a class="reference internal" href="platform_ext_folder.html#platform-ext-folder"><span class="std std-ref">Details for the platform/ext folder</span></a>.</p>
 <table class="docutils align-default">
@@ -460,7 +477,7 @@ A <cite>vendor</cite> contributes platform’s ports and manages the structure i
 </div>
 </div>
 <div class="section" id="secure-fw">
-<h2>secure_fw<a class="headerlink" href="#secure-fw" title="Permalink to this heading"></a></h2>
+<h2>secure_fw<a class="headerlink" href="source_structure.html#secure-fw" title="Permalink to this heading"></a></h2>
 <p>This folder contains components needed by secure firmware and the exported
 interfaces for application, service development and HAL integration.</p>
 <table class="docutils align-default">
@@ -491,13 +508,13 @@ interfaces for application, service development and HAL integration.</p>
 <p>The shared sources can be referenced by the building system out of SPRTL.
 Generally, they are runtime and PSA APIs.</p>
 <div class="section" id="secure-fw-include">
-<h3>secure_fw/include<a class="headerlink" href="#secure-fw-include" title="Permalink to this heading"></a></h3>
+<h3>secure_fw/include<a class="headerlink" href="source_structure.html#secure-fw-include" title="Permalink to this heading"></a></h3>
 <p>This folder holds public headers for external references by clients,
 services and platforms. Avoid putting private headers, not referenced by
 other modules in this <cite>include</cite> folder.</p>
 </div>
 <div class="section" id="secure-fw-partitions">
-<h3>secure_fw/partitions<a class="headerlink" href="#secure-fw-partitions" title="Permalink to this heading"></a></h3>
+<h3>secure_fw/partitions<a class="headerlink" href="source_structure.html#secure-fw-partitions" title="Permalink to this heading"></a></h3>
 <p>This folder contains default services implemented as partitions and runtime
 utilities used and provided by TF-M.</p>
 <table class="docutils align-default">
@@ -532,7 +549,7 @@ utilities used and provided by TF-M.</p>
 detailed structure of them.</p>
 </div>
 <div class="section" id="secure-fw-spm">
-<h3>secure_fw/spm<a class="headerlink" href="#secure-fw-spm" title="Permalink to this heading"></a></h3>
+<h3>secure_fw/spm<a class="headerlink" href="source_structure.html#secure-fw-spm" title="Permalink to this heading"></a></h3>
 <p>The SPM is the core component to provide a mechanism for providing secure
 services complied with PSA FF-M.</p>
 <table class="docutils align-default">

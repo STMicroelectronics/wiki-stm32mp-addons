@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Version 2.0.0 &mdash; Trusted Firmware-M v2.1.0-stm32mp-r1 documentation</title>
+  <title>Version 2.0.0 &mdash; Trusted Firmware-M v2.1.3-stm32mp-r2 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/tfm_custom.css" type="text/css" />
@@ -38,7 +38,7 @@
               <img src="../_static/tf_logo_white.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                v2.1.0-stm32mp-r1
+                v2.1.3-stm32mp-r2
 
               </div>
 <div role="search">
@@ -67,13 +67,18 @@
 <li class="toctree-l3"><a class="reference internal" href="../security/security_advisories/fwu_write_vulnerability.html">Advisory TFMV-5</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../security/security_advisories/cc3xx_partial_tag_compare_on_chacha20_poly1305.html">Advisory TFMV-6</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../security/security_advisories/debug_log_vulnerability.html">Advisory TFMV-7</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../security/security_advisories/user_pointers_mailbox_vectors_vulnerability.html">Advisory TFMV-8</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../security/security_advisories/fwu_tlv_payload_out_of_bounds_vulnerability.html">Advisory TFMV-9</a></li>
 </ul>
 </li>
 </ul>
 </li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Releases</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="2.1.3.html">v2.1.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="2.1.2.html">v2.1.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="2.1.1.html">v2.1.1</a></li>
 <li class="toctree-l2"><a class="reference internal" href="2.1.0.html">v2.1.0</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">v2.0.0</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="2.0.0.html#">v2.0.0</a></li>
 <li class="toctree-l2"><a class="reference internal" href="1.8.1.html">v1.8.1</a></li>
 <li class="toctree-l2"><a class="reference internal" href="1.8.0.html">v1.8.0</a></li>
 <li class="toctree-l2"><a class="reference internal" href="release_process.html">Release Cadence and Process</a></li>
@@ -85,6 +90,10 @@
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../platform/index.html">Platforms</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../platform/adi/index.html">Analog Devices, Inc.</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../platform/adi/max32657/README.html">MAX32657</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../platform/arm/index.html">Arm</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../platform/arm/corstone1000/readme.html">Corstone-1000</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/arm/mps3/corstone300/README.html">Corstone-300 FPGA (AN547 and AN552) and FVP</a></li>
@@ -122,6 +131,10 @@
 <li class="toctree-l3"><a class="reference internal" href="../platform/nxp/lpcxpresso55s69/README.html">LPCXpresso55S69</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../platform/rpi/index.html">Raspberry Pi</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../platform/rpi/rp2350/readme.html">RP2350</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../platform/stm/index.html">STMICROELECTRONICS</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/common/stm32h5xx/readme.html">STM32H5</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/common/stm32l5xx/readme.html">STM32L5</a></li>
@@ -131,6 +144,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32h573i_dk/readme.html">STM32H573I_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32l562e_dk/readme.html">STM32L562E_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32mp215f_dk/readme.html">stm32mp215f_dk</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32mp235f_dk/readme.html">stm32mp235f_dk</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/b_u585i_iot02a/readme.html">B_U585I_IOT02A</a></li>
 </ul>
@@ -263,6 +277,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32h573i_dk/readme.html">STM32H573I_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32l562e_dk/readme.html">STM32L562E_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32mp215f_dk/readme.html">stm32mp215f_dk</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32mp235f_dk/readme.html">stm32mp235f_dk</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/nucleo_l552ze_q/readme.html">NUCLEO_L552ZE_Q</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/b_u585i_iot02a/readme.html">B_U585I_IOT02A</a></li>
@@ -277,6 +292,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32h573i_dk/readme.html">STM32H573I_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32l562e_dk/readme.html">STM32L562E_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32mp215f_dk/readme.html">stm32mp215f_dk</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32mp235f_dk/readme.html">stm32mp235f_dk</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
 </ul>
 </li>
@@ -307,6 +323,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../stm/technical/initlevel.html">Initlevel</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../stm/technical/initial_attestation.html">Initial Attestation Service</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../stm/technical/key_and_provisionning.html">About TF-M Authentication Keys and Secret Provisioning</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../stm/technical/nv_counter.html">Nv counter</a></li>
 </ul>
 </li>
@@ -341,9 +358,9 @@
            <div itemprop="articleBody">
              
   <div class="section" id="version-2-0-0">
-<h1>Version 2.0.0<a class="headerlink" href="#version-2-0-0" title="Permalink to this heading"></a></h1>
+<h1>Version 2.0.0<a class="headerlink" href="2.0.0.html#version-2-0-0" title="Permalink to this heading"></a></h1>
 <div class="section" id="new-major-features">
-<h2>New major features<a class="headerlink" href="#new-major-features" title="Permalink to this heading"></a></h2>
+<h2>New major features<a class="headerlink" href="2.0.0.html#new-major-features" title="Permalink to this heading"></a></h2>
 <blockquote>
 <div><ul class="simple">
 <li><p>TF-M secure build process and non-secure build process are split to simplify
@@ -363,24 +380,24 @@ and enhance non-secure integration with TF-M.</p>
 <li><p>Optimize SPM critical section implementation to reduce time cost in isolation level 2&amp;3.</p></li>
 <li><p>Use local variables for connection handles instead of dynamic allocation when there is only synchronous service
 access routine in the SFN model.</p></li>
-<li><p>P256-M <a class="footnote-reference brackets" href="#id5" id="id1">1</a> component is enabled on the TF-M side in profile medium which has a much smaller code size and RAM
+<li><p>P256-M <a class="footnote-reference brackets" href="2.0.0.html#id5" id="id1">1</a> component is enabled on the TF-M side in profile medium which has a much smaller code size and RAM
 footprint.</p></li>
 <li><p>MCUboot upgrade to v2.0.0.</p></li>
 <li><p>Mbed TLS upgrade to v3.5.0.</p></li>
-<li><p>TF-M PSA client API performance profiling is tracked in SQUAD <a class="footnote-reference brackets" href="#id6" id="id2">2</a> and the profiling tool <a class="footnote-reference brackets" href="#id7" id="id3">3</a> is updated.</p></li>
-<li><p>TF-M integrates Read the Docs <a class="footnote-reference brackets" href="#id8" id="id4">4</a> to support finding documentation versions by the released tags and downloading
+<li><p>TF-M PSA client API performance profiling is tracked in SQUAD <a class="footnote-reference brackets" href="2.0.0.html#id6" id="id2">2</a> and the profiling tool <a class="footnote-reference brackets" href="2.0.0.html#id7" id="id3">3</a> is updated.</p></li>
+<li><p>TF-M integrates Read the Docs <a class="footnote-reference brackets" href="2.0.0.html#id8" id="id4">4</a> to support finding documentation versions by the released tags and downloading
 PDFs. External links are supported for documentation in TF-M Tests, Tools and Extras repositories.</p></li>
 </ul>
 </div></blockquote>
 </div>
 <div class="section" id="new-security-advisories">
-<h2>New security advisories<a class="headerlink" href="#new-security-advisories" title="Permalink to this heading"></a></h2>
+<h2>New security advisories<a class="headerlink" href="2.0.0.html#new-security-advisories" title="Permalink to this heading"></a></h2>
 <p>A Security vulnerability fixed in v1.8.1
 Refer to <a class="reference internal" href="../security/security_advisories/cc3xx_partial_tag_compare_on_chacha20_poly1305.html"><span class="doc">TFMV-6</span></a> for more details.
 The mitigation is included in this release.</p>
 </div>
 <div class="section" id="new-platforms-supported">
-<h2>New platforms supported<a class="headerlink" href="#new-platforms-supported" title="Permalink to this heading"></a></h2>
+<h2>New platforms supported<a class="headerlink" href="2.0.0.html#new-platforms-supported" title="Permalink to this heading"></a></h2>
 <blockquote>
 <div><ul class="simple">
 <li><p><a class="reference internal" href="../platform/stm/stm32h573i_dk/readme.html"><span class="doc">stm32h573i_dk.</span></a></p></li>
@@ -388,7 +405,7 @@ The mitigation is included in this release.</p>
 </div></blockquote>
 </div>
 <div class="section" id="tested-platforms">
-<h2>Tested platforms<a class="headerlink" href="#tested-platforms" title="Permalink to this heading"></a></h2>
+<h2>Tested platforms<a class="headerlink" href="2.0.0.html#tested-platforms" title="Permalink to this heading"></a></h2>
 <p>The following platforms are successfully tested in this release.</p>
 <ul class="simple">
 <li><p><strong>Arm</strong></p>
@@ -435,7 +452,7 @@ The mitigation is included in this release.</p>
 </ul>
 </div>
 <div class="section" id="reference-memory-footprint">
-<h2>Reference memory footprint<a class="headerlink" href="#reference-memory-footprint" title="Permalink to this heading"></a></h2>
+<h2>Reference memory footprint<a class="headerlink" href="2.0.0.html#reference-memory-footprint" title="Permalink to this heading"></a></h2>
 <p>All measurements below are made for <em>AN521</em> platform, built <a class="reference external" href="https://git.trustedfirmware.org/TF-M/trusted-firmware-m.git/tag/?h=TF-Mv2.0.0-RC2">TF-Mv2.0.0-RC2</a>
 on Windows 10 using Armclang v6.18 and build type MinSizeRel.</p>
 <p>All modules are measured in bytes. Some minor modules are not shown in the table below.</p>
@@ -687,7 +704,7 @@ TF-M Profiles.</p>
 </table>
 </div>
 <div class="section" id="known-issues">
-<h2>Known issues<a class="headerlink" href="#known-issues" title="Permalink to this heading"></a></h2>
+<h2>Known issues<a class="headerlink" href="2.0.0.html#known-issues" title="Permalink to this heading"></a></h2>
 <p>Some open issues are not fixed in this release.</p>
 <table class="docutils align-default">
 <colgroup>
@@ -707,7 +724,7 @@ TF-M Profiles.</p>
 </table>
 </div>
 <div class="section" id="issues-fixed-since-v1-8-0">
-<h2>Issues fixed since v1.8.0<a class="headerlink" href="#issues-fixed-since-v1-8-0" title="Permalink to this heading"></a></h2>
+<h2>Issues fixed since v1.8.0<a class="headerlink" href="2.0.0.html#issues-fixed-since-v1-8-0" title="Permalink to this heading"></a></h2>
 <p>The following issues have been fixed since the v1.8.0 release.</p>
 <table class="docutils align-default">
 <colgroup>
@@ -727,18 +744,18 @@ TF-M Profiles.</p>
 </table>
 </div>
 <div class="section" id="reference">
-<h2>Reference<a class="headerlink" href="#reference" title="Permalink to this heading"></a></h2>
+<h2>Reference<a class="headerlink" href="2.0.0.html#reference" title="Permalink to this heading"></a></h2>
 <dl class="footnote brackets">
-<dt class="label" id="id5"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dt class="label" id="id5"><span class="brackets"><a class="fn-backref" href="2.0.0.html#id1">1</a></span></dt>
 <dd><p><a class="reference external" href="https://github.com/mpg/p256-m">P256-M</a></p>
 </dd>
-<dt class="label" id="id6"><span class="brackets"><a class="fn-backref" href="#id2">2</a></span></dt>
+<dt class="label" id="id6"><span class="brackets"><a class="fn-backref" href="2.0.0.html#id2">2</a></span></dt>
 <dd><p><a class="reference external" href="https://qa-reports.linaro.org/tf/tf-m/metrics">TF-M QA Reports SQUAD</a></p>
 </dd>
-<dt class="label" id="id7"><span class="brackets"><a class="fn-backref" href="#id3">3</a></span></dt>
+<dt class="label" id="id7"><span class="brackets"><a class="fn-backref" href="2.0.0.html#id3">3</a></span></dt>
 <dd><p><a class="reference external" href="https://git.trustedfirmware.org/TF-M/tf-m-tools.git/tree/profiling">TF-M performance profiling tool</a></p>
 </dd>
-<dt class="label" id="id8"><span class="brackets"><a class="fn-backref" href="#id4">4</a></span></dt>
+<dt class="label" id="id8"><span class="brackets"><a class="fn-backref" href="2.0.0.html#id4">4</a></span></dt>
 <dd><p><a class="reference external" href="https://docs.readthedocs.io/en/stable/#">Read the Docs</a></p>
 </dd>
 </dl>

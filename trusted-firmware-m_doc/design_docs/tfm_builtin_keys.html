@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TF-M builtin keys &mdash; Trusted Firmware-M v2.1.0-stm32mp-r1 documentation</title>
+  <title>TF-M builtin keys &mdash; Trusted Firmware-M v2.1.3-stm32mp-r2 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/tfm_custom.css" type="text/css" />
@@ -38,7 +38,7 @@
               <img src="../_static/tf_logo_white.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                v2.1.0-stm32mp-r1
+                v2.1.3-stm32mp-r2
 
               </div>
 <div role="search">
@@ -67,11 +67,16 @@
 <li class="toctree-l3"><a class="reference internal" href="../security/security_advisories/fwu_write_vulnerability.html">Advisory TFMV-5</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../security/security_advisories/cc3xx_partial_tag_compare_on_chacha20_poly1305.html">Advisory TFMV-6</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../security/security_advisories/debug_log_vulnerability.html">Advisory TFMV-7</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../security/security_advisories/user_pointers_mailbox_vectors_vulnerability.html">Advisory TFMV-8</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../security/security_advisories/fwu_tlv_payload_out_of_bounds_vulnerability.html">Advisory TFMV-9</a></li>
 </ul>
 </li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../releases/index.html">Releases</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../releases/2.1.3.html">v2.1.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../releases/2.1.2.html">v2.1.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../releases/2.1.1.html">v2.1.1</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../releases/2.1.0.html">v2.1.0</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../releases/2.0.0.html">v2.0.0</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../releases/1.8.1.html">v1.8.1</a></li>
@@ -85,6 +90,10 @@
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../platform/index.html">Platforms</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../platform/adi/index.html">Analog Devices, Inc.</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../platform/adi/max32657/README.html">MAX32657</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../platform/arm/index.html">Arm</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../platform/arm/corstone1000/readme.html">Corstone-1000</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/arm/mps3/corstone300/README.html">Corstone-300 FPGA (AN547 and AN552) and FVP</a></li>
@@ -122,6 +131,10 @@
 <li class="toctree-l3"><a class="reference internal" href="../platform/nxp/lpcxpresso55s69/README.html">LPCXpresso55S69</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../platform/rpi/index.html">Raspberry Pi</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../platform/rpi/rp2350/readme.html">RP2350</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../platform/stm/index.html">STMICROELECTRONICS</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/common/stm32h5xx/readme.html">STM32H5</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/common/stm32l5xx/readme.html">STM32L5</a></li>
@@ -131,6 +144,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32h573i_dk/readme.html">STM32H573I_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32l562e_dk/readme.html">STM32L562E_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32mp215f_dk/readme.html">stm32mp215f_dk</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32mp235f_dk/readme.html">stm32mp235f_dk</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/b_u585i_iot02a/readme.html">B_U585I_IOT02A</a></li>
 </ul>
@@ -226,7 +240,7 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="ff_isolation.html">Isolation Rules</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Builtin Keys</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="tfm_builtin_keys.html#">Builtin Keys</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tfm_log_system_design_document.html">Logging system</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tfm_physical_attack_mitigation.html">Physical Attack Mitigation</a></li>
 </ul>
@@ -263,6 +277,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32h573i_dk/readme.html">STM32H573I_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32l562e_dk/readme.html">STM32L562E_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32mp215f_dk/readme.html">stm32mp215f_dk</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32mp235f_dk/readme.html">stm32mp235f_dk</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/nucleo_l552ze_q/readme.html">NUCLEO_L552ZE_Q</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/b_u585i_iot02a/readme.html">B_U585I_IOT02A</a></li>
@@ -277,6 +292,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32h573i_dk/readme.html">STM32H573I_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32l562e_dk/readme.html">STM32L562E_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32mp215f_dk/readme.html">stm32mp215f_dk</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32mp235f_dk/readme.html">stm32mp235f_dk</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
 </ul>
 </li>
@@ -307,6 +323,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../stm/technical/initlevel.html">Initlevel</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../stm/technical/initial_attestation.html">Initial Attestation Service</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../stm/technical/key_and_provisionning.html">About TF-M Authentication Keys and Secret Provisioning</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../stm/technical/nv_counter.html">Nv counter</a></li>
 </ul>
 </li>
@@ -341,7 +358,7 @@
            <div itemprop="articleBody">
              
   <div class="section" id="tf-m-builtin-keys">
-<span id="tfm-builtin-keys-label"></span><h1>TF-M builtin keys<a class="headerlink" href="#tf-m-builtin-keys" title="Permalink to this heading"></a></h1>
+<span id="tfm-builtin-keys-label"></span><h1>TF-M builtin keys<a class="headerlink" href="tfm_builtin_keys.html#tf-m-builtin-keys" title="Permalink to this heading"></a></h1>
 <dl class="field-list simple">
 <dt class="field-odd">Author</dt>
 <dd class="field-odd"><p>Raef Coles</p>
@@ -354,7 +371,7 @@
 </dd>
 </dl>
 <div class="section" id="introduction">
-<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading"></a></h2>
+<h2>Introduction<a class="headerlink" href="tfm_builtin_keys.html#introduction" title="Permalink to this heading"></a></h2>
 <p>When TF-M is integrated on a platform, the platform itself can provide several
 keys for usage which are bound to the device instead of being owned by a
 specific secure partition. When those keys are readable by the secure
@@ -371,7 +388,7 @@ and might include (but are not limited to) the following:</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">tfm_builtin_key_loader</span></code> component implements a mechanism to discover
 those keys and make them available to the PSA Crypto APIs for usage. Note that
 if a key is stored in a subsystem which can’t be read by the secure
-processing environment, a full opaque driver <a class="footnote-reference brackets" href="#id5" id="id1">1</a> must be used to be able to use
+processing environment, a full opaque driver <a class="footnote-reference brackets" href="tfm_builtin_keys.html#id5" id="id1">1</a> must be used to be able to use
 those keys through the PSA Crypto APIs. This document focuses only on the case
 where the keys can be read by the SPE (i.e. running TF-M), so the driver applies
 only on those cases, which can be considered as “_transparent_ builin keys”.</p>
@@ -397,7 +414,7 @@ handling mechanism from TF-M partitions into the PSA Crypto core key management
 subsystem.</p>
 </div>
 <div class="section" id="psa-builtin-keys">
-<h2>PSA builtin keys<a class="headerlink" href="#psa-builtin-keys" title="Permalink to this heading"></a></h2>
+<h2>PSA builtin keys<a class="headerlink" href="tfm_builtin_keys.html#psa-builtin-keys" title="Permalink to this heading"></a></h2>
 <p>The PSA Cryptographic API provides a mechanism for accessing keys that are
 stored in platform-specific locations (often hardware accelerators or OTP). A
 builtin key is assigned a specific key_id, i.e. a handle, which is hardcoded at
@@ -409,15 +426,15 @@ secure partition. The PSA Crypto core will then check those policies to grant
 or deny access to the builtin key for that user.</p>
 </div>
 <div class="section" id="psa-cryptoprocessor-driver-api">
-<h2>PSA cryptoprocessor driver API<a class="headerlink" href="#psa-cryptoprocessor-driver-api" title="Permalink to this heading"></a></h2>
+<h2>PSA cryptoprocessor driver API<a class="headerlink" href="tfm_builtin_keys.html#psa-cryptoprocessor-driver-api" title="Permalink to this heading"></a></h2>
 <p>The PSA specification allows the PSA Crypto APIs to defer their operation to an
 accelerator driver, through a mechanism described in the PSA cryptoprocessor
-driver interface specification <a class="footnote-reference brackets" href="#id5" id="id2">1</a>. This specification defines the concept of
+driver interface specification <a class="footnote-reference brackets" href="tfm_builtin_keys.html#id5" id="id2">1</a>. This specification defines the concept of
 PSA Crypto core, i.e. “An implementation of the PSA Cryptography API is
 composed of a core and zero or more drivers”. The PSA specification also has
 the concept of storage locations for keys, through the type
 <code class="docutils literal notranslate"><span class="pre">psa_key_location_t</span></code>, which is used to access keys that don’t have local
-storage <a class="footnote-reference brackets" href="#id6" id="id3">2</a>. This is leveraged mainly by opaque drivers mainly that use keys
+storage <a class="footnote-reference brackets" href="tfm_builtin_keys.html#id6" id="id3">2</a>. This is leveraged mainly by opaque drivers mainly that use keys
 for which the key material is not readable by the PSA crypto core layer.</p>
 <p>TF-M defines a software driver called <code class="docutils literal notranslate"><span class="pre">tfm_builtin_key_loader</span></code> that provides
 no acceleration but just defines a dedicated key location defined through the
@@ -491,9 +508,9 @@ PSA Crypto core slot management subsystem.</p></li>
 </div></blockquote>
 </div>
 <div class="section" id="technical-details">
-<h2>Technical details<a class="headerlink" href="#technical-details" title="Permalink to this heading"></a></h2>
+<h2>Technical details<a class="headerlink" href="tfm_builtin_keys.html#technical-details" title="Permalink to this heading"></a></h2>
 <div class="section" id="builtin-key-ids-and-overriding">
-<h3>Builtin key IDs and overriding<a class="headerlink" href="#builtin-key-ids-and-overriding" title="Permalink to this heading"></a></h3>
+<h3>Builtin key IDs and overriding<a class="headerlink" href="tfm_builtin_keys.html#builtin-key-ids-and-overriding" title="Permalink to this heading"></a></h3>
 <p>TF-M builtin key IDs are defined in
 <code class="docutils literal notranslate"><span class="pre">interface/include/crypto_keys/tfm_builtin_key_ids.h</span></code> through the enum
 <code class="docutils literal notranslate"><span class="pre">tfm_key_id_builtin_t</span></code>. They are allocated inside the range that PSA
@@ -503,7 +520,7 @@ IDs by setting the <code class="docutils literal notranslate"><span class="pre">
 creating the header <code class="docutils literal notranslate"><span class="pre">tfm_builtin_key_ids.h</span></code>, and specifying new keys and IDs.</p>
 </div>
 <div class="section" id="builtin-key-access-control">
-<h3>Builtin key access control<a class="headerlink" href="#builtin-key-access-control" title="Permalink to this heading"></a></h3>
+<h3>Builtin key access control<a class="headerlink" href="tfm_builtin_keys.html#builtin-key-access-control" title="Permalink to this heading"></a></h3>
 <p>A builtin key is accessible by all callers since the <code class="docutils literal notranslate"><span class="pre">key_id</span></code> associated to it
 is public information. Access to the keys must be mediated, which is done by
 matching the user requesting the <code class="docutils literal notranslate"><span class="pre">key_id</span></code> against the policies available for
@@ -513,7 +530,7 @@ the key attributes will be all set to zeros, meaning the key will be unusable
 for any operation for that particular user.</p>
 </div>
 <div class="section" id="multi-partition-key-derivation">
-<h3>Multi-partition key derivation<a class="headerlink" href="#multi-partition-key-derivation" title="Permalink to this heading"></a></h3>
+<h3>Multi-partition key derivation<a class="headerlink" href="tfm_builtin_keys.html#multi-partition-key-derivation" title="Permalink to this heading"></a></h3>
 <p>The HUK is used for key derivation by any secure partition or NS caller that
 requires keys that are bound to a particular context. For example, Protected
 Storage derives keys uniquely for each user of the service which are used to
@@ -547,7 +564,7 @@ used, care must be taken with access control where multiple partitions have
 access to the same raw key material.</p>
 </div>
 <div class="section" id="mbed-tls-transparent-builtin-keys">
-<h3>Mbed TLS transparent builtin keys<a class="headerlink" href="#mbed-tls-transparent-builtin-keys" title="Permalink to this heading"></a></h3>
+<h3>Mbed TLS transparent builtin keys<a class="headerlink" href="tfm_builtin_keys.html#mbed-tls-transparent-builtin-keys" title="Permalink to this heading"></a></h3>
 <p>Mbed TLS does not natively support transparent builtin keys (transparent keys
 are keys where the key material is directly accessible by the PSA Crypto core),
 so some modifications had to be made. Opaque keyslots have the same basic
@@ -565,11 +582,11 @@ just provides a mechanism to load keys (which act as a transparent key with
 local storage, once loaded), but Mbed TLS does not support such “transparent
 builtin key” concept. Note that the modifications on Mbed TLS are relying on non
 standard implementation details hence this particular integration can change
-between releases <a class="footnote-reference brackets" href="#id7" id="id4">3</a>.</p>
+between releases <a class="footnote-reference brackets" href="tfm_builtin_keys.html#id7" id="id4">3</a>.</p>
 </div>
 </div>
 <div class="section" id="using-opaque-psa-crypto-accelerators-with-tf-m">
-<h2>Using Opaque PSA crypto accelerators with TF-M<a class="headerlink" href="#using-opaque-psa-crypto-accelerators-with-tf-m" title="Permalink to this heading"></a></h2>
+<h2>Using Opaque PSA crypto accelerators with TF-M<a class="headerlink" href="tfm_builtin_keys.html#using-opaque-psa-crypto-accelerators-with-tf-m" title="Permalink to this heading"></a></h2>
 <p>For platforms which have a cryptographic accelerator which has a corresponding
 Opaque PSA crypto accelerator driver, the TF-M builtin key loader driver can be
 disabled using the <code class="docutils literal notranslate"><span class="pre">-DCRYPTO_TFM_BUILTIN_KEYS_DRIVER=OFF</span></code> cmake option. The
@@ -585,15 +602,15 @@ applied by the builtin key loader driver, other opaque drivers must apply either
 this policy or their own policy (Though this may be changed in future).</p>
 </div>
 <div class="section" id="references">
-<h2>References<a class="headerlink" href="#references" title="Permalink to this heading"></a></h2>
+<h2>References<a class="headerlink" href="tfm_builtin_keys.html#references" title="Permalink to this heading"></a></h2>
 <dl class="footnote brackets">
-<dt class="label" id="id5"><span class="brackets">1</span><span class="fn-backref">(<a href="#id1">1</a>,<a href="#id2">2</a>)</span></dt>
+<dt class="label" id="id5"><span class="brackets">1</span><span class="fn-backref">(<a href="tfm_builtin_keys.html#id1">1</a>,<a href="tfm_builtin_keys.html#id2">2</a>)</span></dt>
 <dd><p>PSA cryptoprocessor driver interface: <a class="reference external" href="https://github.com/Mbed-TLS/mbedtls/blob/development/docs/proposed/psa-driver-interface.md">https://github.com/Mbed-TLS/mbedtls/blob/development/docs/proposed/psa-driver-interface.md</a></p>
 </dd>
-<dt class="label" id="id6"><span class="brackets"><a class="fn-backref" href="#id3">2</a></span></dt>
+<dt class="label" id="id6"><span class="brackets"><a class="fn-backref" href="tfm_builtin_keys.html#id3">2</a></span></dt>
 <dd><p>Definition of psa_key_location_t type in the PSA spec: <a class="reference external" href="https://arm-software.github.io/psa-api/crypto/1.1/api/keys/lifetimes.html#c.psa_key_location_t">https://arm-software.github.io/psa-api/crypto/1.1/api/keys/lifetimes.html#c.psa_key_location_t</a></p>
 </dd>
-<dt class="label" id="id7"><span class="brackets"><a class="fn-backref" href="#id4">3</a></span></dt>
+<dt class="label" id="id7"><span class="brackets"><a class="fn-backref" href="tfm_builtin_keys.html#id4">3</a></span></dt>
 <dd><p>Interface for platform keys: <a class="reference external" href="https://github.com/ARM-software/psa-crypto-api/issues/550">https://github.com/ARM-software/psa-crypto-api/issues/550</a></p>
 </dd>
 </dl>

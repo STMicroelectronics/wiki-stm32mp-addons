@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Run TF-M tests and applications on Arm platforms &mdash; Trusted Firmware-M v2.1.0-stm32mp-r1 documentation</title>
+  <title>Run TF-M tests and applications on Arm platforms &mdash; Trusted Firmware-M v2.1.3-stm32mp-r2 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/tfm_custom.css" type="text/css" />
@@ -38,7 +38,7 @@
               <img src="../_static/tf_logo_white.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                v2.1.0-stm32mp-r1
+                v2.1.3-stm32mp-r2
 
               </div>
 <div role="search">
@@ -67,11 +67,16 @@
 <li class="toctree-l3"><a class="reference internal" href="../security/security_advisories/fwu_write_vulnerability.html">Advisory TFMV-5</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../security/security_advisories/cc3xx_partial_tag_compare_on_chacha20_poly1305.html">Advisory TFMV-6</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../security/security_advisories/debug_log_vulnerability.html">Advisory TFMV-7</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../security/security_advisories/user_pointers_mailbox_vectors_vulnerability.html">Advisory TFMV-8</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../security/security_advisories/fwu_tlv_payload_out_of_bounds_vulnerability.html">Advisory TFMV-9</a></li>
 </ul>
 </li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../releases/index.html">Releases</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../releases/2.1.3.html">v2.1.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../releases/2.1.2.html">v2.1.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../releases/2.1.1.html">v2.1.1</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../releases/2.1.0.html">v2.1.0</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../releases/2.0.0.html">v2.0.0</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../releases/1.8.1.html">v1.8.1</a></li>
@@ -85,6 +90,10 @@
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../platform/index.html">Platforms</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../platform/adi/index.html">Analog Devices, Inc.</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../platform/adi/max32657/README.html">MAX32657</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../platform/arm/index.html">Arm</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../platform/arm/corstone1000/readme.html">Corstone-1000</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/arm/mps3/corstone300/README.html">Corstone-300 FPGA (AN547 and AN552) and FVP</a></li>
@@ -122,6 +131,10 @@
 <li class="toctree-l3"><a class="reference internal" href="../platform/nxp/lpcxpresso55s69/README.html">LPCXpresso55S69</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../platform/rpi/index.html">Raspberry Pi</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../platform/rpi/rp2350/readme.html">RP2350</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../platform/stm/index.html">STMICROELECTRONICS</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/common/stm32h5xx/readme.html">STM32H5</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/common/stm32l5xx/readme.html">STM32L5</a></li>
@@ -131,6 +144,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32h573i_dk/readme.html">STM32H573I_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32l562e_dk/readme.html">STM32L562E_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32mp215f_dk/readme.html">stm32mp215f_dk</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32mp235f_dk/readme.html">stm32mp235f_dk</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/b_u585i_iot02a/readme.html">B_U585I_IOT02A</a></li>
 </ul>
@@ -139,7 +153,7 @@
 </li>
 <li class="toctree-l1 current"><a class="reference internal" href="tfm_build_instruction.html">Build instructions</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="tests_build_instruction.html">Build Tests</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Run TF-M tests and applications</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="run_tfm_examples_on_arm_platforms.html#">Run TF-M tests and applications</a></li>
 <li class="toctree-l2"><a class="reference internal" href="documentation_generation.html">Building the documentation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tfm_build_instruction_iar.html">IAR toolchain</a></li>
 </ul>
@@ -263,6 +277,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32h573i_dk/readme.html">STM32H573I_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32l562e_dk/readme.html">STM32L562E_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32mp215f_dk/readme.html">stm32mp215f_dk</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32mp235f_dk/readme.html">stm32mp235f_dk</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/nucleo_l552ze_q/readme.html">NUCLEO_L552ZE_Q</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/b_u585i_iot02a/readme.html">B_U585I_IOT02A</a></li>
@@ -277,6 +292,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32h573i_dk/readme.html">STM32H573I_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32l562e_dk/readme.html">STM32L562E_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32mp215f_dk/readme.html">stm32mp215f_dk</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32mp235f_dk/readme.html">stm32mp235f_dk</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
 </ul>
 </li>
@@ -307,6 +323,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../stm/technical/initlevel.html">Initlevel</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../stm/technical/initial_attestation.html">Initial Attestation Service</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../stm/technical/key_and_provisionning.html">About TF-M Authentication Keys and Secret Provisioning</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../stm/technical/nv_counter.html">Nv counter</a></li>
 </ul>
 </li>
@@ -341,13 +358,13 @@
            <div itemprop="articleBody">
              
   <div class="section" id="run-tf-m-tests-and-applications-on-arm-platforms">
-<h1>Run TF-M tests and applications on Arm platforms<a class="headerlink" href="#run-tf-m-tests-and-applications-on-arm-platforms" title="Permalink to this heading"></a></h1>
+<h1>Run TF-M tests and applications on Arm platforms<a class="headerlink" href="run_tfm_examples_on_arm_platforms.html#run-tf-m-tests-and-applications-on-arm-platforms" title="Permalink to this heading"></a></h1>
 <p>Instructions for how to run TF-M tests and applications on Arm platforms.</p>
 <p>Follow <a class="reference internal" href="tfm_build_instruction.html"><span class="doc">build instruction</span></a> to build the binaries.
 Follow <a class="reference internal" href="../design_docs/booting/tfm_secure_boot.html"><span class="doc">secure boot</span></a> to build the
 binaries with or without BL2 bootloader.</p>
 <div class="section" id="execute-tf-m-regression-tests-on-mps2-boards-and-fvp">
-<span id="tf-m-regression-tests"></span><h2>Execute TF-M regression tests on MPS2 boards and FVP<a class="headerlink" href="#execute-tf-m-regression-tests-on-mps2-boards-and-fvp" title="Permalink to this heading"></a></h2>
+<span id="tf-m-regression-tests"></span><h2>Execute TF-M regression tests on MPS2 boards and FVP<a class="headerlink" href="run_tfm_examples_on_arm_platforms.html#execute-tf-m-regression-tests-on-mps2-boards-and-fvp" title="Permalink to this heading"></a></h2>
 <p>The BL2 bootloader and TF-M example application and tests have been verified
 using the reference model for MPS2 (AN521), in  <a class="reference external" href="http://www2.keil.com/mdk5">Keil MDK</a> ,
 <a class="reference external" href="https://developer.arm.com/tools-and-software/simulation-models/fixed-virtual-platforms">Fixed Virtual Platforms</a> and <a class="reference external" href="https://developer.arm.com/tools-and-software/embedded/arm-development-studio">Arm Development Studio</a> .</p>
@@ -364,10 +381,10 @@ documentation:  <a class="reference external" href="https://www2.keil.com/mdk5/d
 <a class="reference external" href="https://developer.arm.com/tools-and-software/embedded/arm-development-studio/learn/docs">Arm Development Studio Documentation</a></p>
 </div>
 <div class="section" id="to-run-the-example-code-on-an-sse-200-fast-model">
-<h3>To run the example code on an SSE-200 Fast-Model<a class="headerlink" href="#to-run-the-example-code-on-an-sse-200-fast-model" title="Permalink to this heading"></a></h3>
+<h3>To run the example code on an SSE-200 Fast-Model<a class="headerlink" href="run_tfm_examples_on_arm_platforms.html#to-run-the-example-code-on-an-sse-200-fast-model" title="Permalink to this heading"></a></h3>
 <p>Using FVP_MPS2_AEMv8M provided by <a class="reference external" href="https://developer.arm.com/tools-and-software/embedded/arm-development-studio">Arm Development Studio</a> 2019.1.</p>
 <div class="section" id="example-application-and-regression-tests-without-bl2-bootloader">
-<h4>Example application and regression tests without BL2 bootloader<a class="headerlink" href="#example-application-and-regression-tests-without-bl2-bootloader" title="Permalink to this heading"></a></h4>
+<h4>Example application and regression tests without BL2 bootloader<a class="headerlink" href="run_tfm_examples_on_arm_platforms.html#example-application-and-regression-tests-without-bl2-bootloader" title="Permalink to this heading"></a></h4>
 <p>Add <code class="docutils literal notranslate"><span class="pre">tfm_s.axf</span></code> and <code class="docutils literal notranslate"><span class="pre">tfm_ns.axf</span></code> to symbol files in Debug Configuration
 menu.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>&lt;DS_PATH&gt;/sw/models/bin/FVP_MPS2_AEMv8M<span class="w"> </span><span class="se">\</span>
@@ -388,7 +405,7 @@ menu.</p>
 </div>
 </div>
 <div class="section" id="example-application-and-regression-tests-with-bl2-bootloader">
-<h4>Example application and regression tests with BL2 bootloader<a class="headerlink" href="#example-application-and-regression-tests-with-bl2-bootloader" title="Permalink to this heading"></a></h4>
+<h4>Example application and regression tests with BL2 bootloader<a class="headerlink" href="run_tfm_examples_on_arm_platforms.html#example-application-and-regression-tests-with-bl2-bootloader" title="Permalink to this heading"></a></h4>
 <p>To test TF-M with bootloader, one must apply the following changes:</p>
 <ul class="simple">
 <li><p>Add <code class="docutils literal notranslate"><span class="pre">bl2.axf</span></code> to symbol files in DS-5 in Debug Configuration
@@ -400,7 +417,7 @@ menu.</p></li>
 </pre></div>
 </div>
 <div class="section" id="test-software-upgrade-with-bl2-bootloader">
-<h5>Test software upgrade with BL2 bootloader<a class="headerlink" href="#test-software-upgrade-with-bl2-bootloader" title="Permalink to this heading"></a></h5>
+<h5>Test software upgrade with BL2 bootloader<a class="headerlink" href="run_tfm_examples_on_arm_platforms.html#test-software-upgrade-with-bl2-bootloader" title="Permalink to this heading"></a></h5>
 <p>BL2 bootloader is mandatory to test software update. Furthermore, two TF-M blobs
 must be built. Outputs of example application and regression test can be used to
 test it. Load output of example application to the primary slot (0x10080000) and
@@ -413,7 +430,7 @@ line to the end of the previous chapter:</p>
 </div>
 </div>
 <div class="section" id="to-run-the-example-code-on-sse-200-fpga-on-mps2-board">
-<h3>To run the example code on SSE 200 FPGA on MPS2 board<a class="headerlink" href="#to-run-the-example-code-on-sse-200-fpga-on-mps2-board" title="Permalink to this heading"></a></h3>
+<h3>To run the example code on SSE 200 FPGA on MPS2 board<a class="headerlink" href="run_tfm_examples_on_arm_platforms.html#to-run-the-example-code-on-sse-200-fpga-on-mps2-board" title="Permalink to this heading"></a></h3>
 <p>FPGA image is available to download
 <a class="reference external" href="https://developer.arm.com/products/system-design/development-boards/cortex-m-prototyping-systems/mps2">here</a></p>
 <p>To run BL2 bootloader and TF-M example application and tests in the MPS2 board,
@@ -426,7 +443,7 @@ card. The image should be located in
 <p>If you change the exe names, MPS2 expects file names in 8.3 format.</p>
 </div>
 <div class="section" id="example-application">
-<h4>Example application<a class="headerlink" href="#example-application" title="Permalink to this heading"></a></h4>
+<h4>Example application<a class="headerlink" href="run_tfm_examples_on_arm_platforms.html#example-application" title="Permalink to this heading"></a></h4>
 <ol class="arabic">
 <li><p>Copy <code class="docutils literal notranslate"><span class="pre">bl2.bin</span></code> and <code class="docutils literal notranslate"><span class="pre">tfm_s_ns_signed.bin</span></code> files from
 <code class="docutils literal notranslate"><span class="pre">&lt;build_dir&gt;/bin</span></code> to
@@ -462,7 +479,7 @@ port (baud 115200 8n1) the following messages:</p>
 </ol>
 </div>
 <div class="section" id="regression-tests">
-<h4>Regression tests<a class="headerlink" href="#regression-tests" title="Permalink to this heading"></a></h4>
+<h4>Regression tests<a class="headerlink" href="run_tfm_examples_on_arm_platforms.html#regression-tests" title="Permalink to this heading"></a></h4>
 <p>After completing the procedure you should be able to visualize on the serial
 port (baud 115200 8n1) the following messages:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>[INF] Starting bootloader
@@ -502,7 +519,7 @@ This test is DEPRECATED and the test execution was SKIPPED
 </div>
 </div>
 <div class="section" id="example-application-without-bl2-bootloader">
-<h4>Example application without BL2 bootloader<a class="headerlink" href="#example-application-without-bl2-bootloader" title="Permalink to this heading"></a></h4>
+<h4>Example application without BL2 bootloader<a class="headerlink" href="run_tfm_examples_on_arm_platforms.html#example-application-without-bl2-bootloader" title="Permalink to this heading"></a></h4>
 <ol class="arabic">
 <li><p>Copy <code class="docutils literal notranslate"><span class="pre">tfm_s.bin</span></code> and <code class="docutils literal notranslate"><span class="pre">tfm_ns.bin</span></code> files from
 <code class="docutils literal notranslate"><span class="pre">&lt;build_dir&gt;/bin</span></code> to
@@ -531,7 +548,7 @@ port (baud 115200 8n1) the following messages:</p>
 </ol>
 </div>
 <div class="section" id="regression-tests-without-bl2-bootloader">
-<h4>Regression tests without BL2 bootloader<a class="headerlink" href="#regression-tests-without-bl2-bootloader" title="Permalink to this heading"></a></h4>
+<h4>Regression tests without BL2 bootloader<a class="headerlink" href="run_tfm_examples_on_arm_platforms.html#regression-tests-without-bl2-bootloader" title="Permalink to this heading"></a></h4>
 <p>After completing the procedure you should be able to visualize on the serial
 port (baud 115200 8n1) the following messages:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>[Sec Thread] Secure image initializing!
@@ -562,7 +579,7 @@ This test is DEPRECATED and the test execution was SKIPPED
 </div>
 </div>
 <div class="section" id="execute-tf-m-regression-tests-on-musca-test-chip-boards">
-<h2>Execute TF-M regression tests on Musca test chip boards<a class="headerlink" href="#execute-tf-m-regression-tests-on-musca-test-chip-boards" title="Permalink to this heading"></a></h2>
+<h2>Execute TF-M regression tests on Musca test chip boards<a class="headerlink" href="run_tfm_examples_on_arm_platforms.html#execute-tf-m-regression-tests-on-musca-test-chip-boards" title="Permalink to this heading"></a></h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Before executing any images on Musca-B1 board, please check the
@@ -575,7 +592,7 @@ to have the correct setup.</p>
 </ul>
 </div>
 <div class="section" id="example-application-with-bl2-bootloader">
-<h3>Example application with BL2 bootloader<a class="headerlink" href="#example-application-with-bl2-bootloader" title="Permalink to this heading"></a></h3>
+<h3>Example application with BL2 bootloader<a class="headerlink" href="run_tfm_examples_on_arm_platforms.html#example-application-with-bl2-bootloader" title="Permalink to this heading"></a></h3>
 <ol class="arabic">
 <li><p>Create a unified hex file comprising of both <code class="docutils literal notranslate"><span class="pre">bl2.bin</span></code> and
 <code class="docutils literal notranslate"><span class="pre">tfm_s_ns_signed.bin</span></code> for Musca-B1 or Musca-S1 platforms:</p>
@@ -606,7 +623,7 @@ DAPLink UART (baud 115200 8n1):</p>
 </ol>
 </div>
 <div class="section" id="regression-tests-with-bl2-bootloader">
-<h3>Regression tests with BL2 bootloader<a class="headerlink" href="#regression-tests-with-bl2-bootloader" title="Permalink to this heading"></a></h3>
+<h3>Regression tests with BL2 bootloader<a class="headerlink" href="run_tfm_examples_on_arm_platforms.html#regression-tests-with-bl2-bootloader" title="Permalink to this heading"></a></h3>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>As the Internal Trusted Storage and Protected Storage tests use persistent
@@ -656,7 +673,7 @@ This test is DEPRECATED and the test execution was SKIPPED
 </div>
 </div>
 <div class="section" id="psa-api-tests">
-<h3>PSA API tests<a class="headerlink" href="#psa-api-tests" title="Permalink to this heading"></a></h3>
+<h3>PSA API tests<a class="headerlink" href="run_tfm_examples_on_arm_platforms.html#psa-api-tests" title="Permalink to this heading"></a></h3>
 <p>Follow the build instructions for the PSA API tests and then follow the above
 procedures for flashing the image to the board. The PSA API tests are linked
 into the TF-M binaries and will automatically run. A log similar to the
@@ -730,7 +747,7 @@ device off and on again between test runs.</p>
 </div>
 </div>
 <div class="section" id="example-application-or-regression-tests-on-musca-b1-without-bl2-bootloader">
-<h3>Example application or regression tests on Musca-B1 without BL2 bootloader<a class="headerlink" href="#example-application-or-regression-tests-on-musca-b1-without-bl2-bootloader" title="Permalink to this heading"></a></h3>
+<h3>Example application or regression tests on Musca-B1 without BL2 bootloader<a class="headerlink" href="run_tfm_examples_on_arm_platforms.html#example-application-or-regression-tests-on-musca-b1-without-bl2-bootloader" title="Permalink to this heading"></a></h3>
 <p>Follow the above procedures, but create a unified hex file out of <code class="docutils literal notranslate"><span class="pre">tfm_s.bin</span></code>
 and <code class="docutils literal notranslate"><span class="pre">tfm_ns.bin</span></code>:</p>
 <ul>
@@ -748,9 +765,9 @@ and <code class="docutils literal notranslate"><span class="pre">tfm_ns.bin</spa
 </div>
 </div>
 <div class="section" id="execute-tf-m-example-and-regression-tests-on-mps3-boards">
-<h2>Execute TF-M example and regression tests on MPS3 boards<a class="headerlink" href="#execute-tf-m-example-and-regression-tests-on-mps3-boards" title="Permalink to this heading"></a></h2>
+<h2>Execute TF-M example and regression tests on MPS3 boards<a class="headerlink" href="run_tfm_examples_on_arm_platforms.html#execute-tf-m-example-and-regression-tests-on-mps3-boards" title="Permalink to this heading"></a></h2>
 <div class="section" id="to-run-the-example-code-on-corelink-sse-200-subsystem-for-mps3-an524">
-<h3>To run the example code on CoreLink SSE-200 Subsystem for MPS3 (AN524)<a class="headerlink" href="#to-run-the-example-code-on-corelink-sse-200-subsystem-for-mps3-an524" title="Permalink to this heading"></a></h3>
+<h3>To run the example code on CoreLink SSE-200 Subsystem for MPS3 (AN524)<a class="headerlink" href="run_tfm_examples_on_arm_platforms.html#to-run-the-example-code-on-corelink-sse-200-subsystem-for-mps3-an524" title="Permalink to this heading"></a></h3>
 <p>FPGA image is available to download <a class="reference external" href="https://www.arm.com/products/development-tools/development-boards/mps3">here</a></p>
 <p>To run BL2 bootloader and TF-M example application and tests in the MPS3 board,
 it is required to have SMM-SSE-200 for MPS3 (AN524) image in the MPS3 board
@@ -769,7 +786,7 @@ correct REMAP option in
 <p>If you change the exe names, MPS3 expects file names in 8.3 format.</p>
 </div>
 <div class="section" id="id1">
-<h4>Example application<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h4>
+<h4>Example application<a class="headerlink" href="run_tfm_examples_on_arm_platforms.html#id1" title="Permalink to this heading"></a></h4>
 <ol class="arabic">
 <li><p>Copy <code class="docutils literal notranslate"><span class="pre">bl2.bin</span></code> and <code class="docutils literal notranslate"><span class="pre">tfm_s_ns_signed.bin</span></code> files from
 build dir to <code class="docutils literal notranslate"><span class="pre">&lt;MPS3</span> <span class="pre">device</span> <span class="pre">name&gt;/SOFTWARE/</span></code></p></li>
@@ -813,7 +830,7 @@ be placed on the <code class="docutils literal notranslate"><span class="pre">0x
 </div>
 </div>
 <div class="section" id="id2">
-<h4>Regression tests<a class="headerlink" href="#id2" title="Permalink to this heading"></a></h4>
+<h4>Regression tests<a class="headerlink" href="run_tfm_examples_on_arm_platforms.html#id2" title="Permalink to this heading"></a></h4>
 <p>After completing the procedure you should be able to visualize on the serial
 port (baud 115200 8n1) the following messages:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>[INF] Starting bootloader
@@ -848,7 +865,7 @@ Running Test Suite PSA protected storage S interface tests (TFM_PS_TEST_2XXX)...
 </div>
 </div>
 <div class="section" id="id3">
-<h4>Example application without BL2 bootloader<a class="headerlink" href="#id3" title="Permalink to this heading"></a></h4>
+<h4>Example application without BL2 bootloader<a class="headerlink" href="run_tfm_examples_on_arm_platforms.html#id3" title="Permalink to this heading"></a></h4>
 <ol class="arabic">
 <li><p>Copy <code class="docutils literal notranslate"><span class="pre">tfm_s.bin</span></code> and <code class="docutils literal notranslate"><span class="pre">tfm_ns.bin</span></code> files from
 build dir to <code class="docutils literal notranslate"><span class="pre">&lt;MPS3</span> <span class="pre">device</span> <span class="pre">name&gt;/SOFTWARE/</span></code></p></li>
@@ -880,7 +897,7 @@ port (baud 115200 8n1) the following messages:</p>
 </ol>
 </div>
 <div class="section" id="id4">
-<h4>Regression tests without BL2 bootloader<a class="headerlink" href="#id4" title="Permalink to this heading"></a></h4>
+<h4>Regression tests without BL2 bootloader<a class="headerlink" href="run_tfm_examples_on_arm_platforms.html#id4" title="Permalink to this heading"></a></h4>
 <p>After completing the procedure you should be able to visualize on the serial
 port (baud 115200 8n1) the following messages:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>[Sec Thread] Secure image initializing!
@@ -905,7 +922,7 @@ Running Test Suite PSA protected storage S interface tests (TFM_PS_TEST_2XXX)...
 </div>
 </div>
 <div class="section" id="firmware-upgrade-and-image-validation-with-bl2-bootloader">
-<h3>Firmware upgrade and image validation with BL2 bootloader<a class="headerlink" href="#firmware-upgrade-and-image-validation-with-bl2-bootloader" title="Permalink to this heading"></a></h3>
+<h3>Firmware upgrade and image validation with BL2 bootloader<a class="headerlink" href="run_tfm_examples_on_arm_platforms.html#firmware-upgrade-and-image-validation-with-bl2-bootloader" title="Permalink to this heading"></a></h3>
 <p>High level operation of BL2 bootloader and instructions for testing firmware
 upgrade is described in <a class="reference internal" href="../design_docs/booting/tfm_secure_boot.html"><span class="doc">secure boot</span></a>.</p>
 <hr class="docutils" />

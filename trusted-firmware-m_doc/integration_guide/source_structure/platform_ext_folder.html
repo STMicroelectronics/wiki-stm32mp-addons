@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Details for the platform/ext folder &mdash; Trusted Firmware-M v2.1.0-stm32mp-r1 documentation</title>
+  <title>Details for the platform/ext folder &mdash; Trusted Firmware-M v2.1.3-stm32mp-r2 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/tfm_custom.css" type="text/css" />
@@ -38,7 +38,7 @@
               <img src="../../_static/tf_logo_white.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                v2.1.0-stm32mp-r1
+                v2.1.3-stm32mp-r2
 
               </div>
 <div role="search">
@@ -67,11 +67,16 @@
 <li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/fwu_write_vulnerability.html">Advisory TFMV-5</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/cc3xx_partial_tag_compare_on_chacha20_poly1305.html">Advisory TFMV-6</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/debug_log_vulnerability.html">Advisory TFMV-7</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/user_pointers_mailbox_vectors_vulnerability.html">Advisory TFMV-8</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/fwu_tlv_payload_out_of_bounds_vulnerability.html">Advisory TFMV-9</a></li>
 </ul>
 </li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../releases/index.html">Releases</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/2.1.3.html">v2.1.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/2.1.2.html">v2.1.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/2.1.1.html">v2.1.1</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../releases/2.1.0.html">v2.1.0</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../releases/2.0.0.html">v2.0.0</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../releases/1.8.1.html">v1.8.1</a></li>
@@ -85,6 +90,10 @@
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../platform/index.html">Platforms</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/adi/index.html">Analog Devices, Inc.</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/adi/max32657/README.html">MAX32657</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../../platform/arm/index.html">Arm</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/arm/corstone1000/readme.html">Corstone-1000</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/arm/mps3/corstone300/README.html">Corstone-300 FPGA (AN547 and AN552) and FVP</a></li>
@@ -122,6 +131,10 @@
 <li class="toctree-l3"><a class="reference internal" href="../../platform/nxp/lpcxpresso55s69/README.html">LPCXpresso55S69</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/rpi/index.html">Raspberry Pi</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/rpi/rp2350/readme.html">RP2350</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../../platform/stm/index.html">STMICROELECTRONICS</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32h5xx/readme.html">STM32H5</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32l5xx/readme.html">STM32L5</a></li>
@@ -131,6 +144,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32h573i_dk/readme.html">STM32H573I_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32l562e_dk/readme.html">STM32L562E_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp215f_dk/readme.html">stm32mp215f_dk</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp235f_dk/readme.html">stm32mp235f_dk</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/b_u585i_iot02a/readme.html">B_U585I_IOT02A</a></li>
 </ul>
@@ -161,7 +175,7 @@
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">Integration Guide</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="source_structure.html">Source Structure</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="platform_folder.html">Details for the /platform folder</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">Details for the /platform/ext folder</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="platform_ext_folder.html#">Details for the /platform/ext folder</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../spm_backends.html">SPM Backends</a></li>
@@ -263,6 +277,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32h573i_dk/readme.html">STM32H573I_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32l562e_dk/readme.html">STM32L562E_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp215f_dk/readme.html">stm32mp215f_dk</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp235f_dk/readme.html">stm32mp235f_dk</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/nucleo_l552ze_q/readme.html">NUCLEO_L552ZE_Q</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/b_u585i_iot02a/readme.html">B_U585I_IOT02A</a></li>
@@ -277,6 +292,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32h573i_dk/readme.html">STM32H573I_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32l562e_dk/readme.html">STM32L562E_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp215f_dk/readme.html">stm32mp215f_dk</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp235f_dk/readme.html">stm32mp235f_dk</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
 </ul>
 </li>
@@ -307,6 +323,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../stm/technical/initlevel.html">Initlevel</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../stm/technical/initial_attestation.html">Initial Attestation Service</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/technical/key_and_provisionning.html">About TF-M Authentication Keys and Secret Provisioning</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../stm/technical/nv_counter.html">Nv counter</a></li>
 </ul>
 </li>
@@ -343,7 +360,7 @@
            <div itemprop="articleBody">
              
   <div class="section" id="details-for-the-platform-ext-folder">
-<span id="platform-ext-folder"></span><h1>Details for the platform/ext folder<a class="headerlink" href="#details-for-the-platform-ext-folder" title="Permalink to this heading"></a></h1>
+<span id="platform-ext-folder"></span><h1>Details for the platform/ext folder<a class="headerlink" href="platform_ext_folder.html#details-for-the-platform-ext-folder" title="Permalink to this heading"></a></h1>
 <p>This folder has code that has been imported from other projects. This means the
 files in this folder and subfolders have Apache 2.0 license which is different
 to BSD 3.0 license applied to the parent TF-M project.</p>
@@ -353,9 +370,9 @@ to BSD 3.0 license applied to the parent TF-M project.</p>
 Maintainers should be consulted if this needs to be revisited.</p>
 </div>
 <div class="section" id="sub-folders">
-<h2>Sub-folders<a class="headerlink" href="#sub-folders" title="Permalink to this heading"></a></h2>
+<h2>Sub-folders<a class="headerlink" href="platform_ext_folder.html#sub-folders" title="Permalink to this heading"></a></h2>
 <div class="section" id="accelerator">
-<h3>accelerator<a class="headerlink" href="#accelerator" title="Permalink to this heading"></a></h3>
+<h3>accelerator<a class="headerlink" href="platform_ext_folder.html#accelerator" title="Permalink to this heading"></a></h3>
 <p>This folder contains cmake and code files to interact cryptographic
 accelerators.</p>
 <p>In order to use a cryptographic accelerator, a platform must set
@@ -382,19 +399,19 @@ cryptography will be used.</p></li>
 </ul>
 </div>
 <div class="section" id="cmsis">
-<h3>cmsis<a class="headerlink" href="#cmsis" title="Permalink to this heading"></a></h3>
+<h3>cmsis<a class="headerlink" href="platform_ext_folder.html#cmsis" title="Permalink to this heading"></a></h3>
 <p>This folder contains core and compiler specific header files imported from the
 <code class="docutils literal notranslate"><span class="pre">CMSIS_5</span></code> project.</p>
 </div>
 <div class="section" id="common">
-<h3>common<a class="headerlink" href="#common" title="Permalink to this heading"></a></h3>
+<h3>common<a class="headerlink" href="platform_ext_folder.html#common" title="Permalink to this heading"></a></h3>
 <div class="section" id="armclang-and-gcc">
-<h4>armclang and gcc<a class="headerlink" href="#armclang-and-gcc" title="Permalink to this heading"></a></h4>
+<h4>armclang and gcc<a class="headerlink" href="platform_ext_folder.html#armclang-and-gcc" title="Permalink to this heading"></a></h4>
 <p>These contain the linker scripts used to configure the memory regions in TF-M
 regions.</p>
 </div>
 <div class="section" id="template">
-<h4>template<a class="headerlink" href="#template" title="Permalink to this heading"></a></h4>
+<h4>template<a class="headerlink" href="platform_ext_folder.html#template" title="Permalink to this heading"></a></h4>
 <p>This directory contains platform-independent dummy implementations of the
 interfaces in <code class="docutils literal notranslate"><span class="pre">platform/include</span></code>. These implementations can be built directly
 for initial testing of a platform port, or used as a basic template for a real
@@ -403,11 +420,11 @@ systems.</p>
 </div>
 </div>
 <div class="section" id="driver">
-<h3>driver<a class="headerlink" href="#driver" title="Permalink to this heading"></a></h3>
+<h3>driver<a class="headerlink" href="platform_ext_folder.html#driver" title="Permalink to this heading"></a></h3>
 <p>This folder contains the headers with CMSIS compliant driver definitions that
 that TF-M project expects a target to provide.</p>
 <div class="section" id="target-cfg-h">
-<h4>target_cfg.h<a class="headerlink" href="#target-cfg-h" title="Permalink to this heading"></a></h4>
+<h4>target_cfg.h<a class="headerlink" href="platform_ext_folder.html#target-cfg-h" title="Permalink to this heading"></a></h4>
 <p>This file is expected to define the following macros respectively.</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">TFM_DRIVER_STDIO</span></code> - This macro should expand to a structure of type
@@ -420,7 +437,7 @@ output to this instance of USART.</p></li>
 </div>
 </div>
 <div class="section" id="target">
-<h3>target<a class="headerlink" href="#target" title="Permalink to this heading"></a></h3>
+<h3>target<a class="headerlink" href="platform_ext_folder.html#target" title="Permalink to this heading"></a></h3>
 <p>This folder contains the files for individual target. For a buildable target,
 the directory path from the <code class="docutils literal notranslate"><span class="pre">target</span></code> directory to its <code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code> file
 is the argument that would be given to <code class="docutils literal notranslate"><span class="pre">-DTFM_PLATFORM=</span></code>.</p>
@@ -451,11 +468,11 @@ is used by multiple targets.</p>
 the <code class="docutils literal notranslate"><span class="pre">common</span></code> directory or a buildable platform, to avoid confusion about what
 directories are a valid <code class="docutils literal notranslate"><span class="pre">TFM_PLATFORM</span></code>.</p>
 <div class="section" id="buildable-target-required-cmake-files">
-<h4>Buildable target required cmake files<a class="headerlink" href="#buildable-target-required-cmake-files" title="Permalink to this heading"></a></h4>
+<h4>Buildable target required cmake files<a class="headerlink" href="platform_ext_folder.html#buildable-target-required-cmake-files" title="Permalink to this heading"></a></h4>
 <p>A buildable target must provide 3 mandatory cmake files. These files must all be
 placed in the root of the buildable target directory.</p>
 <div class="section" id="preload-cmake">
-<h5>preload.cmake<a class="headerlink" href="#preload-cmake" title="Permalink to this heading"></a></h5>
+<h5>preload.cmake<a class="headerlink" href="platform_ext_folder.html#preload-cmake" title="Permalink to this heading"></a></h5>
 <p>This file contains variable definitions that relate to the underlying hardware
 of the target.</p>
 <ul class="simple">
@@ -490,14 +507,14 @@ to select a particular set of code from a vendor SDK.</p>
 <code class="docutils literal notranslate"><span class="pre">config.cmake</span></code></p>
 </div>
 <div class="section" id="config-cmake">
-<h5>config.cmake<a class="headerlink" href="#config-cmake" title="Permalink to this heading"></a></h5>
+<h5>config.cmake<a class="headerlink" href="platform_ext_folder.html#config-cmake" title="Permalink to this heading"></a></h5>
 <p>This file collects platform-specific overrides to the configuration options.
 This should only contain cmake options that are included in
 <code class="docutils literal notranslate"><span class="pre">config_base.cmake</span></code>. These options should be set as <code class="docutils literal notranslate"><span class="pre">CACHE</span></code> variables, as
 they are in <code class="docutils literal notranslate"><span class="pre">config_base.cmake</span></code>.</p>
 </div>
 <div class="section" id="cmakelists-txt">
-<h5>CMakeLists.txt<a class="headerlink" href="#cmakelists-txt" title="Permalink to this heading"></a></h5>
+<h5>CMakeLists.txt<a class="headerlink" href="platform_ext_folder.html#cmakelists-txt" title="Permalink to this heading"></a></h5>
 <p>This file should contain all other required cmake code for the platform. This
 primarily consists of the following:</p>
 <ul class="simple">
@@ -512,25 +529,25 @@ the <code class="docutils literal notranslate"><span class="pre">platform_s</spa
 </ul>
 </div>
 <div class="section" id="preload-ns-cmake">
-<h5>preload_ns.cmake<a class="headerlink" href="#preload-ns-cmake" title="Permalink to this heading"></a></h5>
+<h5>preload_ns.cmake<a class="headerlink" href="platform_ext_folder.html#preload-ns-cmake" title="Permalink to this heading"></a></h5>
 <p>This optional cmake file is required only if the target runs the NSPE on a
 core that requires different compiler options than the SPE core. This file has
 the same format as <code class="docutils literal notranslate"><span class="pre">preload.cmake</span></code>, but instead details the hardware of the
 NS core that is <strong>not</strong> running the main TF-M secure code.</p>
 </div>
 <div class="section" id="install-cmake">
-<h5>install.cmake<a class="headerlink" href="#install-cmake" title="Permalink to this heading"></a></h5>
+<h5>install.cmake<a class="headerlink" href="platform_ext_folder.html#install-cmake" title="Permalink to this heading"></a></h5>
 <p>This optional cmake file is required only if additional files need to be
 installed for the platform.</p>
 </div>
 </div>
 <div class="section" id="flash-layout-header-file">
-<h4>Flash layout header file<a class="headerlink" href="#flash-layout-header-file" title="Permalink to this heading"></a></h4>
+<h4>Flash layout header file<a class="headerlink" href="platform_ext_folder.html#flash-layout-header-file" title="Permalink to this heading"></a></h4>
 <p>Target must provide a header file, called <code class="docutils literal notranslate"><span class="pre">flash_layout.h</span></code>, which defines the
 information explained in the follow subsections. The defines must be named
 as they are in the subsections.</p>
 <div class="section" id="bl2-bootloader">
-<h5>BL2 bootloader<a class="headerlink" href="#bl2-bootloader" title="Permalink to this heading"></a></h5>
+<h5>BL2 bootloader<a class="headerlink" href="platform_ext_folder.html#bl2-bootloader" title="Permalink to this heading"></a></h5>
 <p>The BL2 bootloader requires the following definitions:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">FLASH_BASE_ADDRESS</span></code> - Defines the first valid address in the flash.</p></li>
@@ -665,7 +682,7 @@ configured to be <code class="docutils literal notranslate"><span class="pre">RA
 </ul>
 </div>
 <div class="section" id="assemble-tool">
-<h5>Assemble tool<a class="headerlink" href="#assemble-tool" title="Permalink to this heading"></a></h5>
+<h5>Assemble tool<a class="headerlink" href="platform_ext_folder.html#assemble-tool" title="Permalink to this heading"></a></h5>
 <p>The <code class="docutils literal notranslate"><span class="pre">assemble.py</span></code> tool is used to concatenate secure and non-secure binary
 to a single binary blob. It requires the following definitions:</p>
 <ul class="simple">
@@ -679,7 +696,7 @@ image area.</p></li>
 </ul>
 </div>
 <div class="section" id="image-tool">
-<h5>Image tool<a class="headerlink" href="#image-tool" title="Permalink to this heading"></a></h5>
+<h5>Image tool<a class="headerlink" href="platform_ext_folder.html#image-tool" title="Permalink to this heading"></a></h5>
 <p>The <code class="docutils literal notranslate"><span class="pre">imgtool.py</span></code> tool is used to handle the tasks related to signing the
 binary. It requires the following definition:</p>
 <ul class="simple">
@@ -695,7 +712,7 @@ configured to be <code class="docutils literal notranslate"><span class="pre">RA
 </div>
 </div>
 <div class="section" id="expose-target-support-for-hw-components">
-<h2>Expose target support for HW components<a class="headerlink" href="#expose-target-support-for-hw-components" title="Permalink to this heading"></a></h2>
+<h2>Expose target support for HW components<a class="headerlink" href="platform_ext_folder.html#expose-target-support-for-hw-components" title="Permalink to this heading"></a></h2>
 <p>Services may require HW components to be supported by the target to enable some
 features (e.g. PS service with rollback protection, etc). The following
 definitions need to be set in the .cmake file if the target has the following

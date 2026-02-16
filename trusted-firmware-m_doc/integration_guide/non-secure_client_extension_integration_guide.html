@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Non-secure Client Extension Integration Guide &mdash; Trusted Firmware-M v2.1.0-stm32mp-r1 documentation</title>
+  <title>Non-secure Client Extension Integration Guide &mdash; Trusted Firmware-M v2.1.3-stm32mp-r2 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/tfm_custom.css" type="text/css" />
@@ -38,7 +38,7 @@
               <img src="../_static/tf_logo_white.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                v2.1.0-stm32mp-r1
+                v2.1.3-stm32mp-r2
 
               </div>
 <div role="search">
@@ -67,11 +67,16 @@
 <li class="toctree-l3"><a class="reference internal" href="../security/security_advisories/fwu_write_vulnerability.html">Advisory TFMV-5</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../security/security_advisories/cc3xx_partial_tag_compare_on_chacha20_poly1305.html">Advisory TFMV-6</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../security/security_advisories/debug_log_vulnerability.html">Advisory TFMV-7</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../security/security_advisories/user_pointers_mailbox_vectors_vulnerability.html">Advisory TFMV-8</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../security/security_advisories/fwu_tlv_payload_out_of_bounds_vulnerability.html">Advisory TFMV-9</a></li>
 </ul>
 </li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../releases/index.html">Releases</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../releases/2.1.3.html">v2.1.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../releases/2.1.2.html">v2.1.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../releases/2.1.1.html">v2.1.1</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../releases/2.1.0.html">v2.1.0</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../releases/2.0.0.html">v2.0.0</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../releases/1.8.1.html">v1.8.1</a></li>
@@ -85,6 +90,10 @@
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../platform/index.html">Platforms</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../platform/adi/index.html">Analog Devices, Inc.</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../platform/adi/max32657/README.html">MAX32657</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../platform/arm/index.html">Arm</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../platform/arm/corstone1000/readme.html">Corstone-1000</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/arm/mps3/corstone300/README.html">Corstone-300 FPGA (AN547 and AN552) and FVP</a></li>
@@ -122,6 +131,10 @@
 <li class="toctree-l3"><a class="reference internal" href="../platform/nxp/lpcxpresso55s69/README.html">LPCXpresso55S69</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../platform/rpi/index.html">Raspberry Pi</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../platform/rpi/rp2350/readme.html">RP2350</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../platform/stm/index.html">STMICROELECTRONICS</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/common/stm32h5xx/readme.html">STM32H5</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/common/stm32l5xx/readme.html">STM32L5</a></li>
@@ -131,6 +144,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32h573i_dk/readme.html">STM32H573I_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32l562e_dk/readme.html">STM32L562E_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32mp215f_dk/readme.html">stm32mp215f_dk</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32mp235f_dk/readme.html">stm32mp235f_dk</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/b_u585i_iot02a/readme.html">B_U585I_IOT02A</a></li>
 </ul>
@@ -165,7 +179,7 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="spm_backends.html">SPM Backends</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">NS client integration</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="non-secure_client_extension_integration_guide.html#">NS client integration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="os_migration_guide_armv8m.html">OS migration to Armv8-M</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tfm_fpu_support.html">Floating-Point Support</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tfm_secure_irq_integration_guide.html">Secure Interrupt</a></li>
@@ -263,6 +277,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32h573i_dk/readme.html">STM32H573I_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32l562e_dk/readme.html">STM32L562E_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32mp215f_dk/readme.html">stm32mp215f_dk</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32mp235f_dk/readme.html">stm32mp235f_dk</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/nucleo_l552ze_q/readme.html">NUCLEO_L552ZE_Q</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/b_u585i_iot02a/readme.html">B_U585I_IOT02A</a></li>
@@ -277,6 +292,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32h573i_dk/readme.html">STM32H573I_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32l562e_dk/readme.html">STM32L562E_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32mp215f_dk/readme.html">stm32mp215f_dk</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32mp235f_dk/readme.html">stm32mp235f_dk</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
 </ul>
 </li>
@@ -307,6 +323,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../stm/technical/initlevel.html">Initlevel</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../stm/technical/initial_attestation.html">Initial Attestation Service</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../stm/technical/key_and_provisionning.html">About TF-M Authentication Keys and Secret Provisioning</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../stm/technical/nv_counter.html">Nv counter</a></li>
 </ul>
 </li>
@@ -341,11 +358,11 @@
            <div itemprop="articleBody">
              
   <div class="section" id="non-secure-client-extension-integration-guide">
-<h1>Non-secure Client Extension Integration Guide<a class="headerlink" href="#non-secure-client-extension-integration-guide" title="Permalink to this heading"></a></h1>
+<h1>Non-secure Client Extension Integration Guide<a class="headerlink" href="non-secure_client_extension_integration_guide.html#non-secure-client-extension-integration-guide" title="Permalink to this heading"></a></h1>
 <p>This document introduces TF-M Non-secure Client Extension (NSCE) and how to
 integrate it with Non-secure Processing Environment (NSPE) RTOS.</p>
 <div class="section" id="what-is-nsce-for">
-<h2>What is NSCE for<a class="headerlink" href="#what-is-nsce-for" title="Permalink to this heading"></a></h2>
+<h2>What is NSCE for<a class="headerlink" href="non-secure_client_extension_integration_guide.html#what-is-nsce-for" title="Permalink to this heading"></a></h2>
 <p>Besides the secure services provided via PSA APIs, there are two interactions
 between TF-M and NSPE RTOS.</p>
 <ul>
@@ -369,9 +386,9 @@ the NSPE RTOS must provide the NSID for each connection.</p>
 </ul>
 </div>
 <div class="section" id="nsce-component-diagram">
-<h2>NSCE component diagram<a class="headerlink" href="#nsce-component-diagram" title="Permalink to this heading"></a></h2>
+<h2>NSCE component diagram<a class="headerlink" href="non-secure_client_extension_integration_guide.html#nsce-component-diagram" title="Permalink to this heading"></a></h2>
 <div class="figure align-center" id="id2">
-<img alt="../_images/nsce-integ.svg" src="../_images/nsce-integ.svg" /><p class="caption"><span class="caption-number">Figure 2: </span><span class="caption-text">Non-secure Client Extension Component Diagram</span><a class="headerlink" href="#id2" title="Permalink to this image"></a></p>
+<img alt="../_images/nsce-integ.svg" src="../_images/nsce-integ.svg" /><p class="caption"><span class="caption-number">Figure 2: </span><span class="caption-text">Non-secure Client Extension Component Diagram</span><a class="headerlink" href="non-secure_client_extension_integration_guide.html#id2" title="Permalink to this image"></a></p>
 </div>
 <p>This diagram shows the components of NSCE.</p>
 <ul class="simple">
@@ -381,7 +398,7 @@ manage the NS client context. It is not accessible to NSPE.</p></li>
 </ul>
 </div>
 <div class="section" id="group-based-context-management">
-<h2>Group-based context management<a class="headerlink" href="#group-based-context-management" title="Permalink to this heading"></a></h2>
+<h2>Group-based context management<a class="headerlink" href="non-secure_client_extension_integration_guide.html#group-based-context-management" title="Permalink to this heading"></a></h2>
 <p>NSCE introduces a group-based context management for NS clients. The purpose is
 to support diverse use scenarios in the IoT world.</p>
 <p>For rich-resource devices, TF-M could assign separate contexts for each
@@ -394,7 +411,7 @@ for a given group. Threads in the same group share the context.</p>
 <p>The gid and tid are specified by NSPE RTOS via NSCE interface.</p>
 </div>
 <div class="section" id="nsce-interface">
-<h2>NSCE interface<a class="headerlink" href="#nsce-interface" title="Permalink to this heading"></a></h2>
+<h2>NSCE interface<a class="headerlink" href="non-secure_client_extension_integration_guide.html#nsce-interface" title="Permalink to this heading"></a></h2>
 <p>NSCE defines a set of APIs as the interface for NSPE RTOS to manage the context
 in TF-M. NSID is provided as an input parameter of <cite>tfm_nsce_load_ctx()</cite>.</p>
 <p>NSCE APIs are typically called by the kernel and must be called from the
@@ -450,14 +467,14 @@ After the context is saved, no secure service call can be made from NSPE until a
 context is loaded via <cite>tfm_nsce_load_ctx()</cite>.</p>
 </div>
 <div class="section" id="nsce-integration-guide">
-<h2>NSCE integration guide<a class="headerlink" href="#nsce-integration-guide" title="Permalink to this heading"></a></h2>
+<h2>NSCE integration guide<a class="headerlink" href="non-secure_client_extension_integration_guide.html#nsce-integration-guide" title="Permalink to this heading"></a></h2>
 <div class="section" id="enable-nsce-in-tf-m">
-<h3>Enable NSCE in TF-M<a class="headerlink" href="#enable-nsce-in-tf-m" title="Permalink to this heading"></a></h3>
+<h3>Enable NSCE in TF-M<a class="headerlink" href="non-secure_client_extension_integration_guide.html#enable-nsce-in-tf-m" title="Permalink to this heading"></a></h3>
 <p>To enable NSCE in TF-M, set the build flag <cite>TFM_NS_MANAGE_NSID</cite> to <cite>ON</cite> (default
 <cite>OFF</cite>).</p>
 </div>
 <div class="section" id="support-nsce-in-an-rtos">
-<span id="id1"></span><h3>Support NSCE in an RTOS<a class="headerlink" href="#support-nsce-in-an-rtos" title="Permalink to this heading"></a></h3>
+<span id="id1"></span><h3>Support NSCE in an RTOS<a class="headerlink" href="non-secure_client_extension_integration_guide.html#support-nsce-in-an-rtos" title="Permalink to this heading"></a></h3>
 <p>For supporting NSCE in an RTOS, the integrator needs to do the following major
 work:</p>
 <ul class="simple">
@@ -498,9 +515,9 @@ pool in TF-M.</p></li>
 </ul>
 </div>
 <div class="section" id="integration-example">
-<h3>Integration example<a class="headerlink" href="#integration-example" title="Permalink to this heading"></a></h3>
+<h3>Integration example<a class="headerlink" href="non-secure_client_extension_integration_guide.html#integration-example" title="Permalink to this heading"></a></h3>
 <div class="figure align-center" id="id3">
-<img alt="../_images/nsce-rtos-example.svg" src="../_images/nsce-rtos-example.svg" /><p class="caption"><span class="caption-number">Figure 3: </span><span class="caption-text">RTOS/NSCE integration example</span><a class="headerlink" href="#id3" title="Permalink to this image"></a></p>
+<img alt="../_images/nsce-rtos-example.svg" src="../_images/nsce-rtos-example.svg" /><p class="caption"><span class="caption-number">Figure 3: </span><span class="caption-text">RTOS/NSCE integration example</span><a class="headerlink" href="non-secure_client_extension_integration_guide.html#id3" title="Permalink to this image"></a></p>
 </div>
 <p>This is the software module diagram of a typical RTOS/NSCE integration example.</p>
 <ul class="simple">
@@ -523,7 +540,7 @@ is <a class="reference external" href="https://review.trustedfirmware.org/c/TF-M
 <p>If the RTOS has no existing one, then a “Secure Context Manager” should be
 implemented based on the NSCE APIs. You can refer to the shim layer example
 above for the implementation. The timing of calling NSCE APIs in the kernel is
-introduced in the <a class="reference internal" href="#support-nsce-in-an-rtos"><span class="std std-ref">Support NSCE in an RTOS</span></a> section above.</p>
+introduced in the <a class="reference internal" href="non-secure_client_extension_integration_guide.html#support-nsce-in-an-rtos"><span class="std std-ref">Support NSCE in an RTOS</span></a> section above.</p>
 </li>
 <li><p>NSID Manager: If NSPE RTOS manages the NSID, then this module is used by the
 secure context manager or shim layer to manage the NSID assignment for the
@@ -532,7 +549,7 @@ manager</a> is provided as a reference.</p></li>
 </ul>
 </div>
 <div class="section" id="integration-notes">
-<h3>Integration notes<a class="headerlink" href="#integration-notes" title="Permalink to this heading"></a></h3>
+<h3>Integration notes<a class="headerlink" href="non-secure_client_extension_integration_guide.html#integration-notes" title="Permalink to this heading"></a></h3>
 <ul class="simple">
 <li><p><cite>gid</cite>: It is a <cite>uint8_t</cite> value (valid range is 0 - 255). So, maximum 256
 groups (NSCE context slots) are supported by the NSCE interface.

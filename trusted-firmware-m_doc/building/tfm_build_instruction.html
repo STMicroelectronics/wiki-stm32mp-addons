@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Build instructions &mdash; Trusted Firmware-M v2.1.0-stm32mp-r1 documentation</title>
+  <title>Build instructions &mdash; Trusted Firmware-M v2.1.3-stm32mp-r2 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/tfm_custom.css" type="text/css" />
@@ -38,7 +38,7 @@
               <img src="../_static/tf_logo_white.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                v2.1.0-stm32mp-r1
+                v2.1.3-stm32mp-r2
 
               </div>
 <div role="search">
@@ -67,11 +67,16 @@
 <li class="toctree-l3"><a class="reference internal" href="../security/security_advisories/fwu_write_vulnerability.html">Advisory TFMV-5</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../security/security_advisories/cc3xx_partial_tag_compare_on_chacha20_poly1305.html">Advisory TFMV-6</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../security/security_advisories/debug_log_vulnerability.html">Advisory TFMV-7</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../security/security_advisories/user_pointers_mailbox_vectors_vulnerability.html">Advisory TFMV-8</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../security/security_advisories/fwu_tlv_payload_out_of_bounds_vulnerability.html">Advisory TFMV-9</a></li>
 </ul>
 </li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../releases/index.html">Releases</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../releases/2.1.3.html">v2.1.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../releases/2.1.2.html">v2.1.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../releases/2.1.1.html">v2.1.1</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../releases/2.1.0.html">v2.1.0</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../releases/2.0.0.html">v2.0.0</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../releases/1.8.1.html">v1.8.1</a></li>
@@ -85,6 +90,10 @@
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../platform/index.html">Platforms</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../platform/adi/index.html">Analog Devices, Inc.</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../platform/adi/max32657/README.html">MAX32657</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../platform/arm/index.html">Arm</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../platform/arm/corstone1000/readme.html">Corstone-1000</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/arm/mps3/corstone300/README.html">Corstone-300 FPGA (AN547 and AN552) and FVP</a></li>
@@ -122,6 +131,10 @@
 <li class="toctree-l3"><a class="reference internal" href="../platform/nxp/lpcxpresso55s69/README.html">LPCXpresso55S69</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../platform/rpi/index.html">Raspberry Pi</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../platform/rpi/rp2350/readme.html">RP2350</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../platform/stm/index.html">STMICROELECTRONICS</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/common/stm32h5xx/readme.html">STM32H5</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/common/stm32l5xx/readme.html">STM32L5</a></li>
@@ -131,13 +144,14 @@
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32h573i_dk/readme.html">STM32H573I_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32l562e_dk/readme.html">STM32L562E_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32mp215f_dk/readme.html">stm32mp215f_dk</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32mp235f_dk/readme.html">stm32mp235f_dk</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/b_u585i_iot02a/readme.html">B_U585I_IOT02A</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Build instructions</a><ul>
+<li class="toctree-l1 current"><a class="current reference internal" href="tfm_build_instruction.html#">Build instructions</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="tests_build_instruction.html">Build Tests</a></li>
 <li class="toctree-l2"><a class="reference internal" href="run_tfm_examples_on_arm_platforms.html">Run TF-M tests and applications</a></li>
 <li class="toctree-l2"><a class="reference internal" href="documentation_generation.html">Building the documentation</a></li>
@@ -263,6 +277,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32h573i_dk/readme.html">STM32H573I_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32l562e_dk/readme.html">STM32L562E_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32mp215f_dk/readme.html">stm32mp215f_dk</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32mp235f_dk/readme.html">stm32mp235f_dk</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/nucleo_l552ze_q/readme.html">NUCLEO_L552ZE_Q</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/b_u585i_iot02a/readme.html">B_U585I_IOT02A</a></li>
@@ -277,6 +292,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32h573i_dk/readme.html">STM32H573I_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32l562e_dk/readme.html">STM32L562E_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32mp215f_dk/readme.html">stm32mp215f_dk</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32mp235f_dk/readme.html">stm32mp235f_dk</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
 </ul>
 </li>
@@ -307,6 +323,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../stm/technical/initlevel.html">Initlevel</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../stm/technical/initial_attestation.html">Initial Attestation Service</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../stm/technical/key_and_provisionning.html">About TF-M Authentication Keys and Secret Provisioning</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../stm/technical/nv_counter.html">Nv counter</a></li>
 </ul>
 </li>
@@ -340,7 +357,7 @@
            <div itemprop="articleBody">
              
   <div class="section" id="build-instructions">
-<h1>Build instructions<a class="headerlink" href="#build-instructions" title="Permalink to this heading"></a></h1>
+<h1>Build instructions<a class="headerlink" href="tfm_build_instruction.html#build-instructions" title="Permalink to this heading"></a></h1>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>The build process was changed a lot in Q3 2023 and included into the release v2.0.
@@ -367,19 +384,19 @@ configured as explained in the
 <div class="contents local topic" id="contents">
 <p class="topic-title">Contents</p>
 <ul class="simple">
-<li><p><a class="reference internal" href="#building-tf-m-spe" id="id7">Building TF-M (SPE)</a></p>
+<li><p><a class="reference internal" href="tfm_build_instruction.html#building-tf-m-spe" id="id7">Building TF-M (SPE)</a></p>
 <ul>
-<li><p><a class="reference internal" href="#getting-the-source-code" id="id8">Getting the source code</a></p></li>
-<li><p><a class="reference internal" href="#configuring" id="id9">Configuring</a></p></li>
-<li><p><a class="reference internal" href="#building-binaries" id="id10">Building binaries</a></p></li>
-<li><p><a class="reference internal" href="#dependency-management" id="id11">Dependency management</a></p></li>
+<li><p><a class="reference internal" href="tfm_build_instruction.html#getting-the-source-code" id="id8">Getting the source code</a></p></li>
+<li><p><a class="reference internal" href="tfm_build_instruction.html#configuring" id="id9">Configuring</a></p></li>
+<li><p><a class="reference internal" href="tfm_build_instruction.html#building-binaries" id="id10">Building binaries</a></p></li>
+<li><p><a class="reference internal" href="tfm_build_instruction.html#dependency-management" id="id11">Dependency management</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#building-application-nspe" id="id12">Building Application (NSPE)</a></p>
+<li><p><a class="reference internal" href="tfm_build_instruction.html#building-application-nspe" id="id12">Building Application (NSPE)</a></p>
 <ul>
-<li><p><a class="reference internal" href="#spe-artifacts-structure" id="id13">SPE artifacts structure</a></p></li>
-<li><p><a class="reference internal" href="#nspe-toolchains" id="id14">NSPE toolchains</a></p></li>
-<li><p><a class="reference internal" href="#basic-spe-integration" id="id15">Basic SPE integration</a></p></li>
+<li><p><a class="reference internal" href="tfm_build_instruction.html#spe-artifacts-structure" id="id13">SPE artifacts structure</a></p></li>
+<li><p><a class="reference internal" href="tfm_build_instruction.html#nspe-toolchains" id="id14">NSPE toolchains</a></p></li>
+<li><p><a class="reference internal" href="tfm_build_instruction.html#basic-spe-integration" id="id15">Basic SPE integration</a></p></li>
 </ul>
 </li>
 </ul>
@@ -394,10 +411,10 @@ configured as explained in the
 </ul>
 </div>
 <div class="section" id="building-tf-m-spe">
-<span id="building-spe"></span><h2><a class="toc-backref" href="#id7">Building TF-M (SPE)</a><a class="headerlink" href="#building-tf-m-spe" title="Permalink to this heading"></a></h2>
-<p>This build generates the SPE binary and artifacts, necessary for <a class="reference internal" href="#building-nspe"><span class="std std-ref">Building Application (NSPE)</span></a>.</p>
+<span id="building-spe"></span><h2><a class="toc-backref" href="tfm_build_instruction.html#id7">Building TF-M (SPE)</a><a class="headerlink" href="tfm_build_instruction.html#building-tf-m-spe" title="Permalink to this heading"></a></h2>
+<p>This build generates the SPE binary and artifacts, necessary for <a class="reference internal" href="tfm_build_instruction.html#building-nspe"><span class="std std-ref">Building Application (NSPE)</span></a>.</p>
 <div class="section" id="getting-the-source-code">
-<span id="id1"></span><h3><a class="toc-backref" href="#id8">Getting the source code</a><a class="headerlink" href="#getting-the-source-code" title="Permalink to this heading"></a></h3>
+<span id="id1"></span><h3><a class="toc-backref" href="tfm_build_instruction.html#id8">Getting the source code</a><a class="headerlink" href="tfm_build_instruction.html#getting-the-source-code" title="Permalink to this heading"></a></h3>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>&lt;base<span class="w"> </span>folder&gt;
 git<span class="w"> </span>clone<span class="w"> </span>https://git.trustedfirmware.org/TF-M/trusted-firmware-m.git
 </pre></div>
@@ -405,7 +422,7 @@ git<span class="w"> </span>clone<span class="w"> </span>https://git.trustedfirmw
 <p>In this documentation, the cloned <code class="docutils literal notranslate"><span class="pre">trusted-firmware-m</span></code> repository will be referenced as
 <code class="docutils literal notranslate"><span class="pre">&lt;TF-M</span> <span class="pre">source</span> <span class="pre">dir&gt;</span></code>.
 Additionally, TF-M depends on several external projects, handled by CMake automatically but
-you can alter that behaviour using <a class="reference internal" href="#dependency-management"><span class="std std-ref">Dependency management</span></a>.</p>
+you can alter that behaviour using <a class="reference internal" href="tfm_build_instruction.html#dependency-management"><span class="std std-ref">Dependency management</span></a>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <ul class="simple">
@@ -419,7 +436,7 @@ Windows Command Prompt.</p></li>
 </div>
 </div>
 <div class="section" id="configuring">
-<h3><a class="toc-backref" href="#id9">Configuring</a><a class="headerlink" href="#configuring" title="Permalink to this heading"></a></h3>
+<h3><a class="toc-backref" href="tfm_build_instruction.html#id9">Configuring</a><a class="headerlink" href="tfm_build_instruction.html#configuring" title="Permalink to this heading"></a></h3>
 <p>TF-M has many config options for configuring and fine-tuning. Please check the
 <a class="reference internal" href="../configuration/index.html#tf-m-configuration"><span class="std std-ref">Configuration</span></a> section for the details. The <strong>base</strong> (default) configuration
 contains only essential components such as SPM and HW platform support hence the
@@ -431,7 +448,7 @@ CMake command-line option <code class="docutils literal notranslate"><span class
 <li><p>A basename of the target platform folder, for example <code class="docutils literal notranslate"><span class="pre">an521</span></code>.</p></li>
 </ul>
 <div class="section" id="essential-directories">
-<h4>Essential Directories<a class="headerlink" href="#essential-directories" title="Permalink to this heading"></a></h4>
+<h4>Essential Directories<a class="headerlink" href="tfm_build_instruction.html#essential-directories" title="Permalink to this heading"></a></h4>
 <p>There are 3 essential directories used by CMake for building TF-M:</p>
 <ul class="simple">
 <li><p>Source code directory <code class="docutils literal notranslate"><span class="pre">&lt;TF-M</span> <span class="pre">source</span> <span class="pre">dir&gt;</span></code></p></li>
@@ -445,7 +462,7 @@ a build target.</p></li>
 </dl>
 </div>
 <div class="section" id="toolchains">
-<span id="id2"></span><h4>Toolchains<a class="headerlink" href="#toolchains" title="Permalink to this heading"></a></h4>
+<span id="id2"></span><h4>Toolchains<a class="headerlink" href="tfm_build_instruction.html#toolchains" title="Permalink to this heading"></a></h4>
 <p>TF-M supports 3 toolchains for cross-compiling and building the project binaries:</p>
 <ul class="simple">
 <li><p>GNU - <strong>default</strong></p></li>
@@ -460,7 +477,7 @@ The default <strong>toolchain_GNUARM.cmake</strong> is selected by <cite>config_
 file if the option is omitted.</p>
 </div>
 <div class="section" id="build-type">
-<span id="id3"></span><h4>Build type<a class="headerlink" href="#build-type" title="Permalink to this heading"></a></h4>
+<span id="id3"></span><h4>Build type<a class="headerlink" href="tfm_build_instruction.html#build-type" title="Permalink to this heading"></a></h4>
 <p>By default, a MinSizeRel configuration is built. Alternate build types can be
 specified with the <code class="docutils literal notranslate"><span class="pre">CMAKE_BUILD_TYPE</span></code> variable. The possible
 types are:</p>
@@ -478,15 +495,15 @@ optimizations turned on and hence will produce smaller, faster code than
 a good idea on RAM or flash-constrained systems.</p>
 </div>
 <div class="section" id="output-files">
-<span id="id4"></span><h4>Output files<a class="headerlink" href="#output-files" title="Permalink to this heading"></a></h4>
+<span id="id4"></span><h4>Output files<a class="headerlink" href="tfm_build_instruction.html#output-files" title="Permalink to this heading"></a></h4>
 <p>In a successful build, a set of files will be created in the <code class="docutils literal notranslate"><span class="pre">&lt;Artifact</span> <span class="pre">Dir&gt;</span></code>.
 By default, it is <code class="docutils literal notranslate"><span class="pre">&lt;Build</span> <span class="pre">Dir&gt;\api_ns</span></code> subfolder but you can redirect the
 output to any location using <code class="docutils literal notranslate"><span class="pre">CMAKE_INSTALL_PREFIX</span></code> option. It can be an
 absolute path or relative to your current directory. For the contents of the
-artifact directory please refer to <a class="reference internal" href="#artifacts-structure"><span class="std std-ref">SPE artifacts structure</span></a>.</p>
+artifact directory please refer to <a class="reference internal" href="tfm_build_instruction.html#artifacts-structure"><span class="std std-ref">SPE artifacts structure</span></a>.</p>
 </div>
 <div class="section" id="other-build-parameters">
-<h4>Other build parameters<a class="headerlink" href="#other-build-parameters" title="Permalink to this heading"></a></h4>
+<h4>Other build parameters<a class="headerlink" href="tfm_build_instruction.html#other-build-parameters" title="Permalink to this heading"></a></h4>
 <p>The full list of default options is in <code class="docutils literal notranslate"><span class="pre">config/config_base.cmake</span></code> and
 explained in <a class="reference internal" href="../configuration/build_configuration.html#tfm-cmake-configuration"><span class="std std-ref">Build configuration</span></a>. Several important options
 are listed below.</p>
@@ -523,14 +540,14 @@ are listed below.</p>
 </table>
 </div>
 <div class="section" id="project-config-header-file">
-<h4>Project Config Header File<a class="headerlink" href="#project-config-header-file" title="Permalink to this heading"></a></h4>
+<h4>Project Config Header File<a class="headerlink" href="tfm_build_instruction.html#project-config-header-file" title="Permalink to this heading"></a></h4>
 <p>CMake variable <code class="docutils literal notranslate"><span class="pre">PROJECT_CONFIG_HEADER_FILE</span></code> can be set by a user the full path to a
 configuration header file, which is used to fine-tune component options. The detailed reference
 for the project config header file is in <a class="reference internal" href="../configuration/header_file_system.html#header-configuration"><span class="std std-ref">The Header File Config System</span></a>.</p>
 </div>
 </div>
 <div class="section" id="building-binaries">
-<h3><a class="toc-backref" href="#id10">Building binaries</a><a class="headerlink" href="#building-binaries" title="Permalink to this heading"></a></h3>
+<h3><a class="toc-backref" href="tfm_build_instruction.html#id10">Building binaries</a><a class="headerlink" href="tfm_build_instruction.html#building-binaries" title="Permalink to this heading"></a></h3>
 <p>The command below shows a general template for building TF-M as a typical CMake project:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cmake<span class="w"> </span>-S<span class="w"> </span>&lt;TF-M<span class="w"> </span><span class="nb">source</span><span class="w"> </span>dir&gt;<span class="w"> </span>-B<span class="w"> </span>&lt;Build<span class="w"> </span>Dir&gt;<span class="w"> </span>-DTFM_PLATFORM<span class="o">=</span>&lt;platform&gt;
 cmake<span class="w"> </span>--build<span class="w"> </span>&lt;Build<span class="w"> </span>Dir&gt;<span class="w"> </span>--<span class="w"> </span>install
@@ -543,7 +560,7 @@ header file is updated. CMake is unable to automatically recognize the
 dependency when the header file is defined as a macro.</p>
 </div>
 <div class="section" id="building-default-configuration-for-an521">
-<h4>Building default configuration for an521<a class="headerlink" href="#building-default-configuration-for-an521" title="Permalink to this heading"></a></h4>
+<h4>Building default configuration for an521<a class="headerlink" href="tfm_build_instruction.html#building-default-configuration-for-an521" title="Permalink to this heading"></a></h4>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>&lt;TF-M<span class="w"> </span><span class="nb">source</span><span class="w"> </span>dir&gt;
 cmake<span class="w"> </span>-S<span class="w"> </span>.<span class="w"> </span>-B<span class="w"> </span>build<span class="w"> </span>-DTFM_PLATFORM<span class="o">=</span>arm/mps2/an521
 cmake<span class="w"> </span>--build<span class="w"> </span>build<span class="w"> </span>--<span class="w"> </span>install
@@ -555,10 +572,10 @@ cmake<span class="w"> </span>--build<span class="w"> </span>build<span class="w"
 <li><p>build SPE in the <code class="docutils literal notranslate"><span class="pre">build</span></code> folder</p></li>
 <li><p>for <strong>an521</strong> platform</p></li>
 <li><p>using GNU toolchain <em>by default</em>. Use <code class="docutils literal notranslate"><span class="pre">-DTFM_TOOLCHAIN_FILE=&lt;toolchain</span> <span class="pre">file&gt;</span></code>
-for alternatives as described in <a class="reference internal" href="#toolchains"><span class="std std-ref">Toolchains</span></a></p></li>
+for alternatives as described in <a class="reference internal" href="tfm_build_instruction.html#toolchains"><span class="std std-ref">Toolchains</span></a></p></li>
 <li><p>install output files in <code class="docutils literal notranslate"><span class="pre">build/api_ns</span></code> folder <em>by default</em>. You can specify
 a different directory using <code class="docutils literal notranslate"><span class="pre">-DCMAKE_INSTALL_PREFIX=&lt;Artifact</span> <span class="pre">dir&gt;</span></code>
-as described in <a class="reference internal" href="#output-files"><span class="std std-ref">Output files</span></a></p></li>
+as described in <a class="reference internal" href="tfm_build_instruction.html#output-files"><span class="std std-ref">Output files</span></a></p></li>
 </ul>
 </dd>
 </dl>
@@ -570,7 +587,7 @@ build directory.</p>
 <p>CMake can generate code for many native build systems. TF-M is tested with
 <code class="docutils literal notranslate"><span class="pre">Unix</span> <span class="pre">Makefiles</span></code> (default) and <code class="docutils literal notranslate"><span class="pre">Ninja</span></code>. The <code class="docutils literal notranslate"><span class="pre">-G</span></code> option can specify
 alternative generators. For example for building with Ninja in the Debug
-<a class="reference internal" href="#build-type"><span class="std std-ref">Build type</span></a> using ArmClang <a class="reference internal" href="#toolchains"><span class="std std-ref">Toolchains</span></a> you can use the following:</p>
+<a class="reference internal" href="tfm_build_instruction.html#build-type"><span class="std std-ref">Build type</span></a> using ArmClang <a class="reference internal" href="tfm_build_instruction.html#toolchains"><span class="std std-ref">Toolchains</span></a> you can use the following:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>&lt;TF-M<span class="w"> </span><span class="nb">source</span><span class="w"> </span>dir&gt;
 cmake<span class="w"> </span>-S<span class="w"> </span>.<span class="w"> </span>-B<span class="w"> </span>build<span class="w"> </span>-DTFM_PLATFORM<span class="o">=</span>arm/mps2/an521<span class="w"> </span>-GNinja<span class="w"> </span>-DTFM_TOOLCHAIN_FILE<span class="o">=</span>toolchain_ARMCLANG.cmake<span class="w"> </span>-DCMAKE_BUILD_TYPE<span class="o">=</span>Debug
 cmake<span class="w"> </span>--build<span class="w"> </span>build<span class="w"> </span>--<span class="w"> </span>install
@@ -579,7 +596,7 @@ cmake<span class="w"> </span>--build<span class="w"> </span>build<span class="w"
 </div>
 </div>
 <div class="section" id="dependency-management">
-<span id="id5"></span><h3><a class="toc-backref" href="#id11">Dependency management</a><a class="headerlink" href="#dependency-management" title="Permalink to this heading"></a></h3>
+<span id="id5"></span><h3><a class="toc-backref" href="tfm_build_instruction.html#id11">Dependency management</a><a class="headerlink" href="tfm_build_instruction.html#dependency-management" title="Permalink to this heading"></a></h3>
 <p>The TF-M build system will fetch all dependencies by default with appropriate
 versions and store them inside the build tree. In this case, the build tree
 location is <code class="docutils literal notranslate"><span class="pre">&lt;build_dir&gt;/lib/ext</span></code>.</p>
@@ -633,7 +650,7 @@ They have been applied with patches and can be used directly.</p></li>
 </ul>
 </div>
 <div class="section" id="example-building-tf-m-with-local-mbed-crypto-repo">
-<h4>Example: building TF-M with local Mbed Crypto repo<a class="headerlink" href="#example-building-tf-m-with-local-mbed-crypto-repo" title="Permalink to this heading"></a></h4>
+<h4>Example: building TF-M with local Mbed Crypto repo<a class="headerlink" href="tfm_build_instruction.html#example-building-tf-m-with-local-mbed-crypto-repo" title="Permalink to this heading"></a></h4>
 <p>Preparing a local repository consists of 2 steps: cloning and patching.
 This is only required to be done once. For dependencies without <code class="docutils literal notranslate"><span class="pre">.patch</span></code>
 files in their <code class="docutils literal notranslate"><span class="pre">lib/ext</span></code> directory the only required step is
@@ -661,14 +678,14 @@ cmake<span class="w"> </span>--build<span class="w"> </span>build<span class="w"
 </div>
 </div>
 <div class="section" id="building-application-nspe">
-<span id="building-nspe"></span><h2><a class="toc-backref" href="#id12">Building Application (NSPE)</a><a class="headerlink" href="#building-application-nspe" title="Permalink to this heading"></a></h2>
-<p>As a result of <a class="reference internal" href="#building-spe"><span class="std std-ref">Building TF-M (SPE)</span></a> you will get a set of <a class="reference internal" href="#output-files"><span class="std std-ref">Output files</span></a> in
+<span id="building-nspe"></span><h2><a class="toc-backref" href="tfm_build_instruction.html#id12">Building Application (NSPE)</a><a class="headerlink" href="tfm_build_instruction.html#building-application-nspe" title="Permalink to this heading"></a></h2>
+<p>As a result of <a class="reference internal" href="tfm_build_instruction.html#building-spe"><span class="std std-ref">Building TF-M (SPE)</span></a> you will get a set of <a class="reference internal" href="tfm_build_instruction.html#output-files"><span class="std std-ref">Output files</span></a> in
 <code class="docutils literal notranslate"><span class="pre">&lt;Artifact</span> <span class="pre">Dir&gt;</span></code> required for building TF-M application. Essentially, SPE
 exports a binary and a set of C source files for PSA interface and platform.
 Please note that NSPE and SPE are independent projects and can be built using
 different toolchains and toolchain options.</p>
 <div class="section" id="spe-artifacts-structure">
-<span id="artifacts-structure"></span><h3><a class="toc-backref" href="#id13">SPE artifacts structure</a><a class="headerlink" href="#spe-artifacts-structure" title="Permalink to this heading"></a></h3>
+<span id="artifacts-structure"></span><h3><a class="toc-backref" href="tfm_build_instruction.html#id13">SPE artifacts structure</a><a class="headerlink" href="tfm_build_instruction.html#spe-artifacts-structure" title="Permalink to this heading"></a></h3>
 <p>SPE components prepared and installed for NSPE usage in <code class="docutils literal notranslate"><span class="pre">&lt;Artifact</span> <span class="pre">Dir&gt;</span></code>
 will have the following structure:</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;Artifact Dir&gt;
@@ -685,7 +702,7 @@ will have the following structure:</p>
 These folders have the following content:</p>
 <ul class="simple">
 <li><p><strong>bin</strong> - binary images of SPE, Bootloader(optional) and combined.</p></li>
-<li><p><strong>cmake</strong> - CMake scripts like SPE configuration and <a class="reference internal" href="#nspe-toolchains"><span class="std std-ref">NSPE toolchains</span></a>.</p></li>
+<li><p><strong>cmake</strong> - CMake scripts like SPE configuration and <a class="reference internal" href="tfm_build_instruction.html#nspe-toolchains"><span class="std std-ref">NSPE toolchains</span></a>.</p></li>
 <li><p><strong>config</strong> - Configuration files</p></li>
 <li><p><strong>image_signing</strong> - binary image signing tool and keys.</p></li>
 <li><p><strong>interface</strong> - PSA interface exposed by SPE.</p></li>
@@ -700,13 +717,13 @@ Instead, please change the corresponding file in the &lt;TF-M source dir&gt;.</p
 </div>
 </div>
 <div class="section" id="nspe-toolchains">
-<span id="id6"></span><h3><a class="toc-backref" href="#id14">NSPE toolchains</a><a class="headerlink" href="#nspe-toolchains" title="Permalink to this heading"></a></h3>
+<span id="id6"></span><h3><a class="toc-backref" href="tfm_build_instruction.html#id14">NSPE toolchains</a><a class="headerlink" href="tfm_build_instruction.html#nspe-toolchains" title="Permalink to this heading"></a></h3>
 <p>SPE prepares and exports CMake toolchain files for building NSPE in all
-supported <a class="reference internal" href="#toolchains"><span class="std std-ref">Toolchains</span></a> in <code class="docutils literal notranslate"><span class="pre">&lt;Artifact</span> <span class="pre">Dir&gt;/cmake</span></code> folder.
+supported <a class="reference internal" href="tfm_build_instruction.html#toolchains"><span class="std std-ref">Toolchains</span></a> in <code class="docutils literal notranslate"><span class="pre">&lt;Artifact</span> <span class="pre">Dir&gt;/cmake</span></code> folder.
 Toolchain used to build NSPE can be different from what is used to build SPE.</p>
 </div>
 <div class="section" id="basic-spe-integration">
-<h3><a class="toc-backref" href="#id15">Basic SPE integration</a><a class="headerlink" href="#basic-spe-integration" title="Permalink to this heading"></a></h3>
+<h3><a class="toc-backref" href="tfm_build_instruction.html#id15">Basic SPE integration</a><a class="headerlink" href="tfm_build_instruction.html#basic-spe-integration" title="Permalink to this heading"></a></h3>
 <p>Refer to the
 <a class="reference external" href="https://git.trustedfirmware.org/TF-M/tf-m-extras.git/tree/examples/tf-m-example-ns-app">example</a>
 of TF-M applications in <strong>tf-m-extras</strong> repository.</p>

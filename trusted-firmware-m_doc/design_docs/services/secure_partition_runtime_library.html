@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Secure Partition Runtime Library &mdash; Trusted Firmware-M v2.1.0-stm32mp-r1 documentation</title>
+  <title>Secure Partition Runtime Library &mdash; Trusted Firmware-M v2.1.3-stm32mp-r2 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/tfm_custom.css" type="text/css" />
@@ -38,7 +38,7 @@
               <img src="../../_static/tf_logo_white.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                v2.1.0-stm32mp-r1
+                v2.1.3-stm32mp-r2
 
               </div>
 <div role="search">
@@ -67,11 +67,16 @@
 <li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/fwu_write_vulnerability.html">Advisory TFMV-5</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/cc3xx_partial_tag_compare_on_chacha20_poly1305.html">Advisory TFMV-6</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/debug_log_vulnerability.html">Advisory TFMV-7</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/user_pointers_mailbox_vectors_vulnerability.html">Advisory TFMV-8</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../security/security_advisories/fwu_tlv_payload_out_of_bounds_vulnerability.html">Advisory TFMV-9</a></li>
 </ul>
 </li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../releases/index.html">Releases</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/2.1.3.html">v2.1.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/2.1.2.html">v2.1.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/2.1.1.html">v2.1.1</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../releases/2.1.0.html">v2.1.0</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../releases/2.0.0.html">v2.0.0</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../releases/1.8.1.html">v1.8.1</a></li>
@@ -85,6 +90,10 @@
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../platform/index.html">Platforms</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/adi/index.html">Analog Devices, Inc.</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/adi/max32657/README.html">MAX32657</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../../platform/arm/index.html">Arm</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/arm/corstone1000/readme.html">Corstone-1000</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/arm/mps3/corstone300/README.html">Corstone-300 FPGA (AN547 and AN552) and FVP</a></li>
@@ -122,6 +131,10 @@
 <li class="toctree-l3"><a class="reference internal" href="../../platform/nxp/lpcxpresso55s69/README.html">LPCXpresso55S69</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../../platform/rpi/index.html">Raspberry Pi</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/rpi/rp2350/readme.html">RP2350</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../../platform/stm/index.html">STMICROELECTRONICS</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32h5xx/readme.html">STM32H5</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/common/stm32l5xx/readme.html">STM32L5</a></li>
@@ -131,6 +144,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32h573i_dk/readme.html">STM32H573I_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32l562e_dk/readme.html">STM32L562E_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp215f_dk/readme.html">stm32mp215f_dk</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp235f_dk/readme.html">stm32mp235f_dk</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/b_u585i_iot02a/readme.html">B_U585I_IOT02A</a></li>
 </ul>
@@ -206,7 +220,7 @@
 </li>
 <li class="toctree-l2 current"><a class="reference internal" href="index.html">Secure Services</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="secure_partition_manager.html">Secure Partition Manager</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">Secure Partition RTL</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="secure_partition_runtime_library.html#">Secure Partition RTL</a></li>
 <li class="toctree-l3"><a class="reference internal" href="tfm_psa_inter_process_communication.html">Inter-Process Communication</a></li>
 <li class="toctree-l3"><a class="reference internal" href="stateless_rot_service.html">Stateless Services</a></li>
 <li class="toctree-l3"><a class="reference internal" href="tfm_uniform_secure_service_signature.html">Service Signing</a></li>
@@ -263,6 +277,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32h573i_dk/readme.html">STM32H573I_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32l562e_dk/readme.html">STM32L562E_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp215f_dk/readme.html">stm32mp215f_dk</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp235f_dk/readme.html">stm32mp235f_dk</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/nucleo_l552ze_q/readme.html">NUCLEO_L552ZE_Q</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/b_u585i_iot02a/readme.html">B_U585I_IOT02A</a></li>
@@ -277,6 +292,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32h573i_dk/readme.html">STM32H573I_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32l562e_dk/readme.html">STM32L562E_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp215f_dk/readme.html">stm32mp215f_dk</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp235f_dk/readme.html">stm32mp235f_dk</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
 </ul>
 </li>
@@ -307,6 +323,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../stm/technical/initlevel.html">Initlevel</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../stm/technical/initial_attestation.html">Initial Attestation Service</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../stm/technical/key_and_provisionning.html">About TF-M Authentication Keys and Secret Provisioning</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../stm/technical/nv_counter.html">Nv counter</a></li>
 </ul>
 </li>
@@ -342,7 +359,7 @@
            <div itemprop="articleBody">
              
   <div class="section" id="secure-partition-runtime-library">
-<h1>Secure Partition Runtime Library<a class="headerlink" href="#secure-partition-runtime-library" title="Permalink to this heading"></a></h1>
+<h1>Secure Partition Runtime Library<a class="headerlink" href="secure_partition_runtime_library.html#secure-partition-runtime-library" title="Permalink to this heading"></a></h1>
 <dl class="field-list simple">
 <dt class="field-odd">Organization</dt>
 <dd class="field-odd"><p>Arm Limited</p>
@@ -352,7 +369,7 @@
 </dd>
 </dl>
 <div class="section" id="background">
-<h2>Background<a class="headerlink" href="#background" title="Permalink to this heading"></a></h2>
+<h2>Background<a class="headerlink" href="secure_partition_runtime_library.html#background" title="Permalink to this heading"></a></h2>
 <p>Trusted Firmware - M (TF-M) uses a toolchain provided runtime library and
 supervisor calls to easily implement the PSA Firmware Framework (PSA FF) API.
 This working model works well under isolation level 1 since there are no data
@@ -381,7 +398,7 @@ Partitions.</p>
 abbreviation is <code class="docutils literal notranslate"><span class="pre">SPRTL</span></code>.</p>
 </div>
 <div class="section" id="design-principle">
-<h2>Design Principle<a class="headerlink" href="#design-principle" title="Permalink to this heading"></a></h2>
+<h2>Design Principle<a class="headerlink" href="secure_partition_runtime_library.html#design-principle" title="Permalink to this heading"></a></h2>
 <p>The following requirements are mandatory for SPRTL implementation:</p>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
@@ -397,7 +414,7 @@ some performance loss.</p></li>
 </ul>
 </div>
 <div class="section" id="api-categories">
-<h3>API Categories<a class="headerlink" href="#api-categories" title="Permalink to this heading"></a></h3>
+<h3>API Categories<a class="headerlink" href="secure_partition_runtime_library.html#api-categories" title="Permalink to this heading"></a></h3>
 <p>Several known types of functions are included in SPRTL:</p>
 <blockquote>
 <div><ul class="simple">
@@ -408,7 +425,7 @@ some performance loss.</p></li>
 </ul>
 </div></blockquote>
 <div class="section" id="security-implementation-requirements">
-<h4>Security Implementation Requirements<a class="headerlink" href="#security-implementation-requirements" title="Permalink to this heading"></a></h4>
+<h4>Security Implementation Requirements<a class="headerlink" href="secure_partition_runtime_library.html#security-implementation-requirements" title="Permalink to this heading"></a></h4>
 <p>If <code class="docutils literal notranslate"><span class="pre">malloc/realloc/free</span></code> are provided, they must obey additional requirements
 compared to the C standard: newly allocated memory must be initialized to
 ZERO, and freed memory must be wiped immediately in case the block contains
@@ -423,10 +440,10 @@ on input to avoid execution timing side channel attack.</p>
 requirements.</p>
 </div>
 <div class="section" id="c-runtime-api">
-<h4>C Runtime API<a class="headerlink" href="#c-runtime-api" title="Permalink to this heading"></a></h4>
+<h4>C Runtime API<a class="headerlink" href="secure_partition_runtime_library.html#c-runtime-api" title="Permalink to this heading"></a></h4>
 <p>PSA FF describes a small set of the C standard library. Part of toolchain
-library API can be used as default if these APIs meet the <a class="reference internal" href="#design-principle">Design Principle</a>
-and <a class="reference internal" href="#security-implementation-requirements">Security Implementation Requirements</a>. The toolchain ‘header’ and ‘types’
+library API can be used as default if these APIs meet the <a class="reference internal" href="secure_partition_runtime_library.html#design-principle">Design Principle</a>
+and <a class="reference internal" href="secure_partition_runtime_library.html#security-implementation-requirements">Security Implementation Requirements</a>. The toolchain ‘header’ and ‘types’
 can be reused to simplify the implementation.</p>
 <p>These APIs can take the toolchain provided version, or separately implemented
 in case there are extra requirements:</p>
@@ -438,7 +455,7 @@ in case there are extra requirements:</p>
 </ul>
 </div>
 <p>These APIs are proposed to be implemented with the security consideration
-mentioned in <a class="reference internal" href="#security-implementation-requirements">Security Implementation Requirements</a>:</p>
+mentioned in <a class="reference internal" href="secure_partition_runtime_library.html#security-implementation-requirements">Security Implementation Requirements</a>:</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <ul class="simple">
@@ -447,7 +464,7 @@ mentioned in <a class="reference internal" href="#security-implementation-requir
 </ul>
 </div>
 <p>The following functions are optional, but if present, they must conform to
-additional <a class="reference internal" href="#security-implementation-requirements">Security Implementation Requirements</a>:</p>
+additional <a class="reference internal" href="secure_partition_runtime_library.html#security-implementation-requirements">Security Implementation Requirements</a>:</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <ul class="simple">
@@ -474,7 +491,7 @@ runtime APIs with private runtime context (‘malloc’ e.g.):</p>
 </div>
 </div>
 <div class="section" id="rot-service-api">
-<h4>RoT Service API<a class="headerlink" href="#rot-service-api" title="Permalink to this heading"></a></h4>
+<h4>RoT Service API<a class="headerlink" href="secure_partition_runtime_library.html#rot-service-api" title="Permalink to this heading"></a></h4>
 <p>The description of RoT Service API in PSA FF:</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -535,7 +552,7 @@ implemented inside the caller client, instead of putting it into SPRTL.</p></li>
 </div>
 </div>
 <div class="section" id="psa-client-and-service-api">
-<h4>PSA Client and Service API<a class="headerlink" href="#psa-client-and-service-api" title="Permalink to this heading"></a></h4>
+<h4>PSA Client and Service API<a class="headerlink" href="secure_partition_runtime_library.html#psa-client-and-service-api" title="Permalink to this heading"></a></h4>
 <p>Most of the PSA APIs can be called directly with supervisor calls. The only
 special function is <code class="docutils literal notranslate"><span class="pre">psa_call</span></code>, because it has <strong>6</strong> parameters. This makes
 the supervisor call handler complex because it has to extract the parameters
@@ -551,13 +568,13 @@ processing.</p>
 </div>
 </div>
 <div class="section" id="privileged-access-supporting">
-<h3>Privileged Access Supporting<a class="headerlink" href="#privileged-access-supporting" title="Permalink to this heading"></a></h3>
+<h3>Privileged Access Supporting<a class="headerlink" href="secure_partition_runtime_library.html#privileged-access-supporting" title="Permalink to this heading"></a></h3>
 <p>Due to specified API (printf, e.g.) need to access privileged resources, TF-M
 Core needs to provide interface for the resources accessing. The permission
 checking must happen in Core while caller is calling these interface.</p>
 </div>
 <div class="section" id="secure-partition-local-storage">
-<h3>Secure Partition Local Storage<a class="headerlink" href="#secure-partition-local-storage" title="Permalink to this heading"></a></h3>
+<h3>Secure Partition Local Storage<a class="headerlink" href="secure_partition_runtime_library.html#secure-partition-local-storage" title="Permalink to this heading"></a></h3>
 <p>There are APIs that need to reference specific partition private data (‘malloc’
 references local heap, e.g.), and the APIs reference the data by mechanisms
 other than function parameters. The mechanism in TF-M is called
@@ -597,7 +614,7 @@ for containing the variable.</p></li>
 be expanded to support more methods.</p>
 </div>
 <div class="section" id="tooling-support-on-partition-entry">
-<h3>Tooling Support on Partition Entry<a class="headerlink" href="#tooling-support-on-partition-entry" title="Permalink to this heading"></a></h3>
+<h3>Tooling Support on Partition Entry<a class="headerlink" href="secure_partition_runtime_library.html#tooling-support-on-partition-entry" title="Permalink to this heading"></a></h3>
 <p>PSA FF requires each Secure Partition to have an entry point. For example:</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cm">/* The entry point function must not return. */</span>
 <span class="kt">void</span><span class="w"> </span><span class="nf">entry_point</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
@@ -664,7 +681,7 @@ of SPM and SPRTL implementation. The pseudo code of a tooling result:</p>
 </div>
 </div>
 <div class="section" id="implementation">
-<h3>Implementation<a class="headerlink" href="#implementation" title="Permalink to this heading"></a></h3>
+<h3>Implementation<a class="headerlink" href="secure_partition_runtime_library.html#implementation" title="Permalink to this heading"></a></h3>
 <p>The SPRTL C Runtime sources are put under:
 ‘$TFM_ROOT/secure_fw/partitions/lib/runtime/’</p>
 <p>The output of this folder is a static library named as ‘libtfm_sprt.a’. The code
@@ -673,7 +690,7 @@ region can be applied to contain it.</p>
 <p>The RoT Service API are put under service interface folder. These APIs are
 marked with the same section attribute where ‘libtfm_sprt.a’ is put.</p>
 <div class="section" id="the-formatting-api-printf-and-variants">
-<h4>The Formatting API - ‘printf’ and variants<a class="headerlink" href="#the-formatting-api-printf-and-variants" title="Permalink to this heading"></a></h4>
+<h4>The Formatting API - ‘printf’ and variants<a class="headerlink" href="secure_partition_runtime_library.html#the-formatting-api-printf-and-variants" title="Permalink to this heading"></a></h4>
 <p>The ‘printf’ and its variants need special parameters passing mechanism. To
 implement these APIs, the toolchain provided builtin macro ‘va_list’, ‘va_start’
 and ‘va_end’ cannot be avoided. This is because of some scenarios such as when
@@ -691,7 +708,7 @@ string.</p></li>
 <p>The interface for flushing can be a logging device.</p>
 </div>
 <div class="section" id="function-needs-implied-inputs">
-<h4>Function needs implied inputs<a class="headerlink" href="#function-needs-implied-inputs" title="Permalink to this heading"></a></h4>
+<h4>Function needs implied inputs<a class="headerlink" href="secure_partition_runtime_library.html#function-needs-implied-inputs" title="Permalink to this heading"></a></h4>
 <p>Take ‘malloc’ as an example. There is only one parameter for ‘malloc’ in
 the prototype. Heap management code is put in the SPRTL for sharing with caller
 partitions. The heap instance belongs to each partition, which means this

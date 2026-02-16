@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>The Kconfig System &mdash; Trusted Firmware-M v2.1.0-stm32mp-r1 documentation</title>
+  <title>The Kconfig System &mdash; Trusted Firmware-M v2.1.3-stm32mp-r2 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/tfm_custom.css" type="text/css" />
@@ -38,7 +38,7 @@
               <img src="../_static/tf_logo_white.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                v2.1.0-stm32mp-r1
+                v2.1.3-stm32mp-r2
 
               </div>
 <div role="search">
@@ -67,11 +67,16 @@
 <li class="toctree-l3"><a class="reference internal" href="../security/security_advisories/fwu_write_vulnerability.html">Advisory TFMV-5</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../security/security_advisories/cc3xx_partial_tag_compare_on_chacha20_poly1305.html">Advisory TFMV-6</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../security/security_advisories/debug_log_vulnerability.html">Advisory TFMV-7</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../security/security_advisories/user_pointers_mailbox_vectors_vulnerability.html">Advisory TFMV-8</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../security/security_advisories/fwu_tlv_payload_out_of_bounds_vulnerability.html">Advisory TFMV-9</a></li>
 </ul>
 </li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../releases/index.html">Releases</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../releases/2.1.3.html">v2.1.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../releases/2.1.2.html">v2.1.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../releases/2.1.1.html">v2.1.1</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../releases/2.1.0.html">v2.1.0</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../releases/2.0.0.html">v2.0.0</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../releases/1.8.1.html">v1.8.1</a></li>
@@ -85,6 +90,10 @@
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../platform/index.html">Platforms</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../platform/adi/index.html">Analog Devices, Inc.</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../platform/adi/max32657/README.html">MAX32657</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../platform/arm/index.html">Arm</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../platform/arm/corstone1000/readme.html">Corstone-1000</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/arm/mps3/corstone300/README.html">Corstone-300 FPGA (AN547 and AN552) and FVP</a></li>
@@ -122,6 +131,10 @@
 <li class="toctree-l3"><a class="reference internal" href="../platform/nxp/lpcxpresso55s69/README.html">LPCXpresso55S69</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../platform/rpi/index.html">Raspberry Pi</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../platform/rpi/rp2350/readme.html">RP2350</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../platform/stm/index.html">STMICROELECTRONICS</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/common/stm32h5xx/readme.html">STM32H5</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/common/stm32l5xx/readme.html">STM32L5</a></li>
@@ -131,6 +144,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32h573i_dk/readme.html">STM32H573I_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32l562e_dk/readme.html">STM32L562E_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32mp215f_dk/readme.html">stm32mp215f_dk</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32mp235f_dk/readme.html">stm32mp235f_dk</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/b_u585i_iot02a/readme.html">B_U585I_IOT02A</a></li>
 </ul>
@@ -147,7 +161,7 @@
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Configuration</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="build_configuration.html">Build configuration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="header_file_system.html">Component configuration</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Kconfig</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="kconfig_system.html#">Kconfig</a></li>
 <li class="toctree-l2"><a class="reference internal" href="profiles/index.html">Profiles</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="profiles/tfm_profile_small.html"> Small</a></li>
 <li class="toctree-l3"><a class="reference internal" href="profiles/tfm_profile_medium_arot-less.html"> ARoT-less</a></li>
@@ -263,6 +277,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32h573i_dk/readme.html">STM32H573I_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32l562e_dk/readme.html">STM32L562E_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32mp215f_dk/readme.html">stm32mp215f_dk</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32mp235f_dk/readme.html">stm32mp235f_dk</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/nucleo_l552ze_q/readme.html">NUCLEO_L552ZE_Q</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/b_u585i_iot02a/readme.html">B_U585I_IOT02A</a></li>
@@ -277,6 +292,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32h573i_dk/readme.html">STM32H573I_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32l562e_dk/readme.html">STM32L562E_DK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32mp215f_dk/readme.html">stm32mp215f_dk</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32mp235f_dk/readme.html">stm32mp235f_dk</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../platform/stm/stm32mp257f_ev1/readme.html">stm32mp257f_ev1</a></li>
 </ul>
 </li>
@@ -307,6 +323,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../stm/technical/initlevel.html">Initlevel</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../stm/technical/initial_attestation.html">Initial Attestation Service</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../stm/technical/key_and_provisionning.html">About TF-M Authentication Keys and Secret Provisioning</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../stm/technical/nv_counter.html">Nv counter</a></li>
 </ul>
 </li>
@@ -341,7 +358,7 @@
            <div itemprop="articleBody">
              
   <div class="section" id="the-kconfig-system">
-<span id="kconfig-system"></span><h1>The Kconfig System<a class="headerlink" href="#the-kconfig-system" title="Permalink to this heading"></a></h1>
+<span id="kconfig-system"></span><h1>The Kconfig System<a class="headerlink" href="kconfig_system.html#the-kconfig-system" title="Permalink to this heading"></a></h1>
 <p>The Kconfig system is an alternative tool to the CMake config system for users to change config
 options of TF-M.</p>
 <div class="figure align-default">
@@ -350,9 +367,9 @@ options of TF-M.</p>
 generated configuration options are always valid.</p>
 <p>To use the Kconfig system, enable <code class="docutils literal notranslate"><span class="pre">USE_KCONFIG_TOOL</span></code> in command line.
 And enable <code class="docutils literal notranslate"><span class="pre">MENUCONFIG</span></code> to launch configuration GUI.</p>
-<p>The Kconfig system consists of <a class="reference internal" href="#the-kconfig-tool">The Kconfig tool</a> and the <a class="reference internal" href="#the-kconfig-files">The Kconfig files</a>.</p>
+<p>The Kconfig system consists of <a class="reference internal" href="kconfig_system.html#the-kconfig-tool">The Kconfig tool</a> and the <a class="reference internal" href="kconfig_system.html#the-kconfig-files">The Kconfig files</a>.</p>
 <div class="section" id="the-kconfig-tool">
-<h2>The Kconfig tool<a class="headerlink" href="#the-kconfig-tool" title="Permalink to this heading"></a></h2>
+<h2>The Kconfig tool<a class="headerlink" href="kconfig_system.html#the-kconfig-tool" title="Permalink to this heading"></a></h2>
 <p>The Kconfig tool is a python script based on <a class="reference external" href="https://github.com/ulfalizer/Kconfiglib">Kconfiglib</a>
 to generate the following config files:</p>
 <ul>
@@ -362,7 +379,7 @@ to generate the following config files:</p>
 <li><p>Header file</p>
 <p>Contains component options in the header file system.
 Component options are gathered together in a separate menu <code class="docutils literal notranslate"><span class="pre">TF-M</span> <span class="pre">component</span> <span class="pre">configs</span></code> in
-<a class="reference internal" href="#the-kconfig-files">The Kconfig files</a>.</p>
+<a class="reference internal" href="kconfig_system.html#the-kconfig-files">The Kconfig files</a>.</p>
 </li>
 <li><p>The .config and .config.old files</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">.config</span></code> file which contains all the above configurations in the Kconfig format.
@@ -379,7 +396,7 @@ And dependencies between config options are taken care of.
 It then launches a configuration GUI for users to change any config options if the <code class="docutils literal notranslate"><span class="pre">MENUCONFIG</span></code> is
 enabled in build command line.</p>
 <div class="section" id="integration-with-tf-m-build-system">
-<h3>Integration with TF-M build system<a class="headerlink" href="#integration-with-tf-m-build-system" title="Permalink to this heading"></a></h3>
+<h3>Integration with TF-M build system<a class="headerlink" href="kconfig_system.html#integration-with-tf-m-build-system" title="Permalink to this heading"></a></h3>
 <p>TF-M build system includes <code class="docutils literal notranslate"><span class="pre">kconfig.cmake</span></code> to integrate this tool.
 It prepares the parameters for the script and invokes it to load multiple configuration files basing
 on your build setup, including but not limited to</p>
@@ -392,11 +409,11 @@ on your build setup, including but not limited to</p>
 </div>
 </div>
 <div class="section" id="customizing-config-options">
-<h2>Customizing config options<a class="headerlink" href="#customizing-config-options" title="Permalink to this heading"></a></h2>
+<h2>Customizing config options<a class="headerlink" href="kconfig_system.html#customizing-config-options" title="Permalink to this heading"></a></h2>
 <p>By default, the Kconfig system only merges configuration files and generated the final config files.
 To customize the config options, there are several approaches.</p>
 <div class="section" id="menuconfig">
-<h3>Menuconfig<a class="headerlink" href="#menuconfig" title="Permalink to this heading"></a></h3>
+<h3>Menuconfig<a class="headerlink" href="kconfig_system.html#menuconfig" title="Permalink to this heading"></a></h3>
 <p>Menuconfig is the recommended approach to adjust the values of the config options because it has
 a graphic interface for you to easily change the options without worrying about dependencies.</p>
 <p>To launch the menuconfig, you need to enable <code class="docutils literal notranslate"><span class="pre">MENUCONFIG</span></code> in addition to enabling
@@ -414,7 +431,7 @@ only GUI menuconfig can be launched by CMake for the time being.</p>
 </div>
 </div>
 <div class="section" id="command-line-options">
-<h3>Command line options<a class="headerlink" href="#command-line-options" title="Permalink to this heading"></a></h3>
+<h3>Command line options<a class="headerlink" href="kconfig_system.html#command-line-options" title="Permalink to this heading"></a></h3>
 <p>The support of passing configurations via command line is kept for the Kconfig system.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cmake<span class="w"> </span>-S<span class="w"> </span>.<span class="w"> </span>-B<span class="w"> </span>cmake_build<span class="w"> </span>-DTFM_PLATFORM<span class="o">=</span>arm/mps2/an521<span class="w"> </span><span class="se">\</span>
 <span class="w">                          </span>-DUSE_KCONFIG_TOOL<span class="o">=</span>ON<span class="w"> </span><span class="se">\</span>
@@ -423,7 +440,7 @@ only GUI menuconfig can be launched by CMake for the time being.</p>
 </div>
 </div>
 <div class="section" id="kconfig-file">
-<h3>Kconfig file<a class="headerlink" href="#kconfig-file" title="Permalink to this heading"></a></h3>
+<h3>Kconfig file<a class="headerlink" href="kconfig_system.html#kconfig-file" title="Permalink to this heading"></a></h3>
 <p>You can also put the frequently used config options into a Kconfig file. When you need to apply the
 config options in that file, pass it via command line option <code class="docutils literal notranslate"><span class="pre">-DKCONFIG_CONFIG_FILE</span></code></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cmake<span class="w"> </span>-S<span class="w"> </span>.<span class="w"> </span>-B<span class="w"> </span>cmake_build<span class="w"> </span>-DTFM_PLATFORM<span class="o">=</span>arm/mps2/an521<span class="w"> </span><span class="se">\</span>
@@ -440,7 +457,7 @@ And you can always launch menuconfig to do the final adjustments.</p>
 </div>
 </div>
 <div class="section" id="the-kconfig-files">
-<h2>The Kconfig files<a class="headerlink" href="#the-kconfig-files" title="Permalink to this heading"></a></h2>
+<h2>The Kconfig files<a class="headerlink" href="kconfig_system.html#the-kconfig-files" title="Permalink to this heading"></a></h2>
 <p>The Kconfig files are the files written by the
 <a class="reference external" href="https://www.kernel.org/doc/html/latest/kbuild/kconfig-language.html#kconfig-language">Kconfig language</a>
 to describe config options.
