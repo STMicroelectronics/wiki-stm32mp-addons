@@ -1,4 +1,4 @@
-# v5.0
+# v5.1
 
 # absolute path of source code root folder
 path_source_tf_a     = ""
@@ -177,7 +177,7 @@ STM32_gdb()
 
 # after connection with OpenOCD, call in GDB:
 #   python STM32_get_target_name()
-# to get the name of the target (stm32mp13x or stm32mp15x or stm32mp25x) in GDB variable $target_name
+# to get the name of the target (stm32mp13x or stm32mp15x or stm32mp21x or stm32mp23x or stm32mp25x) in GDB variable $target_name
 class STM32_get_target_name (gdb.Command):
     def __init__(self):
         default_name = "stm32mp15x"
@@ -188,7 +188,7 @@ class STM32_get_target_name (gdb.Command):
             name = default_name
 
         # name = name.strip()
-        if name != "stm32mp13x" and name != "stm32mp15x" and name != "stm32mp25x":
+        if name != "stm32mp13x" and name != "stm32mp15x" and name != "stm32mp21x" and name != "stm32mp23x" and name != "stm32mp25x":
             print("Got unknown target name \'" + name + "\'. Default to \'" + default_name + "\'")
             name = default_name
 

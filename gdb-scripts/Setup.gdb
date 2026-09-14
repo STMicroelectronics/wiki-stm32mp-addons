@@ -1,4 +1,4 @@
-# v8.0
+# v8.1
 ####################################################################
 ######################## debug config. #############################
 ####################################################################
@@ -46,7 +46,7 @@ document symload_uboot
 end
 
 define symadd_uboot
-    if $_streq($target_name, "stm32mp25x")
+    if $_regex($target_name, "^stm32mp2")
         set $offset_gdb = ((gd_t *)$x18)->relocaddr
     else
         set $offset_gdb = ((gd_t *)$r9)->relocaddr
@@ -70,7 +70,7 @@ end
 ########################## functions ###############################
 ####################################################################
 define break_boot_bl32
-	if $_streq($target_name, "stm32mp25x")
+	if $_regex($target_name, "^stm32mp2")
 		thbreak entry_a64.S:_start
 	else
 		thbreak entry_a32.S:_start
@@ -79,7 +79,7 @@ define break_boot_bl32
 end
 
 define break_boot_uboot
-	if $_streq($target_name, "stm32mp25x")
+	if $_regex($target_name, "^stm32mp2")
 		thbreak start.S:_start
 	else
 		thbreak vectors.S:_start
@@ -88,7 +88,7 @@ define break_boot_uboot
 end
 
 define break_boot_linuxkernel
-	if $_streq($target_name, "stm32mp25x")
+	if $_regex($target_name, "^stm32mp2")
 		# The first label after relocation is __primary_switched
 		# To break before relocation, use hex address in U-Boot variable loadaddr (0x84000000)
 		thbreak __primary_switched
@@ -110,7 +110,7 @@ define smp_on
 	if $_streq($target_name, "stm32mp15x")
 		monitor cortex_a smp on
 	end
-	if $_streq($target_name, "stm32mp25x")
+	if $_regex($target_name, "^stm32mp2[35]")
 		monitor aarch64 smp on
 	end
 end
@@ -119,7 +119,7 @@ define smp_off
 	if $_streq($target_name, "stm32mp15x")
 		monitor cortex_a smp off
 	end
-	if $_streq($target_name, "stm32mp25x")
+	if $_regex($target_name, "^stm32mp2[35]")
 		monitor aarch64 smp off
 	end
 end
@@ -127,6 +127,9 @@ end
 define switch_to_core0
 	if $_streq($target_name, "stm32mp15x")
 		monitor if {[target current] == "stm32mp15x.cpu1"} {targets stm32mp15x.cpu0}
+	end
+	if $_streq($target_name, "stm32mp23x")
+		monitor if {[target current] == "stm32mp23x.a35_1"} {targets stm32mp23x.a35_0}
 	end
 	if $_streq($target_name, "stm32mp25x")
 		monitor if {[target current] == "stm32mp25x.a35_1"} {targets stm32mp25x.a35_0}
@@ -136,6 +139,9 @@ end
 define resume_core1
 	if $_streq($target_name, "stm32mp15x")
 		monitor if {[stm32mp15x.cpu1 curstate] == "halted"} {targets stm32mp15x.cpu1;resume;targets stm32mp15x.cpu0}
+	end
+	if $_streq($target_name, "stm32mp23x")
+		monitor if {[stm32mp23x.a35_1 curstate] == "halted"} {targets stm32mp23x.a35_1;resume;targets stm32mp23x.a35_0}
 	end
 	if $_streq($target_name, "stm32mp25x")
 		monitor if {[stm32mp25x.a35_1 curstate] == "halted"} {targets stm32mp25x.a35_1;resume;targets stm32mp25x.a35_0}
@@ -174,7 +180,7 @@ if $debug_mode == 0
 
 	monitor catch {reset halt}
 	maintenance flush register-cache
-	monitor gdb_sync
+	monitor gdb sync
 	stepi
 	resume_core1
 
@@ -208,7 +214,7 @@ mem_enable
 
 # Set hardware breakpoint mode for TF-A OP-TEE and U-Boot
 if $debug_phase <= 3
-	monitor gdb_breakpoint_override hard
+	monitor gdb breakpoint_override hard
 end
 
 ####################################################################
@@ -231,6 +237,6 @@ if $debug_mode == 1
 		# in kernel re-enable SMP
 		smp_on
 	end
-	monitor gdb_sync
+	monitor gdb sync
 	stepi
 end
